@@ -2,12 +2,13 @@ var $package, $extend, $buuuuu, $setOptions;
 (function () {
   var b = this;
   $package = function (a) {
-    a = a.split('.');
+    a = a.split(".");
     var d = b,
       g;
     for (g = 0; g < a.length; g++) d[a[g]] || (d[a[g]] = {}), (d = d[a[g]]);
     return d;
   };
+
   $extend = function (a, d) {
     var b;
     a instanceof Function
@@ -20,7 +21,7 @@ var $package, $extend, $buuuuu, $setOptions;
     if (a instanceof Function) for (x in a) f[x] = a[x];
     for (x in d)
       d[x] instanceof Function &&
-        !('parent' in d[x]) &&
+        !("parent" in d[x]) &&
         (d[x].parent = a instanceof Function ? a.prototype : a),
         (b[x] = d[x]);
     f.prototype = b;
@@ -34,7 +35,7 @@ var $package, $extend, $buuuuu, $setOptions;
   };
   $buuuuu = function () {
     for (
-      var a = document.getElementsByTagName('script'),
+      var a = document.getElementsByTagName("script"),
         d = /(.*)com\/imatheq\/scripts\/imatheqfunctions.js/,
         b = 0;
       b < a.length;
@@ -47,57 +48,57 @@ var $package, $extend, $buuuuu, $setOptions;
           (d = new RegExp(document.location.hostname)),
           f[1].match(/www.imatheq.com/) || f[1].match(a) || f[1].match(d)
             ? f[1]
-            : 'invalid path'
+            : "invalid path"
         );
     }
   };
-  var a = document.createElement('link');
-  a.setAttribute('rel', 'stylesheet');
-  a.setAttribute('type', 'text/css');
-  a.setAttribute('href', $buuuuu() + 'com/imatheq/css/imatheqmain2.css');
-  document.getElementsByTagName('head')[0].appendChild(a);
+  var a = document.createElement("link");
+  a.setAttribute("rel", "stylesheet");
+  a.setAttribute("type", "text/css");
+  a.setAttribute("href", $buuuuu() + "com/imatheq/css/imatheqmain2.css");
+  document.getElementsByTagName("head")[0].appendChild(a);
 })();
-$package('com.efmase.js.utilities');
+$package("com.efmase.js.utilities");
 (function () {
   com.efmase.js.utilities.XML = {
     newDocument: function (b, a) {
-      b || (b = '');
-      a || (a = '');
+      b || (b = "");
+      a || (a = "");
       if (document.implementation && document.implementation.createDocument)
         return document.implementation.createDocument(a, b, null);
-      var e = new ActiveXObject('MSXML2.DOMDocument');
+      var e = new ActiveXObject("MSXML2.DOMDocument");
       if (b) {
-        var d = '',
+        var d = "",
           g = b,
-          f = b.indexOf(':');
+          f = b.indexOf(":");
         -1 != f && ((d = b.substring(0, f)), (g = b.substring(f + 1)));
-        a ? d || (d = 'a0') : (d = '');
+        a ? d || (d = "a0") : (d = "");
         e.loadXML(
-          '<' +
-            (d ? d + ':' : '') +
+          "<" +
+            (d ? d + ":" : "") +
             g +
-            (a ? ' xmlns:' + d + '="' + a + '"' : '') +
-            '/>'
+            (a ? " xmlns:" + d + '="' + a + '"' : "") +
+            "/>"
         );
       }
       return e;
     },
     parse: function (b) {
-      if ('undefined' != typeof DOMParser)
-        return new DOMParser().parseFromString(b, 'application/xml');
-      if ('undefined' != typeof ActiveXObject) {
+      if ("undefined" != typeof DOMParser)
+        return new DOMParser().parseFromString(b, "application/xml");
+      if ("undefined" != typeof ActiveXObject) {
         var a = this.newDocument();
         a.loadXML(b);
         return a;
       }
-      b = 'data:text/xml;charset=utf-8,' + encodeURIComponent(b);
+      b = "data:text/xml;charset=utf-8," + encodeURIComponent(b);
       a = new XMLHttpRequest();
-      a.open('GET', b, !1);
+      a.open("GET", b, !1);
       a.send(null);
       return a.responseXML;
     },
     serialize: function (b) {
-      if ('undefined' != typeof XMLSerializer)
+      if ("undefined" != typeof XMLSerializer)
         return new XMLSerializer().serializeToString(b);
       if (b.xml) return b.xml;
       throw "XML.serialize is not supported or can't serialize " + b;
@@ -117,14 +118,14 @@ $package('com.efmase.js.utilities');
             } catch (e) {
               b.error(this, a.status, e);
             }
-          else b.error(this, a.status, '');
+          else b.error(this, a.status, "");
       };
       var e = this.encodeFormData(b.data),
         d = b.url;
-      -1 == d.indexOf('.aspx') && (d += (-1 == d.indexOf('?') ? '?' : '&') + e);
+      -1 == d.indexOf(".aspx") && (d += (-1 == d.indexOf("?") ? "?" : "&") + e);
       a.open(b.type, d);
-      a.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      a.responseType = 'text';
+      a.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      a.responseType = "text";
       a.send(e);
     },
     encodeFormData: function (b) {
@@ -134,53 +135,53 @@ $package('com.efmase.js.utilities');
       for (d in b) {
         var g = b[d].toString(),
           g =
-            encodeURIComponent(d).replace(e, '+') +
-            '=' +
-            encodeURIComponent(g).replace(e, '+');
+            encodeURIComponent(d).replace(e, "+") +
+            "=" +
+            encodeURIComponent(g).replace(e, "+");
         a.push(g);
       }
-      return a.join('&');
+      return a.join("&");
     },
   };
 })();
 (function () {
   com.efmase.js.utilities.toolset = {
     addEventListener: function (b, a, e) {
-      b.attachEvent ? b.attachEvent('on' + a, e) : b.addEventListener(a, e, !1);
+      b.attachEvent ? b.attachEvent("on" + a, e) : b.addEventListener(a, e, !1);
     },
     getViewPort: function () {
       var b, a;
-      'undefined' != typeof window.innerWidth
+      "undefined" != typeof window.innerWidth
         ? ((b = window.innerWidth), (a = window.innerHeight))
-        : 'undefined' != typeof document.documentElement &&
-          'undefined' != typeof document.documentElement.clientWidth &&
+        : "undefined" != typeof document.documentElement &&
+          "undefined" != typeof document.documentElement.clientWidth &&
           0 != document.documentElement.clientWidth
         ? ((b = document.documentElement.clientWidth),
           (a = document.documentElement.clientHeight))
-        : ((b = document.getElementsByTagName('body')[0].clientWidth),
-          (a = document.getElementsByTagName('body')[0].clientHeight));
+        : ((b = document.getElementsByTagName("body")[0].clientWidth),
+          (a = document.getElementsByTagName("body")[0].clientHeight));
       return { width: b, height: a };
     },
     isMobile: function () {
       return (
-        -1 < navigator.userAgent.toLowerCase().indexOf('android') ||
-        -1 < navigator.userAgent.toLowerCase().indexOf('ipad') ||
-        -1 < navigator.userAgent.toLowerCase().indexOf('iphone') ||
-        -1 < navigator.userAgent.toLowerCase().indexOf('windows phone') ||
-        -1 < navigator.userAgent.toLowerCase().indexOf('iemobile') ||
-        -1 < navigator.userAgent.toLowerCase().indexOf('wpdesktop')
+        -1 < navigator.userAgent.toLowerCase().indexOf("android") ||
+        -1 < navigator.userAgent.toLowerCase().indexOf("ipad") ||
+        -1 < navigator.userAgent.toLowerCase().indexOf("iphone") ||
+        -1 < navigator.userAgent.toLowerCase().indexOf("windows phone") ||
+        -1 < navigator.userAgent.toLowerCase().indexOf("iemobile") ||
+        -1 < navigator.userAgent.toLowerCase().indexOf("wpdesktop")
       );
     },
     isIE: function () {
       return document.documentMode || /Edge/.test(navigator.userAgent);
     },
     isFirefox: function () {
-      return -1 < navigator.userAgent.toLowerCase().indexOf('firefox');
+      return -1 < navigator.userAgent.toLowerCase().indexOf("firefox");
     },
     isIOS: function () {
       return (
-        -1 < navigator.userAgent.toLowerCase().indexOf('ipad') ||
-        -1 < navigator.userAgent.toLowerCase().indexOf('iphone')
+        -1 < navigator.userAgent.toLowerCase().indexOf("ipad") ||
+        -1 < navigator.userAgent.toLowerCase().indexOf("iphone")
       );
     },
     isSmallWin: function () {
@@ -189,12 +190,12 @@ $package('com.efmase.js.utilities');
       );
     },
     loadFont: function (b, a) {
-      var e = document.createElement('canvas');
+      var e = document.createElement("canvas");
       e.width = 400;
       e.height = 600;
-      var d = e.getContext('2d');
+      var d = e.getContext("2d");
       d.save();
-      d.font = '8px ' + b;
+      d.font = "8px " + b;
       d.clearRect(0, 0, 400, 600);
       d.fillText(a, 40, 300);
       d.restore();
@@ -206,93 +207,93 @@ $package('com.efmase.js.utilities');
       _swap = function (a, b) {
         for (var f in a) {
           var h = null;
-          'bold-script' == b &&
+          "bold-script" == b &&
             (h = org.imatheq.formulaeditor.parsing.expression.ScriptList[f]);
-          'bold-fraktur' == b &&
+          "bold-fraktur" == b &&
             (h = org.imatheq.formulaeditor.parsing.expression.FrakturList[f]);
           e[a[f]] = { key: f, type: b, non_bold: h };
         }
       };
       _swap(
         org.imatheq.formulaeditor.parsing.expression.DoubleStruckList,
-        'double-struck'
+        "double-struck"
       );
-      _swap(org.imatheq.formulaeditor.parsing.expression.ScriptList, 'script');
+      _swap(org.imatheq.formulaeditor.parsing.expression.ScriptList, "script");
       _swap(
         org.imatheq.formulaeditor.parsing.expression.ScriptBoldList,
-        'bold-script'
+        "bold-script"
       );
       _swap(
         org.imatheq.formulaeditor.parsing.expression.FrakturList,
-        'fraktur'
+        "fraktur"
       );
       _swap(
         org.imatheq.formulaeditor.parsing.expression.FrakturBoldList,
-        'bold-fraktur'
+        "bold-fraktur"
       );
     },
     setObjsAttrb: function (b, a, e, d) {
       b = document.getElementsByName(b);
       for (var g = 0; g < b.length; g++)
-        'class' == a
-          ? null === d || void 0 === d || 'add' == d
+        "class" == a
+          ? null === d || void 0 === d || "add" == d
             ? b[g].classList.add(e)
             : b[g].classList.remove(e)
-          : null === d || void 0 === d || 'add' == d
+          : null === d || void 0 === d || "add" == d
           ? (b[g].style[a] = e)
           : b[g].style.removeProperty(a);
     },
     getInputAttrbs: function (b, a, e) {
       if (null === e || void 0 === e) e = [];
-      e = e.concat('id xref class style href mathbackground'.split(' '));
+      e = e.concat("id xref class style href mathbackground".split(" "));
       null !== a &&
         void 0 !== a &&
-        'token' == a &&
-        (e = e.concat(['mathsize', 'dir']));
-      in_attrbs = '';
+        "token" == a &&
+        (e = e.concat(["mathsize", "dir"]));
+      in_attrbs = "";
       for (a = 0; a < e.length; a++)
         null !== b.getAttribute(e[a]) &&
-          (in_attrbs += ' ' + e[a] + '="' + b.getAttribute(e[a]) + '"');
+          (in_attrbs += " " + e[a] + '="' + b.getAttribute(e[a]) + '"');
       return in_attrbs;
     },
     getEncodedStr: function (b) {
       var a = b.value,
-        e = '',
+        e = "",
         d = function (a) {
           return 128 < a.charCodeAt()
-            ? '&#x' + a.charCodeAt().toString(16) + ';'
-            : ' ' == a
-            ? '&#xA0;'
+            ? "&#x" + a.charCodeAt().toString(16) + ";"
+            : " " == a
+            ? "&#xA0;"
             : a
-                .replace(/&/g, '&amp;')
-                .replace(/>/g, '&gt;')
-                .replace(/</g, '&lt;')
-                .replace(/"/g, '&quot;');
+                .replace(/&/g, "&amp;")
+                .replace(/>/g, "&gt;")
+                .replace(/</g, "&lt;")
+                .replace(/"/g, "&quot;");
         },
         g = org.imatheq.formulaeditor.parsing.expression.RevList[a];
       if (void 0 === g) e = d(a);
       else {
         if (b.doubleStruck || b.script || b.fraktur) return g.key;
         b.bold &&
-          ('script' == g.type
+          ("script" == g.type
             ? (a =
                 org.imatheq.formulaeditor.parsing.expression.ScriptBoldList[
                   g.key
                 ])
-            : 'fraktur' == g.type &&
+            : "fraktur" == g.type &&
               (a =
                 org.imatheq.formulaeditor.parsing.expression.FrakturBoldList[
                   g.key
                 ]));
         e = d(a);
         if (2 == a.length)
-          if ('double-struck' == g.type)
-            e = '&#x1D5' + d(a[1]).toUpperCase().slice(5);
-          else if ('script' == g.type || 'bold-script' == g.type)
+          if ("double-struck" == g.type)
+            e = "&#x1D5" + d(a[1]).toUpperCase().slice(5);
+          else if ("script" == g.type || "bold-script" == g.type)
             (e = d(a[1]).toUpperCase().slice(5)),
-              (e = ('9C' > e ? '&#x1D5' : '&#x1D4') + e);
-          else if ('fraktur' == g.type || 'bold-fraktur' == g.type)
-            e = '&#x1D5' + d(a[1]).toUpperCase().slice(5);
+              (e = ("9C" > e ? "&#x1D5" : "&#x1D4") + e);
+          else if ("fraktur" == g.type || "bold-fraktur" == g.type)
+            e = "&#x1D5" + d(a[1]).toUpperCase().slice(5);
       }
       return e;
     },
@@ -300,15 +301,15 @@ $package('com.efmase.js.utilities');
     caretExt: 3,
   };
 })();
-$package('org.imatheq.debug');
+$package("org.imatheq.debug");
 (function () {
   org.imatheq.debug.Debug = $extend(Object, {
     debug: !0,
-    debugBuffer: '',
+    debugBuffer: "",
     debugDiv: null,
     debugLevel: 5,
     frameInitTimeStep: 10,
-    idstr: 'imatheq Exercise System - PostDebug',
+    idstr: "imatheq Exercise System - PostDebug",
     initialize: function () {
       this.debugChildInit.idstr = this.idstr;
     },
@@ -316,35 +317,35 @@ $package('org.imatheq.debug');
       if (void 0 === a || null === a) a = 0;
       if (this.debug && a <= this.debugLevel)
         try {
-          this.debugDiv.innerHTML += b + '<br>';
+          this.debugDiv.innerHTML += b + "<br>";
         } catch (e) {
-          this.debugBuffer += b + '<br>';
+          this.debugBuffer += b + "<br>";
         }
     },
     addMessageListeners: function (b) {
       this.messageListener.debug = this;
-      b.addMessageListener(this.idstr, 'debug', this.messageListener);
+      b.addMessageListener(this.idstr, "debug", this.messageListener);
     },
     createDebug: function () {
       if (this.debug) {
-        var b = document.createElement('div');
-        b.id = 'debugWindow';
-        b.style.position = 'absolute';
-        b.style.right = '5px';
-        b.style.top = '5px';
-        b.style.borderStyle = 'solid';
-        b.style.borderColor = '#000000';
-        b.style.borderWidth = '1px';
-        b.style.backgroundColor = '#EEEEEE';
-        b.style.padding = '5px';
-        b.style.fontSize = '12px';
-        b.innerHTML = '<b>Debug-window</b><br />' + this.debugBuffer;
+        var b = document.createElement("div");
+        b.id = "debugWindow";
+        b.style.position = "absolute";
+        b.style.right = "5px";
+        b.style.top = "5px";
+        b.style.borderStyle = "solid";
+        b.style.borderColor = "#000000";
+        b.style.borderWidth = "1px";
+        b.style.backgroundColor = "#EEEEEE";
+        b.style.padding = "5px";
+        b.style.fontSize = "12px";
+        b.innerHTML = "<b>Debug-window</b><br />" + this.debugBuffer;
         this.debugDiv = b;
         try {
-          this.addDebug('- add debug window'),
+          this.addDebug("- add debug window"),
             document.body.insertBefore(b, document.body.firstChild);
         } catch (a) {
-          this.addDebug('- delayed adding debug window (not ready)');
+          this.addDebug("- delayed adding debug window (not ready)");
           var e = this;
           setTimeout(function () {
             e.createDebug();
@@ -354,27 +355,27 @@ $package('org.imatheq.debug');
     },
     debugChildInit: function () {
       for (
-        var b = { idstr: this.debugChildInit.idstr, mode: 'debugInit' },
-          a = document.getElementsByTagName('iframe'),
+        var b = { idstr: this.debugChildInit.idstr, mode: "debugInit" },
+          a = document.getElementsByTagName("iframe"),
           e = 0;
         e < a.length;
         e++
       )
-        a[e].contentWindow.postMessage(b, '*');
+        a[e].contentWindow.postMessage(b, "*");
     },
     messageListener: function (b) {
-      'object' === typeof b.data &&
+      "object" === typeof b.data &&
         ((b = b.data),
         b.idstr == this.messageListener.debug.idstr &&
-          'debug' == b.mode &&
+          "debug" == b.mode &&
           void 0 !== b.text &&
           null !== b.text &&
-          this.messageListener.debug.addDebug('[child] ' + b.text));
+          this.messageListener.debug.addDebug("[child] " + b.text));
     },
     startDebug: function () {},
   });
 })();
-$package('org.imatheq.formulaeditor');
+$package("org.imatheq.formulaeditor");
 (function () {
   var b = com.efmase.js.utilities.toolset;
   org.imatheq.formulaeditor.Cursor = $extend(Object, {
@@ -450,14 +451,14 @@ $package('org.imatheq.formulaeditor');
       var d;
       d = this.editor.selection;
       var b = org.imatheq.formulaeditor.presentation,
-        f = new org.imatheq.formulaeditor.Options().getOption('defAutoItalic');
+        f = new org.imatheq.formulaeditor.Options().getOption("defAutoItalic");
       if (d.hasSelection)
         d.parent instanceof b.PArray
           ? ((b = {
               bold: !1,
               forcedItalic: !1,
               autoItalic: f,
-              mathcolor: '#000000',
+              mathcolor: "#000000",
               mtext: !1,
             }),
             this.editor.setButtonStatus(b))
@@ -488,7 +489,7 @@ $package('org.imatheq.formulaeditor');
               bold: null !== d.bold ? d.bold : !1,
               forcedItalic: null !== d.forcedItalic ? d.forcedItalic : !1,
               autoItalic: null !== d.autoItalic ? d.autoItalic : f,
-              mathcolor: null !== d.mathcolor ? d.mathcolor : '#000000',
+              mathcolor: null !== d.mathcolor ? d.mathcolor : "#000000",
               mtext: !1,
             }),
             this.editor.setButtonStatus(b));
@@ -517,7 +518,7 @@ $package('org.imatheq.formulaeditor');
               index: f[h - 1].index,
               startIndex: f[h - 1].index,
               endIndex: f[h - 1].index,
-              selection: 'no',
+              selection: "no",
             }),
             (b = f[h - 1].index));
       e.hasSelection &&
@@ -532,7 +533,7 @@ $package('org.imatheq.formulaeditor');
                     index: b,
                     startIndex: 0,
                     endIndex: f.children[0].length - 1,
-                    selection: 'bracket',
+                    selection: "bracket",
                   }),
                   (d.lines = null))
                 : f.children[0] instanceof a.Row &&
@@ -543,7 +544,7 @@ $package('org.imatheq.formulaeditor');
                     index: b,
                     startIndex: 0,
                     endIndex: f.children[0].children[0].children.length - 1,
-                    selection: 'full',
+                    selection: "full",
                   }),
                   (d.lines = null))))
           : 1 == h && f instanceof a.PArray
@@ -552,7 +553,7 @@ $package('org.imatheq.formulaeditor');
               index: b,
               startIndex: 0,
               endIndex: f.children.length - 1,
-              selection: 'full',
+              selection: "full",
             }),
             (d.lines = null))
           : e.parent instanceof a.PArray &&
@@ -561,55 +562,55 @@ $package('org.imatheq.formulaeditor');
               index: b,
               startIndex: e.startIndex,
               endIndex: e.endIndex - 1,
-              selection: 'partial',
+              selection: "partial",
             }));
       this.position.etb = d;
-      var k = document.getElementById('EDITTAB_LINES_ALIGN'),
-        a = document.getElementById('EDITTAB_BRACKETS'),
-        e = document.getElementById('EDITTAB_EDIT_ROW_COL'),
-        b = document.getElementById('EDITTAB_ROW_COL_ALIGN'),
-        f = document.getElementById('EDITTAB_DRAW_LINES'),
-        h = document.getElementById('EDITTAB_EQUAL_HEIGHT_WIDTH'),
-        l = document.getElementById('EDITTAB_ROW_COL_SPACING'),
-        m = document.getElementById('EDITTAB_DUMMY_GROUP');
-      k.style.display = null !== d.lines ? 'block' : 'none';
+      var k = document.getElementById("EDITTAB_LINES_ALIGN"),
+        a = document.getElementById("EDITTAB_BRACKETS"),
+        e = document.getElementById("EDITTAB_EDIT_ROW_COL"),
+        b = document.getElementById("EDITTAB_ROW_COL_ALIGN"),
+        f = document.getElementById("EDITTAB_DRAW_LINES"),
+        h = document.getElementById("EDITTAB_EQUAL_HEIGHT_WIDTH"),
+        l = document.getElementById("EDITTAB_ROW_COL_SPACING"),
+        m = document.getElementById("EDITTAB_DUMMY_GROUP");
+      k.style.display = null !== d.lines ? "block" : "none";
       k = null !== d.lines ? !1 : !0;
       null !== d.bracketed
-        ? ((a.style.display = 'block'),
+        ? ((a.style.display = "block"),
           (k = !1),
-          (a.style.borderLeft = k ? '0' : '1px solid #BDBDBD'),
-          (document.getElementById('efmase_bracket_palette_btn').innerHTML =
+          (a.style.borderLeft = k ? "0" : "1px solid #BDBDBD"),
+          (document.getElementById("efmase_bracket_palette_btn").innerHTML =
             d.bracketed.leftBracket.value
-              .replace('<', '&lt;')
-              .replace('>', '&gt;') +
-            '&nbsp;' +
+              .replace("<", "&lt;")
+              .replace(">", "&gt;") +
+            "&nbsp;" +
             d.bracketed.rightBracket.value
-              .replace('<', '&lt;')
-              .replace('>', '&gt;')))
-        : ((a.style.display = 'none'), (a.style.borderLeft = '0'));
+              .replace("<", "&lt;")
+              .replace(">", "&gt;")))
+        : ((a.style.display = "none"), (a.style.borderLeft = "0"));
       null !== d.parray
-        ? ((e.style.display = 'block'),
-          (e.style.borderLeft = k ? '0' : '1px solid #BDBDBD'),
+        ? ((e.style.display = "block"),
+          (e.style.borderLeft = k ? "0" : "1px solid #BDBDBD"),
           (k = !1),
-          (b.style.display = 'block'),
-          (b.style.borderLeft = k ? '0' : '1px solid #BDBDBD'),
-          (f.style.display = 'block'),
-          (f.style.borderLeft = k ? '0' : '1px solid #BDBDBD'),
-          (l.style.display = 'block'),
-          (l.style.borderLeft = k ? '0' : '1px solid #BDBDBD'),
-          (h.style.display = 'block'),
-          (h.style.borderLeft = k ? '0' : '1px solid #BDBDBD'))
-        : ((e.style.display = 'none'),
-          (e.style.borderLeft = '0'),
-          (b.style.display = 'none'),
-          (b.style.borderLeft = '0'),
-          (f.style.display = 'none'),
-          (f.style.borderLeft = '0'),
-          (l.style.display = 'none'),
-          (l.style.borderLeft = '0'),
-          (h.style.display = 'none'),
-          (h.style.borderLeft = '0'));
-      m.style.borderLeft = '0';
+          (b.style.display = "block"),
+          (b.style.borderLeft = k ? "0" : "1px solid #BDBDBD"),
+          (f.style.display = "block"),
+          (f.style.borderLeft = k ? "0" : "1px solid #BDBDBD"),
+          (l.style.display = "block"),
+          (l.style.borderLeft = k ? "0" : "1px solid #BDBDBD"),
+          (h.style.display = "block"),
+          (h.style.borderLeft = k ? "0" : "1px solid #BDBDBD"))
+        : ((e.style.display = "none"),
+          (e.style.borderLeft = "0"),
+          (b.style.display = "none"),
+          (b.style.borderLeft = "0"),
+          (f.style.display = "none"),
+          (f.style.borderLeft = "0"),
+          (l.style.display = "none"),
+          (l.style.borderLeft = "0"),
+          (h.style.display = "none"),
+          (h.style.borderLeft = "0"));
+      m.style.borderLeft = "0";
       null !== d.bracketed && d.bracketed.updateEditTabButtons(this.editor);
       null !== d.parray && d.parray.row.updateEditTabButtons(this.editor);
     },
@@ -647,7 +648,7 @@ $package('org.imatheq.formulaeditor');
                 org.imatheq.formulaeditor.presentation.NewlineSymbol &&
               f.index--);
           (a = this.editor.testplayermode)
-            ? 'take_test' == a &&
+            ? "take_test" == a &&
               f.row.isAnswer &&
               (this.position.row.setHighlight(!1), (this.position = f))
             : (this.setPosition(f, !0),
@@ -741,7 +742,7 @@ $package('org.imatheq.formulaeditor');
           ) {
             e = e.parent.children[e.index + 1];
             if (null === e)
-              throw Error('Error in moveRight(): no next line after newline.');
+              throw Error("Error in moveRight(): no next line after newline.");
             d = 0;
             this.position = { row: e, index: d };
           }
@@ -1112,19 +1113,19 @@ $package('org.imatheq.formulaeditor');
           d = a.position.index;
         this.editor.hasFocus() || this.editor.focus();
         switch (a.action) {
-          case 'fontname':
-          case 'fontsize':
+          case "fontname":
+          case "fontsize":
             a.replaceWith =
-              'fontname' == a.action
+              "fontname" == a.action
                 ? this.editor.getFontFamilyNameIdx()
                 : this.editor.canvas.getFontSizeIdx();
             curIdx = this.editor.palette.changeFont(a.action, a.replaced);
             break;
-          case 'changeParrayStyle':
+          case "changeParrayStyle":
             a.replaceWith = e.info;
             e.info = a.replaced;
             break;
-          case 'updateBracket':
+          case "updateBracket":
             var g = a.replaced;
             a.replaced = [
               e.leftBracket.value,
@@ -1137,14 +1138,14 @@ $package('org.imatheq.formulaeditor');
             e.leftBracket.onscreen = g[2];
             e.rightBracket.onscreen = g[3];
             break;
-          case 'onsymmetric':
-          case 'offsymmetric':
+          case "onsymmetric":
+          case "offsymmetric":
             g = a.replaced;
             a.replaceWith = e.symmetric;
             e.symmetric = g;
             break;
-          case 'insertabove':
-          case 'insertbelow':
+          case "insertabove":
+          case "insertbelow":
             g = a.replaced;
             a.replaceWith = {
               entries: e.deleteRows(g.startRow, g.numRows),
@@ -1155,8 +1156,8 @@ $package('org.imatheq.formulaeditor');
             e.info = g.info;
             e.info.populateData(e.numrows, e.numcols);
             break;
-          case 'insertleft':
-          case 'insertright':
+          case "insertleft":
+          case "insertright":
             g = a.replaced;
             a.replaceWith = {
               entries: e.deleteColumns(g.startCol, g.numCols),
@@ -1167,7 +1168,7 @@ $package('org.imatheq.formulaeditor');
             e.info = g.info;
             e.info.populateData(e.numrows, e.numcols);
             break;
-          case 'deleterows':
+          case "deleterows":
             g = a.replaced;
             a.replaceWith = {
               info: e.info,
@@ -1178,7 +1179,7 @@ $package('org.imatheq.formulaeditor');
             e.info = g.info;
             e.info.populateData(e.numrows, e.numcols);
             break;
-          case 'deletecolumns':
+          case "deletecolumns":
             g = a.replaced;
             a.replaceWith = {
               info: e.info,
@@ -1189,7 +1190,7 @@ $package('org.imatheq.formulaeditor');
             e.info = g.info;
             e.info.populateData(e.numrows, e.numcols);
             break;
-          case 'setPArrayAttrbs':
+          case "setPArrayAttrbs":
             a.replaceWith = e.info;
             e.info = a.replaced;
             e.info.populateData(e.numrows, e.numcols);
@@ -1243,19 +1244,19 @@ $package('org.imatheq.formulaeditor');
           d = a.children.length - b.distanceToEnd;
         this.editor.hasFocus() || this.editor.focus();
         switch (b.action) {
-          case 'fontname':
-          case 'fontsize':
+          case "fontname":
+          case "fontsize":
             b.replaced =
-              'fontname' == b.action
+              "fontname" == b.action
                 ? this.editor.getFontFamilyNameIdx()
                 : this.editor.canvas.getFontSizeIdx();
             curIdx = this.editor.palette.changeFont(b.action, b.replaceWith);
             break;
-          case 'changeParrayStyle':
+          case "changeParrayStyle":
             b.replaced = a.info;
             a.info = b.replaceWith;
             break;
-          case 'updateBracket':
+          case "updateBracket":
             e = b.replaced;
             b.replaced = [
               a.leftBracket.value,
@@ -1268,14 +1269,14 @@ $package('org.imatheq.formulaeditor');
             a.leftBracket.onscreen = e[2];
             a.rightBracket.onscreen = e[3];
             break;
-          case 'onsymmetric':
-          case 'offsymmetric':
+          case "onsymmetric":
+          case "offsymmetric":
             e = b.replaceWith;
             b.replaced = a.symmetric;
             a.symmetric = e;
             break;
-          case 'insertabove':
-          case 'insertbelow':
+          case "insertabove":
+          case "insertbelow":
             e = b.replaceWith;
             b.replaced = {
               info: a.info,
@@ -1286,8 +1287,8 @@ $package('org.imatheq.formulaeditor');
             a.info = e.info;
             a.info.populateData(a.numrows, a.numcols);
             break;
-          case 'insertleft':
-          case 'insertright':
+          case "insertleft":
+          case "insertright":
             e = b.replaceWith;
             b.replaced = {
               info: a.info,
@@ -1298,7 +1299,7 @@ $package('org.imatheq.formulaeditor');
             a.info = e.info;
             a.info.populateData(a.numrows, a.numcols);
             break;
-          case 'deleterows':
+          case "deleterows":
             e = b.replaceWith;
             b.replaced = {
               entries: a.deleteRows(e.startRow, e.numRows),
@@ -1309,7 +1310,7 @@ $package('org.imatheq.formulaeditor');
             a.info = e.info;
             a.info.populateData(a.numrows, a.numcols);
             break;
-          case 'deletecolumns':
+          case "deletecolumns":
             e = b.replaceWith;
             b.replaced = {
               entries: a.deleteColumns(e.startCol, e.numCols),
@@ -1320,14 +1321,14 @@ $package('org.imatheq.formulaeditor');
             a.info = e.info;
             a.info.populateData(a.numrows, a.numcols);
             break;
-          case 'setPArrayAttrbs':
+          case "setPArrayAttrbs":
             b.replaced = a.info;
             a.info = b.replaceWith;
             a.info.populateData(a.numrows, a.numcols);
             break;
           default:
             if (a instanceof org.imatheq.formulaeditor.presentation.Row)
-              'insert' != b.action && (b.replaced = a.remove(e, d)),
+              "insert" != b.action && (b.replaced = a.remove(e, d)),
                 null !== b.replaceWith && a.insert(e, b.replaceWith),
                 a.flatten();
             else if (a instanceof org.imatheq.formulaeditor.presentation.PArray)
@@ -1381,12 +1382,12 @@ $package('org.imatheq.formulaeditor');
           ? document.selection.empty()
           : window.getSelection &&
             !b.isMobile() &&
-            ((this.editor.textbox.innerHTML = ''),
-            (this.editor.textbox.value = '')));
+            ((this.editor.textbox.innerHTML = ""),
+            (this.editor.textbox.value = "")));
       this.editor.isMobile
         ? this.editor.setKeyboardStatus()
-        : ((this.editor.textbox.innerHTML = '$'),
-          (this.editor.textbox.value = '$'));
+        : ((this.editor.textbox.innerHTML = "$"),
+          (this.editor.textbox.value = "$"));
     },
     selectAll: function () {
       var a = org.imatheq.formulaeditor.presentation,
@@ -1426,8 +1427,8 @@ $package('org.imatheq.formulaeditor');
       this.draw(a.dimensions);
       if (!this.editor.isMobile)
         if (
-          ((this.editor.textbox.innerHTML = '$'),
-          (this.editor.textbox.value = '$'),
+          ((this.editor.textbox.innerHTML = "$"),
+          (this.editor.textbox.value = "$"),
           b.isIE() || b.isFirefox())
         ) {
           var e = this;
@@ -1440,7 +1441,7 @@ $package('org.imatheq.formulaeditor');
     },
     updateSelection: function (a) {
       if (null === this.startPosition)
-        throw Error('Selection.updateSelection: startPosition is null.');
+        throw Error("Selection.updateSelection: startPosition is null.");
       this.hasSelection = !0;
       this.parent = a.parent;
       this.startIndex = a.startIndex;
@@ -1504,14 +1505,14 @@ $package('org.imatheq.formulaeditor');
               ? (d = e = g.top + g.height)
               : (g.top + g.height < e && (e = g.top + g.height),
                 g.top + g.height > d && (d = g.top + g.height)));
-          this.editor.canvas.drawBox(g, '#66C', 1, 'rgba(160,160,255,0.5)', !0);
+          this.editor.canvas.drawBox(g, "#66C", 1, "rgba(160,160,255,0.5)", !0);
         }
-        b.isMobile() && (this.drawCaret('start'), this.drawCaret('end'));
+        b.isMobile() && (this.drawCaret("start"), this.drawCaret("end"));
       }
     },
     drawCaret: function (a) {
       a = this.editor.getPosition(
-        'start' == a ? this.startIndexChain : this.endIndexChain
+        "start" == a ? this.startIndexChain : this.endIndexChain
       );
       a = this.editor.cursor.getDimensions({}, a);
       this.editor.canvas.drawCaret(a);
@@ -1519,7 +1520,7 @@ $package('org.imatheq.formulaeditor');
     isOnCaret: function (a, e, d) {
       var g = this.editor.cursor.getDimensions(
         {},
-        'start' == a ? this.startPosition : this.endPosition
+        "start" == a ? this.startPosition : this.endPosition
       );
       a = b.caretSize;
       var f = g.x,
@@ -1561,7 +1562,7 @@ $package('org.imatheq.formulaeditor');
       if (b[i] instanceof d.PArray && 0 != i && 0 != j) {
         if (2 > i && 2 > j)
           throw Error(
-            'Selection.getSelection: common Lines ancestor index < 2.'
+            "Selection.getSelection: common Lines ancestor index < 2."
           );
         var h = Math.min(b[i - 1].index, f[j - 1].index),
           k = Math.max(b[i - 1].index, f[j - 1].index),
@@ -1573,7 +1574,7 @@ $package('org.imatheq.formulaeditor');
       if (b[i] instanceof d.Lines) {
         if (2 > i || 2 > j)
           throw Error(
-            'Selection.getSelection: common Lines ancestor index < 2.'
+            "Selection.getSelection: common Lines ancestor index < 2."
           );
         var n,
           p,
@@ -1675,8 +1676,8 @@ $package('org.imatheq.formulaeditor');
           h = this.editor.cursor.position,
           k = h.row.getIndexChain(h.index),
           h = this.endIndex;
-        this.parent.updateKeyword(this.editor, this.startIndex, 'all', a, a);
-        this.parent.updateKeyword(this.editor, h, 'all', a, a);
+        this.parent.updateKeyword(this.editor, this.startIndex, "all", a, a);
+        this.parent.updateKeyword(this.editor, h, "all", a, a);
         var l = b.remove(this.startIndex, this.endIndex);
         b.isEmpty() &&
           ((h = l.children[this.endIndex - 1]),
@@ -1694,7 +1695,7 @@ $package('org.imatheq.formulaeditor');
         this.clear();
         this.editor.cursor.setPosition(h);
         this.editor.actions.addAction(
-          'delete',
+          "delete",
           h,
           k,
           e,
@@ -1724,7 +1725,7 @@ $package('org.imatheq.formulaeditor');
           (l = b.deleteValues(this.startIndex, this.endIndex - 1)),
           this.clear(),
           this.editor.actions.addAction(
-            'delete',
+            "delete",
             h,
             k,
             e,
@@ -1744,8 +1745,8 @@ $package('org.imatheq.formulaeditor');
         h = this.editor.cursor.position;
         k = this.editor.getPosition(this.startIndexChain);
         f = this.editor.getPosition(this.endIndexChain);
-        k.row.updateKeyword(this.editor, k.index, 'all', a, a);
-        f.row.updateKeyword(this.editor, f.index, 'all', a, a);
+        k.row.updateKeyword(this.editor, k.index, "all", a, a);
+        f.row.updateKeyword(this.editor, f.index, "all", a, a);
         var m = null;
         if (
           !this.rightMove &&
@@ -1754,7 +1755,7 @@ $package('org.imatheq.formulaeditor');
         ) {
           f = this.parent.children[f.row.index + 1];
           if (null === f || void 0 === f)
-            throw Error('Error in Selection.remove(), no line after newline');
+            throw Error("Error in Selection.remove(), no line after newline");
           m = { row: f, index: 0 };
         }
         null !== m && (h = m);
@@ -1775,7 +1776,7 @@ $package('org.imatheq.formulaeditor');
         h = { row: b, index: this.startIndex };
         this.clear();
         this.editor.actions.addAction(
-          'delete',
+          "delete",
           h,
           k,
           e,
@@ -1808,8 +1809,8 @@ $package('org.imatheq.formulaeditor');
         b = this.editor.getButtonStatus();
       if (this.parent instanceof e.Row) {
         var f = this.endIndex;
-        this.parent.updateKeyword(this.editor, this.startIndex, 'right', d, d);
-        this.parent.updateKeyword(this.editor, f, 'left', d, d);
+        this.parent.updateKeyword(this.editor, this.startIndex, "right", d, d);
+        this.parent.updateKeyword(this.editor, f, "left", d, d);
         b = this.parent;
         e = b.remove(this.startIndex, this.endIndex);
         f = e.copy();
@@ -1822,7 +1823,7 @@ $package('org.imatheq.formulaeditor');
           l = k,
           b = this.editor.getButtonStatus();
         this.editor.actions.addAction(
-          'setSymbFontAttrbs',
+          "setSymbFontAttrbs",
           f,
           k,
           l,
@@ -1852,7 +1853,7 @@ $package('org.imatheq.formulaeditor');
           (e = b.setSymbFontAttrbs(a, this.startIndex, this.endIndex - 1)),
           (b = this.editor.getButtonStatus()),
           this.editor.actions.addAction(
-            'setSymbFontAttrbs',
+            "setSymbFontAttrbs",
             f,
             k,
             l,
@@ -1879,7 +1880,7 @@ $package('org.imatheq.formulaeditor');
         ) {
           e = this.parent.children[h.row.index + 1];
           if (null === e || void 0 === e)
-            throw Error('Error in Selection.remove(), no line after newline');
+            throw Error("Error in Selection.remove(), no line after newline");
           k = { row: e, index: 0 };
         }
         null !== k && (f = k);
@@ -1889,7 +1890,7 @@ $package('org.imatheq.formulaeditor');
         f = { row: b, index: this.startIndex };
         b = this.editor.getButtonStatus();
         this.editor.actions.addAction(
-          'setSymbFontAttrbs',
+          "setSymbFontAttrbs",
           f,
           k,
           k,
@@ -1909,16 +1910,16 @@ $package('org.imatheq.formulaeditor');
       if (!this.hasSelection) return null;
       var a = org.imatheq.formulaeditor.presentation,
         e = this.parent,
-        d = '';
+        d = "";
       try {
         return (
           e instanceof a.Row
             ? (d =
                 '<math xmlns="http://www.w3.org/1998/Math/MathML"' +
-                (this.editor.in_attrbs ? this.editor.in_attrbs : '') +
-                '>' +
+                (this.editor.in_attrbs ? this.editor.in_attrbs : "") +
+                ">" +
                 e.getMathML(!1, this.startIndex, this.endIndex) +
-                '</math>')
+                "</math>")
             : e instanceof a.PArray
             ? (d = e.getSelectionMathML(
                 this.editor.getExpressionParsingContext(),
@@ -1937,7 +1938,7 @@ $package('org.imatheq.formulaeditor');
         throw Error(
           '<math xmlns="http://www.w3.org/1998/Math/MathML"><mtext>' +
             b.toString() +
-            '</mtext></math>'
+            "</mtext></math>"
         );
       }
     },
@@ -1965,7 +1966,7 @@ $package('org.imatheq.formulaeditor');
         var e = window.onkeypress;
         document.onkeypress = function (a) {
           a || (a = window.event);
-          'charCode' in a || (a.charCode = a.keyCode);
+          "charCode" in a || (a.charCode = a.keyCode);
           return b.onkeypress(a) && e && e(a);
         };
       }
@@ -1980,8 +1981,8 @@ $package('org.imatheq.formulaeditor');
         (document.onselectstart = function (d) {
           d || (d = window.event);
           var e = d.target || d.srcElement;
-          return 'efmase_focus_textarea' == e.className ||
-            'EFMASE_Container' == e.className
+          return "efmase_focus_textarea" == e.className ||
+            "EFMASE_Container" == e.className
             ? b.onselectstart(d) && a && a(d)
             : a && a(d);
         }));
@@ -1995,7 +1996,7 @@ $package('org.imatheq.formulaeditor');
             : !0;
         };
         document.addEventListener(
-          'touchstart',
+          "touchstart",
           function (a) {
             a || (a = window.event);
             var d = b.rewriteTouchEvent(a),
@@ -2018,7 +2019,7 @@ $package('org.imatheq.formulaeditor');
             : b.onmousemove(a) && f && f(a);
         };
         document.addEventListener(
-          'touchmove',
+          "touchmove",
           function (a) {
             a || (a = window.event);
             var d = b.onmousemove(b.rewriteTouchEvent(a)) && h && h(a),
@@ -2048,7 +2049,7 @@ $package('org.imatheq.formulaeditor');
           return b.onmouseup(a) && k && k(a);
         };
         document.addEventListener(
-          'touchend',
+          "touchend",
           function (a) {
             a || (a = window.event);
             var d = org.imatheq.formulaeditor.FormulaEditor.getEditor(),
@@ -2072,21 +2073,21 @@ $package('org.imatheq.formulaeditor');
     },
     rewriteTouchEvent: function (b) {
       var a = b.changedTouches[0],
-        e = '';
+        e = "";
       switch (b.type) {
-        case 'touchstart':
-          e = 'mousedown';
+        case "touchstart":
+          e = "mousedown";
           break;
-        case 'touchmove':
-          e = 'mousemove';
+        case "touchmove":
+          e = "mousemove";
           break;
-        case 'touchend':
-          e = 'mouseup';
+        case "touchend":
+          e = "mouseup";
           break;
         default:
           return;
       }
-      var d = document.createEvent('MouseEvent');
+      var d = document.createEvent("MouseEvent");
       d.initMouseEvent(
         e,
         !0,
@@ -2111,28 +2112,28 @@ $package('org.imatheq.formulaeditor');
 })();
 (function () {
   org.imatheq.formulaeditor.Services = {
-    url: '/phrasebook/',
+    url: "/phrasebook/",
     perform: function (b, a, e, d) {
       var g = this.xmlValueOf;
       com.efmase.js.utilities.XMLHttp.post(
         this.url,
-        { output: 'xml', service: b, action: a, data: e },
+        { output: "xml", service: b, action: a, data: e },
         function (e) {
           e = com.efmase.js.utilities.XML.parse(e);
-          var h = e.documentElement.getElementsByTagName('status');
+          var h = e.documentElement.getElementsByTagName("status");
           0 === h.length
-            ? alert('Error: no status element found in service response')
-            : 'ok' != g(h.item(0))
-            ? ((e = e.documentElement.getElementsByTagName('error')),
+            ? alert("Error: no status element found in service response")
+            : "ok" != g(h.item(0))
+            ? ((e = e.documentElement.getElementsByTagName("error")),
               (e = g(e.item(0))),
-              alert('ERROR (while using service ' + b + '/' + a + '): ' + e))
-            : ((e = e.documentElement.getElementsByTagName('data')),
+              alert("ERROR (while using service " + b + "/" + a + "): " + e))
+            : ((e = e.documentElement.getElementsByTagName("data")),
               d(g(e.item(0))));
         }
       );
     },
     openmath2gap: function (b, a) {
-      return this.perform('gap', 'translate_openmath_native', b, a);
+      return this.perform("gap", "translate_openmath_native", b, a);
     },
     xmlValueOf: function (b) {
       var a,
@@ -2141,7 +2142,7 @@ $package('org.imatheq.formulaeditor');
         case 1:
           for (a = 0; a < b.childNodes.length; a++)
             e.push(this.xmlValueOf(b.childNodes[a]));
-          return e.join('');
+          return e.join("");
         case 2:
         case 3:
         case 4:
@@ -2149,200 +2150,200 @@ $package('org.imatheq.formulaeditor');
         case 9:
           return this.xmlValueOf(b.Element);
       }
-      return '';
+      return "";
     },
   };
 })();
-$package('org.imatheq.formulaeditor.parsing.openmath');
+$package("org.imatheq.formulaeditor.parsing.openmath");
 (function () {
   org.imatheq.formulaeditor.parsing.openmath.KeywordList = {};
 })();
-$package('org.imatheq.formulaeditor.presentation');
+$package("org.imatheq.formulaeditor.presentation");
 (function () {
   org.imatheq.formulaeditor.presentation.SymbolAliases = {
-    '\u2062': null,
-    '\u2064': null,
+    "\u2062": null,
+    "\u2064": null,
   };
 })();
 (function () {
   org.imatheq.formulaeditor.presentation.SymbolOnscreens = {
-    '-': '\u2212',
-    '\u20db': '\u2026',
-    '\u203e': '\u2212',
-    '\u02dc': '~',
-    '\u0302': '^',
-    '\u030c': '\u02c7',
-    '\u2217': '*',
-    '\u2016': '\u2225',
-    '\u22c5': '\u00b7',
-    '\u204e': '*',
-    '\u03a5': '\u03d2',
-    '\u02ca': '\u00b4',
-    '\u23dc': '\u2322',
-    '\u23dd': '\u2323',
-    '(1': '\u00a1',
-    ')1': '\u00a2',
-    '[1': '\u00a3',
-    ']1': '\u00a4',
-    '\u230a1': '\u00a5',
-    '\u230b1': '\u00a6',
-    '\u23081': '\u00a7',
-    '\u23091': '\u00a8',
-    '{1': '\u00a9',
-    '}1': '\u00aa',
-    '<1': '\u00ad',
-    '>1': '\u00ae',
-    '|m': '6',
-    '\u2225m': 'w',
-    '/1': '\u00b1',
-    '\\1': '\u00b2',
-    '(2': '\u00b3',
-    ')2': '\u00b4',
-    '(3': '\u00b5',
-    ')3': '\u00b6',
-    '[3': '\u2219',
-    ']3': '\u00b8',
-    '\u230a3': '\u00b9',
-    '\u230b3': '\u00ba',
-    '\u23083': '\u00bb',
-    '\u23093': '\u00bc',
-    '{3': '\u00bd',
-    '}3': '\u00be',
-    '<3': '\u00bf',
-    '>3': '\u00c0',
-    '/3': '\u00c1',
-    '\\3': '\u00c2',
-    '(4': '\u00c3',
-    ')4': '!',
-    '[4': '"',
-    ']4': '#',
-    '\u230a4': '$',
-    '\u230b4': '%',
-    '\u23084': '&',
-    '\u23094': "'",
-    '{4': '(',
-    '}4': ')',
-    '<4': '*',
-    '>4': '+',
-    '/4': ',',
-    '\\4': '-',
-    '/2': '.',
-    '\\2': '/',
-    '(u': '0',
-    ')u': '1',
-    '[u': '2',
-    ']u': '3',
-    '[l': '4',
-    ']l': '5',
-    '[m': '6',
-    ']m': '7',
-    '{u': '8',
-    '}u': '9',
-    '{l': ':',
-    '}l': ';',
-    '{m': '<',
-    '}m': '=',
-    '{c': '>',
-    '}c': '>',
-    '(l': '@',
-    ')l': 'A',
-    '(m': 'B',
-    ')m': 'C',
-    '<2': 'D',
-    '>2': 'E',
-    '\u222e': 'I',
-    '\u2211': 'X',
-    '\u220f': 'Y',
-    '\u222b': 'Z',
-    '\u22c3': '[',
-    '\u22c2': '\\',
-    '\u22c0': '^',
-    '\u22c1': '_',
-    '\u2210': 'a',
-    '\u222c': '\u2018',
-    '\u222d': '\u2019',
-    '\u222f': '\u201c',
-    '\u2230': '\u201d',
-    '[2': 'h',
-    ']2': 'i',
-    '\u230a2': 'j',
-    '\u230b2': 'k',
-    '\u23082': 'l',
-    '\u23092': 'm',
-    '{2': 'n',
-    '}2': 'o',
-    '\u23221': '\u00a1',
-    '\u23222': '\u00b3',
-    '\u23224': '\u00c3',
-    '\u2322l': '@',
-    '\u2322r': '0',
-    '~1': 'e',
-    '\u2194bl': '\u00c7',
-    '\u2194l': '\u00cd',
-    '\u23de1': '\u00a9',
-    '\u23de4': '(',
-    '\u23del': ':',
-    '\u21bcm': '\u011a',
-    '\u21bcl': '\u010e',
-    '\u2190m': '\u011a',
-    '\u2190l': '\u0118',
-    '\u23231': '\u00a2',
-    '\u23232': '\u00b4',
-    '\u23234': '!',
-    '\u2323l': 'A',
-    '\u2323r': '1',
-    '~2': 'f',
-    '\u2194br': '\u0106',
-    '\u2194r': '\u00ce',
-    '\u23df1': '\u00aa',
-    '\u23df4': ')',
-    '\u23dfl': ';',
-    '\u21c0m': '\u011a',
-    '\u21c0r': '\u0110',
-    '\u2192m': '\u011a',
-    '\u2192r': '\u00cb',
-    '\u23223': '\u00b5',
-    '\u2322m': 'B',
-    '~3': 'g',
-    '\u2194bm': '?',
-    '\u2194m': '\u011a',
-    '^1': 'b',
-    '\u23de3': '\u00bd',
-    '\u23der': '8',
-    '\u2212m': '\u2014',
-    '\u00afm': '\u2014',
-    '\u02d81': '\u0139',
-    '\u23233': '\u00b6',
-    '\u2323m': 'C',
-    '\u21d0bl': '\u00c4',
-    '\u02c71': '\u201c',
-    '\u23df3': '\u00be',
-    '\u23dfr': '9',
-    '\u033fm': '\u0150',
-    _m: '\u2122',
-    '\u02d82': '\u013a',
-    '^2': 'c',
-    '\u2192br': '\u0106',
-    '\u21d0bm': 'w',
-    '^3': 'd',
-    '\u23dem': '<',
-    '\u02d83': '\u0143',
-    '\u02c72': '\u201d',
-    '\u2192bm': '?',
-    '\u21d2br': '~',
-    '\u02c73': '\u2022',
-    '\u23dfm': '=',
-    '\u21d4br': '\u010c',
-    '\u2190bl': 'y',
-    '\u21d2bm': 'w',
-    '\u23dec': '\u2018',
-    '\u21d4bl': '\u00c9',
-    '\u23de2': 'n',
-    '\u2190bm': '?',
-    '\u23dfc': '\u2019',
-    '\u21d4bm': 'w',
-    '\u23df2': 'o',
-    '\u03bf': 'o',
+    "-": "\u2212",
+    "\u20db": "\u2026",
+    "\u203e": "\u2212",
+    "\u02dc": "~",
+    "\u0302": "^",
+    "\u030c": "\u02c7",
+    "\u2217": "*",
+    "\u2016": "\u2225",
+    "\u22c5": "\u00b7",
+    "\u204e": "*",
+    "\u03a5": "\u03d2",
+    "\u02ca": "\u00b4",
+    "\u23dc": "\u2322",
+    "\u23dd": "\u2323",
+    "(1": "\u00a1",
+    ")1": "\u00a2",
+    "[1": "\u00a3",
+    "]1": "\u00a4",
+    "\u230a1": "\u00a5",
+    "\u230b1": "\u00a6",
+    "\u23081": "\u00a7",
+    "\u23091": "\u00a8",
+    "{1": "\u00a9",
+    "}1": "\u00aa",
+    "<1": "\u00ad",
+    ">1": "\u00ae",
+    "|m": "6",
+    "\u2225m": "w",
+    "/1": "\u00b1",
+    "\\1": "\u00b2",
+    "(2": "\u00b3",
+    ")2": "\u00b4",
+    "(3": "\u00b5",
+    ")3": "\u00b6",
+    "[3": "\u2219",
+    "]3": "\u00b8",
+    "\u230a3": "\u00b9",
+    "\u230b3": "\u00ba",
+    "\u23083": "\u00bb",
+    "\u23093": "\u00bc",
+    "{3": "\u00bd",
+    "}3": "\u00be",
+    "<3": "\u00bf",
+    ">3": "\u00c0",
+    "/3": "\u00c1",
+    "\\3": "\u00c2",
+    "(4": "\u00c3",
+    ")4": "!",
+    "[4": '"',
+    "]4": "#",
+    "\u230a4": "$",
+    "\u230b4": "%",
+    "\u23084": "&",
+    "\u23094": "'",
+    "{4": "(",
+    "}4": ")",
+    "<4": "*",
+    ">4": "+",
+    "/4": ",",
+    "\\4": "-",
+    "/2": ".",
+    "\\2": "/",
+    "(u": "0",
+    ")u": "1",
+    "[u": "2",
+    "]u": "3",
+    "[l": "4",
+    "]l": "5",
+    "[m": "6",
+    "]m": "7",
+    "{u": "8",
+    "}u": "9",
+    "{l": ":",
+    "}l": ";",
+    "{m": "<",
+    "}m": "=",
+    "{c": ">",
+    "}c": ">",
+    "(l": "@",
+    ")l": "A",
+    "(m": "B",
+    ")m": "C",
+    "<2": "D",
+    ">2": "E",
+    "\u222e": "I",
+    "\u2211": "X",
+    "\u220f": "Y",
+    "\u222b": "Z",
+    "\u22c3": "[",
+    "\u22c2": "\\",
+    "\u22c0": "^",
+    "\u22c1": "_",
+    "\u2210": "a",
+    "\u222c": "\u2018",
+    "\u222d": "\u2019",
+    "\u222f": "\u201c",
+    "\u2230": "\u201d",
+    "[2": "h",
+    "]2": "i",
+    "\u230a2": "j",
+    "\u230b2": "k",
+    "\u23082": "l",
+    "\u23092": "m",
+    "{2": "n",
+    "}2": "o",
+    "\u23221": "\u00a1",
+    "\u23222": "\u00b3",
+    "\u23224": "\u00c3",
+    "\u2322l": "@",
+    "\u2322r": "0",
+    "~1": "e",
+    "\u2194bl": "\u00c7",
+    "\u2194l": "\u00cd",
+    "\u23de1": "\u00a9",
+    "\u23de4": "(",
+    "\u23del": ":",
+    "\u21bcm": "\u011a",
+    "\u21bcl": "\u010e",
+    "\u2190m": "\u011a",
+    "\u2190l": "\u0118",
+    "\u23231": "\u00a2",
+    "\u23232": "\u00b4",
+    "\u23234": "!",
+    "\u2323l": "A",
+    "\u2323r": "1",
+    "~2": "f",
+    "\u2194br": "\u0106",
+    "\u2194r": "\u00ce",
+    "\u23df1": "\u00aa",
+    "\u23df4": ")",
+    "\u23dfl": ";",
+    "\u21c0m": "\u011a",
+    "\u21c0r": "\u0110",
+    "\u2192m": "\u011a",
+    "\u2192r": "\u00cb",
+    "\u23223": "\u00b5",
+    "\u2322m": "B",
+    "~3": "g",
+    "\u2194bm": "?",
+    "\u2194m": "\u011a",
+    "^1": "b",
+    "\u23de3": "\u00bd",
+    "\u23der": "8",
+    "\u2212m": "\u2014",
+    "\u00afm": "\u2014",
+    "\u02d81": "\u0139",
+    "\u23233": "\u00b6",
+    "\u2323m": "C",
+    "\u21d0bl": "\u00c4",
+    "\u02c71": "\u201c",
+    "\u23df3": "\u00be",
+    "\u23dfr": "9",
+    "\u033fm": "\u0150",
+    _m: "\u2122",
+    "\u02d82": "\u013a",
+    "^2": "c",
+    "\u2192br": "\u0106",
+    "\u21d0bm": "w",
+    "^3": "d",
+    "\u23dem": "<",
+    "\u02d83": "\u0143",
+    "\u02c72": "\u201d",
+    "\u2192bm": "?",
+    "\u21d2br": "~",
+    "\u02c73": "\u2022",
+    "\u23dfm": "=",
+    "\u21d4br": "\u010c",
+    "\u2190bl": "y",
+    "\u21d2bm": "w",
+    "\u23dec": "\u2018",
+    "\u21d4bl": "\u00c9",
+    "\u23de2": "n",
+    "\u2190bm": "?",
+    "\u23dfc": "\u2019",
+    "\u21d4bm": "w",
+    "\u23df2": "o",
+    "\u03bf": "o",
   };
 })();
 (function () {
@@ -2406,24 +2407,24 @@ $package('org.imatheq.formulaeditor.presentation');
           this.children[a].setSymbFontAttrbs(b);
       for (var e in b)
         switch (((a = b[e]), e)) {
-          case 'bold':
+          case "bold":
             this.bold = a;
             break;
-          case 'forcedItalic':
+          case "forcedItalic":
             (this.forcedItalic = a) &&
               void 0 !== b.autoItalic &&
               b.autoItalic &&
               sllert(
-                'Error in Node.setSymbFontAttrbs: forceItalic and autoItalic values are conflict'
+                "Error in Node.setSymbFontAttrbs: forceItalic and autoItalic values are conflict"
               );
             break;
-          case 'autoItalic':
+          case "autoItalic":
             this.autoItalic = a;
             break;
-          case 'mathcolor':
+          case "mathcolor":
             this.mathcolor = a;
             break;
-          case 'mtext':
+          case "mtext":
             this.setMtext && this.setMtext(a);
         }
     },
@@ -2504,10 +2505,10 @@ $package('org.imatheq.formulaeditor.presentation');
       return !this.slowDelete;
     },
     draw: function (b, a, e, d, g) {
-      throw Error('abstract method called');
+      throw Error("abstract method called");
     },
     getMathML: function (b) {
-      throw Error('abstract method called');
+      throw Error("abstract method called");
     },
     onchange: function (b) {
       if (null !== this.parent) this.parent.onchange(this);
@@ -2521,15 +2522,15 @@ $package('org.imatheq.formulaeditor.presentation');
         this.children[b]
           ? this.children[b].flatten
             ? this.children[b].flatten()
-            : alert('no flatten in : ' + b + '.')
-          : alert('no child at :' + b);
+            : alert("no flatten in : " + b + ".")
+          : alert("no child at :" + b);
     },
     updateChildren: function (b) {
       if (null === b || void 0 === b) b = 0;
       for (; b < this.children.length; b++)
         this.children[b]
           ? ((this.children[b].parent = this), (this.children[b].index = b))
-          : alert('empty child : ' + b + '.');
+          : alert("empty child : " + b + ".");
     },
     getCursorPosition: function (b, a, e) {
       return null !== this.parent
@@ -2581,9 +2582,9 @@ $package('org.imatheq.formulaeditor.presentation');
     toString: function () {
       if (this.value) return this.value;
       if (this.children) {
-        for (var b = '[ ', a = 0; a < this.children.length; a++)
-          (b += this.children[a]), a < this.children.length - 1 && (b += ', ');
-        return b + ' ]';
+        for (var b = "[ ", a = 0; a < this.children.length; a++)
+          (b += this.children[a]), a < this.children.length - 1 && (b += ", ");
+        return b + " ]";
       }
     },
     maxDimensions: function (b, a, e) {
@@ -2679,8 +2680,8 @@ $package('org.imatheq.formulaeditor.presentation');
           2 < arguments.length
             ? null !== arguments[2] && void 0 !== arguments[2]
               ? arguments[2]
-              : '#000000'
-            : '#000000';
+              : "#000000"
+            : "#000000";
         3 < arguments.length &&
           null !== arguments[3] &&
           void 0 !== arguments[3] &&
@@ -2693,10 +2694,10 @@ $package('org.imatheq.formulaeditor.presentation');
           null !== arguments[5] &&
           void 0 !== arguments[5] &&
           ((this.autoItalic = arguments[5]),
-          'auto' == this.autoItalic &&
+          "auto" == this.autoItalic &&
             ((b = org.imatheq.formulaeditor.FormulaEditor.getEditor()),
             null == b
-              ? alert('Error symbol.initialize: failed to get editor')
+              ? alert("Error symbol.initialize: failed to get editor")
               : ((this.autoItalic = b.isAutoItalic()),
                 this.autoItalic || (this.forcedItalic = !0))),
           this.autoItalic && (this.forcedItalic = !1));
@@ -2707,7 +2708,7 @@ $package('org.imatheq.formulaeditor.presentation');
               null !== b && void 0 !== b
                 ? b.isAutoItalic()
                 : new org.imatheq.formulaeditor.Options().getOption(
-                    'defAutoItalic'
+                    "defAutoItalic"
                   );
           if (null === this.forcedItalic || void 0 === this.forcedItalic)
             this.forcedItalic =
@@ -2727,7 +2728,7 @@ $package('org.imatheq.formulaeditor.presentation');
           (e = a[e]);
         if (
           null !== this.keyword ||
-          ('0' <= e && '9' >= e) ||
+          ("0" <= e && "9" >= e) ||
           void 0 !== org.imatheq.formulaeditor.parsing.expression.MOList[e] ||
           -1 !=
             org.imatheq.formulaeditor.parsing.expression.NonItalicMiList.indexOf(
@@ -2739,35 +2740,35 @@ $package('org.imatheq.formulaeditor.presentation');
         return b;
       },
       getStyleString: function () {
-        var b = '';
+        var b = "";
         this.doubleStruck
-          ? (b = 'double-struck')
+          ? (b = "double-struck")
           : this.script
-          ? (b = (this.bold ? 'bold-' : '') + 'script')
+          ? (b = (this.bold ? "bold-" : "") + "script")
           : this.fraktur
-          ? (b = (this.bold ? 'bold-' : '') + 'fraktur')
+          ? (b = (this.bold ? "bold-" : "") + "fraktur")
           : this.isSymbolAutoItalic()
           ? this.bold
             ? (b = this.forcedItalic
-                ? 'bold-italic'
+                ? "bold-italic"
                 : this.autoItalic
-                ? 'bold-italic'
-                : 'bold')
-            : this.forcedItalic || this.autoItalic || (b = 'normal')
+                ? "bold-italic"
+                : "bold")
+            : this.forcedItalic || this.autoItalic || (b = "normal")
           : (b = this.forcedItalic
               ? this.bold
-                ? 'bold-italic'
-                : 'italic'
+                ? "bold-italic"
+                : "italic"
               : this.bold
-              ? 'bold'
-              : '');
-        '' != b && (b = ' mathvariant="' + b + '"');
+              ? "bold"
+              : "");
+        "" != b && (b = ' mathvariant="' + b + '"');
         return (b +=
           null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"');
       },
       getItalicValue: function () {
@@ -2787,10 +2788,10 @@ $package('org.imatheq.formulaeditor.presentation');
         )
           return !1;
         (null !== this.bold && null !== b.bold) ||
-          alert('Error in hasSameStyle: bold is null');
+          alert("Error in hasSameStyle: bold is null");
         this.bold != b.bold && (e = !1);
         (null !== this.mathcolor && null !== b.mathcolor) ||
-          alert('Error in hasSameStyle: mathcolor is null');
+          alert("Error in hasSameStyle: mathcolor is null");
         this.mathcolor != b.mathcolor && (e = !1);
         var d =
             org.imatheq.formulaeditor.parsing.expression.RevList[this.value],
@@ -2815,7 +2816,7 @@ $package('org.imatheq.formulaeditor.presentation');
           null === b.forcedItalic ||
           null === b.autoItalic
         )
-          alert('Error in hasSameStyle: some italic para is null.');
+          alert("Error in hasSameStyle: some italic para is null.");
         else {
           if (this.forcedItalic != b.forcedItalic) return !1;
           a && this.autoItalic != b.autoItalic && (e = !1);
@@ -2885,7 +2886,7 @@ $package('org.imatheq.formulaeditor.presentation');
             void 0 === f[b][g])
         ) {
           if (null === e[b] || void 0 === e[b]) e[b] = {};
-          if (null === e[b][g] || void 0 === e[b][g]) e[b][g] = '';
+          if (null === e[b][g] || void 0 === e[b][g]) e[b][g] = "";
         }
       },
       draw: function (b, a, e, d, g, f) {
@@ -2935,9 +2936,9 @@ $package('org.imatheq.formulaeditor.presentation');
       slowDelete: !0,
       onBaseline: !1,
       margin: 1,
-      mtype: 'msubsup',
-      msubtype: '',
-      uid: '',
+      mtype: "msubsup",
+      msubtype: "",
+      uid: "",
       initialize: function () {
         this.children = [];
         if (0 < arguments.length) {
@@ -2946,17 +2947,17 @@ $package('org.imatheq.formulaeditor.presentation');
           null !== b && void 0 !== b && this.children.push(b);
           b = arguments[2];
           null !== b && void 0 !== b && this.children.push(b);
-          this.msubtype = 3 < arguments.length ? arguments[3] : '';
-          this.uid = 4 < arguments.length ? arguments[4] : '';
+          this.msubtype = 3 < arguments.length ? arguments[3] : "";
+          this.uid = 4 < arguments.length ? arguments[4] : "";
         }
         this.updateChildren();
       },
       getFontSizeData: function (b, a, e) {
         var d = null,
           g = null;
-        'msubsup' == this.mtype
+        "msubsup" == this.mtype
           ? ((g = this.children[0]), (d = this.children[1]))
-          : 'msub' == this.mtype
+          : "msub" == this.mtype
           ? (d = this.children[0])
           : (g = this.children[0]);
         var f = { fontSizeModifier: 0 },
@@ -2969,9 +2970,9 @@ $package('org.imatheq.formulaeditor.presentation');
       draw: function (b, a, e, d, g, f) {
         var h = null,
           k = null;
-        'msubsup' == this.mtype
+        "msubsup" == this.mtype
           ? ((k = this.children[0]), (h = this.children[1]))
-          : 'msub' == this.mtype
+          : "msub" == this.mtype
           ? (h = this.children[0])
           : (k = this.children[0]);
         var l,
@@ -2983,26 +2984,26 @@ $package('org.imatheq.formulaeditor.presentation');
         n = { lspace: 0, rspace: 0 };
         var p = -1;
         if (this.parent instanceof m.Row)
-          if ('mprescripts' == this.msubtype) {
+          if ("mprescripts" == this.msubtype) {
             p = this.index + 1;
             m = this.uid;
             for (
               p < this.parent.children.length &&
               (l = this.parent.children[p].draw(b, a, e, d, !0, n));
               p < this.parent.children.length &&
-              'mprescripts' == this.parent.children[p].msubtype &&
+              "mprescripts" == this.parent.children[p].msubtype &&
               this.parent.children[p].uid == m;
 
             )
               p++;
             p >= this.parent.children.length && (p = -1);
-          } else if ('mmultiscripts' == this.msubtype)
+          } else if ("mmultiscripts" == this.msubtype)
             for (
               p = this.index - 1,
                 m = this.uid,
                 0 <= p && (l = this.parent.children[p].dimensions);
               0 <= p &&
-              'mprescripts' == this.parent.children[p].msubtype &&
+              "mprescripts" == this.parent.children[p].msubtype &&
               this.parent.children[p] == m;
 
             )
@@ -3047,7 +3048,7 @@ $package('org.imatheq.formulaeditor.presentation');
           q = null,
           v = l.left + l.width,
           y = (t = v);
-        'mprescripts' == this.msubtype &&
+        "mprescripts" == this.msubtype &&
           ((v = Math.max(a.width, m.width)),
           (t = v - a.width),
           (v -= m.width),
@@ -3147,59 +3148,59 @@ $package('org.imatheq.formulaeditor.presentation');
       copy: function () {
         var b = null,
           a = null;
-        'msubsup' == this.mtype
+        "msubsup" == this.mtype
           ? ((a = this.children[0].copy()), (b = this.children[1].copy()))
-          : 'msub' == this.mtype
+          : "msub" == this.mtype
           ? (b = this.children[0].copy())
           : (a = this.children[0].copy());
         return this.clone(this.mtype, b, a);
       },
       getMathML: function (b) {
-        var a = '';
-        'msubsup' == this.mtype
+        var a = "";
+        "msubsup" == this.mtype
           ? (a =
               this.children[1].getMathML(!0) + this.children[0].getMathML(!0))
-          : 'msub' == this.mtype
-          ? ((a = this.children[0].getMathML(!0)), b && (a += '<none/>'))
-          : (b && (a += '<none/>'), (a += this.children[0].getMathML(!0)));
+          : "msub" == this.mtype
+          ? ((a = this.children[0].getMathML(!0)), b && (a += "<none/>"))
+          : (b && (a += "<none/>"), (a += this.children[0].getMathML(!0)));
         return a;
       },
       getAltText: function (b) {
         var a = org.imatheq.formulaeditor.FormulaEditor.getEditor().altstrs,
-          e = 'mprescripts' == this.msubtype ? 'pre' : '';
-        if ('msubsup' == this.mtype)
+          e = "mprescripts" == this.msubtype ? "pre" : "";
+        if ("msubsup" == this.mtype)
           var d = this.children[1].getAltText(!0),
             g =
               this.children[1] && 1 < this.children[1].children.length ? 1 : 0,
-            d = a[e + 'subscript'][g].replace('$0$', d.trim()),
+            d = a[e + "subscript"][g].replace("$0$", d.trim()),
             f = this.children[0].getAltText(!0),
             g =
               this.children[0] && 1 < this.children[0].children.length ? 1 : 0,
-            f = a[e + 'superscript'][g].replace('$0$', f.trim());
+            f = a[e + "superscript"][g].replace("$0$", f.trim());
         else
-          'msup' == this.mtype
+          "msup" == this.mtype
             ? ((f = this.children[0].getAltText(!0)),
               (g =
                 this.children[0] && 1 < this.children[0].children.length
                   ? 1
                   : 0),
               (f =
-                'mprescripts' == this.msubtype
-                  ? a[e + 'superscript'][g].replace('$0$', f.trim())
-                  : a.power[g].replace('$0$', f.trim())),
-              (d = ''),
-              b && (d = a[e + 'subscript'][0].replace('$0$', a.blank.trim())))
-            : ((f = ''),
-              b && (f = a[e + 'superscript'][0].replace('$0$', a.blank.trim())),
+                "mprescripts" == this.msubtype
+                  ? a[e + "superscript"][g].replace("$0$", f.trim())
+                  : a.power[g].replace("$0$", f.trim())),
+              (d = ""),
+              b && (d = a[e + "subscript"][0].replace("$0$", a.blank.trim())))
+            : ((f = ""),
+              b && (f = a[e + "superscript"][0].replace("$0$", a.blank.trim())),
               (d = this.children[0].getAltText(!0)),
               (g =
                 this.children[0] && 1 < this.children[0].children.length
                   ? 1
                   : 0),
               (d =
-                'mprescripts' == this.msubtype
-                  ? a[e + 'subscript'][g].replace('$0$', d.trim())
-                  : a.subscript[g].replace('$0$', d.trim())));
+                "mprescripts" == this.msubtype
+                  ? a[e + "subscript"][g].replace("$0$", d.trim())
+                  : a.subscript[g].replace("$0$", d.trim())));
         return d + f;
       },
     }
@@ -3212,7 +3213,7 @@ $package('org.imatheq.formulaeditor.presentation');
       slowDelete: !0,
       onBaseline: !1,
       margin: 1,
-      mtype: 'msubsup',
+      mtype: "msubsup",
       base: null,
       sub: null,
       sup: null,
@@ -3366,40 +3367,40 @@ $package('org.imatheq.formulaeditor.presentation');
       },
       getMathML: function () {
         var b =
-          '<' +
+          "<" +
           this.mtype +
-          (this.in_attrbs ? this.in_attrbs : '') +
+          (this.in_attrbs ? this.in_attrbs : "") +
           (null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"') +
-          '><mo>' +
+          "><mo>" +
           com.efmase.js.utilities.toolset.getEncodedStr(this.base) +
-          '</mo>';
-        if ('msub' == this.mtype || 'msubsup' == this.mtype)
+          "</mo>";
+        if ("msub" == this.mtype || "msubsup" == this.mtype)
           b += this.sub.getMathML(!0);
-        if ('msup' == this.mtype || 'msubsup' == this.mtype)
+        if ("msup" == this.mtype || "msubsup" == this.mtype)
           b += this.sup.getMathML(!0);
-        return (b += '</' + this.mtype + '>');
+        return (b += "</" + this.mtype + ">");
       },
       getAltText: function () {
         var b = org.imatheq.formulaeditor.FormulaEditor.getEditor(),
           a = b.getSymbolAltText(this.base.value);
-        if ('msub' == this.mtype || 'msubsup' == this.mtype)
+        if ("msub" == this.mtype || "msubsup" == this.mtype)
           var e = this.sub.children && 1 < this.sub.children.length ? 1 : 0,
             a =
               a +
               b.altstrs.subscript[e].replace(
-                '$0$',
+                "$0$",
                 this.sub.getAltText().trim()
               );
-        if ('msup' == this.mtype || 'msubsup' == this.mtype)
+        if ("msup" == this.mtype || "msubsup" == this.mtype)
           (e = this.sup.children && 1 < this.sup.children.length ? 1 : 0),
-            (a += b.altstrs['msup' == this.mtype ? 'power' : 'superscript'][
+            (a += b.altstrs["msup" == this.mtype ? "power" : "superscript"][
               e
-            ].replace('$0$', this.sup.getAltText().trim()));
+            ].replace("$0$", this.sup.getAltText().trim()));
         return a;
       },
       copy: function () {
@@ -3418,8 +3419,8 @@ $package('org.imatheq.formulaeditor.presentation');
     org.imatheq.formulaeditor.presentation.Symbol,
     {
       initialize: function () {
-        this.value = '\u25a1';
-        this.onscreen = 'c';
+        this.value = "\u25a1";
+        this.onscreen = "c";
         0 < arguments.length &&
           null !== arguments[0] &&
           void 0 != arguments[0] &&
@@ -3470,8 +3471,8 @@ $package('org.imatheq.formulaeditor.presentation');
     org.imatheq.formulaeditor.presentation.Symbol,
     {
       initialize: function () {
-        this.value = '\n';
-        this.onscreen = 1 == arguments.length ? arguments[0] : 'a';
+        this.value = "\n";
+        this.onscreen = 1 == arguments.length ? arguments[0] : "a";
       },
       copy: function () {
         return this.clone(this.onscreen);
@@ -3482,10 +3483,10 @@ $package('org.imatheq.formulaeditor.presentation');
       draw: function (b, a, e, d, g) {
         return (this.dimensions =
           new org.imatheq.formulaeditor.presentation.Space(
-            '0.2em',
-            '0.5em',
-            '0.1em',
-            ' '
+            "0.2em",
+            "0.5em",
+            "0.1em",
+            " "
           ).draw(b, a, e, d, !0));
       },
     }
@@ -3514,9 +3515,9 @@ $package('org.imatheq.formulaeditor.presentation');
       },
       copy: function () {
         return this.clone(
-          this.width + 'em',
-          this.height + 'em',
-          this.depth + 'em',
+          this.width + "em",
+          this.height + "em",
+          this.depth + "em",
           this.value,
           this.mtext
         );
@@ -3537,10 +3538,10 @@ $package('org.imatheq.formulaeditor.presentation');
           Math.round(e),
           Math.round(d),
           !0,
-          'x',
+          "x",
           !1,
           !1,
-          '#000000',
+          "#000000",
           g
         );
         this.dimensions.top =
@@ -3552,27 +3553,27 @@ $package('org.imatheq.formulaeditor.presentation');
         return this.dimensions;
       },
       getMathML: function () {
-        if (this.mtext && 0 < this.width && 0.4 > this.width) return '&#x200A;';
-        if (this.mtext && 0.4 <= this.width) return '&#x2007;';
+        if (this.mtext && 0 < this.width && 0.4 > this.width) return "&#x200A;";
+        if (this.mtext && 0.4 <= this.width) return "&#x2007;";
         if (null !== this.value)
           return (
-            '<mo' +
-            (this.in_attrbs ? this.in_attrbs : '') +
-            '>' +
+            "<mo" +
+            (this.in_attrbs ? this.in_attrbs : "") +
+            ">" +
             com.efmase.js.utilities.toolset.getEncodedStr(this) +
-            '</mo>'
+            "</mo>"
           );
         if (0 != this.width) {
           var b = '<mspace width="' + this.width + 'em"';
           0 != this.height && (b += ' height="' + this.height + 'em"');
           0 != this.depth && (b += ' depth="' + this.depth + 'em"');
-          return b + (this.in_attrbs ? this.in_attrbs : '') + '/>';
+          return b + (this.in_attrbs ? this.in_attrbs : "") + "/>";
         }
-        return '';
+        return "";
       },
       getAltText: function () {
         return org.imatheq.formulaeditor.FormulaEditor.getEditor().getSymbolAltText(
-          'space'
+          "space"
         );
       },
     }
@@ -3582,26 +3583,26 @@ $package('org.imatheq.formulaeditor.presentation');
   org.imatheq.formulaeditor.presentation.Alignmark = $extend(
     org.imatheq.formulaeditor.presentation.Space,
     {
-      type: 'maligngroup',
+      type: "maligngroup",
       groupalign: null,
       edge: null,
       initialize: function () {
         0 < arguments.length &&
           ((this.type = arguments[0]),
           1 < arguments.length &&
-            ('maligngroup' == this.type
+            ("maligngroup" == this.type
               ? (this.groupalign = arguments[1])
               : (this.edge = arguments[1])),
-          this.initialize.parent.initialize.call(this, '0', '0', '0', ' '));
+          this.initialize.parent.initialize.call(this, "0", "0", "0", " "));
       },
       getMathML: function () {
-        var b = '<' + this.type;
+        var b = "<" + this.type;
         return (b =
-          'maligngroup' == this.type && this.groupalign
+          "maligngroup" == this.type && this.groupalign
             ? b + (' groupalign="' + this.groupalign + '"/>')
-            : 'malignmark' == this.type && this.edge
+            : "malignmark" == this.type && this.edge
             ? b + (' edge="' + this.edge + '"/>')
-            : b + '/>');
+            : b + "/>");
       },
       getAltText: function () {
         return org.imatheq.formulaeditor.FormulaEditor.getEditor().getSymbolAltText(
@@ -3623,7 +3624,7 @@ $package('org.imatheq.formulaeditor.presentation');
       initialize: function () {
         var a = org.imatheq.formulaeditor.presentation.BlockSymbol,
           e;
-        if (1 == arguments.length && 'string' == typeof arguments[0]) {
+        if (1 == arguments.length && "string" == typeof arguments[0]) {
           var a = arguments[0],
             d = [];
           for (e = 0; e < a.length; e++) d.push(this.newSymbol(a.charAt(e)));
@@ -3647,15 +3648,15 @@ $package('org.imatheq.formulaeditor.presentation');
         )
           e++;
         e == a.length &&
-          console.log('updateBracket: error cannot find Bracketed parent.');
+          console.log("updateBracket: error cannot find Bracketed parent.");
       },
       getFontSizeData: function (a, e, d) {
         var b = org.imatheq.formulaeditor.presentation;
-        new b.Symbol('x', !1, null, null, !0, !1).getFontSizeData(a, e, d);
-        new b.Symbol('x', !1, null, null, !1, !1).getFontSizeData(a, e, d);
-        new b.Symbol('x', !0, null, null, !0, !1).getFontSizeData(a, e, d);
-        new b.Symbol('x', !0, null, null, !1, !1).getFontSizeData(a, e, d);
-        new b.Symbol('c', !1, null, null, !0).getFontSizeData(a, e, d);
+        new b.Symbol("x", !1, null, null, !0, !1).getFontSizeData(a, e, d);
+        new b.Symbol("x", !1, null, null, !1, !1).getFontSizeData(a, e, d);
+        new b.Symbol("x", !0, null, null, !0, !1).getFontSizeData(a, e, d);
+        new b.Symbol("x", !0, null, null, !1, !1).getFontSizeData(a, e, d);
+        new b.Symbol("c", !1, null, null, !0).getFontSizeData(a, e, d);
         this.getFontSizeData.parent.getFontSizeData.call(this, a, e, d);
       },
       curindex: 0,
@@ -3666,14 +3667,14 @@ $package('org.imatheq.formulaeditor.presentation');
           (1 == this.children.length &&
             this.children[0] instanceof b.BlockSymbol)
         )
-          return '<mrow' + (this.in_attrbs ? this.in_attrbs : '') + '/>';
+          return "<mrow" + (this.in_attrbs ? this.in_attrbs : "") + "/>";
         this.curindex = null === e || void 0 === e ? 0 : e;
         e = null === d || void 0 === d ? this.children.length : d;
-        d = '';
+        d = "";
         var f = 0,
-          h = '',
+          h = "",
           k = 0,
-          l = '';
+          l = "";
         for (
           0 < e &&
           this.children[e - 1] instanceof
@@ -3685,62 +3686,62 @@ $package('org.imatheq.formulaeditor.presentation');
           var m = this.children[this.curindex];
           if (
             m instanceof b.Subsup &&
-            ('mprescripts' == m.msubtype || 'mmultiscripts' == m.msubtype)
+            ("mprescripts" == m.msubtype || "mmultiscripts" == m.msubtype)
           ) {
-            var r = '',
-              n = '',
-              p = '',
+            var r = "",
+              n = "",
+              p = "",
               t = m.uid,
               p = m.msubtype,
-              l = '<mmultiscripts' + (m.in_attrbs ? m.in_attrbs : '') + '>';
-            if ('mprescripts' == p) {
+              l = "<mmultiscripts" + (m.in_attrbs ? m.in_attrbs : "") + ">";
+            if ("mprescripts" == p) {
               for (
                 ;
                 this.curindex < e &&
                 m instanceof b.Subsup &&
-                'mprescripts' == m.msubtype &&
+                "mprescripts" == m.msubtype &&
                 m.uid == t;
 
               )
                 (r += m.getMathML(!0)), (m = this.children[++this.curindex]);
               for (
-                p = this.curindex < e ? this.getSubMathML(e) : '<mrow/>';
+                p = this.curindex < e ? this.getSubMathML(e) : "<mrow/>";
                 this.curindex < e && m instanceof b.Subsup && m.uid == t;
 
               )
                 (n += m.getMathML(!0)), (m = this.children[++this.curindex]);
-              l += p + n + '<mprescripts/>' + r;
+              l += p + n + "<mprescripts/>" + r;
             } else {
               for (; this.curindex < e && m instanceof b.Subsup && m.uid == t; )
                 (n += m.getMathML(!0)), (m = this.children[++this.curindex]);
               l += h + n;
-              h = '';
+              h = "";
               k = 0;
             }
-            l += '</mmultiscripts>';
+            l += "</mmultiscripts>";
           } else
             m instanceof b.Subsup
-              ? ((n = ''),
+              ? ((n = ""),
                 (n += m.getMathML(!1)),
                 (l =
-                  '<' +
+                  "<" +
                   m.mtype +
-                  (m.in_attrbs ? m.in_attrbs : '') +
-                  '>' +
-                  (1 < k ? '<mrow>' : '') +
+                  (m.in_attrbs ? m.in_attrbs : "") +
+                  ">" +
+                  (1 < k ? "<mrow>" : "") +
                   h +
-                  (1 < k ? '</mrow>' : '') +
+                  (1 < k ? "</mrow>" : "") +
                   n +
-                  '</' +
+                  "</" +
                   m.mtype +
-                  '>'),
-                (h = ''),
+                  ">"),
+                (h = ""),
                 (k = 0),
                 this.curindex++)
               : (l = this.getSubMathML(e));
           (m instanceof b.Symbol &&
             null !== m.value &&
-            (8289 == m.value.charCodeAt(0) || ' ' == m.value)) ||
+            (8289 == m.value.charCodeAt(0) || " " == m.value)) ||
           m instanceof b.Space
             ? ((h += l), k++)
             : ((d += h), (h = l), (k = 1));
@@ -3750,43 +3751,43 @@ $package('org.imatheq.formulaeditor.presentation');
         1 < f &&
           a &&
           (d =
-            '<mrow' +
-            (this.in_attrbs ? this.in_attrbs : '') +
-            '>' +
+            "<mrow" +
+            (this.in_attrbs ? this.in_attrbs : "") +
+            ">" +
             d +
-            '</mrow>');
+            "</mrow>");
         return d;
       },
       getSubMathML: function (a) {
         var e = org.imatheq.formulaeditor.presentation,
           d = org.imatheq.formulaeditor.parsing.expression.RevList,
-          g = '';
+          g = "";
         child = this.children[this.curindex];
-        if (child instanceof e.BlockSymbol) (g = '<mrow/>'), this.curindex++;
+        if (child instanceof e.BlockSymbol) (g = "<mrow/>"), this.curindex++;
         else if (child instanceof e.Alignmark)
           (g += child.getMathML()), this.curindex++;
-        else if ('string' == typeof child.value) {
+        else if ("string" == typeof child.value) {
           child.getStyleString();
           var f = child.keyword,
             h = null !== child.mtext && void 0 !== child.mtext && child.mtext,
             k = child.value,
-            e = child.in_attrbs ? child.in_attrbs : '';
+            e = child.in_attrbs ? child.in_attrbs : "";
           void 0 === f && (f = null);
           var l = f;
           null !== f &&
-            0 < f.indexOf('_') &&
-            (l = f.slice(0, child.keyword.indexOf('_')));
+            0 < f.indexOf("_") &&
+            (l = f.slice(0, child.keyword.indexOf("_")));
           if (h) {
             g +=
-              '<mtext' +
+              "<mtext" +
               e +
               child.getStyleString() +
-              '>' +
+              ">" +
               b.getEncodedStr(child);
             for (
               this.curindex++;
               this.curindex < a &&
-              ('string' == typeof this.children[this.curindex].value ||
+              ("string" == typeof this.children[this.curindex].value ||
                 (this.children[this.curindex] instanceof
                   org.imatheq.formulaeditor.presentation.Space &&
                   0 < this.children[this.curindex].width)) &&
@@ -3798,13 +3799,13 @@ $package('org.imatheq.formulaeditor.presentation');
                 org.imatheq.formulaeditor.presentation.Space
                   ? g + this.children[this.curindex++].getMathML()
                   : g + b.getEncodedStr(this.children[this.curindex++]);
-            g += '</mtext>';
+            g += "</mtext>";
           } else if (child.mn && null !== f && 0 == f.indexOf(k)) {
-            for (var h = '', d = this.curindex, m = 0; m < l.length; m++)
+            for (var h = "", d = this.curindex, m = 0; m < l.length; m++)
               if (
                 ((k = this.children[this.curindex].value),
                 this.curindex < a &&
-                  'string' == typeof k &&
+                  "string" == typeof k &&
                   k == f.charAt(m) &&
                   this.children[this.curindex].mn &&
                   child.hasSameStyle(this.children[this.curindex], !1))
@@ -3828,15 +3829,15 @@ $package('org.imatheq.formulaeditor.presentation');
                 break;
               }
             this.curindex != d &&
-              (g += '<mn' + e + child.getStyleString() + '>' + h + '</mn>');
+              (g += "<mn" + e + child.getStyleString() + ">" + h + "</mn>");
           } else if (child.mo && null !== f && 0 == f.indexOf(k)) {
-            h = '';
+            h = "";
             d = this.curindex;
             for (m = 0; m < l.length; m++)
               if (
                 ((k = this.children[this.curindex].value),
                 this.curindex < a &&
-                  'string' == typeof k &&
+                  "string" == typeof k &&
                   k == f.charAt(m) &&
                   this.children[this.curindex].mo &&
                   child.hasSameStyle(this.children[this.curindex], !1))
@@ -3861,36 +3862,36 @@ $package('org.imatheq.formulaeditor.presentation');
               }
             this.curindex != d &&
               (g +=
-                '<mo' +
+                "<mo" +
                 e +
                 child.getStyleString() +
                 (null !== child.in_attrs && void 0 !== child.in_attrs
                   ? child.in_attrs
-                  : '') +
-                '>' +
+                  : "") +
+                ">" +
                 h +
-                '</mo>');
-          } else if ('0' <= k && '9' >= k) {
-            g += '<mn' + e + child.getStyleString() + '>';
+                "</mo>");
+          } else if ("0" <= k && "9" >= k) {
+            g += "<mn" + e + child.getStyleString() + ">";
             e = k;
             for (
               d = this.curindex + 1;
               d < a &&
-              'string' == typeof this.children[d].value &&
-              (('0' <= this.children[d] && '9' >= this.children[d]) ||
-                '.' == this.children[d] ||
-                ',' == this.children[d]) &&
+              "string" == typeof this.children[d].value &&
+              (("0" <= this.children[d] && "9" >= this.children[d]) ||
+                "." == this.children[d] ||
+                "," == this.children[d]) &&
               child.hasSameStyle(this.children[d], !1);
 
             )
               e += this.children[d++];
             a = e.length;
-            arrDot = e.split('.');
+            arrDot = e.split(".");
             2 < arrDot.length && (a = arrDot[0].length + arrDot[1].length + 1);
             1 < arrDot.length &&
-              -1 != arrDot[1].indexOf(',') &&
-              (a = arrDot[0].length + arrDot[1].indexOf(',') + 1);
-            arrComma = arrDot[0].split(',');
+              -1 != arrDot[1].indexOf(",") &&
+              (a = arrDot[0].length + arrDot[1].indexOf(",") + 1);
+            arrComma = arrDot[0].split(",");
             len1 = arrComma[0].length;
             for (f = 1; f < arrComma.length; f++) {
               if (3 != arrComma[f].length) {
@@ -3901,34 +3902,34 @@ $package('org.imatheq.formulaeditor.presentation');
             }
             g += e.slice(0, a);
             this.curindex += a;
-            g += '</mn>';
+            g += "</mn>";
           } else if (
             void 0 !== org.imatheq.formulaeditor.parsing.expression.MOList[k]
           )
             (g +=
-              '<mo' +
+              "<mo" +
               e +
               child.getStyleString() +
-              '>' +
+              ">" +
               b.getEncodedStr(child) +
-              '</mo>'),
+              "</mo>"),
               this.curindex++;
           else if (void 0 !== d[k]) {
             for (
               h = b.getEncodedStr(child);
               ++this.curindex < a &&
-              'string' == typeof this.children[this.curindex].value &&
+              "string" == typeof this.children[this.curindex].value &&
               child.hasSameStyle(this.children[this.curindex], !1);
 
             )
               h += b.getEncodedStr(this.children[this.curindex]);
             a =
               child.bold &&
-              ['script', 'fraktur'].includes(d[k].type) &&
+              ["script", "fraktur"].includes(d[k].type) &&
               d[k].non_bold
-                ? ''
+                ? ""
                 : child.getStyleString();
-            g += '<mi' + e + a + '>' + h + '</mi>';
+            g += "<mi" + e + a + ">" + h + "</mi>";
           } else if (
             null === child.keyword ||
             0 != f.indexOf(k) ||
@@ -3942,35 +3943,35 @@ $package('org.imatheq.formulaeditor.presentation');
               !/[a-zA-Z]/.test(k)
             )
               (g +=
-                '<mi' +
+                "<mi" +
                 e +
                 child.getStyleString() +
-                '>' +
+                ">" +
                 b.getEncodedStr(child) +
-                '</mi>'),
+                "</mi>"),
                 this.curindex++;
             else {
               g +=
-                '<mi' + child.getStyleString() + '>' + b.getEncodedStr(child);
+                "<mi" + child.getStyleString() + ">" + b.getEncodedStr(child);
               for (
                 this.curindex++;
                 this.curindex < a &&
-                'string' == typeof this.children[this.curindex].value &&
+                "string" == typeof this.children[this.curindex].value &&
                 /[a-zA-Z]/.test(this.children[this.curindex].value) &&
                 child.hasSameStyle(this.children[this.curindex], !0);
 
               )
                 g += b.getEncodedStr(this.children[this.curindex++]);
-              g += '</mi>';
+              g += "</mi>";
             }
           else {
-            h = '';
+            h = "";
             d = this.curindex;
             for (m = 0; m < l.length; m++)
               if (
                 ((k = this.children[this.curindex].value),
                 this.curindex < a &&
-                  'string' == typeof k &&
+                  "string" == typeof k &&
                   k == f.charAt(m) &&
                   child.hasSameStyle(this.children[this.curindex], !1))
               )
@@ -3991,7 +3992,7 @@ $package('org.imatheq.formulaeditor.presentation');
                 break;
               }
             this.curindex != d &&
-              (g += '<mi' + e + child.getStyleString() + '>' + h + '</mi>');
+              (g += "<mi" + e + child.getStyleString() + ">" + h + "</mi>");
           }
         } else (g += child.getMathML()), this.curindex++;
         return g;
@@ -4006,13 +4007,13 @@ $package('org.imatheq.formulaeditor.presentation');
           (1 == this.children.length &&
             this.children[0] instanceof a.BlockSymbol)
         )
-          return ' blank';
+          return " blank";
         this.curAltIndex = null === e || void 0 === e ? 0 : e;
         e = null === d || void 0 === d ? this.children.length : d;
-        d = '';
+        d = "";
         var f = 0,
-          h = '',
-          k = '';
+          h = "",
+          k = "";
         for (
           0 < e &&
           this.children[e - 1] instanceof
@@ -4024,19 +4025,19 @@ $package('org.imatheq.formulaeditor.presentation');
           k = this.children[this.curAltIndex];
           if (
             k instanceof a.Subsup &&
-            ('mprescripts' == k.msubtype || 'mmultiscripts' == k.msubtype)
+            ("mprescripts" == k.msubtype || "mmultiscripts" == k.msubtype)
           ) {
-            var l = '',
-              m = '',
-              r = '',
+            var l = "",
+              m = "",
+              r = "",
               n = (r = 0),
               p = k.uid;
-            if ('mprescripts' == k.msubtype) {
+            if ("mprescripts" == k.msubtype) {
               for (
                 ;
                 this.curAltIndex < e &&
                 k instanceof a.Subsup &&
-                'mprescripts' == k.msubtype &&
+                "mprescripts" == k.msubtype &&
                 k.uid == p;
 
               )
@@ -4062,15 +4063,15 @@ $package('org.imatheq.formulaeditor.presentation');
                   (k = this.children[++this.curAltIndex]),
                   n++;
               k = h + m;
-              h = '';
+              h = "";
             }
-            k = b.mmultiscripts.replace('$0$', k);
+            k = b.mmultiscripts.replace("$0$", k);
           } else
             k instanceof a.Subsup
-              ? ((m = ''),
+              ? ((m = ""),
                 (m += k.getAltText(!1)),
                 (k = h + m),
-                (h = ''),
+                (h = ""),
                 this.curAltIndex++)
               : (k = this.getSubAltText(e));
           d += h;
@@ -4086,12 +4087,12 @@ $package('org.imatheq.formulaeditor.presentation');
           f = b.word_space,
           h = function (a) {
             var d = a.length;
-            arrDot = a.split('.');
+            arrDot = a.split(".");
             2 < arrDot.length && (d = arrDot[0].length + arrDot[1].length + 1);
             1 < arrDot.length &&
-              -1 != arrDot[1].indexOf(',') &&
-              (d = arrDot[0].length + arrDot[1].indexOf(',') + 1);
-            arrComma = arrDot[0].split(',');
+              -1 != arrDot[1].indexOf(",") &&
+              (d = arrDot[0].length + arrDot[1].indexOf(",") + 1);
+            arrComma = arrDot[0].split(",");
             len1 = arrComma[0].length;
             for (a = 1; a < arrComma.length; a++) {
               if (3 != arrComma[a].length) {
@@ -4103,13 +4104,13 @@ $package('org.imatheq.formulaeditor.presentation');
             return d;
           },
           k = function (a) {
-            var d = '';
+            var d = "";
             a.doubleStruck
-              ? (d = b['double-struck'])
+              ? (d = b["double-struck"])
               : a.script
-              ? (d = (a.bold ? b.bold : '') + b.script)
+              ? (d = (a.bold ? b.bold : "") + b.script)
               : a.fraktur
-              ? (d = (a.bold ? b.bold : '') + b.fraktur)
+              ? (d = (a.bold ? b.bold : "") + b.fraktur)
               : a.isSymbolAutoItalic()
               ? a.bold
                 ? (d = a.forcedItalic
@@ -4124,13 +4125,13 @@ $package('org.imatheq.formulaeditor.presentation');
                     : b.italic
                   : a.bold
                   ? b.bold
-                  : '');
+                  : "");
             return d;
           },
-          l = '';
+          l = "";
         child = this.children[this.curAltIndex];
         if (child instanceof e.BlockSymbol) (l = b.blank), this.curAltIndex++;
-        else if ('string' == typeof child.value) {
+        else if ("string" == typeof child.value) {
           k(child);
           var m = child.keyword,
             r = null !== child.mtext && void 0 !== child.mtext && child.mtext,
@@ -4139,13 +4140,13 @@ $package('org.imatheq.formulaeditor.presentation');
           void 0 === m && (m = null);
           var p = m;
           null !== m &&
-            0 < m.indexOf('_') &&
-            (p = m.slice(0, child.keyword.indexOf('_')));
+            0 < m.indexOf("_") &&
+            (p = m.slice(0, child.keyword.indexOf("_")));
           if (r) {
             for (
               l += k(child) + f + this.children[this.curAltIndex++];
               this.curAltIndex < a &&
-              ('string' == typeof this.children[this.curAltIndex].value ||
+              ("string" == typeof this.children[this.curAltIndex].value ||
                 (this.children[this.curAltIndex] instanceof
                   org.imatheq.formulaeditor.presentation.Space &&
                   0 < this.children[this.curAltIndex].width)) &&
@@ -4156,7 +4157,7 @@ $package('org.imatheq.formulaeditor.presentation');
               org.imatheq.formulaeditor.presentation.Space
                 ? ((l += b.space), this.curAltIndex++)
                 : (l += this.children[this.curAltIndex++].value);
-            l = b.mtext.replace('$0$', l);
+            l = b.mtext.replace("$0$", l);
           } else if (child.mn && null !== m && 0 == m.indexOf(e)) {
             h = f;
             f = this.curAltIndex;
@@ -4164,7 +4165,7 @@ $package('org.imatheq.formulaeditor.presentation');
               if (
                 ((e = this.children[this.curAltIndex].value),
                 this.curAltIndex < a &&
-                  'string' == typeof e &&
+                  "string" == typeof e &&
                   e == m.charAt(d) &&
                   this.children[this.curAltIndex].mn &&
                   child.hasSameStyle(this.children[this.curAltIndex], !1))
@@ -4197,7 +4198,7 @@ $package('org.imatheq.formulaeditor.presentation');
               if (
                 ((e = this.children[this.curAltIndex].value),
                 this.curAltIndex < a &&
-                  'string' == typeof e &&
+                  "string" == typeof e &&
                   e == m.charAt(d) &&
                   this.children[this.curAltIndex].mo &&
                   child.hasSameStyle(this.children[this.curAltIndex], !1))
@@ -4223,16 +4224,16 @@ $package('org.imatheq.formulaeditor.presentation');
                 break;
               }
             this.curAltIndex != f && (l += k(child) + h);
-          } else if ('0' <= e && '9' >= e) {
+          } else if ("0" <= e && "9" >= e) {
             l += k(child);
             k = f + e;
             for (
               f = this.curAltIndex + 1;
               f < a &&
-              'string' == typeof this.children[f].value &&
-              (('0' <= this.children[f] && '9' >= this.children[f]) ||
-                '.' == this.children[f] ||
-                ',' == this.children[f]) &&
+              "string" == typeof this.children[f].value &&
+              (("0" <= this.children[f] && "9" >= this.children[f]) ||
+                "." == this.children[f] ||
+                "," == this.children[f]) &&
               child.hasSameStyle(this.children[f], !1);
 
             )
@@ -4245,7 +4246,7 @@ $package('org.imatheq.formulaeditor.presentation');
           )
             (l += k(child)),
               (l =
-                this.firstNonSpace == this.curAltIndex && '-' == e
+                this.firstNonSpace == this.curAltIndex && "-" == e
                   ? l + b.negative
                   : l + d.getSymbolAltText(e)),
               this.curAltIndex++;
@@ -4253,16 +4254,16 @@ $package('org.imatheq.formulaeditor.presentation');
             for (
               h = n[e].key;
               ++this.curAltIndex < a &&
-              'string' == typeof this.children[this.curAltIndex].value &&
+              "string" == typeof this.children[this.curAltIndex].value &&
               child.hasSameStyle(this.children[this.curAltIndex], !1);
 
             )
               h += n[this.children[this.curAltIndex].value].key;
-            1 == h.length && -1 != 'CNPQRZ'.indexOf(h)
+            1 == h.length && -1 != "CNPQRZ".indexOf(h)
               ? (l += d.getSymbolAltText(e))
               : ((l += k(child)),
-                (a = n[e].type.replace('bold-', '')),
-                (e = -1 != n[e].type.indexOf('bold') ? ' bold ' : ' '),
+                (a = n[e].type.replace("bold-", "")),
+                (e = -1 != n[e].type.indexOf("bold") ? " bold " : " "),
                 -1 == k(child).indexOf(a) && (l += e + a),
                 (l += f + h));
           } else if (
@@ -4283,7 +4284,7 @@ $package('org.imatheq.formulaeditor.presentation');
               for (
                 l += k(child) + f + e, this.curindex++;
                 this.curAltIndex < a &&
-                'string' == typeof this.children[this.curAltIndex].value &&
+                "string" == typeof this.children[this.curAltIndex].value &&
                 /[a-zA-Z]/.test(this.children[this.curAltIndex].value) &&
                 child.hasSameStyle(this.children[this.curAltIndex], !0);
 
@@ -4296,7 +4297,7 @@ $package('org.imatheq.formulaeditor.presentation');
               if (
                 ((e = this.children[this.curAltIndex].value),
                 this.curAltIndex < a &&
-                  'string' == typeof e &&
+                  "string" == typeof e &&
                   e == m.charAt(d) &&
                   child.hasSameStyle(this.children[this.curAltIndex], !1))
               )
@@ -4366,9 +4367,9 @@ $package('org.imatheq.formulaeditor.presentation');
         if (void 0 !== b[d] && null !== b[d])
           f = {
             lspace:
-              null !== e.lspace ? e.lspace : a.getPXSize(b[d].ls / 18 + 'em'),
+              null !== e.lspace ? e.lspace : a.getPXSize(b[d].ls / 18 + "em"),
             rspace:
-              null !== e.rspace ? e.rspace : a.getPXSize(b[d].rs / 18 + 'em'),
+              null !== e.rspace ? e.rspace : a.getPXSize(b[d].rs / 18 + "em"),
           };
         else {
           e = 0;
@@ -4377,16 +4378,16 @@ $package('org.imatheq.formulaeditor.presentation');
           f =
             1 == e
               ? {
-                  lspace: a.getPXSize(b[h].ls / 18 + 'em'),
-                  rspace: a.getPXSize(b[h].rs / 18 + 'em'),
+                  lspace: a.getPXSize(b[h].ls / 18 + "em"),
+                  rspace: a.getPXSize(b[h].rs / 18 + "em"),
                 }
               : 2 == d && void 0 !== b[1] && null !== b[1]
-              ? { lspace: a.getPXSize(b[1].ls / 18 + 'em'), rspace: 0 }
+              ? { lspace: a.getPXSize(b[1].ls / 18 + "em"), rspace: 0 }
               : 0 == d && void 0 !== b[1] && null !== b[1]
-              ? { lspace: 0, rspace: a.getPXSize(b[1].rs / 18 + 'em') }
+              ? { lspace: 0, rspace: a.getPXSize(b[1].rs / 18 + "em") }
               : {
-                  lspace: 0 == d ? 0 : a.getPXSize('0.28em'),
-                  rspace: 2 == d ? 0 : a.getPXSize('0.28em'),
+                  lspace: 0 == d ? 0 : a.getPXSize("0.28em"),
+                  rspace: 2 == d ? 0 : a.getPXSize("0.28em"),
                 };
         }
         return f;
@@ -4463,7 +4464,7 @@ $package('org.imatheq.formulaeditor.presentation');
                 u = F.getSymbol();
                 if (null === u || void 0 === u)
                   throw Error(
-                    'Error failed to find operator in embellished node'
+                    "Error failed to find operator in embellished node"
                   );
                 H = this.getMOSpaces(a, u, v);
                 E < p &&
@@ -4472,7 +4473,7 @@ $package('org.imatheq.formulaeditor.presentation');
               } else if (t) (H.rspace = nextRspace), (nextRspace = 0), (t = !1);
               else if (
                 F instanceof h.Subsup &&
-                'mprescripts' == F.msubtype &&
+                "mprescripts" == F.msubtype &&
                 E < p &&
                 this.children[E + 1].isEmbellished()
               ) {
@@ -4481,7 +4482,7 @@ $package('org.imatheq.formulaeditor.presentation');
                 u = this.children[E + 1].getSymbol();
                 if (null === u || void 0 === u)
                   throw Error(
-                    'Error failed to find operator in embellished node'
+                    "Error failed to find operator in embellished node"
                   );
                 H = this.getMOSpaces(a, u, v);
                 q = !0;
@@ -4511,7 +4512,7 @@ $package('org.imatheq.formulaeditor.presentation');
                 width: C - y - B,
                 height: z - A + 2 * B,
               }),
-              f || a.drawBox(mt_dimensions, '#99ebff'),
+              f || a.drawBox(mt_dimensions, "#99ebff"),
               (z = C = A = y = null));
             u = this.children[E].getMathvariant
               ? this.children[E].getMathvariant()
@@ -4567,8 +4568,8 @@ $package('org.imatheq.formulaeditor.presentation');
       },
       newSymbol: function (a, e, d, b, f, h) {
         var k = org.imatheq.formulaeditor.presentation;
-        return ' ' == a || '\u00a0' == a
-          ? new k.Space('0.4em', '0', '0', a)
+        return " " == a || "\u00a0" == a
+          ? new k.Space("0.4em", "0", "0", a)
           : new k.Symbol(a, e, d, b, f, h);
       },
       onkeydown: function (a, e) {
@@ -4599,7 +4600,7 @@ $package('org.imatheq.formulaeditor.presentation');
                 this.insert(0, e));
             }
             a.cursor.setPosition(d);
-            a.actions.addAction('delete', d, k, l, h, null, f, null, null, b);
+            a.actions.addAction("delete", d, k, l, h, null, f, null, null, b);
             a.redraw();
           } else
             (b = { row: d.row, index: d.index - 1 }),
@@ -4628,7 +4629,7 @@ $package('org.imatheq.formulaeditor.presentation');
             this.isEmpty() && this.insert(0);
             a.cursor.setPosition(e);
             a.actions.addAction(
-              'delete',
+              "delete",
               e,
               f,
               h,
@@ -4672,7 +4673,7 @@ $package('org.imatheq.formulaeditor.presentation');
           l = k.row.getIndexChain(k.index),
           m,
           r = e.selection,
-          n = 'insert';
+          n = "insert";
         r.hasSelection
           ? ((b = r.getSelectionCopy()),
             (k.row = r.parent),
@@ -4684,14 +4685,14 @@ $package('org.imatheq.formulaeditor.presentation');
             (d = this.children.length - n),
             n > h && (m = this.remove(h, n)),
             r.clear(),
-            (n = 'update'),
+            (n = "update"),
             (k.index = h))
           : (this.updateKeyword(e, k.index),
             (d = this.children.length - k.index),
             0 <= k.index - 1 && this.children[k.index - 1] instanceof h
-              ? (k.index--, (m = this.remove(k.index)), (n = 'update'))
+              ? (k.index--, (m = this.remove(k.index)), (n = "update"))
               : this.children[k.index] instanceof h
-              ? ((m = this.remove(k.index)), d--, (n = 'update'))
+              ? ((m = this.remove(k.index)), d--, (n = "update"))
               : (m = null));
         null != m &&
           ((r = m.children[m.children.length - 1]),
@@ -4724,15 +4725,15 @@ $package('org.imatheq.formulaeditor.presentation');
         if (
           0 < e &&
           e < this.children.length &&
-          'string' == typeof this.children[e].value &&
-          'string' == typeof this.children[e - 1].value &&
+          "string" == typeof this.children[e].value &&
+          "string" == typeof this.children[e - 1].value &&
           null !== this.children[e].keyword &&
           this.children[e - 1].keyword == this.children[e].keyword
         ) {
           for (
             var h = e, k = this.children[e].keyword;
             h < this.children.length &&
-            'string' == typeof this.children[h].value &&
+            "string" == typeof this.children[h].value &&
             this.children[h].keyword == k;
 
           )
@@ -4740,14 +4741,14 @@ $package('org.imatheq.formulaeditor.presentation');
           for (
             var l = h, h = e - 1;
             0 <= h &&
-            'string' == typeof this.children[h].value &&
+            "string" == typeof this.children[h].value &&
             this.children[h].keyword == k;
 
           )
             h--;
           var h = h + 1,
             m = [];
-          k.slice(k.indexOf('_') + 1);
+          k.slice(k.indexOf("_") + 1);
           for (k = h; k < l; k++)
             m.push(this.children[k].copy()),
               (this.children[k].keyword = null),
@@ -4759,7 +4760,7 @@ $package('org.imatheq.formulaeditor.presentation');
           h = { row: this, index: h };
           e = this.getIndexChain(e);
           m = a.getButtonStatus();
-          a.actions.addAction('update', h, e, e, d, null, l, b, f, m, null);
+          a.actions.addAction("update", h, e, e, d, null, l, b, f, m, null);
           a.redraw(!0);
         }
       },
@@ -4770,18 +4771,18 @@ $package('org.imatheq.formulaeditor.presentation');
         if (1 < d) {
           var f = d - 1,
             h = b.children[f],
-            k = '',
+            k = "",
             l = h;
           for (
             hasKeyword = !1;
             0 <= f &&
             7 >= d - f &&
-            'string' == typeof h.value &&
+            "string" == typeof h.value &&
             l.hasSameStyle(h);
 
           ) {
             if (null !== h.keyword) {
-              var m = h.keyword.slice(0, h.keyword.indexOf('_')),
+              var m = h.keyword.slice(0, h.keyword.indexOf("_")),
                 r = m.length;
               if (7 < d - f - 1 + r) break;
               else (hasKeyword = !0), (k = m + k), (f -= r);
@@ -4805,7 +4806,7 @@ $package('org.imatheq.formulaeditor.presentation');
                 void 0 !== this.children[f].keyword &&
                 ((m = parseInt(
                   this.children[f].keyword.slice(
-                    this.children[f].keyword.indexOf('_') + 1
+                    this.children[f].keyword.indexOf("_") + 1
                   )
                 )),
                 (l = Math.max(l, m)));
@@ -4814,13 +4815,13 @@ $package('org.imatheq.formulaeditor.presentation');
             m = [];
             for (r = h; r < d; r++)
               m.push(b.children[r].copy()),
-                (b.children[r].keyword = k + '_' + (l + 1));
+                (b.children[r].keyword = k + "_" + (l + 1));
             e.initialize.apply(e, m);
             k = { row: b, index: h };
             d = b.getIndexChain(d);
             b = a.getButtonStatus();
             a.actions.addAction(
-              'setSymbFontAttrbs',
+              "setSymbFontAttrbs",
               k,
               d,
               d,
@@ -4889,7 +4890,7 @@ $package('org.imatheq.formulaeditor.presentation');
         if (null === e || void 0 === e) {
           if (0 == this.children.length)
             throw Error(
-              'Error in Row.getPrecedingCursorPosition: children length is 0.'
+              "Error in Row.getPrecedingCursorPosition: children length is 0."
             );
           return this.children[this.children.length - 1] instanceof
             org.imatheq.formulaeditor.presentation.NewlineSymbol
@@ -5072,9 +5073,9 @@ $package('org.imatheq.formulaeditor.presentation');
         h = h ? 2 * l + 2 * this.margin : k.dimensions.height + 2 * this.margin;
         this.leftBracket.minimumHeight = h;
         this.rightBracket.minimumHeight = h;
-        '' != this.leftBracket.value && this.leftBracket.draw(a, e, 0, 0, !0);
-        '' != this.rightBracket.value && this.rightBracket.draw(a, e, 0, 0, !0);
-        '' == this.leftBracket.value && '' == this.rightBracket.value
+        "" != this.leftBracket.value && this.leftBracket.draw(a, e, 0, 0, !0);
+        "" != this.rightBracket.value && this.rightBracket.draw(a, e, 0, 0, !0);
+        "" == this.leftBracket.value && "" == this.rightBracket.value
           ? ((this.leftBracket.dimensions = {
               top: m,
               left: k.dimensions.left,
@@ -5087,14 +5088,14 @@ $package('org.imatheq.formulaeditor.presentation');
               width: 0,
               height: r,
             }))
-          : '' == this.leftBracket.value
+          : "" == this.leftBracket.value
           ? (this.leftBracket.dimensions = {
               top: this.rightBracket.dimensions.top,
               left: k.dimensions.left,
               width: 0,
               height: this.rightBracket.dimensions.height,
             })
-          : '' == this.rightBracket.value &&
+          : "" == this.rightBracket.value &&
             (this.rightBracket.dimensions = {
               top: this.leftBracket.dimensions.top,
               left: k.dimensions.left + k.dimensions.width,
@@ -5109,20 +5110,20 @@ $package('org.imatheq.formulaeditor.presentation');
         var l = this.leftBracket.value,
           n = this.rightBracket.value;
         if (
-          '\u27e8' == l ||
-          '\u2329' == l ||
-          '<' == l ||
-          '\u2308' == l ||
-          '\u230a' == l
+          "\u27e8" == l ||
+          "\u2329" == l ||
+          "<" == l ||
+          "\u2308" == l ||
+          "\u230a" == l
         )
           (this.leftBracket.minimumHeight = h),
             this.leftBracket.draw(a, e, 0, 0, !0);
         if (
-          '\u27e9' == n ||
-          '\u2329' == n ||
-          '>' == n ||
-          '\u2309' == n ||
-          '\u230b' == n
+          "\u27e9" == n ||
+          "\u2329" == n ||
+          ">" == n ||
+          "\u2309" == n ||
+          "\u230b" == n
         )
           (this.rightBracket.minimumHeight = h),
             this.rightBracket.draw(a, e, 0, 0, !0);
@@ -5144,7 +5145,7 @@ $package('org.imatheq.formulaeditor.presentation');
           top: b + m - l,
         };
         if (!1 === f || null === f || void 0 === f)
-          '' != this.leftBracket.value &&
+          "" != this.leftBracket.value &&
             this.leftBracket.draw(
               a,
               e,
@@ -5163,7 +5164,7 @@ $package('org.imatheq.formulaeditor.presentation');
               b,
               f
             ),
-            '' != this.rightBracket.value &&
+            "" != this.rightBracket.value &&
               this.rightBracket.draw(
                 a,
                 e,
@@ -5180,27 +5181,27 @@ $package('org.imatheq.formulaeditor.presentation');
       },
       getFontSizeData: function (a, e, d) {
         var b = org.imatheq.formulaeditor.presentation;
-        if ('' != this.leftBracket.value) {
+        if ("" != this.leftBracket.value) {
           var f = this.leftBracket.onscreen
             ? this.leftBracket.onscreen
             : this.leftBracket.value;
           org.imatheq.formulaeditor.MathCanvas.symbolPositions[f] &&
             new b.Symbol(f).getFontSizeData(a, e, d, !0);
-          org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + '1']
-            ? new b.Symbol(f + '1').getFontSizeData(a, e, d, !0)
-            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + 'm'] &&
-              new b.Symbol(f + 'm').getFontSizeData(a, e, d, !0);
+          org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + "1"]
+            ? new b.Symbol(f + "1").getFontSizeData(a, e, d, !0)
+            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + "m"] &&
+              new b.Symbol(f + "m").getFontSizeData(a, e, d, !0);
         }
-        '' != this.rightBracket.value &&
+        "" != this.rightBracket.value &&
           ((f = this.rightBracket.onscreen
             ? this.rightBracket.onscreen
             : this.rightBracket.value),
           org.imatheq.formulaeditor.MathCanvas.symbolPositions[f] &&
             new b.Symbol(f).getFontSizeData(a, e, d, !0),
-          org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + '1']
-            ? new b.Symbol(f + '1').getFontSizeData(a, e, d, !0)
-            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + 'm'] &&
-              new b.Symbol(f + 'm').getFontSizeData(a, e, d, !0));
+          org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + "1"]
+            ? new b.Symbol(f + "1").getFontSizeData(a, e, d, !0)
+            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[f + "m"] &&
+              new b.Symbol(f + "m").getFontSizeData(a, e, d, !0));
         this.getFontSizeData.parent.getFontSizeData.call(this, a, e, d);
       },
       setSymbFontAttrbs: function (a) {
@@ -5210,15 +5211,15 @@ $package('org.imatheq.formulaeditor.presentation');
         this.isMO = !1;
       },
       functionsFromRow: [
-        'getFirstCursorPosition',
-        'getLastCursorPosition',
-        'getLowerCursorPosition',
-        'getHigherCursorPosition',
+        "getFirstCursorPosition",
+        "getLastCursorPosition",
+        "getLowerCursorPosition",
+        "getHigherCursorPosition",
       ],
       getCursorPosition: function (a, e, d) {
         var b;
         if (
-          '' != this.leftBracket.value &&
+          "" != this.leftBracket.value &&
           ((b = this.leftBracket.dimensions),
           e < b.left + Math.floor(b.width / 2))
         )
@@ -5228,7 +5229,7 @@ $package('org.imatheq.formulaeditor.presentation');
         b = this.children[0].dimensions;
         return e < b.left + b.width
           ? this.children[0].getCursorPosition(a, e, d)
-          : '' != this.rightBracket.value &&
+          : "" != this.rightBracket.value &&
             ((b = this.rightBracket.dimensions),
             e < b.left + Math.floor(b.width / 2))
           ? { row: this.children[0], index: this.children[0].children.length }
@@ -5266,29 +5267,29 @@ $package('org.imatheq.formulaeditor.presentation');
       getMathML: function () {
         var a, e;
         this.isMO
-          ? ((a = '<mrow>' + this.leftBracket.getMathML()),
-            (e = this.rightBracket.getMathML() + '</mrow>'))
+          ? ((a = "<mrow>" + this.leftBracket.getMathML()),
+            (e = this.rightBracket.getMathML() + "</mrow>"))
           : ((a =
-              '<mfenced' +
-              (this.in_attrbs ? this.in_attrbs : '') +
-              ('(' == this.leftBracket.value
+              "<mfenced" +
+              (this.in_attrbs ? this.in_attrbs : "") +
+              ("(" == this.leftBracket.value
                 ? this.in_open
                 : ' open="' + b.getEncodedStr(this.leftBracket) + '"') +
-              (')' == this.rightBracket.value
+              (")" == this.rightBracket.value
                 ? this.in_close
                 : ' close="' + b.getEncodedStr(this.rightBracket) + '"') +
               this.in_separators +
               (null === this.mathcolor ||
-              '' == this.mathcolor ||
-              'null' == this.mathcolor ||
-              '#000000' == this.mathcolor
-                ? ''
+              "" == this.mathcolor ||
+              "null" == this.mathcolor ||
+              "#000000" == this.mathcolor
+                ? ""
                 : ' mathcolor="' + this.mathcolor + '"') +
-              '>'),
-            (e = '</mfenced>'),
+              ">"),
+            (e = "</mfenced>"),
             null != this.symmetric &&
               ((a = '<mstyle symmetric="' + this.symmetric + '">' + a),
-              (e += '</mstyle>')));
+              (e += "</mstyle>")));
         for (var d = 0; d < this.children.length; d++)
           a += this.children[d].getMathML(!0);
         return a + e;
@@ -5297,10 +5298,10 @@ $package('org.imatheq.formulaeditor.presentation');
         for (
           var a = org.imatheq.formulaeditor.FormulaEditor.getEditor(),
             e =
-              '|' == this.leftBracket.value ||
-              '\u2225' == this.leftBracket.value ||
-              '' == this.leftBracket.value
-                ? a.getSymbolAltText('open_' + this.leftBracket.value)
+              "|" == this.leftBracket.value ||
+              "\u2225" == this.leftBracket.value ||
+              "" == this.leftBracket.value
+                ? a.getSymbolAltText("open_" + this.leftBracket.value)
                 : a.getSymbolAltText(this.leftBracket.value),
             d = 0;
           d < this.children.length;
@@ -5308,15 +5309,15 @@ $package('org.imatheq.formulaeditor.presentation');
         )
           e += this.children[d].getAltText();
         return (e +=
-          '|' == this.rightBracket.value ||
-          '\u2225' == this.rightBracket.value ||
-          '' == this.rightBracket.value
-            ? a.getSymbolAltText('close_' + this.rightBracket.value)
+          "|" == this.rightBracket.value ||
+          "\u2225" == this.rightBracket.value ||
+          "" == this.rightBracket.value
+            ? a.getSymbolAltText("close_" + this.rightBracket.value)
             : a.getSymbolAltText(this.rightBracket.value));
       },
       getSymmetric: function () {
         var a = new org.imatheq.formulaeditor.Options().getOption(
-          'defSymmetric'
+          "defSymmetric"
         );
         return null === this.symmetric ? a : this.symmetric;
       },
@@ -5324,13 +5325,13 @@ $package('org.imatheq.formulaeditor.presentation');
         this.symmetric = a;
       },
       updateEditTabButtons: function (a) {
-        a = document.getElementById('BRACKETS_SYMMETRIC_ON');
-        var e = document.getElementById('BRACKETS_SYMMETRIC_OFF');
+        a = document.getElementById("BRACKETS_SYMMETRIC_ON");
+        var e = document.getElementById("BRACKETS_SYMMETRIC_OFF");
         this.getSymmetric()
-          ? (a.classList.add('efmase_palettebutton_select'),
-            e.classList.remove('efmase_palettebutton_select'))
-          : (a.classList.remove('efmase_palettebutton_select'),
-            e.classList.add('efmase_palettebutton_select'));
+          ? (a.classList.add("efmase_palettebutton_select"),
+            e.classList.remove("efmase_palettebutton_select"))
+          : (a.classList.remove("efmase_palettebutton_select"),
+            e.classList.add("efmase_palettebutton_select"));
       },
     }
   );
@@ -5354,12 +5355,12 @@ $package('org.imatheq.formulaeditor.presentation');
         var f = this.value;
         null !== this.onscreen && (f = this.onscreen);
         return (this.dimensions =
-          '\u27e8' == f ||
-          '\u2329' == f ||
-          '<' == f ||
-          '\u27e9' == f ||
-          '\u232a' == f ||
-          '>' == f
+          "\u27e8" == f ||
+          "\u2329" == f ||
+          "<" == f ||
+          "\u27e9" == f ||
+          "\u232a" == f ||
+          ">" == f
             ? b.drawAngleBracket(
                 a,
                 f,
@@ -5370,7 +5371,7 @@ $package('org.imatheq.formulaeditor.presentation');
                 null,
                 this.mathcolor
               )
-            : '\u2308' == f || '\u230a' == f || '\u2309' == f || '\u230b' == f
+            : "\u2308" == f || "\u230a" == f || "\u2309" == f || "\u230b" == f
             ? b.drawCeilingFloorBracket(
                 a,
                 f,
@@ -5393,20 +5394,20 @@ $package('org.imatheq.formulaeditor.presentation');
               ));
       },
       getMathML: function () {
-        var b = '',
-          a = this.in_attrbs ? this.in_attrbs : '';
-        if ('' != this.value) {
+        var b = "",
+          a = this.in_attrbs ? this.in_attrbs : "";
+        if ("" != this.value) {
           for (var e in this)
             Object.prototype.hasOwnProperty.call(this, e) &&
-              'mo_' == e.substring(0, 3) &&
-              (a += ' ' + e.substring(3) + '="' + this[e] + '"');
+              "mo_" == e.substring(0, 3) &&
+              (a += " " + e.substring(3) + '="' + this[e] + '"');
           b =
-            '<mo' +
+            "<mo" +
             a +
             this.getStyleString() +
-            '>' +
+            ">" +
             com.efmase.js.utilities.toolset.getEncodedStr(this) +
-            '</mo>';
+            "</mo>";
         }
         return b;
       },
@@ -5439,8 +5440,8 @@ $package('org.imatheq.formulaeditor.presentation');
       },
       getFontSizeData: function (a, e, d) {
         var b = org.imatheq.formulaeditor.presentation;
-        new b.Symbol('(1').getFontSizeData(a, e, d, !0);
-        new b.Symbol('~1').getFontSizeData(a, e, d, !0);
+        new b.Symbol("(1").getFontSizeData(a, e, d, !0);
+        new b.Symbol("~1").getFontSizeData(a, e, d, !0);
       },
       draw: function (a, e, d, b, f) {
         var h = this.value;
@@ -5459,18 +5460,18 @@ $package('org.imatheq.formulaeditor.presentation');
       },
       getMathML: function () {
         return (
-          '<mo' +
-          (this.in_attrbs ? this.in_attrbs : '') +
+          "<mo" +
+          (this.in_attrbs ? this.in_attrbs : "") +
           this.getStyleString() +
-          '>' +
+          ">" +
           b.getEncodedStr(this) +
-          '</mo>'
+          "</mo>"
         );
       },
     }
   );
 })();
-$package('org.imatheq.formulaeditor.parsing.expression');
+$package("org.imatheq.formulaeditor.parsing.expression");
 (function () {
   org.imatheq.formulaeditor.parsing.expression.KeywordList = {};
 })();
@@ -5479,285 +5480,285 @@ $package('org.imatheq.formulaeditor.parsing.expression');
 })();
 (function () {
   org.imatheq.formulaeditor.parsing.expression.BracketList =
-    '()[]{}||\u27e8\u27e9\u2308\u2309\u230a\u230b\u2225\u2225';
+    "()[]{}||\u27e8\u27e9\u2308\u2309\u230a\u230b\u2225\u2225";
   org.imatheq.formulaeditor.parsing.expression.VertBracketList =
-    '_\u23de\u23df\u2322\u2323\u02d8^\u02c7\u2212\u00af\u033f~\u21c0\u21bc\u02d9\u00a8\u2026`\u00b4\u2192\u2190\u2194\u21d2\u21d0\u21d4\u03a3\u220f\u2210\u22c3\u22c2\u22c1\u22c0\u222b\u222d\u222c\u222e\u222f\u2230';
+    "_\u23de\u23df\u2322\u2323\u02d8^\u02c7\u2212\u00af\u033f~\u21c0\u21bc\u02d9\u00a8\u2026`\u00b4\u2192\u2190\u2194\u21d2\u21d0\u21d4\u03a3\u220f\u2210\u22c3\u22c2\u22c1\u22c0\u222b\u222d\u222c\u222e\u222f\u2230";
   org.imatheq.formulaeditor.parsing.expression.MidVertBracketList =
-    '\u21c0\u21bc\u02d9\u00a8\u2026\u2192\u2190\u2194\u21d2\u21d0\u21d4';
+    "\u21c0\u21bc\u02d9\u00a8\u2026\u2192\u2190\u2194\u21d2\u21d0\u21d4";
   org.imatheq.formulaeditor.parsing.expression.LargeopList =
-    '\u2211\u220f\u2210\u22c3\u22c2\u22c1\u22c0\u222b\u222d\u222c\u222e\u222f\u2230';
+    "\u2211\u220f\u2210\u22c3\u22c2\u22c1\u22c0\u222b\u222d\u222c\u222e\u222f\u2230";
   org.imatheq.formulaeditor.parsing.expression.DoubleStruckList = {
-    A: '\ud835\udd38',
-    B: '\ud835\udd39',
-    C: '\u2102',
-    D: '\ud835\udd3b',
-    E: '\ud835\udd3c',
-    F: '\ud835\udd3d',
-    G: '\ud835\udd3e',
-    H: '\u210d',
-    I: '\ud835\udd40',
-    J: '\ud835\udd41',
-    K: '\ud835\udd42',
-    L: '\ud835\udd43',
-    M: '\ud835\udd44',
-    N: '\u2115',
-    O: '\ud835\udd46',
-    P: '\u2119',
-    Q: '\u211a',
-    R: '\u211d',
-    S: '\ud835\udd4a',
-    T: '\ud835\udd4b',
-    U: '\ud835\udd4c',
-    V: '\ud835\udd4d',
-    W: '\ud835\udd4e',
-    X: '\ud835\udd4f',
-    Y: '\ud835\udd50',
-    Z: '\u2124',
+    A: "\ud835\udd38",
+    B: "\ud835\udd39",
+    C: "\u2102",
+    D: "\ud835\udd3b",
+    E: "\ud835\udd3c",
+    F: "\ud835\udd3d",
+    G: "\ud835\udd3e",
+    H: "\u210d",
+    I: "\ud835\udd40",
+    J: "\ud835\udd41",
+    K: "\ud835\udd42",
+    L: "\ud835\udd43",
+    M: "\ud835\udd44",
+    N: "\u2115",
+    O: "\ud835\udd46",
+    P: "\u2119",
+    Q: "\u211a",
+    R: "\u211d",
+    S: "\ud835\udd4a",
+    T: "\ud835\udd4b",
+    U: "\ud835\udd4c",
+    V: "\ud835\udd4d",
+    W: "\ud835\udd4e",
+    X: "\ud835\udd4f",
+    Y: "\ud835\udd50",
+    Z: "\u2124",
   };
   org.imatheq.formulaeditor.parsing.expression.ScriptList = {
-    A: '\ud835\udc9c',
-    B: '\u212c',
-    C: '\ud835\udc9e',
-    D: '\ud835\udc9f',
-    E: '\u2130',
-    F: '\u2131',
-    G: '\ud835\udca2',
-    H: '\u210b',
-    I: '\u2110',
-    J: '\ud835\udca5',
-    K: '\ud835\udca6',
-    L: '\u2112',
-    M: '\u2133',
-    N: '\ud835\udca9',
-    O: '\ud835\udcaa',
-    P: '\ud835\udcab',
-    Q: '\ud835\udcac',
-    R: '\u211b',
-    S: '\ud835\udcae',
-    T: '\ud835\udcaf',
-    U: '\ud835\udcb0',
-    V: '\ud835\udcb1',
-    W: '\ud835\udcb2',
-    X: '\ud835\udcb3',
-    Y: '\ud835\udcb4',
-    Z: '\ud835\udcb5',
-    a: '\ud835\udcb6',
-    b: '\ud835\udcb7',
-    c: '\ud835\udcb8',
-    d: '\ud835\udcb9',
-    e: '\u212f',
-    f: '\ud835\udcbb',
-    g: '\u210a',
-    h: '\ud835\udcbd',
-    i: '\ud835\udcbe',
-    j: '\ud835\udcbf',
-    k: '\ud835\udcc0',
-    l: '\ud835\udcc1',
-    m: '\ud835\udcc2',
-    n: '\ud835\udcc3',
-    o: '\u2134',
-    p: '\ud835\udcc5',
-    q: '\ud835\udcc6',
-    r: '\ud835\udcc7',
-    s: '\ud835\udcc8',
-    t: '\ud835\udcc9',
-    u: '\ud835\udcca',
-    v: '\ud835\udccb',
-    w: '\ud835\udccc',
-    x: '\ud835\udccd',
-    y: '\ud835\udcce',
-    z: '\ud835\udccf',
+    A: "\ud835\udc9c",
+    B: "\u212c",
+    C: "\ud835\udc9e",
+    D: "\ud835\udc9f",
+    E: "\u2130",
+    F: "\u2131",
+    G: "\ud835\udca2",
+    H: "\u210b",
+    I: "\u2110",
+    J: "\ud835\udca5",
+    K: "\ud835\udca6",
+    L: "\u2112",
+    M: "\u2133",
+    N: "\ud835\udca9",
+    O: "\ud835\udcaa",
+    P: "\ud835\udcab",
+    Q: "\ud835\udcac",
+    R: "\u211b",
+    S: "\ud835\udcae",
+    T: "\ud835\udcaf",
+    U: "\ud835\udcb0",
+    V: "\ud835\udcb1",
+    W: "\ud835\udcb2",
+    X: "\ud835\udcb3",
+    Y: "\ud835\udcb4",
+    Z: "\ud835\udcb5",
+    a: "\ud835\udcb6",
+    b: "\ud835\udcb7",
+    c: "\ud835\udcb8",
+    d: "\ud835\udcb9",
+    e: "\u212f",
+    f: "\ud835\udcbb",
+    g: "\u210a",
+    h: "\ud835\udcbd",
+    i: "\ud835\udcbe",
+    j: "\ud835\udcbf",
+    k: "\ud835\udcc0",
+    l: "\ud835\udcc1",
+    m: "\ud835\udcc2",
+    n: "\ud835\udcc3",
+    o: "\u2134",
+    p: "\ud835\udcc5",
+    q: "\ud835\udcc6",
+    r: "\ud835\udcc7",
+    s: "\ud835\udcc8",
+    t: "\ud835\udcc9",
+    u: "\ud835\udcca",
+    v: "\ud835\udccb",
+    w: "\ud835\udccc",
+    x: "\ud835\udccd",
+    y: "\ud835\udcce",
+    z: "\ud835\udccf",
   };
   org.imatheq.formulaeditor.parsing.expression.ScriptBoldList = {
-    A: '\ud835\udcd0',
-    B: '\ud835\udcd1',
-    C: '\ud835\udcd2',
-    D: '\ud835\udcd3',
-    E: '\ud835\udcd4',
-    F: '\ud835\udcd5',
-    G: '\ud835\udcd6',
-    H: '\ud835\udcd7',
-    I: '\ud835\udcd8',
-    J: '\ud835\udcd9',
-    K: '\ud835\udcda',
-    L: '\ud835\udcdb',
-    M: '\ud835\udcdc',
-    N: '\ud835\udcdd',
-    O: '\ud835\udcde',
-    P: '\ud835\udcdf',
-    Q: '\ud835\udce0',
-    R: '\ud835\udce1',
-    S: '\ud835\udce2',
-    T: '\ud835\udce3',
-    U: '\ud835\udce4',
-    V: '\ud835\udce5',
-    W: '\ud835\udce6',
-    X: '\ud835\udce7',
-    Y: '\ud835\udce8',
-    Z: '\ud835\udce9',
-    a: '\ud835\udcea',
-    b: '\ud835\udceb',
-    c: '\ud835\udcec',
-    d: '\ud835\udced',
-    e: '\ud835\udcee',
-    f: '\ud835\udcef',
-    g: '\ud835\udcf0',
-    h: '\ud835\udcf1',
-    i: '\ud835\udcf2',
-    j: '\ud835\udcf3',
-    k: '\ud835\udcf4',
-    l: '\ud835\udcf5',
-    m: '\ud835\udcf6',
-    n: '\ud835\udcf7',
-    o: '\ud835\udcf8',
-    p: '\ud835\udcf9',
-    q: '\ud835\udcfa',
-    r: '\ud835\udcfb',
-    s: '\ud835\udcfc',
-    t: '\ud835\udcfd',
-    u: '\ud835\udcfe',
-    v: '\ud835\udcff',
-    w: '\ud835\udd00',
-    x: '\ud835\udd01',
-    y: '\ud835\udd02',
-    z: '\ud835\udd03',
+    A: "\ud835\udcd0",
+    B: "\ud835\udcd1",
+    C: "\ud835\udcd2",
+    D: "\ud835\udcd3",
+    E: "\ud835\udcd4",
+    F: "\ud835\udcd5",
+    G: "\ud835\udcd6",
+    H: "\ud835\udcd7",
+    I: "\ud835\udcd8",
+    J: "\ud835\udcd9",
+    K: "\ud835\udcda",
+    L: "\ud835\udcdb",
+    M: "\ud835\udcdc",
+    N: "\ud835\udcdd",
+    O: "\ud835\udcde",
+    P: "\ud835\udcdf",
+    Q: "\ud835\udce0",
+    R: "\ud835\udce1",
+    S: "\ud835\udce2",
+    T: "\ud835\udce3",
+    U: "\ud835\udce4",
+    V: "\ud835\udce5",
+    W: "\ud835\udce6",
+    X: "\ud835\udce7",
+    Y: "\ud835\udce8",
+    Z: "\ud835\udce9",
+    a: "\ud835\udcea",
+    b: "\ud835\udceb",
+    c: "\ud835\udcec",
+    d: "\ud835\udced",
+    e: "\ud835\udcee",
+    f: "\ud835\udcef",
+    g: "\ud835\udcf0",
+    h: "\ud835\udcf1",
+    i: "\ud835\udcf2",
+    j: "\ud835\udcf3",
+    k: "\ud835\udcf4",
+    l: "\ud835\udcf5",
+    m: "\ud835\udcf6",
+    n: "\ud835\udcf7",
+    o: "\ud835\udcf8",
+    p: "\ud835\udcf9",
+    q: "\ud835\udcfa",
+    r: "\ud835\udcfb",
+    s: "\ud835\udcfc",
+    t: "\ud835\udcfd",
+    u: "\ud835\udcfe",
+    v: "\ud835\udcff",
+    w: "\ud835\udd00",
+    x: "\ud835\udd01",
+    y: "\ud835\udd02",
+    z: "\ud835\udd03",
   };
   org.imatheq.formulaeditor.parsing.expression.FrakturList = {
-    A: '\ud835\udd04',
-    B: '\ud835\udd05',
-    C: '\u212d',
-    D: '\ud835\udd07',
-    E: '\ud835\udd08',
-    F: '\ud835\udd09',
-    G: '\ud835\udd0a',
-    H: '\u210c',
-    I: '\u2111',
-    J: '\ud835\udd0d',
-    K: '\ud835\udd0e',
-    L: '\ud835\udd0f',
-    M: '\ud835\udd10',
-    N: '\ud835\udd11',
-    O: '\ud835\udd12',
-    P: '\ud835\udd13',
-    Q: '\ud835\udd14',
-    R: '\u211c',
-    S: '\ud835\udd16',
-    T: '\ud835\udd17',
-    U: '\ud835\udd18',
-    V: '\ud835\udd19',
-    W: '\ud835\udd1a',
-    X: '\ud835\udd1b',
-    Y: '\ud835\udd1c',
-    Z: '\u2128',
-    a: '\ud835\udd1e',
-    b: '\ud835\udd1f',
-    c: '\ud835\udd20',
-    d: '\ud835\udd21',
-    e: '\ud835\udd22',
-    f: '\ud835\udd23',
-    g: '\ud835\udd24',
-    h: '\ud835\udd25',
-    i: '\ud835\udd26',
-    j: '\ud835\udd27',
-    k: '\ud835\udd28',
-    l: '\ud835\udd29',
-    m: '\ud835\udd2a',
-    n: '\ud835\udd2b',
-    o: '\ud835\udd2c',
-    p: '\ud835\udd2d',
-    q: '\ud835\udd2e',
-    r: '\ud835\udd2f',
-    s: '\ud835\udd30',
-    t: '\ud835\udd31',
-    u: '\ud835\udd32',
-    v: '\ud835\udd33',
-    w: '\ud835\udd34',
-    x: '\ud835\udd35',
-    y: '\ud835\udd36',
-    z: '\ud835\udd37',
+    A: "\ud835\udd04",
+    B: "\ud835\udd05",
+    C: "\u212d",
+    D: "\ud835\udd07",
+    E: "\ud835\udd08",
+    F: "\ud835\udd09",
+    G: "\ud835\udd0a",
+    H: "\u210c",
+    I: "\u2111",
+    J: "\ud835\udd0d",
+    K: "\ud835\udd0e",
+    L: "\ud835\udd0f",
+    M: "\ud835\udd10",
+    N: "\ud835\udd11",
+    O: "\ud835\udd12",
+    P: "\ud835\udd13",
+    Q: "\ud835\udd14",
+    R: "\u211c",
+    S: "\ud835\udd16",
+    T: "\ud835\udd17",
+    U: "\ud835\udd18",
+    V: "\ud835\udd19",
+    W: "\ud835\udd1a",
+    X: "\ud835\udd1b",
+    Y: "\ud835\udd1c",
+    Z: "\u2128",
+    a: "\ud835\udd1e",
+    b: "\ud835\udd1f",
+    c: "\ud835\udd20",
+    d: "\ud835\udd21",
+    e: "\ud835\udd22",
+    f: "\ud835\udd23",
+    g: "\ud835\udd24",
+    h: "\ud835\udd25",
+    i: "\ud835\udd26",
+    j: "\ud835\udd27",
+    k: "\ud835\udd28",
+    l: "\ud835\udd29",
+    m: "\ud835\udd2a",
+    n: "\ud835\udd2b",
+    o: "\ud835\udd2c",
+    p: "\ud835\udd2d",
+    q: "\ud835\udd2e",
+    r: "\ud835\udd2f",
+    s: "\ud835\udd30",
+    t: "\ud835\udd31",
+    u: "\ud835\udd32",
+    v: "\ud835\udd33",
+    w: "\ud835\udd34",
+    x: "\ud835\udd35",
+    y: "\ud835\udd36",
+    z: "\ud835\udd37",
   };
   org.imatheq.formulaeditor.parsing.expression.FrakturBoldList = {
-    A: '\ud835\udd6c',
-    B: '\ud835\udd6d',
-    C: '\ud835\udd6e',
-    D: '\ud835\udd6f',
-    E: '\ud835\udd70',
-    F: '\ud835\udd71',
-    G: '\ud835\udd72',
-    H: '\ud835\udd73',
-    I: '\ud835\udd74',
-    J: '\ud835\udd75',
-    K: '\ud835\udd76',
-    L: '\ud835\udd77',
-    M: '\ud835\udd78',
-    N: '\ud835\udd79',
-    O: '\ud835\udd7a',
-    P: '\ud835\udd7b',
-    Q: '\ud835\udd7c',
-    R: '\ud835\udd7d',
-    S: '\ud835\udd7e',
-    T: '\ud835\udd7f',
-    U: '\ud835\udd80',
-    V: '\ud835\udd81',
-    W: '\ud835\udd82',
-    X: '\ud835\udd83',
-    Y: '\ud835\udd84',
-    Z: '\ud835\udd85',
-    a: '\ud835\udd86',
-    b: '\ud835\udd87',
-    c: '\ud835\udd88',
-    d: '\ud835\udd89',
-    e: '\ud835\udd8a',
-    f: '\ud835\udd8b',
-    g: '\ud835\udd8c',
-    h: '\ud835\udd8d',
-    i: '\ud835\udd8e',
-    j: '\ud835\udd8f',
-    k: '\ud835\udd90',
-    l: '\ud835\udd91',
-    m: '\ud835\udd92',
-    n: '\ud835\udd93',
-    o: '\ud835\udd94',
-    p: '\ud835\udd95',
-    q: '\ud835\udd96',
-    r: '\ud835\udd97',
-    s: '\ud835\udd98',
-    t: '\ud835\udd99',
-    u: '\ud835\udd9a',
-    v: '\ud835\udd9b',
-    w: '\ud835\udd9c',
-    x: '\ud835\udd9d',
-    y: '\ud835\udd9e',
-    z: '\ud835\udd9f',
+    A: "\ud835\udd6c",
+    B: "\ud835\udd6d",
+    C: "\ud835\udd6e",
+    D: "\ud835\udd6f",
+    E: "\ud835\udd70",
+    F: "\ud835\udd71",
+    G: "\ud835\udd72",
+    H: "\ud835\udd73",
+    I: "\ud835\udd74",
+    J: "\ud835\udd75",
+    K: "\ud835\udd76",
+    L: "\ud835\udd77",
+    M: "\ud835\udd78",
+    N: "\ud835\udd79",
+    O: "\ud835\udd7a",
+    P: "\ud835\udd7b",
+    Q: "\ud835\udd7c",
+    R: "\ud835\udd7d",
+    S: "\ud835\udd7e",
+    T: "\ud835\udd7f",
+    U: "\ud835\udd80",
+    V: "\ud835\udd81",
+    W: "\ud835\udd82",
+    X: "\ud835\udd83",
+    Y: "\ud835\udd84",
+    Z: "\ud835\udd85",
+    a: "\ud835\udd86",
+    b: "\ud835\udd87",
+    c: "\ud835\udd88",
+    d: "\ud835\udd89",
+    e: "\ud835\udd8a",
+    f: "\ud835\udd8b",
+    g: "\ud835\udd8c",
+    h: "\ud835\udd8d",
+    i: "\ud835\udd8e",
+    j: "\ud835\udd8f",
+    k: "\ud835\udd90",
+    l: "\ud835\udd91",
+    m: "\ud835\udd92",
+    n: "\ud835\udd93",
+    o: "\ud835\udd94",
+    p: "\ud835\udd95",
+    q: "\ud835\udd96",
+    r: "\ud835\udd97",
+    s: "\ud835\udd98",
+    t: "\ud835\udd99",
+    u: "\ud835\udd9a",
+    v: "\ud835\udd9b",
+    w: "\ud835\udd9c",
+    x: "\ud835\udd9d",
+    y: "\ud835\udd9e",
+    z: "\ud835\udd9f",
   };
   org.imatheq.formulaeditor.parsing.expression.RevList = {};
   com.efmase.js.utilities.toolset.swap();
 })();
 (function () {
   org.imatheq.formulaeditor.parsing.expression.NonItalicMiList =
-    '\u221e\u2102\u2145\u210d\u212a\u2115\u2119\u211a\u211d\u2124\u2135\u2205';
+    "\u221e\u2102\u2145\u210d\u212a\u2115\u2119\u211a\u211d\u2124\u2135\u2205";
 })();
-$package('org.imatheq.parsing');
-$package('org.imatheq.formulaeditor.options');
+$package("org.imatheq.parsing");
+$package("org.imatheq.formulaeditor.options");
 (function () {
   org.imatheq.formulaeditor.Options = $extend(Object, {
     defaultOptions: {
       debug: !1,
       continuingNavigation: !0,
-      decimalMark: '.',
+      decimalMark: ".",
       featureUndo: !0,
-      modeArith1Divide: 'restricted',
-      optionVerboseStyle: 'false',
-      optionArith1UnaryMinusBrackets: 'false',
-      optionInterval1Brackets: { lo: '(', lc: '[', ro: ')', rc: ']' },
+      modeArith1Divide: "restricted",
+      optionVerboseStyle: "false",
+      optionArith1UnaryMinusBrackets: "false",
+      optionInterval1Brackets: { lo: "(", lc: "[", ro: ")", rc: "]" },
       optionResizeBrackets: !0,
-      styleArith1Divide: 'mfrac',
-      styleArith1Times: 'cross',
-      styleTransc1Log: 'function',
-      symbolArith1Times: '\u00b7',
+      styleArith1Divide: "mfrac",
+      styleArith1Times: "cross",
+      styleTransc1Log: "function",
+      symbolArith1Times: "\u00b7",
       defaultFontNameIdx: 0,
       defaultFontSizeIdx: 6,
-      defaultFont4NewSymbol: 'Times New Roman',
+      defaultFont4NewSymbol: "Times New Roman",
       defAutoItalic: !0,
       defSymmetric: !0,
       stretchMOBrackets: !0,
@@ -5771,85 +5772,85 @@ $package('org.imatheq.formulaeditor.options');
         : null;
     },
     getArith1DivideMode: function () {
-      var b = this.getOption('modeArith1Divide');
-      return 'normal' == b || 'restricted' == b || 'inline' == b
+      var b = this.getOption("modeArith1Divide");
+      return "normal" == b || "restricted" == b || "inline" == b
         ? b
-        : 'restricted';
+        : "restricted";
     },
     getArith1PowerOptionInversePrefix: function () {
-      return 'true' == this.getOption('optionArith1PowerInversePrefix')
-        ? 'true'
-        : 'false';
+      return "true" == this.getOption("optionArith1PowerInversePrefix")
+        ? "true"
+        : "false";
     },
     getArith1PowerOptionPrefix: function () {
-      return 'true' == this.getOption('optionArith1PowerPrefix')
-        ? 'true'
-        : 'false';
+      return "true" == this.getOption("optionArith1PowerPrefix")
+        ? "true"
+        : "false";
     },
     getArith1TimesStyle: function () {
-      var b = this.getOption('styleArith1Times');
-      return 'dot' == b || 'cross' == b || 'star' == b
+      var b = this.getOption("styleArith1Times");
+      return "dot" == b || "cross" == b || "star" == b
         ? b
         : this.defaultOptions.styleArith1Times;
     },
     getArith1TimesSymbol: function () {
-      var b = this.getOption('styleArith1Times');
-      return 'dot' == b
-        ? '\u00b7'
-        : 'cross' == b
-        ? '\u00d7'
-        : 'star' == b
-        ? '*'
+      var b = this.getOption("styleArith1Times");
+      return "dot" == b
+        ? "\u00b7"
+        : "cross" == b
+        ? "\u00d7"
+        : "star" == b
+        ? "*"
         : this.defaultOptions.symbolArith1Times;
     },
     getArith1UnaryMinusOptionBrackets: function () {
-      return 'true' == this.getOption('optionArith1UnaryMinusBrackets')
-        ? 'true'
-        : 'false';
+      return "true" == this.getOption("optionArith1UnaryMinusBrackets")
+        ? "true"
+        : "false";
     },
     getDecimalMark: function () {
-      var b = this.getOption('decimalMark');
-      return '.' === b || ',' === b ? b : this.defaultOptions.decimalMark;
+      var b = this.getOption("decimalMark");
+      return "." === b || "," === b ? b : this.defaultOptions.decimalMark;
     },
     getContinuingNavigation: function () {
-      var b = this.getOption('continuingNavigation');
+      var b = this.getOption("continuingNavigation");
       return 1 == b || 0 == b ? b : this.defaultOptions.optionResizeBrackets;
     },
     getInterval1BracketsOption: function () {
-      var b = this.getOption('continuingNavigation');
-      return 'object' === typeof b &&
-        'string' === typeof b.lo &&
-        'string' === typeof b.lc &&
-        'string' === typeof b.ro &&
-        'string' === typeof b.rc
+      var b = this.getOption("continuingNavigation");
+      return "object" === typeof b &&
+        "string" === typeof b.lo &&
+        "string" === typeof b.lc &&
+        "string" === typeof b.ro &&
+        "string" === typeof b.rc
         ? b
         : this.defaultOptions.optionInterval1Brackets;
     },
     getListSeparator: function () {
       var b = this.getDecimalMark();
-      if ('.' === b) return ',';
-      if (',' === b) return ';';
-      alert('Options: unable to get listseparator.');
+      if ("." === b) return ",";
+      if ("," === b) return ";";
+      alert("Options: unable to get listseparator.");
       return null;
     },
     getListSeparatorFixed: function () {
-      var b = this.getOption('optionListSeparatorFixed'),
+      var b = this.getOption("optionListSeparatorFixed"),
         a = this.getListSeparator();
       return null !== b ? b : a;
     },
     getResizeBracketsOption: function () {
-      var b = this.getOption('optionResizeBrackets');
+      var b = this.getOption("optionResizeBrackets");
       return 1 == b || 0 == b ? b : this.defaultOptions.optionResizeBrackets;
     },
     getTransc1LogStyle: function () {
-      var b = this.getOption('styleTransc1Log');
-      return 'prefix' == b || 'postfix' == b || 'function' == b
+      var b = this.getOption("styleTransc1Log");
+      return "prefix" == b || "postfix" == b || "function" == b
         ? b
         : this.defaultOptions.styleTransc1Log;
     },
     getVerboseStyleOption: function () {
-      var b = this.getOption('optionVerboseStyle');
-      return 'true' == b || 'false' == b
+      var b = this.getOption("optionVerboseStyle");
+      return "true" == b || "false" == b
         ? b
         : this.defaultOptions.optionVerboseStyle;
     },
@@ -5918,10 +5919,10 @@ $package('org.imatheq.formulaeditor.options');
       return e;
     };
 })();
-$package('org.imatheq.formulaeditor.parsing.xml');
+$package("org.imatheq.formulaeditor.parsing.xml");
 (function () {
   org.imatheq.formulaeditor.parsing.xml.XMLParser = $extend(Object, {
-    name: 'XMLParser',
+    name: "XMLParser",
     xmldoc: null,
     parse: function (b, a) {
       var e,
@@ -5930,15 +5931,15 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         f;
       for (e = 0; e < b.childNodes.length; e++) {
         g = b.childNodes.item(e);
-        f = g.getAttribute('id');
+        f = g.getAttribute("id");
         var h = this.handle(g);
         d[f] = {
           id: f,
-          w: g.getAttribute('w'),
-          h: g.getAttribute('h'),
-          l: g.getAttribute('l'),
-          t: g.getAttribute('t'),
-          b: g.getAttribute('b'),
+          w: g.getAttribute("w"),
+          h: g.getAttribute("h"),
+          l: g.getAttribute("l"),
+          t: g.getAttribute("t"),
+          b: g.getAttribute("b"),
           entry: h,
         };
       }
@@ -5947,51 +5948,51 @@ $package('org.imatheq.formulaeditor.parsing.xml');
     loadXml: function (b) {
       var a,
         e = b.match(/\s*<[^(>|\s)]*\s*/);
-      if (null === e) throw Error('Invalid XML string: ' + b);
+      if (null === e) throw Error("Invalid XML string: " + b);
       if (window.DOMParser) {
         parser = new DOMParser();
         try {
-          a = parser.parseFromString(b, 'text/xml');
+          a = parser.parseFromString(b, "text/xml");
         } catch (d) {
-          throw Error('XML parsing error.');
+          throw Error("XML parsing error.");
         }
       } else
-        (a = new ActiveXObject('Microsoft.XMLDOM')),
+        (a = new ActiveXObject("Microsoft.XMLDOM")),
           (a.async = !1),
           a.loadXML(b);
       b = null;
       if (a.parseError && 0 != a.parseError.errorCode)
         throw (
           ((b =
-            'XML Parsing Error: ' +
+            "XML Parsing Error: " +
             a.parseError.reason +
-            ' at line ' +
+            " at line " +
             a.parseError.line +
-            ' at position ' +
+            " at position " +
             a.parseError.linepos),
           Error(b))
         );
       if (
         a.documentElement.localName != e[0].trim().slice(1) &&
-        'math/' != e[0].trim().slice(1)
+        "math/" != e[0].trim().slice(1)
       )
         throw Error(
-          'Error parsing XML: wrong root node' +
+          "Error parsing XML: wrong root node" +
             a.documentElement.localName +
-            ', instead of ' +
+            ", instead of " +
             e[0].slice(1) +
-            ' returned'
+            " returned"
         );
       return a;
     },
     parseString: function (b, a, e) {
       var d = org.imatheq.formulaeditor.presentation;
-      if ('string' != typeof b)
-        throw Error('Error in parseString(): input not string');
-      b = b.replace(/&nbsp;/g, '&#xa0;');
+      if ("string" != typeof b)
+        throw Error("Error in parseString(): input not string");
+      b = b.replace(/&nbsp;/g, "&#xa0;");
       this.xmldoc = b = this.loadXml(b);
       b = b.documentElement;
-      if ('math' != b.localName.toLowerCase()) {
+      if ("math" != b.localName.toLowerCase()) {
         var g = this.loadXml(
           '<math xmlns="http://www.w3.org/1998/Math/MathML"/>'
         );
@@ -6003,7 +6004,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       else return null;
       if (
         1 == b.childNodes.length &&
-        'mrow' == b.childNodes.item(0).localName.toLowerCase()
+        "mrow" == b.childNodes.item(0).localName.toLowerCase()
       ) {
         var f = b.childNodes.item(0);
         for (b.removeChild(f); 0 < f.childNodes.length; )
@@ -6012,10 +6013,10 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       if (null !== e && void 0 !== e && e)
         for (e = b.childNodes.length - 1; 0 <= e; e--)
           (g = b.childNodes.item(e)),
-            ('mo' != g.localName.toLowerCase() &&
-              'mspace' != g.localName.toLowerCase()) ||
-              null === g.getAttribute('linebreak') ||
-              'newline' != g.getAttribute('linebreak').toLowerCase() ||
+            ("mo" != g.localName.toLowerCase() &&
+              "mspace" != g.localName.toLowerCase()) ||
+              null === g.getAttribute("linebreak") ||
+              "newline" != g.getAttribute("linebreak").toLowerCase() ||
               b.removeChild(g);
       e = null;
       return (e =
@@ -6025,47 +6026,47 @@ $package('org.imatheq.formulaeditor.parsing.xml');
     },
     handle: function (b, a) {
       if (null === b.localName) return null;
-      var e = 'handle' + b.localName.replace('-', '');
+      var e = "handle" + b.localName.replace("-", "");
       if (e in this) {
         var d = b.parentNode,
-          g = b.getAttribute('mathvariant'),
-          f = b.getAttribute('mathcolor'),
-          h = b.getAttribute('symmetric');
-        'math' != b.localName.toLowerCase() &&
+          g = b.getAttribute("mathvariant"),
+          f = b.getAttribute("mathcolor"),
+          h = b.getAttribute("symmetric");
+        "math" != b.localName.toLowerCase() &&
           null !== d &&
           void 0 !== d &&
           (null === g &&
-            null !== d.getAttribute('mathvariant') &&
-            ((g = d.getAttribute('mathvariant')),
-            b.setAttribute('mathvariant', g)),
+            null !== d.getAttribute("mathvariant") &&
+            ((g = d.getAttribute("mathvariant")),
+            b.setAttribute("mathvariant", g)),
           null === f &&
-            null !== d.getAttribute('mathcolor') &&
-            ((f = d.getAttribute('mathcolor')), b.setAttribute('mathcolor', f)),
+            null !== d.getAttribute("mathcolor") &&
+            ((f = d.getAttribute("mathcolor")), b.setAttribute("mathcolor", f)),
           null === h &&
-            null !== d.getAttribute('symmetric') &&
-            ((h = d.getAttribute('symmetric')),
-            b.setAttribute('symmetric', h)));
+            null !== d.getAttribute("symmetric") &&
+            ((h = d.getAttribute("symmetric")),
+            b.setAttribute("symmetric", h)));
         d = null;
         d = null !== a && void 0 !== a ? this[e](b, a) : this[e](b);
-        'mi' != b.localName &&
-          'mn' != b.localName &&
-          'mo' != b.localName &&
-          'ms' != b.localName &&
-          'mtext' != b.localName &&
+        "mi" != b.localName &&
+          "mn" != b.localName &&
+          "mo" != b.localName &&
+          "ms" != b.localName &&
+          "mtext" != b.localName &&
           (null !== g &&
-            ('normal' == g.toLowerCase()
+            ("normal" == g.toLowerCase()
               ? ((d.bold = !1), (d.forcedItalic = !1), (d.autoItalic = !1))
-              : 'bold' == g.toLowerCase()
+              : "bold" == g.toLowerCase()
               ? ((d.bold = !0), (d.forcedItalic = !1), (d.autoItalic = !1))
-              : 'italic' == g.toLowerCase()
+              : "italic" == g.toLowerCase()
               ? ((d.bold = !1), (d.forcedItalic = !0), (d.autoItalic = !1))
-              : 'bold-italic' == g.toLowerCase() &&
+              : "bold-italic" == g.toLowerCase() &&
                 ((d.bold = !0), (d.forcedItalic = !0), (d.autoItalic = !1))),
           null !== f && (d.mathcolor = f));
         return d;
       }
       throw Error(
-        this.name + " doesn't know how to handle this node: " + b + '. INFO: 1.'
+        this.name + " doesn't know how to handle this node: " + b + ". INFO: 1."
       );
     },
     removeComments: function (b) {
@@ -6080,16 +6081,16 @@ $package('org.imatheq.formulaeditor.parsing.xml');
     removeWhitespace: function (b) {
       for (var a = b.childNodes, e = a.length - 1; 0 <= e; e--) {
         var d = a.item(e);
-        if (d && 'mtext' != d.parentNode.localName.toLowerCase())
+        if (d && "mtext" != d.parentNode.localName.toLowerCase())
           if (3 == d.nodeType) {
             var g = d.nodeValue.trim();
-            '' === g &&
-            'mo' == d.parentNode.localName.toLowerCase() &&
+            "" === g &&
+            "mo" == d.parentNode.localName.toLowerCase() &&
             1 == d.parentNode.childNodes.length
-              ? -1 != d.nodeValue.indexOf('\u00a0')
-                ? (d.nodeValue = '\u00a0')
-                : -1 != d.nodeValue.charAt(' ') && (d.nodeValue = ' ')
-              : '' === g && b.removeChild(d);
+              ? -1 != d.nodeValue.indexOf("\u00a0")
+                ? (d.nodeValue = "\u00a0")
+                : -1 != d.nodeValue.charAt(" ") && (d.nodeValue = " ")
+              : "" === g && b.removeChild(d);
           } else d.hasChildNodes() && this.removeWhitespace(d);
       }
     },
@@ -6102,21 +6103,21 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             : null,
         g = { fence: !1, stretchy: !1 };
       void 0 !== e && void 0 !== e[a] && null !== e[a]
-        ? (-1 != e[a].pp.indexOf('fence') && (g.fence = !0),
-          -1 != e[a].pp.indexOf('stretchy') && (g.stretchy = !0))
+        ? (-1 != e[a].pp.indexOf("fence") && (g.fence = !0),
+          -1 != e[a].pp.indexOf("stretchy") && (g.stretchy = !0))
         : d &&
           void 0 !== d[a] &&
           null !== d[a] &&
-          (-1 != d[a].pp.indexOf('fence') && (g.fence = !0),
-          -1 != d[a].pp.indexOf('stretchy') && (g.stretchy = !0));
+          (-1 != d[a].pp.indexOf("fence") && (g.fence = !0),
+          -1 != d[a].pp.indexOf("stretchy") && (g.stretchy = !0));
       return g;
     },
     isStretchy: function (b, a) {
-      if (null !== a.getAttribute('stretchy')) {
+      if (null !== a.getAttribute("stretchy")) {
         var e =
-          'false' == a.getAttribute('stretchy').toLowerCase()
+          "false" == a.getAttribute("stretchy").toLowerCase()
             ? !1
-            : 'true' == a.getAttribute('stretchy').toLowerCase()
+            : "true" == a.getAttribute("stretchy").toLowerCase()
             ? !0
             : null;
         if (null !== e) return e;
@@ -6126,8 +6127,8 @@ $package('org.imatheq.formulaeditor.parsing.xml');
     areBracketsPaired: function (b, a) {
       var e = org.imatheq.formulaeditor.presentation.SymbolOnscreens,
         d = org.imatheq.formulaeditor.parsing.expression.BracketList,
-        g = null === e[b] ? 'A' : e[b],
-        e = null === e[a] ? 'A' : e[a],
+        g = null === e[b] ? "A" : e[b],
+        e = null === e[a] ? "A" : e[a],
         g =
           -1 != d.indexOf(b)
             ? d.indexOf(b)
@@ -6146,32 +6147,32 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       if (null !== a)
         for (var d = 0; d < a.attributes.length; d++) {
           var g = a.attributes[d];
-          b.setAttribute(e + '_' + g.name, g.value);
+          b.setAttribute(e + "_" + g.name, g.value);
         }
     },
     MOsToMfenced: function (b, a, e, d, g, f, h, k) {
       var l = b.childNodes,
-        m = this.xmldoc.createElement('mfenced');
-      m.setAttribute('isMO', 'true');
-      null !== k && m.setAttribute('symmetric', k);
+        m = this.xmldoc.createElement("mfenced");
+      m.setAttribute("isMO", "true");
+      null !== k && m.setAttribute("symmetric", k);
       var r = a + 1;
       d
         ? ((k = l[a]),
-          m.setAttribute('open', k.firstChild.nodeValue.trim()),
-          m.setAttribute('o_stretchy', f),
-          this.copyMOAttributes(m, k, 'open'))
+          m.setAttribute("open", k.firstChild.nodeValue.trim()),
+          m.setAttribute("o_stretchy", f),
+          this.copyMOAttributes(m, k, "open"))
         : ((k = null),
           r--,
-          m.setAttribute('open', ''),
-          m.setAttribute('o_stretchy', 'false'));
+          m.setAttribute("open", ""),
+          m.setAttribute("o_stretchy", "false"));
       g
         ? ((f = l[e]),
-          m.setAttribute('close', f.firstChild.nodeValue.trim()),
-          m.setAttribute('c_stretchy', h),
-          this.copyMOAttributes(m, f, 'close'))
+          m.setAttribute("close", f.firstChild.nodeValue.trim()),
+          m.setAttribute("c_stretchy", h),
+          this.copyMOAttributes(m, f, "close"))
         : ((f = null),
-          m.setAttribute('close', ''),
-          m.setAttribute('c_stretchy', 'false'));
+          m.setAttribute("close", ""),
+          m.setAttribute("c_stretchy", "false"));
       e = (g ? e : e + 1) - r;
       d = d ? k : f;
       for (g = 0; g < e; g++) m.appendChild(l[r]);
@@ -6185,7 +6186,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         var g = d.item(a);
         if (
           g &&
-          'mo' == g.localName.toLowerCase() &&
+          "mo" == g.localName.toLowerCase() &&
           1 == g.childNodes.length &&
           3 == g.childNodes.item(0).nodeType
         ) {
@@ -6194,7 +6195,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             k = this.getMOPP(f, 2),
             f = this.isStretchy(h, g),
             l = this.isStretchy(k, g),
-            g = g.getAttribute('symmetric');
+            g = g.getAttribute("symmetric");
           if (
             (1 == e && h.fence && !k.fence && f) ||
             (2 == e && h.fence && k.fence)
@@ -6224,11 +6225,11 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         k = this.getMOPP(g, 2),
         l = this.isStretchy(h, f);
       this.isStretchy(k, f);
-      for (var f = f.getAttribute('symmetric'), m = a + 1; m < d.length; m++) {
+      for (var f = f.getAttribute("symmetric"), m = a + 1; m < d.length; m++) {
         var r = d.item(m);
         if (
           r &&
-          'mo' == r.localName.toLowerCase() &&
+          "mo" == r.localName.toLowerCase() &&
           1 == r.childNodes.length &&
           3 == r.childNodes.item(0).nodeType
         ) {
@@ -6237,7 +6238,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             t = this.getMOPP(n, 0),
             q = this.isStretchy(t, r),
             u = this.isStretchy(p, r);
-          r.getAttribute('symmetric');
+          r.getAttribute("symmetric");
           if (
             (1 == e && h.fence && !k.fence && !t.fence && p.fence) ||
             (2 == e &&
@@ -6378,21 +6379,21 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       },
       getMathML: function () {
         return (
-          '<mfrac' +
-          (this.in_attrbs ? this.in_attrbs : '') +
+          "<mfrac" +
+          (this.in_attrbs ? this.in_attrbs : "") +
           (null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"') +
           (null === this.lineWidth
-            ? ''
+            ? ""
             : ' linethickness="' + this.lineWidth + '"') +
-          '>' +
+          ">" +
           this.children[0].getMathML(!0) +
           this.children[1].getMathML(!0) +
-          '</mfrac>'
+          "</mfrac>"
         );
       },
       getAltText: function () {
@@ -6404,8 +6405,8 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               ? 1
               : 0
           ]
-            .replace('$0$', this.children[0].getAltText().trim())
-            .replace('$1$', this.children[1].getAltText().trim()),
+            .replace("$0$", this.children[0].getAltText().trim())
+            .replace("$1$", this.children[1].getAltText().trim()),
           e = a.trim();
         null !== b.altstrs[e] && void 0 !== b.altstrs[e] && (a = b.altstrs[e]);
         return a;
@@ -6417,9 +6418,9 @@ $package('org.imatheq.formulaeditor.parsing.xml');
   org.imatheq.formulaeditor.presentation.VerticalBracketed = $extend(
     org.imatheq.formulaeditor.presentation.Node,
     {
-      mtype: 'mover',
-      accent: '',
-      accentunder: '',
+      mtype: "mover",
+      accent: "",
+      accentunder: "",
       middle: null,
       upperBracket: null,
       lowerBracket: null,
@@ -6447,27 +6448,27 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       },
       getFontSizeData: function (b, a, e) {
         var d = org.imatheq.formulaeditor.presentation;
-        if ('' != this.upperBracket.value) {
+        if ("" != this.upperBracket.value) {
           var g = this.upperBracket.onscreen
             ? this.upperBracket.onscreen
             : this.upperBracket.value;
           org.imatheq.formulaeditor.MathCanvas.symbolPositions[g] &&
             new d.Symbol(g).getFontSizeData(b, a, e, !0);
-          org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + '1']
-            ? new d.Symbol(g + '1').getFontSizeData(b, a, e, !0)
-            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + 'm'] &&
-              new d.Symbol(g + 'm').getFontSizeData(b, a, e, !0);
+          org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + "1"]
+            ? new d.Symbol(g + "1").getFontSizeData(b, a, e, !0)
+            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + "m"] &&
+              new d.Symbol(g + "m").getFontSizeData(b, a, e, !0);
         }
-        '' != this.lowerBracket.value &&
+        "" != this.lowerBracket.value &&
           ((g = this.lowerBracket.onscreen
             ? this.lowerBracket.onscreen
             : this.lowerBracket.value),
           org.imatheq.formulaeditor.MathCanvas.symbolPositions[g] &&
             new d.Symbol(g).getFontSizeData(b, a, e, !0),
-          org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + '1']
-            ? new d.Symbol(g + '1').getFontSizeData(b, a, e, !0)
-            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + 'm'] &&
-              new d.Symbol(g + 'm').getFontSizeData(b, a, e, !0));
+          org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + "1"]
+            ? new d.Symbol(g + "1").getFontSizeData(b, a, e, !0)
+            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + "m"] &&
+              new d.Symbol(g + "m").getFontSizeData(b, a, e, !0));
         this.getFontSizeData.parent.getFontSizeData.call(this, b, a, e);
       },
       draw: function (b, a, e, d, g) {
@@ -6485,7 +6486,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         this.lowerBracket.minimumWidth = this.upperBracket.minimumWidth;
         this.upperBracket.fullWidth = this.middle.dimensions.width;
         this.lowerBracket.fullWidth = this.middle.dimensions.width;
-        '' == this.upperBracket.value
+        "" == this.upperBracket.value
           ? (this.upperBracket.dimensions = {
               top: this.middle.dimensions.top,
               left: this.middle.dimensions.left,
@@ -6493,7 +6494,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               height: 0,
             })
           : this.upperBracket.draw(b, a, 0, 0, !0);
-        '' == this.lowerBracket.value
+        "" == this.lowerBracket.value
           ? (this.lowerBracket.dimensions = {
               top: this.middle.dimensions.top + this.middle.dimensions.height,
               left: this.middle.dimensions.left,
@@ -6530,7 +6531,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             this.margin,
         };
         this.upperBracket.fullWidth = this.middle.dimensions.width;
-        '' != this.upperBracket.value &&
+        "" != this.upperBracket.value &&
           this.upperBracket.draw(
             b,
             a,
@@ -6540,7 +6541,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           );
         this.middle.draw(b, a, e + f, d, g);
         this.lowerBracket.fullWidth = this.middle.dimensions.width;
-        '' != this.lowerBracket.value &&
+        "" != this.lowerBracket.value &&
           this.lowerBracket.draw(
             b,
             a,
@@ -6554,15 +6555,15 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         return this.dimensions;
       },
       setSymbFontAttrbs: function (b) {
-        '' != this.upperBracket.value && this.upperBracket.setSymbFontAttrbs(b);
-        '' != this.lowerBracket.value && this.lowerBracket.setSymbFontAttrbs(b);
+        "" != this.upperBracket.value && this.upperBracket.setSymbFontAttrbs(b);
+        "" != this.lowerBracket.value && this.lowerBracket.setSymbFontAttrbs(b);
         this.setSymbFontAttrbs.parent.setSymbFontAttrbs.call(this, b);
       },
       functionsFromRow: [
-        'getFirstCursorPosition',
-        'getLastCursorPosition',
-        'getLowerCursorPosition',
-        'getHigherCursorPosition',
+        "getFirstCursorPosition",
+        "getLastCursorPosition",
+        "getLowerCursorPosition",
+        "getHigherCursorPosition",
       ],
       getCursorPosition: function (b, a, e) {
         var d;
@@ -6600,48 +6601,48 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         );
       },
       getMathML: function () {
-        var b = '<' + this.mtype + (this.in_attrbs ? this.in_attrbs : '');
-        if ('mover' == this.mtype || 'munderover' == this.mtype)
+        var b = "<" + this.mtype + (this.in_attrbs ? this.in_attrbs : "");
+        if ("mover" == this.mtype || "munderover" == this.mtype)
           b =
-            '' != this.accent
+            "" != this.accent
               ? b + (" accent='" + this.accent + "'")
-              : '' != this.upperBracket
+              : "" != this.upperBracket
               ? b + " accent='true'"
               : b + " accent='false'";
-        if ('munder' == this.mtype || 'munderover' == this.mtype)
+        if ("munder" == this.mtype || "munderover" == this.mtype)
           b =
-            '' != this.accentunder
+            "" != this.accentunder
               ? b + (" accentunder='" + this.accentunder + "'")
-              : '' != this.lowerBracket
+              : "" != this.lowerBracket
               ? b + " accentunder='true'"
               : b + " accentunder='false'";
         b +=
           null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"';
-        b += '>' + this.middle.getMathML(!0);
-        '' != this.lowerBracket.value && (b += this.lowerBracket.getMathML());
-        '' != this.upperBracket.value && (b += this.upperBracket.getMathML());
-        return (b += '</' + this.mtype + '>');
+        b += ">" + this.middle.getMathML(!0);
+        "" != this.lowerBracket.value && (b += this.lowerBracket.getMathML());
+        "" != this.upperBracket.value && (b += this.upperBracket.getMathML());
+        return (b += "</" + this.mtype + ">");
       },
       getAltText: function () {
         var b = org.imatheq.formulaeditor.FormulaEditor.getEditor();
-        if ('mover' == this.mtype)
+        if ("mover" == this.mtype)
           return b.altstrs.mover
-            .replace('$0$', this.middle.getAltText().trim())
-            .replace('$1$', b.getSymbolAltText(this.upperBracket.value).trim());
-        if ('munder' == this.mtype)
+            .replace("$0$", this.middle.getAltText().trim())
+            .replace("$1$", b.getSymbolAltText(this.upperBracket.value).trim());
+        if ("munder" == this.mtype)
           return b.altstrs.munder
-            .replace('$0$', this.middle.getAltText().trim())
-            .replace('$1$', b.getSymbolAltText(this.lowerBracket.value).trim());
-        if ('munderover' == this.mtype)
+            .replace("$0$", this.middle.getAltText().trim())
+            .replace("$1$", b.getSymbolAltText(this.lowerBracket.value).trim());
+        if ("munderover" == this.mtype)
           return b.altstrs.munderover
-            .replace('$0$', this.middle.getAltText().trim())
-            .replace('$1$', b.getSymbolAltText(this.lowerBracket.value).trim())
-            .replace('$2$', b.getSymbolAltText(this.upperBracket.value).trim());
+            .replace("$0$", this.middle.getAltText().trim())
+            .replace("$1$", b.getSymbolAltText(this.lowerBracket.value).trim())
+            .replace("$2$", b.getSymbolAltText(this.upperBracket.value).trim());
       },
     }
   );
@@ -6655,9 +6656,9 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       lower: null,
       slowDelete: !0,
       margin: 2,
-      mtype: 'mover',
-      accent: '',
-      accentunder: '',
+      mtype: "mover",
+      accent: "",
+      accentunder: "",
       initialize: function () {
         0 < arguments.length
           ? ((this.mtype = arguments[0]),
@@ -6665,9 +6666,9 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             (this.children = arguments[2]),
             3 < arguments.length && (this.mathcolor = arguments[3]),
             (this.lower = this.upper = null),
-            'mover' == this.mtype
+            "mover" == this.mtype
               ? (this.upper = this.children[0])
-              : 'munder' == this.mtype
+              : "munder" == this.mtype
               ? (this.lower = this.children[0])
               : ((this.upper = this.children[0]),
                 (this.lower = this.children[1])))
@@ -6687,18 +6688,18 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       },
       getFontSizeData: function (b, a, e) {
         var d = org.imatheq.formulaeditor.presentation;
-        if ('' != this.middleBracket.value) {
+        if ("" != this.middleBracket.value) {
           var g = this.middleBracket.onscreen
             ? this.middleBracket.onscreen
             : this.middleBracket.value;
           org.imatheq.formulaeditor.MathCanvas.symbolPositions[g] &&
             new d.Symbol(g).getFontSizeData(b, a, e, !0);
-          org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + '1']
-            ? new d.Symbol(g + '1').getFontSizeData(b, a, e, !0)
-            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + 'm']
-            ? new d.Symbol(g + 'm').getFontSizeData(b, a, e, !0)
-            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + 'bm'] &&
-              new d.Symbol(g + 'bm').getFontSizeData(b, a, e, !0);
+          org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + "1"]
+            ? new d.Symbol(g + "1").getFontSizeData(b, a, e, !0)
+            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + "m"]
+            ? new d.Symbol(g + "m").getFontSizeData(b, a, e, !0)
+            : org.imatheq.formulaeditor.MathCanvas.symbolPositions[g + "bm"] &&
+              new d.Symbol(g + "bm").getFontSizeData(b, a, e, !0);
         }
         var d = { fontSizeModifier: 0 },
           f;
@@ -6821,7 +6822,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         return this.dimensions;
       },
       setSymbFontAttrbs: function (b) {
-        '' != this.middleBracket.value &&
+        "" != this.middleBracket.value &&
           this.middleBracket.setSymbFontAttrbs(b);
         this.setSymbFontAttrbs.parent.setSymbFontAttrbs.call(this, b);
       },
@@ -6840,7 +6841,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         }
         return a <= this.dimensions.left
           ? null === this.parent || void 0 === this.parent
-            ? (console.log('error fraction no parent.'), null)
+            ? (console.log("error fraction no parent."), null)
             : this.parent.getPrecedingCursorPosition(b, this.index + 1, !1)
           : this.parent.getFollowingCursorPosition(b, this.index, !1);
       },
@@ -6894,47 +6895,47 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         );
       },
       getMathML: function () {
-        var b = '<' + this.mtype + (this.in_attrbs ? this.in_attrbs : '');
-        if ('mover' == this.mtype || 'munderover' == this.mtype)
+        var b = "<" + this.mtype + (this.in_attrbs ? this.in_attrbs : "");
+        if ("mover" == this.mtype || "munderover" == this.mtype)
           b =
-            '' != this.accent
+            "" != this.accent
               ? b + (" accent='" + this.accent + "'")
               : b + " accent='false'";
-        if ('munder' == this.mtype || 'munderover' == this.mtype)
+        if ("munder" == this.mtype || "munderover" == this.mtype)
           b =
-            '' != this.accentunder
+            "" != this.accentunder
               ? b + (" accentunder='" + this.accentunder + "'")
               : b + " accentunder='false'";
         b +=
           null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"';
-        b += '>' + this.middleBracket.getMathML();
+        b += ">" + this.middleBracket.getMathML();
         b =
-          'mover' == this.mtype || 'munder' == this.mtype
+          "mover" == this.mtype || "munder" == this.mtype
             ? b + this.children[0].getMathML(!0)
             : b + this.children[1].getMathML(!0);
-        'munderover' == this.mtype && (b += this.children[0].getMathML(!0));
-        return (b += '</' + this.mtype + '>');
+        "munderover" == this.mtype && (b += this.children[0].getMathML(!0));
+        return (b += "</" + this.mtype + ">");
       },
       getAltText: function () {
         var b = org.imatheq.formulaeditor.FormulaEditor.getEditor();
-        if ('mover' == this.mtype)
+        if ("mover" == this.mtype)
           return b.altstrs.middle_bracket_over
-            .replace('$0$', b.getSymbolAltText(this.middleBracket))
-            .replace('$1$', this.children[0].getAltText().trim());
-        if ('munder' == this.mtype)
+            .replace("$0$", b.getSymbolAltText(this.middleBracket))
+            .replace("$1$", this.children[0].getAltText().trim());
+        if ("munder" == this.mtype)
           return b.altstrs.middle_bracket_under
-            .replace('$0$', b.getSymbolAltText(this.middleBracket))
-            .replace('$1$', this.children[0].getAltText().trim());
-        if ('munderover' == this.mtype)
+            .replace("$0$", b.getSymbolAltText(this.middleBracket))
+            .replace("$1$", this.children[0].getAltText().trim());
+        if ("munderover" == this.mtype)
           return b.altstrs.middle_bracket_underover
-            .replace('$0$', b.getSymbolAltText(this.middleBracket))
-            .replace('$1$', this.children[1].getAltText().trim())
-            .replace('$2$', this.children[0].getAltText().trim());
+            .replace("$0$", b.getSymbolAltText(this.middleBracket))
+            .replace("$1$", this.children[1].getAltText().trim())
+            .replace("$2$", this.children[0].getAltText().trim());
       },
     }
   );
@@ -6945,12 +6946,12 @@ $package('org.imatheq.formulaeditor.parsing.xml');
     {
       slowDelete: !0,
       margin: 2,
-      align: 'center',
+      align: "center",
       fontSizeModifierArray: null,
       baselineIndex: null,
-      mtype: '',
-      accent: '',
-      accentunder: '',
+      mtype: "",
+      accent: "",
+      accentunder: "",
       getFontSizeData: function (b, a, e) {
         for (var d = 0; d < this.children.length; d++) {
           var g;
@@ -7003,59 +7004,59 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         l = e + k / 2;
         for (a = 0; a < this.children.length; a++)
           (f = e),
-            'center' == this.align
+            "center" == this.align
               ? (f = l - this.children[a].dimensions.width / 2)
-              : 'right' == this.align &&
+              : "right" == this.align &&
                 (f = k - this.children[a].dimensions.width),
             this.children[a].draw(b, m[a], f, d + h[a].baseline, g);
         return this.dimensions;
       },
       getMathML: function () {
-        var b = '<' + this.mtype + (this.in_attrbs ? this.in_attrbs : '');
-        if ('mover' == this.mtype || 'munderover' == this.mtype)
+        var b = "<" + this.mtype + (this.in_attrbs ? this.in_attrbs : "");
+        if ("mover" == this.mtype || "munderover" == this.mtype)
           b =
-            '' != this.accent
+            "" != this.accent
               ? b + (" accent='" + this.accent + "'")
               : b + " accent='false'";
-        if ('munder' == this.mtype || 'munderover' == this.mtype)
+        if ("munder" == this.mtype || "munderover" == this.mtype)
           b =
-            '' != this.accentunder
+            "" != this.accentunder
               ? b + (" accentunder='" + this.accentunder + "'")
               : b + " accentunder='false'";
         b +=
           null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"';
         b =
-          'mover' == this.mtype || 'munderover' == this.mtype
-            ? b + ('>' + this.children[1].getMathML(!0))
-            : b + ('>' + this.children[0].getMathML(!0));
-        'mover' == this.mtype
+          "mover" == this.mtype || "munderover" == this.mtype
+            ? b + (">" + this.children[1].getMathML(!0))
+            : b + (">" + this.children[0].getMathML(!0));
+        "mover" == this.mtype
           ? (b += this.children[0].getMathML(!0))
-          : 'munder' == this.mtype
+          : "munder" == this.mtype
           ? (b += this.children[1].getMathML(!0))
-          : 'munderover' == this.mtype && (b += this.children[2].getMathML(!0));
-        'munderover' == this.mtype && (b += this.children[0].getMathML(!0));
-        return (b += '</' + this.mtype + '>');
+          : "munderover" == this.mtype && (b += this.children[2].getMathML(!0));
+        "munderover" == this.mtype && (b += this.children[0].getMathML(!0));
+        return (b += "</" + this.mtype + ">");
       },
       getAltText: function () {
         var b = org.imatheq.formulaeditor.FormulaEditor.getEditor();
-        if ('mover' == this.mtype)
+        if ("mover" == this.mtype)
           return b.altstrs.mover
-            .replace('$0$', this.children[1].getAltText().trim())
-            .replace('$1$', this.children[0].getAltText().trim());
-        if ('munder' == this.mtype)
+            .replace("$0$", this.children[1].getAltText().trim())
+            .replace("$1$", this.children[0].getAltText().trim());
+        if ("munder" == this.mtype)
           return b.altstrs.munder
-            .replace('$0$', this.children[0].getAltText().trim())
-            .replace('$1$', this.children[1].getAltText().trim());
-        if ('munderover' == this.mtype)
+            .replace("$0$", this.children[0].getAltText().trim())
+            .replace("$1$", this.children[1].getAltText().trim());
+        if ("munderover" == this.mtype)
           return b.altstrs.munderover
-            .replace('$0$', this.children[1].getAltText().trim())
-            .replace('$1$', this.children[2].getAltText().trim())
-            .replace('$2$', this.children[0].getAltText().trim());
+            .replace("$0$", this.children[1].getAltText().trim())
+            .replace("$1$", this.children[2].getAltText().trim())
+            .replace("$2$", this.children[0].getAltText().trim());
       },
       getCursorPosition: function (b, a, e) {
         if (
@@ -7158,9 +7159,9 @@ $package('org.imatheq.formulaeditor.parsing.xml');
     {
       fontSizeModifierArray: null,
       margin: 20,
-      align: 'left',
+      align: "left",
       baselineIndex: null,
-      mtype: '',
+      mtype: "",
       initialize: function () {
         var b = this.initialize.parent,
           a = [];
@@ -7263,12 +7264,12 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         return d;
       },
       getMathML: function () {
-        for (var b = '', a = 0; a < this.children.length; a++) {
+        for (var b = "", a = 0; a < this.children.length; a++) {
           var e = this.children[a].getMathML(!1);
           1 < this.children.length &&
             a == this.children.length - 1 &&
-            '<mrow/>' === e &&
-            (e = '');
+            "<mrow/>" === e &&
+            (e = "");
           b += e;
           a != this.children.length - 1 &&
             (b += '<mspace linebreak="newline"/>');
@@ -7276,10 +7277,10 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         return b;
       },
       getAltText: function () {
-        for (var b = '', a = 0; a < this.children.length; a++) {
+        for (var b = "", a = 0; a < this.children.length; a++) {
           var e = this.children[a].getAltText().trim(),
             b = b + e;
-          a != this.children.length - 1 && (b += '\n');
+          a != this.children.length - 1 && (b += "\n");
         }
         return b;
       },
@@ -7302,7 +7303,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               org.imatheq.formulaeditor.presentation.NewlineSymbol &&
               (b += '<mspace linebreak="newline"/>'));
         }
-        return b + '</math>';
+        return b + "</math>";
       },
       onkeypress: function (b, a) {
         var e = org.imatheq.formulaeditor.presentation;
@@ -7331,7 +7332,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           l = { row: this, index: l };
           a.cursor.position.row = h.parent;
           a.cursor.position.index = h.index;
-          a.actions.addAction('update', l, e, g, r, null, m, d);
+          a.actions.addAction("update", l, e, g, r, null, m, d);
           k.convertKeyword(a);
           return !1;
         }
@@ -7343,12 +7344,12 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           d = b.cursor.position,
           g = d.row.getIndexChain(d.index),
           f = { parent: d.row, index: d.index },
-          h = 'insert',
+          h = "insert",
           k = null,
           l = null,
           k = null;
         if (a.hasSelection) {
-          h = 'update';
+          h = "update";
           d = a.parent;
           if (d instanceof e.PArray) return;
           l = {
@@ -7391,7 +7392,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         b.cursor.setPosition({ row: e, index: e.children.length - 1 });
         var e = this.getNumGrandChildren() - g.index - 1,
           k = this.remove(g.index, g.index + 1);
-        b.actions.addAction('delete', g, f, h, k, null, e, null, null, d);
+        b.actions.addAction("delete", g, f, h, k, null, e, null, null, d);
         b.redraw();
         return !1;
       },
@@ -7749,10 +7750,10 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         return this.dimensions;
       },
       functionsFromRow: [
-        'getFirstCursorPosition',
-        'getLastCursorPosition',
-        'getLowerCursorPosition',
-        'getHigherCursorPosition',
+        "getFirstCursorPosition",
+        "getLastCursorPosition",
+        "getLowerCursorPosition",
+        "getHigherCursorPosition",
       ],
       getCursorPosition: function (b, a, e) {
         if (
@@ -7855,29 +7856,29 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         var b = this.children[this.children.length - 1],
           a = 1 == this.children.length ? null : this.children[0];
         return null === a
-          ? '<msqrt' +
-              (this.in_attrbs ? this.in_attrbs : '') +
+          ? "<msqrt" +
+              (this.in_attrbs ? this.in_attrbs : "") +
               (null === this.mathcolor ||
-              '' == this.mathcolor ||
-              'null' == this.mathcolor ||
-              '#000000' == this.mathcolor
-                ? ''
+              "" == this.mathcolor ||
+              "null" == this.mathcolor ||
+              "#000000" == this.mathcolor
+                ? ""
                 : ' mathcolor="' + this.mathcolor + '"') +
-              '>' +
+              ">" +
               b.getMathML(!0) +
-              '</msqrt>'
-          : '<mroot' +
-              (this.in_attrbs ? this.in_attrbs : '') +
+              "</msqrt>"
+          : "<mroot" +
+              (this.in_attrbs ? this.in_attrbs : "") +
               (null === this.mathcolor ||
-              '' == this.mathcolor ||
-              'null' == this.mathcolor ||
-              '#000000' == this.mathcolor
-                ? ''
+              "" == this.mathcolor ||
+              "null" == this.mathcolor ||
+              "#000000" == this.mathcolor
+                ? ""
                 : ' mathcolor="' + this.mathcolor + '"') +
-              '>' +
+              ">" +
               b.getMathML(!0) +
               a.getMathML(!0) +
-              '</mroot>';
+              "</mroot>";
       },
       getAltText: function () {
         var b = this.children[this.children.length - 1],
@@ -7890,10 +7891,10 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           2 == a.children[0].value &&
           (a = null);
         return null === a
-          ? e.altstrs['square root'][d].replace('$0$', b.getAltText().trim())
+          ? e.altstrs["square root"][d].replace("$0$", b.getAltText().trim())
           : e.altstrs.root[d]
-              .replace('$0$', b.getAltText().trim())
-              .replace('$1$', a.getAltText().trim());
+              .replace("$0$", b.getAltText().trim())
+              .replace("$1$", a.getAltText().trim());
       },
     }
   );
@@ -7921,7 +7922,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         this.updateChildren();
         this.editor = org.imatheq.formulaeditor.FormulaEditor.getEditor();
         null == this.editor &&
-          alert('Error PArray.initialize: failed to get editor');
+          alert("Error PArray.initialize: failed to get editor");
       },
       insertRows: function (b, a, e) {
         for (var d = a; d < a + e; d++)
@@ -7969,9 +7970,9 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           n = Math.floor(k.startIndex / this.numcols),
           p = Math.floor(k.endIndex / this.numcols) + 1 - n,
           t = this.info,
-          q = 'front',
+          q = "front",
           u = n;
-        'insertbelow' == a && ((u += p), (q = 'behind'));
+        "insertbelow" == a && ((u += p), (q = "behind"));
         var r = {
             info: this.info.copy(this.numrows, this.numcols),
             startRow: u,
@@ -8000,17 +8001,17 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           n,
           n + p - 1,
           q,
-          'baseline'
+          "baseline"
         );
-        t.rows = t.insertArrayAtttrbs(t.rows, n, n + p - 1, q, 'baseline');
+        t.rows = t.insertArrayAtttrbs(t.rows, n, n + p - 1, q, "baseline");
         t.rowspacing = t.insertArrayAtttrbs(
           t.rowspacing,
           n,
           n + p - 1,
           q,
-          '1.0ex'
+          "1.0ex"
         );
-        t.rowlines = t.insertArrayAtttrbs(t.rowlines, n, n + p - 1, q, 'none');
+        t.rowlines = t.insertArrayAtttrbs(t.rowlines, n, n + p - 1, q, "none");
         t.populateData(this.numrows, this.numcols);
         e = {
           row: null !== A && void 0 !== A ? A.parent : h.row,
@@ -8052,9 +8053,9 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           n = k.startIndex % this.numcols,
           p = (k.endIndex % this.numcols) + 1 - n,
           t = this.info,
-          q = 'front',
+          q = "front",
           u = n;
-        'insertright' == a && ((u += p), (q = 'behind'));
+        "insertright" == a && ((u += p), (q = "behind"));
         var r = {
             info: this.info.copy(this.numrows, this.numcols),
             startCol: u,
@@ -8087,7 +8088,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           n,
           n + p - 1,
           q,
-          'center'
+          "center"
         );
         for (z = 0; z < this.numrows; z++)
           (t.rows[z].colalign = t.insertArrayAtttrbs(
@@ -8095,23 +8096,23 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             n,
             n + p - 1,
             q,
-            'center'
+            "center"
           )),
             (t.rows[z].cols = t.insertArrayAtttrbs(
               t.rows[z].cols,
               n,
               n + p - 1,
               q,
-              'center'
+              "center"
             ));
         t.colspacing = t.insertArrayAtttrbs(
           t.colspacing,
           n,
           n + p - 1,
           q,
-          '0.8em'
+          "0.8em"
         );
-        t.collines = t.insertArrayAtttrbs(t.collines, n, n + p - 1, q, 'none');
+        t.collines = t.insertArrayAtttrbs(t.collines, n, n + p - 1, q, "none");
         t.populateData(this.numrows, this.numcols);
         e = {
           row: null !== A && void 0 !== A ? A.parent : h.row,
@@ -8148,7 +8149,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           h = null,
           k = null,
           l,
-          m = 'deleterows',
+          m = "deleterows",
           r = null,
           k = this.info,
           e = { row: this, index: e.startIndex },
@@ -8162,7 +8163,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             (k = { row: r, index: this.index }),
             (l = r.children.length - this.index - 1),
             (p = r.remove(this.index, this.index + 1, !0)),
-            (m = 'delete');
+            (m = "delete");
         else {
           var q = a.row.children[a.index];
           if (null === q || void 0 === q) q = a.row.children[a.index - 1];
@@ -8185,7 +8186,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             g - 1,
             this.numrows,
             !0,
-            'baseline'
+            "baseline"
           );
           k.rows = k.deleteArrayAtttrbs(k.rows, d, g - 1, this.numrows, !1);
           k.rowspacing = k.deleteArrayAtttrbs(
@@ -8193,7 +8194,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             g - 1,
             this.numrows,
             !0,
-            '1.0ex'
+            "1.0ex"
           );
           k.rowlines = k.deleteArrayAtttrbs(
             k.rowlines,
@@ -8201,7 +8202,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             g - 1,
             this.numrows,
             !0,
-            'none'
+            "none"
           );
           k.populateData(this.numrows, this.numcols);
           k = { row: q, index: 0 };
@@ -8223,7 +8224,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           h = null,
           k = null,
           l,
-          m = 'deletecolumns',
+          m = "deletecolumns",
           r = null,
           k = this.info,
           e = { row: this, index: e.startIndex },
@@ -8237,7 +8238,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             (k = { row: r, index: this.index }),
             (l = r.children.length - this.index - 1),
             (p = r.remove(this.index, this.index + 1, !0)),
-            (m = 'delete');
+            (m = "delete");
         else {
           var q = a.row.children[a.index];
           if (null === q || void 0 === q) q = a.row.children[a.index - 1];
@@ -8260,7 +8261,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             g - 1,
             this.numcols,
             !0,
-            'center'
+            "center"
           );
           for (a = 0; a < this.numrows; a++)
             (k.rows[a].colalign = k.deleteArrayAtttrbs(
@@ -8282,7 +8283,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             g - 1,
             this.numcols,
             !0,
-            '0.8em'
+            "0.8em"
           );
           k.collines = k.deleteArrayAtttrbs(
             k.collines,
@@ -8290,7 +8291,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             g - 1,
             this.numcols,
             !0,
-            'none'
+            "none"
           );
           k.populateData(this.numrows, this.numcols);
           k = { row: q, index: 0 };
@@ -8355,7 +8356,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           h = Math.floor(a / this.numcols),
           k = a % this.numcols;
         if (null === b || null === a)
-          throw Error('PArray failed to find input children.');
+          throw Error("PArray failed to find input children.");
         for (var l = Math.min(g, h); l <= Math.max(g, h); l++)
           for (var m = Math.min(f, k); m <= Math.max(f, k); m++) {
             var r = d[l][m];
@@ -8389,7 +8390,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           h = a % this.numcols,
           k = [];
         if (null === b || null === a)
-          throw Error('PArray failed to find input children.');
+          throw Error("PArray failed to find input children.");
         for (var l = 0, m = Math.min(d, f); m <= Math.max(d, f); m++)
           for (var r = Math.min(g, h); r <= Math.max(g, h); r++) {
             var n = e[m][r];
@@ -8408,7 +8409,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           h = Math.min(f, k),
           f = Math.max(f, k);
         if (null === a || null === e)
-          throw Error('PArray failed to find input children.');
+          throw Error("PArray failed to find input children.");
         a = 0;
         for (e = l; e <= g; e++)
           for (k = h; k <= f; k++) {
@@ -8447,7 +8448,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         }
         l = [];
         if (null === a || null === e)
-          throw Error('PArray failed to find input children.');
+          throw Error("PArray failed to find input children.");
         for (a = 0; g <= f; g++)
           for (e = h; e <= k; e++) {
             var m = d[g][e];
@@ -8466,7 +8467,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           k = 0 == f && b == this.numrows - 1,
           l = this.info;
         switch (a) {
-          case 'rowalign':
+          case "rowalign":
             if (h)
               for (
                 l.rowalign = l.populateArrayAtttrbs(
@@ -8475,7 +8476,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
                   b,
                   this.numrows,
                   e,
-                  'baseline'
+                  "baseline"
                 ),
                   a = f;
                 a <= b;
@@ -8483,13 +8484,13 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               ) {
                 if (void 0 !== l.rows[a])
                   for (l.rows[a].rowalign = null, f = 0; f < this.cols; f++)
-                    l.clearColAttrb(a, f, 'rowalign');
+                    l.clearColAttrb(a, f, "rowalign");
               }
             else
               for (a = f; a <= b; a++)
-                for (f = d; f <= g; f++) l.setColAttrb(a, f, 'rowalign', e);
+                for (f = d; f <= g; f++) l.setColAttrb(a, f, "rowalign", e);
             break;
-          case 'colalign':
+          case "colalign":
             if (k) {
               l.colalign = l.populateArrayAtttrbs(
                 l.colalign,
@@ -8497,7 +8498,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
                 g,
                 this.numcols,
                 e,
-                'center'
+                "center"
               );
               for (a = 0; a < this.numrows; a++)
                 l.rows[a] = l.populateArrayAtttrbs(
@@ -8506,7 +8507,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
                   g,
                   this.numcols,
                   e,
-                  'center'
+                  "center"
                 );
               for (f = d; f <= g; f++)
                 for (a = 0; a < this.numrows; a++)
@@ -8514,87 +8515,87 @@ $package('org.imatheq.formulaeditor.parsing.xml');
                     (l.rows[a].colalign &&
                       void 0 !== l.rows[a].colalign[f] &&
                       delete l.rows[a].colalign[f],
-                    l.clearColAttrb(a, f, 'colalign'));
+                    l.clearColAttrb(a, f, "colalign"));
             } else
               for (a = f; a <= b; a++)
-                for (f = d; f <= g; f++) l.setColAttrb(a, f, 'colalign', e);
+                for (f = d; f <= g; f++) l.setColAttrb(a, f, "colalign", e);
             break;
-          case 'addframe':
+          case "addframe":
             l.frame = this.editor.getPArrayLine();
             break;
-          case 'removeframe':
-            l.frame = 'none';
+          case "removeframe":
+            l.frame = "none";
             break;
-          case 'addrowline':
+          case "addrowline":
             l.rowlines = l.populateArrayAtttrbs(
               l.rowlines,
               f,
               b,
               this.numrows,
               this.editor.getPArrayLine(),
-              'none'
+              "none"
             );
             break;
-          case 'removerowline':
+          case "removerowline":
             l.rowlines = l.populateArrayAtttrbs(
               l.rowlines,
               f,
               b,
               this.numrows,
-              'none',
-              'none'
+              "none",
+              "none"
             );
             break;
-          case 'addcolline':
+          case "addcolline":
             l.collines = l.populateArrayAtttrbs(
               l.collines,
               d,
               g,
               this.numcols,
               this.editor.getPArrayLine(),
-              'none'
+              "none"
             );
             break;
-          case 'removecolline':
+          case "removecolline":
             l.collines = l.populateArrayAtttrbs(
               l.collines,
               d,
               g,
               this.numcols,
-              'none',
-              'none'
+              "none",
+              "none"
             );
             break;
-          case 'setsolidline':
-            this.editor.setPArrayLine('solid');
+          case "setsolidline":
+            this.editor.setPArrayLine("solid");
             break;
-          case 'setdashedline':
-            this.editor.setPArrayLine('dashed');
+          case "setdashedline":
+            this.editor.setPArrayLine("dashed");
             break;
-          case 'toggleequalrows':
-            l.equalrows = l.equalrows && 'true' == l.equalrows ? null : 'true';
+          case "toggleequalrows":
+            l.equalrows = l.equalrows && "true" == l.equalrows ? null : "true";
             break;
-          case 'toggleequalcols':
-            l.equalcols = l.equalcols && 'true' == l.equalcols ? null : 'true';
+          case "toggleequalcols":
+            l.equalcols = l.equalcols && "true" == l.equalcols ? null : "true";
             break;
-          case 'rowspacing':
+          case "rowspacing":
             l.rowspacing = l.populateArrayAtttrbs(
               l.rowspacing,
               f,
               b,
               this.numrows,
               e,
-              '1.0ex'
+              "1.0ex"
             );
             break;
-          case 'colspacing':
+          case "colspacing":
             l.colspacing = l.populateArrayAtttrbs(
               l.colspacing,
               d,
               g,
               this.numcols,
               e,
-              '0.8em'
+              "0.8em"
             );
         }
       },
@@ -8602,8 +8603,8 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         etb = b.cursor.position.etb.parray;
         var a = etb.startIndex % this.numcols,
           e = Math.floor(etb.startIndex / this.numcols),
-          d = 'none';
-        b = 'none';
+          d = "none";
+        b = "none";
         d = this.info.infod.cells[e][a].rowalign;
         b = this.info.infod.cells[e][a].colalign;
         for (
@@ -8612,87 +8613,87 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             g = etb.endIndex % this.numcols,
             f = Math.floor(etb.endIndex / this.numcols),
             h = document.querySelectorAll('[id^="PARRAY_ROW_ALIGN_"]'),
-            k = 'PARRAY_ROW_ALIGN_' + d.toUpperCase(),
+            k = "PARRAY_ROW_ALIGN_" + d.toUpperCase(),
             d = 0;
           d < h.length;
           d++
         ) {
           var l = h[d].id;
           l == k
-            ? h[d].classList.add('efmase_palettebutton_select')
-            : h[d].classList.remove('efmase_palettebutton_select');
+            ? h[d].classList.add("efmase_palettebutton_select")
+            : h[d].classList.remove("efmase_palettebutton_select");
         }
         h = document.querySelectorAll('[id^="PARRAY_COL_ALIGN_"]');
-        k = 'PARRAY_COL_ALIGN_' + b.toUpperCase();
+        k = "PARRAY_COL_ALIGN_" + b.toUpperCase();
         for (d = 0; d < h.length; d++)
           (l = h[d].id),
             l == k
-              ? h[d].classList.add('efmase_palettebutton_select')
-              : h[d].classList.remove('efmase_palettebutton_select');
+              ? h[d].classList.add("efmase_palettebutton_select")
+              : h[d].classList.remove("efmase_palettebutton_select");
         b = document.querySelectorAll('[id^="PARRAY_INS_DEL_"]');
         for (d = 0; d < b.length; d++)
           (h = (g - a + 1).toString()),
-            -1 != b[d].id.indexOf('PARRAY_INS_DEL_ROW_') &&
+            -1 != b[d].id.indexOf("PARRAY_INS_DEL_ROW_") &&
               (h = (f - e + 1).toString()),
             (b[d].title = b[d].title.replace(/[0-9]+/, h)),
             (b[d].firstChild.alt = b[d].title.replace(/[0-9]+/, h)),
             (b[d].firstChild.title = b[d].title.replace(/[0-9]+/, h));
-        b = document.getElementById('PARRAY_ROW_H_EQUAL');
+        b = document.getElementById("PARRAY_ROW_H_EQUAL");
         this.info.infod.equalrows
-          ? b.classList.add('efmase_palettebutton_select')
-          : b.classList.remove('efmase_palettebutton_select');
-        b = document.getElementById('PARRAY_COL_W_EQUAL');
+          ? b.classList.add("efmase_palettebutton_select")
+          : b.classList.remove("efmase_palettebutton_select");
+        b = document.getElementById("PARRAY_COL_W_EQUAL");
         this.info.infod.equalcols
-          ? b.classList.add('efmase_palettebutton_select')
-          : b.classList.remove('efmase_palettebutton_select');
+          ? b.classList.add("efmase_palettebutton_select")
+          : b.classList.remove("efmase_palettebutton_select");
       },
       getMathML: function () {
         var b = this.entries,
           a = this.info,
-          e = '<mtable' + (a.in_attrbs ? a.in_attrbs : ''),
-          e = e + (a.frame ? ' frame="' + a.frame + '"' : ''),
+          e = "<mtable" + (a.in_attrbs ? a.in_attrbs : ""),
+          e = e + (a.frame ? ' frame="' + a.frame + '"' : ""),
           e =
             e +
-            (a.displaystyle ? ' displaystyle="' + a.displaystyle + '"' : ''),
-          e = e + (a.side ? ' side="' + a.side + '"' : ''),
-          e = e + (a.width ? ' width="' + a.width + '"' : ''),
-          e = e + (a.groupalign ? ' groupalign="' + a.groupalign + '"' : ''),
+            (a.displaystyle ? ' displaystyle="' + a.displaystyle + '"' : ""),
+          e = e + (a.side ? ' side="' + a.side + '"' : ""),
+          e = e + (a.width ? ' width="' + a.width + '"' : ""),
+          e = e + (a.groupalign ? ' groupalign="' + a.groupalign + '"' : ""),
           e =
             e +
             (a.alignmentscope
               ? ' alignmentscope="' + a.alignmentscope + '"'
-              : ''),
-          e = e + (a.colwidth ? ' columnwidth="' + a.colwidth + '"' : ''),
+              : ""),
+          e = e + (a.colwidth ? ' columnwidth="' + a.colwidth + '"' : ""),
           e =
             e +
             (a.minlabelspacing
               ? ' minlabelspacing="' + a.minlabelspacing + '"'
-              : ''),
-          e = e + (a.equalrows ? ' equalrows="' + a.equalrows + '"' : ''),
-          e = e + (a.equalcols ? ' equalcolumns="' + a.equalcols + '"' : '');
+              : ""),
+          e = e + (a.equalrows ? ' equalrows="' + a.equalrows + '"' : ""),
+          e = e + (a.equalcols ? ' equalcolumns="' + a.equalcols + '"' : "");
         if (a.align) {
           var d = a.align;
-          a.alignrow && d + ' ' + a.alignrow.toString();
+          a.alignrow && d + " " + a.alignrow.toString();
           e += ' align="' + d + '"';
         }
         a.vspacing && (e += ' framespacing="' + d + '"');
         for (
           var d = function (a, d, e) {
-              var b = '';
+              var b = "";
               if (null !== a && void 0 !== a && a[d]) {
                 for (var h = a[d][0], f = 1; f < a[d].length; f++)
-                  h += ' ' + a[d][f];
-                b += ' ' + e + '="' + h + '"';
+                  h += " " + a[d][f];
+                b += " " + e + '="' + h + '"';
               }
               return b;
             },
-            e = e + d(a, 'rowspacing', 'rowspacing'),
-            e = e + d(a, 'rowlines', 'rowlines'),
-            e = e + d(a, 'rowalign', 'rowalign'),
-            e = e + d(a, 'colspacing', 'columnspacing'),
-            e = e + d(a, 'collines', 'columnlines'),
-            e = e + d(a, 'colalign', 'columnalign'),
-            e = e + '>',
+            e = e + d(a, "rowspacing", "rowspacing"),
+            e = e + d(a, "rowlines", "rowlines"),
+            e = e + d(a, "rowalign", "rowalign"),
+            e = e + d(a, "colspacing", "columnspacing"),
+            e = e + d(a, "collines", "columnlines"),
+            e = e + d(a, "colalign", "columnalign"),
+            e = e + ">",
             g = 0;
           g < b.length;
           g++
@@ -8700,72 +8701,72 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           for (
             var e =
                 e +
-                ('<mtr' +
-                  (a.rows[g].in_attrbs ? a.rows[g].in_attrbs : '') +
-                  d(a.rows[g], 'rowalign', 'rowalign') +
-                  d(a.rows[g], 'colalign', 'columnalign') +
+                ("<mtr" +
+                  (a.rows[g].in_attrbs ? a.rows[g].in_attrbs : "") +
+                  d(a.rows[g], "rowalign", "rowalign") +
+                  d(a.rows[g], "colalign", "columnalign") +
                   (a.rows[g].groupalign
                     ? ' groupalign="' + a.rows[g].groupalign + '"'
-                    : '') +
-                  '>'),
+                    : "") +
+                  ">"),
               f = 0;
             f < b[g].length;
             f++
           )
             var h =
-                '<mtd' +
+                "<mtd" +
                 (a.rows[g].cols[f].in_attrbs
                   ? a.rows[g].cols[f].in_attrbs
-                  : ''),
+                  : ""),
               h =
                 h +
                 (a.rows[g].cols[f].rowspan
                   ? ' rowspan="' + a.rows[g].cols[f].rowspan + '"'
-                  : ''),
+                  : ""),
               h =
                 h +
                 (a.rows[g].cols[f].colspan
                   ? ' columnspan="' + a.rows[g].cols[f].colspan + '"'
-                  : ''),
+                  : ""),
               h =
                 h +
                 (a.rows[g].cols[f].rowalign
                   ? ' rowalign="' + a.rows[g].cols[f].rowalign + '"'
-                  : ''),
+                  : ""),
               h =
                 h +
                 (a.rows[g].cols[f].colalign
                   ? ' columnalign="' + a.rows[g].cols[f].colalign + '"'
-                  : ''),
+                  : ""),
               h =
                 h +
                 (a.rows[g].cols[f].groupalign
                   ? ' groupalign="' + a.rows[g].cols[f].groupalign + '"'
-                  : ''),
-              h = h + '>',
-              h = h + (b[g][f].getMathML() + '</mtd>'),
-              e = e + ('<mtd><mrow/></mtd>' == h ? '<mtd/>' : h);
-          e += '</mtr>';
+                  : ""),
+              h = h + ">",
+              h = h + (b[g][f].getMathML() + "</mtd>"),
+              e = e + ("<mtd><mrow/></mtd>" == h ? "<mtd/>" : h);
+          e += "</mtr>";
         }
-        return e + '</mtable>';
+        return e + "</mtable>";
       },
       getAltText: function () {
         for (
           var b = org.imatheq.formulaeditor.FormulaEditor.getEditor(),
             a = this.entries,
-            e = '',
+            e = "",
             d = 0;
           d < a.length;
           d++
         ) {
-          for (var g = '', f = 0; f < a[d].length; f++)
+          for (var g = "", f = 0; f < a[d].length; f++)
             g += b.altstrs.cell[
               a[d][f].children && 1 < a[d][f].children.length ? 1 : 0
-            ].replace('$0$', a[d][f].getAltText().trim());
-          g = b.altstrs.row.replace('$0$', g.trim());
+            ].replace("$0$", a[d][f].getAltText().trim());
+          g = b.altstrs.row.replace("$0$", g.trim());
           e += g;
         }
-        return (e = b.altstrs.table.replace('$0$', e.trim()));
+        return (e = b.altstrs.table.replace("$0$", e.trim()));
       },
       getSelectionMathML: function (b, a, e) {
         b = this.entries;
@@ -8782,12 +8783,12 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           a <= d;
           a++
         ) {
-          f += '<mtr>';
+          f += "<mtr>";
           for (h = e; h <= g; h++)
-            (f += '<mtd>'), (f += b[a][h].getMathML()), (f += '</mtd>');
-          f += '</mtr>';
+            (f += "<mtd>"), (f += b[a][h].getMathML()), (f += "</mtd>");
+          f += "</mtr>";
         }
-        return f + '</mtable></math>';
+        return f + "</mtable></math>";
       },
       getMaxHeight: function (b) {
         for (var a = 0, e = 0, d = 0; d < this.numcols; d++)
@@ -8814,15 +8815,15 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           m = 0,
           r = this.info,
           n = this.info.infod;
-        'none' != n.frame
+        "none" != n.frame
           ? ((n.vspacing =
               null === r.vspacing ? null : b.getPXSize(r.vspacing, f)),
             (n.vspacing =
-              null === n.vspacing ? b.getPXSize('0.5ex', f) : n.vspacing),
+              null === n.vspacing ? b.getPXSize("0.5ex", f) : n.vspacing),
             (n.hspacing =
               null === r.hspacing ? null : b.getPXSize(r.hspacing, f)),
             (n.hspacing =
-              null === n.hspacing ? b.getPXSize('0.4em', f) : n.hspacing))
+              null === n.hspacing ? b.getPXSize("0.4em", f) : n.hspacing))
           : ((n.vspacing = l), (n.hspacing = l));
         n.rowspacing = [];
         for (var p = 0; p < this.numrows; p++)
@@ -8832,7 +8833,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               : b.getPXSize(r.rowspacing[p], f)),
             null === n.rowspacing[p] &&
               (n.rowspacing[p] =
-                0 == p ? b.getPXSize('1.0ex', f) : n.rowspacing[p - 1]);
+                0 == p ? b.getPXSize("1.0ex", f) : n.rowspacing[p - 1]);
         n.colspacing = [];
         for (p = 0; p < this.numcols; p++)
           (n.colspacing[p] =
@@ -8841,12 +8842,12 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               : b.getPXSize(r.colspacing[p], f)),
             null === n.colspacing[p] &&
               (n.colspacing[p] =
-                0 == p ? b.getPXSize('0.8em', f) : n.colspacing[p - 1]);
+                0 == p ? b.getPXSize("0.8em", f) : n.colspacing[p - 1]);
         for (f = 0; f < this.numrows; f++)
           for (r = 0; r < this.numcols; r++)
             this.entries[f][r] && this.entries[f][r].draw
               ? this.entries[f][r].draw(b, a, 0, 0, !0)
-              : alert('PArray could not draw row:' + f + ', col:' + r + '.');
+              : alert("PArray could not draw row:" + f + ", col:" + r + ".");
         r = 0;
         arrRowInfo = [];
         for (f = 0; f < this.numrows; f++)
@@ -8874,7 +8875,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           n.rows[f].baseline = u;
         }
         m += n.vspacing + l;
-        f = new h.Symbol('x').draw(b, a, e, d, !0);
+        f = new h.Symbol("x").draw(b, a, e, d, !0);
         r =
           Math.round((m - 2 * n.vspacing - 2 * l) / 2) +
           n.rows[0].top +
@@ -8919,32 +8920,32 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               q = d + n.rows[f].baseline;
               var y = n.rows[f].baseline + v;
               switch (n.cells[f][r].rowalign) {
-                case 'top':
+                case "top":
                   var A = n.rows[f].top;
                   q -= y - A;
                   break;
-                case 'bottom':
+                case "bottom":
                   A = n.rows[f].top + n.rows[f].height - u;
                   q += A - y;
                   n.rows[f].top + n.rows[f].height - v - u;
                   break;
-                case 'center':
+                case "center":
                   (A = n.rows[f].center - u / 2), (q += A - y);
               }
               u = e + n.cols[r].center - t / 2;
               v = n.cells[f][r].colalign;
-              'left' == v
+              "left" == v
                 ? (u = e + n.cols[r].left)
-                : 'right' == v &&
+                : "right" == v &&
                   (u = e + n.cols[r].left + n.cols[r].width - t);
               p.draw(b, a, u, q, g);
               f == this.numrows - 1 &&
-                'none' != n.collines[r] &&
+                "none" != n.collines[r] &&
                 ((p = b.getContext()),
                 (t =
                   e + n.cols[r].left + n.cols[r].width + n.colspacing[r] / 2),
                 p.save(),
-                'dashed' == n.collines[r] && p.setLineDash([5, 3]),
+                "dashed" == n.collines[r] && p.setLineDash([5, 3]),
                 (p.strokeStyle = this.mathcolor),
                 (p.lineWidth = k),
                 p.beginPath(),
@@ -8954,11 +8955,11 @@ $package('org.imatheq.formulaeditor.parsing.xml');
                 p.closePath(),
                 p.restore());
             }
-            'none' != n.rowlines[f] &&
+            "none" != n.rowlines[f] &&
               ((p = b.getContext()),
               (r = d + n.rows[f].top + n.rows[f].height + n.rowspacing[f] / 2),
               p.save(),
-              'dashed' == n.rowlines[f] && p.setLineDash([5, 3]),
+              "dashed" == n.rowlines[f] && p.setLineDash([5, 3]),
               (p.strokeStyle = this.mathcolor),
               (p.lineWidth = k),
               p.beginPath(),
@@ -8968,14 +8969,14 @@ $package('org.imatheq.formulaeditor.parsing.xml');
               p.closePath(),
               p.restore());
           }
-          'none' != n.frame &&
+          "none" != n.frame &&
             this.editor.canvas.drawBox(
               n.framedim,
               this.mathcolor,
               k,
               null,
               null,
-              'dashed' == n.frame ? [5, 3] : null
+              "dashed" == n.frame ? [5, 3] : null
             );
         }
         return (this.dimensions = {
@@ -9205,57 +9206,57 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           a = arguments[0];
           this.in_attrbs = b.getInputAttrbs(a);
           var e = /s*(true|false)s*/,
-            d = a.getAttribute('align'),
+            d = a.getAttribute("align"),
             g = /s*(top|bottom|center|baseline|axis)(s+-?[0-9]+)?s*/;
           d &&
             g.test(d) &&
             ((d = d.split(/\s+/)),
             (this.align = d[0]),
             (this.alignrow = 1 < arrAlign.length ? parseInt(arrAlign[1]) : 0));
-          (d = a.getAttribute('frame')) &&
+          (d = a.getAttribute("frame")) &&
             /s*(none|solid|dashed)s*/.test(d) &&
             (this.frame = d);
-          a.getAttribute('framespacing') &&
+          a.getAttribute("framespacing") &&
             ((d = fspacing.split(/\s+/)),
             (this.hspacing = arrFSpacing[0]),
             (this.vspacing = 0 < d.length ? arrFSpacing[1] : null));
-          (d = a.getAttribute('displaystyle')) &&
+          (d = a.getAttribute("displaystyle")) &&
             e.test(d) &&
             (this.displaystyle = d);
-          d = a.getAttribute('side');
+          d = a.getAttribute("side");
           g = /s*(left|right|leftoverlap|rightoverlap)s*/;
           d && g.test(d) && (this.side = d);
-          d = parseInt(a.getAttribute('width'));
+          d = parseInt(a.getAttribute("width"));
           isNaN(d) || (this.width = d);
-          this.groupAlign = a.getAttribute('groupalign');
-          this.alignmentscope = a.getAttribute('alignmentscope');
-          this.colwidth = a.getAttribute('columnwidth');
-          this.width = a.getAttribute('width');
-          this.minLabelSpacing = a.getAttribute('minlabelspacing');
-          (d = a.getAttribute('rowspacing')) &&
-            '' != d.trim() &&
+          this.groupAlign = a.getAttribute("groupalign");
+          this.alignmentscope = a.getAttribute("alignmentscope");
+          this.colwidth = a.getAttribute("columnwidth");
+          this.width = a.getAttribute("width");
+          this.minLabelSpacing = a.getAttribute("minlabelspacing");
+          (d = a.getAttribute("rowspacing")) &&
+            "" != d.trim() &&
             (this.rowspacing = d.trim().split(/\s+/));
-          (d = a.getAttribute('columnspacing')) &&
-            '' != d.trim() &&
+          (d = a.getAttribute("columnspacing")) &&
+            "" != d.trim() &&
             (this.colspacing = d.trim().split(/\s+/));
           d = /s*(none|solid|dashed)s*(s+(none|solid|dashed)s*)*/;
-          (g = a.getAttribute('rowlines')) &&
+          (g = a.getAttribute("rowlines")) &&
             d.test(g) &&
             (this.rowlines = g.trim().split(/\s+/));
-          (g = a.getAttribute('columnlines')) &&
+          (g = a.getAttribute("columnlines")) &&
             d.test(g) &&
             (this.collines = g.trim().split(/\s+/));
-          d = a.getAttribute('rowalign');
+          d = a.getAttribute("rowalign");
           g =
             /s*(top|bottom|center|baseline|axis)s*(s+(top|bottom|center|baseline|axis)s*)*/;
           d && g.test(d) && (this.rowalign = d.trim().split(/\s+/));
-          d = a.getAttribute('columnalign');
+          d = a.getAttribute("columnalign");
           g = /s*(left|center|right)s*(s+(left|center|right)s*)*/;
           d && g.test(d) && (this.colalign = d.trim().split(/\s+/));
-          (d = a.getAttribute('equalrows')) &&
+          (d = a.getAttribute("equalrows")) &&
             e.test(d) &&
             (this.equalrows = d.trim());
-          (d = a.getAttribute('equalcolumns')) &&
+          (d = a.getAttribute("equalcolumns")) &&
             e.test(d) &&
             (this.equalcols = d.trim());
           e = a.childNodes.length;
@@ -9295,13 +9296,13 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             cols: [],
           });
         this.rows[a].in_attrbs = b.getInputAttrbs(e);
-        var d = e.getAttribute('rowalign'),
+        var d = e.getAttribute("rowalign"),
           g = /s*(top|bottom|center|baseline|axis)s*/;
         d && g.test(d) && (this.rows[a].rowalign = d.trim());
-        d = e.getAttribute('columnalign');
+        d = e.getAttribute("columnalign");
         g = /s*(left|center|right)s*(s+(left|center|right)s*)*/;
         d && g.test(d) && (this.rows[a].colalign = d.split(/\s+/));
-        this.rows[a].groupAlign = e.getAttribute('groupalign');
+        this.rows[a].groupAlign = e.getAttribute("groupalign");
       },
       setColAttrbs: function (a, e, d) {
         this.rows || (this.rows = []);
@@ -9324,17 +9325,17 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           });
         if (d) {
           g[e].in_attrbs = b.getInputAttrbs(d);
-          var f = parseInt(d.getAttribute('rowspan'));
+          var f = parseInt(d.getAttribute("rowspan"));
           isNaN(f) || (g[e].rowspan = f);
-          f = parseInt(d.getAttribute('colspan'));
+          f = parseInt(d.getAttribute("colspan"));
           isNaN(f) || (g[e].colspan = f);
-          var f = d.getAttribute('rowalign'),
+          var f = d.getAttribute("rowalign"),
             h = /s*(top|bottom|center|baseline|axis)s*/;
           f && h.test(f) && (g[e].rowalign = f.trim());
-          f = d.getAttribute('columnalign');
+          f = d.getAttribute("columnalign");
           h = /s*(left|center|right)s*/;
           f && h.test(f) && (g[e].colalign = f.trim());
-          this.rows[a].groupAlign = d.getAttribute('groupalign');
+          this.rows[a].groupAlign = d.getAttribute("groupalign");
         }
       },
       mergeArrayAtttrbs: function (a, e) {
@@ -9355,12 +9356,12 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         return a;
       },
       insertArrayAtttrbs: function (a, e, d, b, f) {
-        var h = 'behind' == b ? d + 1 : e;
+        var h = "behind" == b ? d + 1 : e;
         if (!a) return null;
-        b = 'behind' == b ? a[d] : a[e];
+        b = "behind" == b ? a[d] : a[e];
         if (null === b || void 0 === b) return a;
         e = d - e + 1;
-        if ('object' != typeof b) {
+        if ("object" != typeof b) {
           for (d = 0; d < e; d++) a.splice(h, 0, b);
           a && (a = this.mergeArrayAtttrbs(a, f));
         } else
@@ -9383,13 +9384,13 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       populateData: function (a, e) {
         this.infod || (this.infod = {});
         var d = this.infod;
-        d.frame = 'none';
-        if ('solid' == this.frame || 'dashed' == this.frame)
+        d.frame = "none";
+        if ("solid" == this.frame || "dashed" == this.frame)
           d.frame = this.frame;
         d.equalrows = !1;
-        'true' == this.equalrows && (d.equalrows = !0);
+        "true" == this.equalrows && (d.equalrows = !0);
         d.equalcols = !1;
-        'true' == this.equalcols && (d.equalcols = !0);
+        "true" == this.equalcols && (d.equalcols = !0);
         var b = function (a, d, e, b) {
           return d && 0 != d.length ? (d[a] ? d[a] : e[a - 1]) : b;
         };
@@ -9398,15 +9399,15 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         for (var f = [], h = 0; h < a; h++)
           (d.rows[h] = {}),
             (d.rowlines[h] =
-              h == a - 1 ? 'none' : b(h, this.rowlines, d.rowlines, 'none')),
-            (f[h] = b(h, this.rowalign, f, 'baseline'));
+              h == a - 1 ? "none" : b(h, this.rowlines, d.rowlines, "none")),
+            (f[h] = b(h, this.rowalign, f, "baseline"));
         d.collines = [];
         d.cols = [];
         for (var k = [], h = 0; h < e; h++)
           (d.cols[h] = {}),
             (d.collines[h] =
-              h == e - 1 ? 'none' : b(h, this.collines, d.collines, 'none')),
-            (k[h] = b(h, this.colalign, k, 'center'));
+              h == e - 1 ? "none" : b(h, this.collines, d.collines, "none")),
+            (k[h] = b(h, this.colalign, k, "center"));
         d.cells = [];
         for (h = 0; h < a; h++)
           for (
@@ -9466,27 +9467,27 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             groupalign: null,
           });
         switch (d) {
-          case 'rowalign':
+          case "rowalign":
             d = /s*(top|bottom|center|baseline|axis)s*/;
             b && d.test(b)
               ? (a[e].rowalign = b.trim())
               : (a[e].rowalign = null);
             break;
-          case 'colalign':
+          case "colalign":
             d = /s*(left|center|right)s*/;
             b && d.test(b)
               ? (a[e].colalign = b.trim())
               : (a[e].colalign = null);
             break;
-          case 'rowspan':
+          case "rowspan":
             b = parseInt(b);
             isNaN(b) ? (a[e].rowspan = null) : (a[e].rowspan = b);
             break;
-          case 'colspan':
+          case "colspan":
             b = parseInt(b);
             isNaN(b) ? (a[e].colspan = null) : (a[e].colspan = b);
             break;
-          case 'groupalign':
+          case "groupalign":
             a[e].groupalign = b;
         }
       },
@@ -9496,27 +9497,27 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           ((a = this.rows[a].cols), void 0 !== a[b])
         )
           switch (d) {
-            case 'rowalign':
+            case "rowalign":
               a[b].rowalign = null;
               break;
-            case 'colalign':
+            case "colalign":
               a[b].colalign = null;
               break;
-            case 'rowspan':
+            case "rowspan":
               a[b].rowspan = null;
               break;
-            case 'colspan':
+            case "colspan":
               a[b].colspan = null;
               break;
-            case 'groupalign':
+            case "groupalign":
               a[b].groupalign = value;
           }
       },
       copyObject: function (a) {
-        'function' != typeof Object.assign &&
+        "function" != typeof Object.assign &&
           (Object.assign = function (a, d) {
             if (null == a)
-              throw new TypeError('Cannot convert undefined or null to object');
+              throw new TypeError("Cannot convert undefined or null to object");
             for (var b = Object(a), e = 1; e < arguments.length; e++) {
               var l = arguments[e];
               if (null != l)
@@ -9526,7 +9527,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             return b;
           });
         if (null === a) return null;
-        if ('object' != typeof a) return a;
+        if ("object" != typeof a) return a;
         var b = null;
         if (Array.isArray(a))
           for (var b = [], d = 0; d < a.length; d++)
@@ -9535,7 +9536,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
           for (d in ((b = Object.assign({}, a)), a))
             Object.prototype.hasOwnProperty.call(a, d) &&
               null !== a[d] &&
-              'object' == typeof a[d] &&
+              "object" == typeof a[d] &&
               (b[d] = this.copyObject(a[d]));
         return b;
       },
@@ -9544,8 +9545,8 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         for (prop in this)
           !Object.prototype.hasOwnProperty.call(this, prop) ||
             this[prop] instanceof Function ||
-            'children' == prop ||
-            'infod' == prop ||
+            "children" == prop ||
+            "infod" == prop ||
             (d[prop] = this.copyObject(this[prop]));
         d.populateData(a, b);
         return d;
@@ -9559,8 +9560,8 @@ $package('org.imatheq.formulaeditor.parsing.xml');
     {
       draw: null,
       functionsFromRow:
-        'getFirstCursorPosition getFollowingCursorPosition getPrecedingCursorPosition getLastCursorPosition getLowerCursorPosition getHigherCursorPosition draw isEmpty getMathML insert replace remove'.split(
-          ' '
+        "getFirstCursorPosition getFollowingCursorPosition getPrecedingCursorPosition getLastCursorPosition getLowerCursorPosition getHigherCursorPosition draw isEmpty getMathML insert replace remove".split(
+          " "
         ),
       initialize: function () {
         this.children = Array.prototype.slice.call(arguments);
@@ -9581,7 +9582,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
   org.imatheq.formulaeditor.presentation.Enclose = $extend(
     org.imatheq.formulaeditor.presentation.Node,
     {
-      notations: ['longdiv'],
+      notations: ["longdiv"],
       children: null,
       margin: {
         box: { l: 5, t: 5, r: 5, b: 5 },
@@ -9590,7 +9591,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
         updiagonalstrike: { l: 1, t: 2, r: 1, b: 2 },
         downdiagonalstrike: { l: 1, t: 2, r: 1, b: 2 },
       },
-      border_color: '#000000',
+      border_color: "#000000",
       lineWidth: 1,
       slowDelete: !0,
       initialize: function () {
@@ -9616,7 +9617,7 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             this.children[0].children[0] instanceof f.Enclose &&
             (p =
               1 == this.children[0].children[0].notations.length &&
-              'horizontalstrike' == this.children[0].children[0].notations[0]
+              "horizontalstrike" == this.children[0].children[0].notations[0]
                 ? {
                     l: 1,
                     t: this.margin[this.notations[n]].t,
@@ -9625,19 +9626,19 @@ $package('org.imatheq.formulaeditor.parsing.xml');
                   }
                 : { l: 1, t: 1, r: 1, b: 1 });
           switch (this.notations[n]) {
-            case 'box':
+            case "box":
               r = this.drawBox(b, a, p, e, d, g);
               break;
-            case 'circle':
+            case "circle":
               r = this.drawCircle(b, a, p, e, d, g);
               break;
-            case 'horizontalstrike':
+            case "horizontalstrike":
               r = this.drawHStrike(b, a, p, e, d, g);
               break;
-            case 'updiagonalstrike':
+            case "updiagonalstrike":
               r = this.drawSlash(b, a, p, e, d, g);
               break;
-            case 'downdiagonalstrike':
+            case "downdiagonalstrike":
               r = this.drawBackslash(b, a, p, e, d, g);
           }
           h = Math.min(h, r.left);
@@ -9792,31 +9793,31 @@ $package('org.imatheq.formulaeditor.parsing.xml');
       getMathML: function () {
         return (
           '<menclose notation="' +
-          this.notations.join(' ') +
+          this.notations.join(" ") +
           '"' +
-          (this.in_attrbs ? this.in_attrbs : '') +
+          (this.in_attrbs ? this.in_attrbs : "") +
           (null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"') +
-          '>' +
+          ">" +
           this.children[0].getMathML() +
-          '</menclose>'
+          "</menclose>"
         );
       },
       getAltText: function () {
         for (
           var b = org.imatheq.formulaeditor.FormulaEditor.getEditor(),
-            a = '',
-            e = 'strike',
+            a = "",
+            e = "strike",
             d = 0;
           d < this.notations.length;
           d++
         ) {
-          if ('box' == this.notations[d] || 'circle' == this.notations[d])
-            e = 'enclose';
+          if ("box" == this.notations[d] || "circle" == this.notations[d])
+            e = "enclose";
           a += b.getSymbolAltText(this.notations[d]);
         }
         d =
@@ -9824,22 +9825,22 @@ $package('org.imatheq.formulaeditor.parsing.xml');
             ? 1
             : 0;
         return b.altstrs[e][d]
-          .replace('$0$', a.trim())
-          .replace('$1$', this.children[0].getAltText().trim());
+          .replace("$0$", a.trim())
+          .replace("$1$", this.children[0].getAltText().trim());
       },
     }
   );
 })();
-$package('org.imatheq.formulaeditor.parsing.mathml');
+$package("org.imatheq.formulaeditor.parsing.mathml");
 (function () {
   var b = com.efmase.js.utilities.toolset;
   org.imatheq.formulaeditor.parsing.mathml.MathMLParser = $extend(
     org.imatheq.formulaeditor.parsing.xml.XMLParser,
     {
-      name: 'MathMLParser',
+      name: "MathMLParser",
       handlemath: function (a, e) {
         new org.imatheq.formulaeditor.Options().getOption(
-          'stretchMOBrackets'
+          "stretchMOBrackets"
         ) && this.ConvertMOsToMfenced(a, 0, 1);
         org.imatheq.formulaeditor.FormulaEditor.getEditor().in_attrbs =
           b.getInputAttrbs(a);
@@ -9847,71 +9848,71 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       },
       handleTextNode: function (a, e, d) {
         var g = org.imatheq.formulaeditor.presentation,
-          f = '',
-          h = b.getInputAttrbs(a, 'token');
-        if (null !== a.firstChild) f = '' + a.firstChild.nodeValue;
+          f = "",
+          h = b.getInputAttrbs(a, "token");
+        if (null !== a.firstChild) f = "" + a.firstChild.nodeValue;
         else return null;
         var k = f.charAt(0);
         e = [];
         var l,
           m =
-            null === a.getAttribute('lspace') ? null : a.getAttribute('lspace'),
+            null === a.getAttribute("lspace") ? null : a.getAttribute("lspace"),
           r =
-            null === a.getAttribute('rspace') ? null : a.getAttribute('rspace'),
-          n = 'mtext' == a.localName.toLowerCase();
-        l = a.getAttribute('mathvariant');
-        var p = a.getAttribute('mathcolor'),
+            null === a.getAttribute("rspace") ? null : a.getAttribute("rspace"),
+          n = "mtext" == a.localName.toLowerCase();
+        l = a.getAttribute("mathvariant");
+        var p = a.getAttribute("mathcolor"),
           t = !1,
           q = !1,
           u = !1,
-          v = 'mo' == a.localName.toLowerCase(),
+          v = "mo" == a.localName.toLowerCase(),
           k = void 0 !== org.imatheq.formulaeditor.parsing.expression.MOList[k],
-          y = 'mn' == a.localName.toLowerCase(),
-          A = 'mi' == a.localName.toLowerCase(),
+          y = "mn" == a.localName.toLowerCase(),
+          A = "mi" == a.localName.toLowerCase(),
           C = !1,
           z = !1,
           w = !1;
-        a.getAttribute('accent');
+        a.getAttribute("accent");
         var D = (A || v || y) && 1 < f.length,
-          A = D ? '' : null;
-        null === l && (l = '');
+          A = D ? "" : null;
+        null === l && (l = "");
         switch (l) {
-          case '':
-            w = n || v || y || D || k ? null : 'auto';
+          case "":
+            w = n || v || y || D || k ? null : "auto";
             break;
-          case 'bold':
+          case "bold":
             C = !0;
             break;
-          case 'italic':
+          case "italic":
             z = !0;
             break;
-          case 'bold-italic':
+          case "bold-italic":
             C = !0;
-            D ? (z = !0) : (w = 'auto');
+            D ? (z = !0) : (w = "auto");
             break;
-          case 'double-struck':
+          case "double-struck":
             t = !0;
             A = null;
             D = !1;
             break;
-          case 'script':
+          case "script":
             q = !0;
-            w = 'auto';
+            w = "auto";
             A = null;
             D = !1;
             break;
-          case 'bold-script':
+          case "bold-script":
             C = q = !0;
-            w = 'auto';
+            w = "auto";
             A = null;
             D = !1;
             break;
-          case 'fraktur':
+          case "fraktur":
             u = !0;
             A = null;
             D = !1;
             break;
-          case 'bold-fraktur':
+          case "bold-fraktur":
             (u = !0), (A = null), (D = !1), (C = !0);
         }
         arrCh = [];
@@ -9927,11 +9928,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           ) {
             B = org.imatheq.formulaeditor.parsing.expression.RevList[k];
             if (void 0 !== B) {
-              !q && C && 'script' == B.type && (q = !0);
-              !u && C && 'fraktur' == B.type && (u = !0);
-              if ('bold-script' == B.type || 'bold-fraktur' == B.type)
+              !q && C && "script" == B.type && (q = !0);
+              !u && C && "fraktur" == B.type && (u = !0);
+              if ("bold-script" == B.type || "bold-fraktur" == B.type)
                 (k = B.non_bold), (C = !0);
-              if ('bold-script' == B.type || 'script' == B.type) italic = !0;
+              if ("bold-script" == B.type || "script" == B.type) italic = !0;
             }
             t &&
               void 0 !==
@@ -9950,8 +9951,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               void 0 !==
                 org.imatheq.formulaeditor.parsing.expression.FrakturList[k] &&
               (k = org.imatheq.formulaeditor.parsing.expression.FrakturList[k]);
-            ' ' == k
-              ? arrCh.push([' ', null, null, null])
+            " " == k
+              ? arrCh.push([" ", null, null, null])
               : arrCh.push([k, C, q, u]);
             void 0 !== org.imatheq.formulaeditor.parsing.expression.MOList[k] &&
               ((D = !1), (A = null));
@@ -9959,11 +9960,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           }
         }
         for (l = 0; l < arrCh.length; l++) {
-          if (' ' == arrCh[l][0]) f = new g.Space('0.4em', '0', '0', ' ', n);
+          if (" " == arrCh[l][0]) f = new g.Space("0.4em", "0", "0", " ", n);
           else
             for (
               f =
-                'Bracket' == d
+                "Bracket" == d
                   ? new g.Bracket(
                       arrCh[l][0],
                       arrCh[l][1],
@@ -9980,7 +9981,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                       arrCh[l][2],
                       arrCh[l][3]
                     )
-                  : 'VerticalBracket' == d
+                  : "VerticalBracket" == d
                   ? new g.VerticalBracket(
                       arrCh[l][0],
                       arrCh[l][1],
@@ -10014,8 +10015,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                       arrCh[l][3]
                     ),
                 q =
-                  'form fence separator lspace rspace stretchy symmetric maxsize minsize largeop movablelimits accent'.split(
-                    ' '
+                  "form fence separator lspace rspace stretchy symmetric maxsize minsize largeop movablelimits accent".split(
+                    " "
                   ),
                 u = 0;
               u < a.attributes.length;
@@ -10023,7 +10024,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             )
               (C = a.attributes[u]),
                 -1 != q.indexOf(C.localName) &&
-                  (h += ' ' + C.localName + '="' + C.value + '"');
+                  (h += " " + C.localName + '="' + C.value + '"');
           f.in_attrbs = h;
           e.push(f);
         }
@@ -10058,18 +10059,18 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       handlemspace: function (a, e) {
         var d = org.imatheq.formulaeditor.presentation,
           g =
-            '' == a.getAttribute('width') || null === a.getAttribute('width')
-              ? '0'
-              : a.getAttribute('width'),
+            "" == a.getAttribute("width") || null === a.getAttribute("width")
+              ? "0"
+              : a.getAttribute("width"),
           f =
-            '' == a.getAttribute('height') || null === a.getAttribute('height')
-              ? '0'
-              : a.getAttribute('height'),
+            "" == a.getAttribute("height") || null === a.getAttribute("height")
+              ? "0"
+              : a.getAttribute("height"),
           h =
-            '' == a.getAttribute('depth') || null === a.getAttribute('depth')
-              ? '0'
-              : a.getAttribute('depth'),
-          k = b.getInputAttrbs(a, 'token'),
+            "" == a.getAttribute("depth") || null === a.getAttribute("depth")
+              ? "0"
+              : a.getAttribute("depth"),
+          k = b.getInputAttrbs(a, "token"),
           g = new d.Space(g, f, h);
         g.in_attrbs = k;
         return new d.Row(g);
@@ -10083,17 +10084,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           f = [],
           h = org.imatheq.formulaeditor.presentation;
         1 == d.length &&
-          'mrow' == d.item(0).localName.toLowerCase() &&
+          "mrow" == d.item(0).localName.toLowerCase() &&
           (d = d.item(0).childNodes);
         for (var k = 0; k < d.length; k++)
           if (
             ((child = d.item(k)),
-            ('mo' != child.localName && 'mspace' != child.localName) ||
-              'newline' != child.getAttribute('linebreak'))
+            ("mo" != child.localName && "mspace" != child.localName) ||
+              "newline" != child.getAttribute("linebreak"))
           )
             (a = this.handle(d.item(k), b)), null !== a && f.push(a);
           else {
-            'before' == child.getAttribute('linebreakstyle') &&
+            "before" == child.getAttribute("linebreakstyle") &&
               ((a = this.handle(d.item(k), b)), null !== a && f.push(child));
             f.push(new h.NewlineSymbol());
             var l = new h.Row();
@@ -10101,7 +10102,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             l.flatten();
             g.push(l);
             f = [];
-            'after' == child.getAttribute('linebreakstyle') &&
+            "after" == child.getAttribute("linebreakstyle") &&
               ((a = this.handle(d.item(k), b)), null !== a && f.push(child));
           }
         l = new h.Row();
@@ -10124,52 +10125,52 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           f = [],
           h = org.imatheq.formulaeditor.presentation;
         1 == d.length &&
-          'mrow' == d.item(0).localName.toLowerCase() &&
+          "mrow" == d.item(0).localName.toLowerCase() &&
           (d = d.item(0).childNodes);
-        for (var k = '0', l = d.length - 1; 0 <= l; l--)
-          if ('msgroup' == t.localName) {
+        for (var k = "0", l = d.length - 1; 0 <= l; l--)
+          if ("msgroup" == t.localName) {
             var m = d.item(l);
             k++;
             for (
-              var r = m.getAttribute('position'),
-                n = m.getAttribute('shift'),
+              var r = m.getAttribute("position"),
+                n = m.getAttribute("shift"),
                 p = m.length - 1;
               0 <= p;
               p--
             ) {
               var t = m.childNodes.item(p);
-              t.setAttribute('group_id', k);
-              t.setAttribute('group_position', r);
-              t.setAttribute('group_shift', n);
+              t.setAttribute("group_id", k);
+              t.setAttribute("group_position", r);
+              t.setAttribute("group_shift", n);
               m.removeChild(t);
               a.appendChild(t);
             }
             a.removeChild(m);
-          } else if ('mscarries' == t.localName)
+          } else if ("mscarries" == t.localName)
             for (
               var m = d.item(l),
-                r = m.getAttribute('position'),
-                n = m.getAttribute('location'),
-                p = m.getAttribute('crossout'),
-                q = m.getAttribute('scriptsizemultiplier'),
+                r = m.getAttribute("position"),
+                n = m.getAttribute("location"),
+                p = m.getAttribute("crossout"),
+                q = m.getAttribute("scriptsizemultiplier"),
                 u = 0;
               u < m.childNods.length;
               u++
             )
               (t = m.childNodes.item(u)),
-                t.setAttribute('msc_position', r),
-                t.setAttribute('msc_location', n),
-                t.setAttribute('msc_crossout', p),
-                t.setAttribute('msc_scriptsizemultiplier', q);
+                t.setAttribute("msc_position", r),
+                t.setAttribute("msc_location", n),
+                t.setAttribute("msc_crossout", p),
+                t.setAttribute("msc_scriptsizemultiplier", q);
         k = null;
         for (l = 0; l < d.length; l++)
-          'mscarries' == t.localName
+          "mscarries" == t.localName
             ? null === k && (k = l)
             : ((msrow = d.item(l)),
-              ('mo' != t.localName && 'mspace' != t.localName) ||
-              'newline' != t.getAttribute('linebreak')
+              ("mo" != t.localName && "mspace" != t.localName) ||
+              "newline" != t.getAttribute("linebreak")
                 ? ((a = this.handle(d.item(l), b)), null !== a && f.push(a))
-                : ('before' == t.getAttribute('linebreakstyle') &&
+                : ("before" == t.getAttribute("linebreakstyle") &&
                     ((a = this.handle(d.item(l), b)), null !== a && f.push(t)),
                   f.push(new h.NewlineSymbol()),
                   (k = new h.Row()),
@@ -10178,7 +10179,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   k.updateChildren(),
                   g.push(k),
                   (f = []),
-                  'after' == t.getAttribute('linebreakstyle') &&
+                  "after" == t.getAttribute("linebreakstyle") &&
                     ((a = this.handle(d.item(l), b)), null !== a && f.push(t))),
               (k = null));
         k = new h.Row();
@@ -10211,14 +10212,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         d.initialize.apply(d, g);
         d.flatten();
         d.updateChildren();
-        a.getAttribute('is_answer') &&
-          'true' == a.getAttribute('is_answer') &&
+        a.getAttribute("is_answer") &&
+          "true" == a.getAttribute("is_answer") &&
           (d.isAnswer = !0);
         d.in_attrbs = b.getInputAttrbs(a);
         return d;
       },
       handleannotationxml: function (a, b) {
-        a.getAttribute('encoding');
+        a.getAttribute("encoding");
         return this.handlemrow(a, b);
       },
       handlesemantics: function (a, b) {
@@ -10238,12 +10239,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         }
         d = null;
         d =
-          'true' == a.getAttribute('bevelled')
+          "true" == a.getAttribute("bevelled")
             ? new f.BevelledFraction(g[0], g[1])
             : new f.Fraction(g[0], g[1]);
         g = b.getInputAttrbs(a);
         d.in_attrbs = g;
-        g = a.getAttribute('linethickness');
+        g = a.getAttribute("linethickness");
         isNaN(parseFloat(g)) || (d.lineWidth = parseFloat(g));
         return new f.Row(d);
       },
@@ -10259,23 +10260,23 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       handlemunderovers: function (a, e) {
         var d = a.childNodes,
           g = org.imatheq.formulaeditor.presentation;
-        a.getAttribute('accent');
-        a.getAttribute('accentunder');
-        var f = a.getAttribute('mathcolor'),
+        a.getAttribute("accent");
+        a.getAttribute("accentunder");
+        var f = a.getAttribute("mathcolor"),
           h = a.localName,
           k = g.SymbolOnscreens,
           l = b.getInputAttrbs(a),
           m = null;
-        'mo' == d.item(0).localName
+        "mo" == d.item(0).localName
           ? (m = d.item(0))
-          : 'mrow' == d.item(0).localName &&
+          : "mrow" == d.item(0).localName &&
             1 == d.item(0).childElementCount &&
-            'mo' == d.item(0).firstChild.localName &&
+            "mo" == d.item(0).firstChild.localName &&
             (m = d.item(0).firstChild);
         if (
           m &&
           0 == m.childElementCount &&
-          'string' == typeof m.firstChild.nodeValue &&
+          "string" == typeof m.firstChild.nodeValue &&
           1 == m.firstChild.nodeValue.length &&
           (-1 !==
             org.imatheq.formulaeditor.parsing.expression.LargeopList.indexOf(
@@ -10308,15 +10309,15 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               )
           )
             r = null;
-          var n = this.handleTextNode(m, e, 'VerticalBracket').children[0];
+          var n = this.handleTextNode(m, e, "VerticalBracket").children[0];
           n.onscreen = r;
           n.accent = !1;
           m = [];
-          'munderover' != h &&
+          "munderover" != h &&
             (2 <= d.length
               ? m.push(this.handle(d.item(1), e))
               : m.push(new g.Row(new g.BlockSymbol())));
-          'munderover' == h &&
+          "munderover" == h &&
             (3 <= d.length
               ? m.push(this.handle(d.item(2), e))
               : m.push(new g.Row(new g.BlockSymbol())),
@@ -10330,9 +10331,9 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var p = !1,
           t = !1;
         2 <= d.length
-          ? 'mo' == d.item(1).localName &&
+          ? "mo" == d.item(1).localName &&
             0 == d.item(1).childElementCount &&
-            'string' == typeof d.item(1).firstChild.nodeValue &&
+            "string" == typeof d.item(1).firstChild.nodeValue &&
             1 == d.item(1).firstChild.nodeValue.length &&
             (-1 !==
               org.imatheq.formulaeditor.parsing.expression.VertBracketList.indexOf(
@@ -10350,14 +10351,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   d.item(1).firstChild.nodeValue
                 ) && (r = null),
               (p = !0),
-              (m = this.handleTextNode(d.item(1), e, 'VerticalBracket')
+              (m = this.handleTextNode(d.item(1), e, "VerticalBracket")
                 .children[0]),
               (m.onscreen = r))
-            : 'mrow' == d.item(1).localName &&
+            : "mrow" == d.item(1).localName &&
               1 == d.item(1).childElementCount &&
-              'mo' == d.item(1).firstChild.localName &&
+              "mo" == d.item(1).firstChild.localName &&
               0 == d.item(1).firstChild.childElementCount &&
-              'string' == typeof d.item(1).firstChild.firstChild.nodeValue &&
+              "string" == typeof d.item(1).firstChild.firstChild.nodeValue &&
               1 == d.item(1).firstChild.firstChild.nodeValue.length &&
               (-1 !==
                 org.imatheq.formulaeditor.parsing.expression.VertBracketList.indexOf(
@@ -10378,15 +10379,15 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               (m = this.handleTextNode(
                 d.item(1).firstChild,
                 e,
-                'VerticalBracket'
+                "VerticalBracket"
               ).children[0]),
               (m.onscreen = r))
             : (m = this.handle(d.item(1), e))
           : (m = new g.Row(new g.BlockSymbol()));
         3 <= d.length
-          ? 'mo' == d.item(2).localName &&
+          ? "mo" == d.item(2).localName &&
             0 == d.item(1).childElementCount &&
-            'string' == typeof d.item(1).firstChild.nodeValue &&
+            "string" == typeof d.item(1).firstChild.nodeValue &&
             1 == d.item(1).firstChild.nodeValue.length &&
             (-1 !==
               org.imatheq.formulaeditor.parsing.expression.VertBracketList.indexOf(
@@ -10412,29 +10413,29 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 f
               )))
             : (n = this.handle(d.item(2), e))
-          : 'munderover' == h && (n = new g.Row(new g.BlockSymbol()));
+          : "munderover" == h && (n = new g.Row(new g.BlockSymbol()));
         d = this.handle(d.item(0), e);
         if (p || t) {
           r = null;
-          if ('munderover' == h)
+          if ("munderover" == h)
             return (
               p
-                ? t || ((d = new g.column(d)), (n = new g.VerticalBracket('')))
-                : ((d = new g.column(m, d)), (m = new g.VerticalBracket(''))),
+                ? t || ((d = new g.column(d)), (n = new g.VerticalBracket("")))
+                : ((d = new g.column(m, d)), (m = new g.VerticalBracket(""))),
               (r = new g.VerticalBracketed(h, n, d, m, f)),
               (r.in_attrbs = l),
               new g.Row(r)
             );
-          n = new g.VerticalBracket('');
+          n = new g.VerticalBracket("");
           r =
-            'mover' == h
+            "mover" == h
               ? new g.VerticalBracketed(h, m, d, n, f)
               : new g.VerticalBracketed(h, n, d, m, f);
           r.in_attrbs = l;
           return new g.Row(r);
         }
         f = null;
-        if ('mover' == h)
+        if ("mover" == h)
           return (
             (f = new g.Column(m, d)),
             (f.fontSizeModifierArray = [-1, 0]),
@@ -10443,7 +10444,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             (f.in_attrbs = l),
             new g.Row(f)
           );
-        if ('munder' == h)
+        if ("munder" == h)
           return (
             (f = new g.Column(d, m)),
             (f.fontSizeModifierArray = [0, -1]),
@@ -10461,7 +10462,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       },
       handlemsqrt: function (a, e) {
         var d = org.imatheq.formulaeditor.presentation,
-          g = a.getAttribute('mathcolor'),
+          g = a.getAttribute("mathcolor"),
           f = b.getInputAttrbs(a),
           h = this.handleInferredMrow(a, e),
           g = new d.Root(h, null, g);
@@ -10470,8 +10471,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       },
       handlemroot: function (a, e) {
         var d = a.childNodes,
-          g = a.getAttribute('mathcolor');
-        '' == g && (g = null);
+          g = a.getAttribute("mathcolor");
+        "" == g && (g = null);
         var f = b.getInputAttrbs(a),
           h = this.handle(d.item(0), e),
           k = this.handle(d.item(1), e),
@@ -10490,40 +10491,40 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         return this.handlemrow(a, b);
       },
       handlemfenced: function (a, e) {
-        var d = a.getAttribute('open'),
-          g = a.getAttribute('close'),
-          f = a.getAttribute('separators'),
-          h = a.getAttribute('mathcolor'),
+        var d = a.getAttribute("open"),
+          g = a.getAttribute("close"),
+          f = a.getAttribute("separators"),
+          h = a.getAttribute("mathcolor"),
           k = a.childNodes,
           l = org.imatheq.formulaeditor.presentation,
           m = l.SymbolOnscreens,
-          r = '',
-          n = '',
-          p = '',
+          r = "",
+          n = "",
+          p = "",
           t = b.getInputAttrbs(a),
           q = [];
-        '' == h && (h = null);
-        null === d || void 0 === d ? (d = '(') : '(' == d && (r = ' open="("');
+        "" == h && (h = null);
+        null === d || void 0 === d ? (d = "(") : "(" == d && (r = ' open="("');
         var u = m[d],
           u = void 0 === u ? null : u,
           d = new l.Bracket(d, null, h);
         d.onscreen = u;
-        null === g || void 0 === g ? (g = ')') : ')' == g && (n = ' close=")"');
+        null === g || void 0 === g ? (g = ")") : ")" == g && (n = ' close=")"');
         closeOnscreen = m[g];
         closeOnscreen = void 0 === closeOnscreen ? null : closeOnscreen;
         g = new l.Bracket(g, null, h);
         g.onscreen = closeOnscreen;
         for (m = 0; m < a.attributes.length; m++)
           (u = a.attributes[m]),
-            (h = u.localName.split('_')),
-            1 < h.length && 'open' == h[0] && (d['mo_' + h[1]] = u.value),
-            1 < h.length && 'close' == h[0] && (g['mo_' + h[1]] = u.value);
-        null === f || void 0 === f ? (f = '') : (p = ' separators="' + f + '"');
-        if ('' == f) m = null;
+            (h = u.localName.split("_")),
+            1 < h.length && "open" == h[0] && (d["mo_" + h[1]] = u.value),
+            1 < h.length && "close" == h[0] && (g["mo_" + h[1]] = u.value);
+        null === f || void 0 === f ? (f = "") : (p = ' separators="' + f + '"');
+        if ("" == f) m = null;
         else if (
-          ((m = f.split('\\s+')),
-          '' === m[0] && (m = m.slice(1)),
-          0 < m.length && '' === m[m.length] && m.splice(m.length - 1),
+          ((m = f.split("\\s+")),
+          "" === m[0] && (m = m.slice(1)),
+          0 < m.length && "" === m[m.length] && m.splice(m.length - 1),
           1 == m.length)
         ) {
           h = [];
@@ -10544,12 +10545,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           ? (k = q[0])
           : ((k = new l.Row()), k.initialize.apply(k, q));
         q = new l.Bracketed(d, k, g);
-        'true' == a.getAttribute('isMO') && (q.isMO = !0);
-        null != a.getAttribute('symmetric') &&
+        "true" == a.getAttribute("isMO") && (q.isMO = !0);
+        null != a.getAttribute("symmetric") &&
           (q.symmetric =
-            'true' == a.getAttribute('symmetric').toLowerCase()
+            "true" == a.getAttribute("symmetric").toLowerCase()
               ? !0
-              : 'false' == a.getAttribute('symmetric').toLowerCase()
+              : "false" == a.getAttribute("symmetric").toLowerCase()
               ? !1
               : null);
         q.in_attrbs = t;
@@ -10593,25 +10594,25 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         return new d.Row(f);
       },
       handlemaligngroup: function (a, b) {
-        var d = a.getAttribute('groupalign');
+        var d = a.getAttribute("groupalign");
         return new org.imatheq.formulaeditor.presentation.Alignmark(
-          'maligngroup',
+          "maligngroup",
           d
         );
       },
       handlemalignmark: function (a, b) {
-        var d = a.getAttribute('edge');
+        var d = a.getAttribute("edge");
         return new org.imatheq.formulaeditor.presentation.Alignmark(
-          'malignmark',
+          "malignmark",
           d
         );
       },
       handlemenclose: function (a, e) {
         var d = org.imatheq.formulaeditor.presentation,
           g = b.getInputAttrbs(a),
-          f = a.getAttribute('notation').replace(/\s\s+/g, ' ').split(' '),
-          h = a.getAttribute('mathcolor'),
-          h = '' == h ? null : h,
+          f = a.getAttribute("notation").replace(/\s\s+/g, " ").split(" "),
+          h = a.getAttribute("mathcolor"),
+          h = "" == h ? null : h,
           k = this.handleInferredMrow(a, e),
           f = new d.Enclose(k, f, h);
         f.in_attrbs = g;
@@ -10627,14 +10628,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var d = a.childNodes,
           g = org.imatheq.formulaeditor.presentation,
           f = a.localName;
-        a.getAttribute('mathcolor');
+        a.getAttribute("mathcolor");
         var h = g.SymbolOnscreens,
           k = null,
           l = b.getInputAttrbs(a);
         if (
-          'mo' == d.item(0).localName &&
+          "mo" == d.item(0).localName &&
           0 == d.item(0).childElementCount &&
-          'string' == typeof d.item(0).firstChild.nodeValue &&
+          "string" == typeof d.item(0).firstChild.nodeValue &&
           1 == d.item(0).firstChild.nodeValue.length &&
           (-1 !==
             org.imatheq.formulaeditor.parsing.expression.LargeopList.indexOf(
@@ -10652,21 +10653,21 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             org.imatheq.formulaeditor.parsing.expression.LargeopList.indexOf(
               d.item(0).firstChild.nodeValue
             ) && (m = null);
-          h = this.handleTextNode(d.item(0), e, 'VerticalBracket').children[0];
+          h = this.handleTextNode(d.item(0), e, "VerticalBracket").children[0];
           h.onscreen = m;
           h.accent = !1;
           m = k = null;
-          'msub' == f
+          "msub" == f
             ? (k =
                 2 == d.length
                   ? this.handle(d.item(1), e)
                   : new g.Row(new g.BlockSymbol()))
-            : 'msup' == f
+            : "msup" == f
             ? (m =
                 2 == d.length
                   ? this.handle(d.item(1), e)
                   : new g.Row(new g.BlockSymbol()))
-            : 'msubsup' == f &&
+            : "msubsup" == f &&
               ((k =
                 2 <= d.length
                   ? this.handle(d.item(1), e)
@@ -10680,11 +10681,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           return new g.Row(k);
         }
         if (
-          'mrow' == d.item(0).localName &&
+          "mrow" == d.item(0).localName &&
           1 == d.item(0).childElementCount &&
-          'mo' == d.item(0).firstChild.localName &&
+          "mo" == d.item(0).firstChild.localName &&
           0 == d.item(0).firstChild.childElementCount &&
-          'string' == typeof d.item(0).firstChild.firstChild.nodeValue &&
+          "string" == typeof d.item(0).firstChild.firstChild.nodeValue &&
           1 == d.item(0).firstChild.firstChild.nodeValue.length &&
           (-1 !==
             org.imatheq.formulaeditor.parsing.expression.LargeopList.indexOf(
@@ -10703,22 +10704,22 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               org.imatheq.formulaeditor.parsing.expression.LargeopList.indexOf(
                 d.item(0).firstChild.firstChild.nodeValue
               ) && (m = null),
-            (h = this.handleTextNode(d.item(0).firstChild, e, 'VerticalBracket')
+            (h = this.handleTextNode(d.item(0).firstChild, e, "VerticalBracket")
               .children[0]),
             (h.onscreen = m),
             (h.accent = !1),
             (m = k = null),
-            'msub' == f
+            "msub" == f
               ? (k =
                   2 == d.length
                     ? this.handle(d.item(1), e)
                     : new g.Row(new g.BlockSymbol()))
-              : 'msup' == f
+              : "msup" == f
               ? (m =
                   2 == d.length
                     ? this.handle(d.item(1), e)
                     : new g.Row(new g.BlockSymbol()))
-              : 'msubsup' == f &&
+              : "msubsup" == f &&
                 ((k =
                   2 <= d.length
                     ? this.handle(d.item(1), e)
@@ -10736,7 +10737,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           2 <= d.length
             ? this.handle(d.item(1), e)
             : new g.Row(new g.BlockSymbol());
-        'msubsup' == f &&
+        "msubsup" == f &&
           (m =
             3 <= d.length
               ? this.handle(d.item(2), e)
@@ -10753,30 +10754,30 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             h = org.imatheq.formulaeditor.presentation,
             k = this.handle(d.item(0), e),
             l =
-              'id' + new Date().getTime() + Math.random().toString(16).slice(2),
+              "id" + new Date().getTime() + Math.random().toString(16).slice(2),
             m = b.getInputAttrbs(a),
             r = !1,
             n = 1;
           n < d.length;
           n++
         )
-          if ('mprescripts' == d.item(n).localName) r = !0;
+          if ("mprescripts" == d.item(n).localName) r = !0;
           else {
             var p = null;
-            'none' != d.item(n).localName && (p = this.handle(d.item(n), e));
+            "none" != d.item(n).localName && (p = this.handle(d.item(n), e));
             var t = null;
             n + 1 < d.length &&
-              'none' != d.item(n + 1).localName &&
-              'mprescripts' != d.item(n + 1).localName &&
+              "none" != d.item(n + 1).localName &&
+              "mprescripts" != d.item(n + 1).localName &&
               (t = this.handle(d.item(++n), e));
             var q = null;
             if (null !== p || null !== t)
-              (q = null === p ? 'msup' : null === t ? 'msub' : 'msubsup'),
+              (q = null === p ? "msup" : null === t ? "msub" : "msubsup"),
                 r
-                  ? ((q = new h.Subsup(q, t, p, 'mprescripts', l)),
+                  ? ((q = new h.Subsup(q, t, p, "mprescripts", l)),
                     (q.in_attrbs = m),
                     f.push(q))
-                  : ((q = new h.Subsup(q, t, p, 'mmultiscripts', l)),
+                  : ((q = new h.Subsup(q, t, p, "mmultiscripts", l)),
                     (q.in_attrbs = m),
                     g.push(q));
           }
@@ -10793,15 +10794,15 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
   org.imatheq.formulaeditor.version = {
     showAboutPopup: function () {
       alert(
-        'imatheq Formulaeditor\nversion: ' +
+        "imatheq Formulaeditor\nversion: " +
           this.toString() +
-          '\nhttp://imatheq.org/formulaeditor/\ninfo@imatheq.org'
+          "\nhttp://imatheq.org/formulaeditor/\ninfo@imatheq.org"
       );
     },
     toString: function () {
       return this.versionInfo;
     },
-    versionInfo: '1.1.31f',
+    versionInfo: "1.1.31f",
   };
 })();
 (function () {
@@ -10812,14 +10813,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
   org.imatheq.formulaeditor.MathCanvas = $extend(Object, {
     editor: null,
     canvas: null,
-    fontName: 'cmr',
+    fontName: "cmr",
     fontFamilyNameIdx: 0,
     exFontCache: [],
     fontSizes: [
       144, 173, 193, 207, 249, 298, 358, 430, 537, 716, 860, 1074, 1432, 1720,
     ],
     fontNames:
-      'Math Font;Arial;Courier New;Tahoma;Times New Roman;Verdana'.split(';'),
+      "Math Font;Arial;Courier New;Tahoma;Times New Roman;Verdana".split(";"),
     fontSizeIdx: null,
     imageCache: null,
     loadingImages: 0,
@@ -10840,12 +10841,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         this.fontSizeIdx = d;
       } else
         this.fontSizeIdx = new org.imatheq.formulaeditor.Options().getOption(
-          'defaultFontSizeIdx'
+          "defaultFontSizeIdx"
         );
     },
     drawBracketFont: function (a, b, d, g, f) {
-      var h = document.createElement('span');
-      h.style.position = 'absolute';
+      var h = document.createElement("span");
+      h.style.position = "absolute";
       h.style.top = d;
       h.style.left = b;
       h.style.width = g;
@@ -10856,11 +10857,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var a = this;
       checkImgLoading = function () {
         0 < a.loadingImages
-          ? ((document.getElementById('com_imatheq_loading_msg').style.display =
-              ''),
+          ? ((document.getElementById("com_imatheq_loading_msg").style.display =
+              ""),
             window.setTimeout(checkImgLoading, 500))
-          : (document.getElementById('com_imatheq_loading_msg').style.display =
-              'none');
+          : (document.getElementById("com_imatheq_loading_msg").style.display =
+              "none");
       };
       window.setTimeout(checkImgLoading, 500);
     },
@@ -10874,80 +10875,80 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var d, g;
       if (null === a || void 0 === a) return null;
       a = a.trim();
-      if ('0' == a) return 0;
-      '%' == a.slice(a.length - 1)
-        ? ((d = parseFloat(a.slice(0, a.length - 1))), (g = '%'))
+      if ("0" == a) return 0;
+      "%" == a.slice(a.length - 1)
+        ? ((d = parseFloat(a.slice(0, a.length - 1))), (g = "%"))
         : ((d = parseFloat(a.slice(0, a.length - 2))),
           (g = a.slice(a.length - 2).toLowerCase()));
       switch (g) {
-        case 'px':
+        case "px":
           return d;
-        case 'em':
+        case "em":
           d *= this.getFontUnitEm(b);
           break;
-        case 'ex':
+        case "ex":
           d *= this.getFontUnitEx(b);
           break;
-        case 'in':
+        case "in":
           d *= 96;
           break;
-        case 'cm':
+        case "cm":
           d = (96 * d) / 2.54;
           break;
-        case 'mm':
+        case "mm":
           d = (96 * d) / 25.4;
           break;
-        case 'pt':
+        case "pt":
           d = (96 * d) / 72;
           break;
-        case 'pc':
+        case "pc":
           d = (96 * d) / 6;
           break;
-        case '%':
+        case "%":
           d = (d * this.getFontUnitEm(b)) / 100;
           break;
-        case 'ce':
+        case "ce":
           switch (a) {
-            case 'veryverythinmathspace':
+            case "veryverythinmathspace":
               d = this.getFontUnitEm(b) / 18;
               break;
-            case 'verythinmathspace':
+            case "verythinmathspace":
               d = (2 * this.getFontUnitEm(b)) / 18;
               break;
-            case 'thinmathspace':
+            case "thinmathspace":
               d = (3 * this.getFontUnitEm(b)) / 18;
               break;
-            case 'mediummathspace':
+            case "mediummathspace":
               d = (4 * this.getFontUnitEm(b)) / 18;
               break;
-            case 'thickmathspace':
+            case "thickmathspace":
               d = (5 * this.getFontUnitEm(b)) / 18;
               break;
-            case 'verythickmathspace':
+            case "verythickmathspace":
               d = (6 * this.getFontUnitEm(b)) / 18;
               break;
-            case 'veryverythickmathspace':
+            case "veryverythickmathspace":
               d = (7 * this.getFontUnitEm(b)) / 18;
               break;
-            case 'negativeveryverythinmathspace':
+            case "negativeveryverythinmathspace":
               d = -this.getFontUnitEm(b) / 18;
               break;
-            case 'negativeverythinmathspace':
+            case "negativeverythinmathspace":
               d = (2 * -this.getFontUnitEm(b)) / 18;
               break;
-            case 'negativethinmathspace':
+            case "negativethinmathspace":
               d = (3 * -this.getFontUnitEm(b)) / 18;
               break;
-            case 'negativemediummathspace':
+            case "negativemediummathspace":
               d = (4 * -this.getFontUnitEm(b)) / 18;
               break;
-            case 'negativethickmathspace':
+            case "negativethickmathspace":
               d = (5 * -this.getFontUnitEm(b)) / 18;
               break;
-            case 'negativeverythickmathspace':
+            case "negativeverythickmathspace":
               d = (6 * -this.getFontUnitEm(b)) / 18;
               break;
-            case 'negativeveryverythickmathspace':
+            case "negativeveryverythickmathspace":
               d = (7 * -this.getFontUnitEm(b)) / 18;
               break;
             default:
@@ -10964,52 +10965,52 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     getEMSize: function (a, b) {
       var d, g;
-      if ('0' == a.trim()) return 0;
-      if ('%' == a.trim().slice(a.trim().length - 1))
-        (d = parseFloat(a.trim().slice(0, a.trim().length - 1))), (g = '%');
+      if ("0" == a.trim()) return 0;
+      if ("%" == a.trim().slice(a.trim().length - 1))
+        (d = parseFloat(a.trim().slice(0, a.trim().length - 1))), (g = "%");
       else {
-        if (-1 != a.indexOf('mathspace')) {
+        if (-1 != a.indexOf("mathspace")) {
           switch (a) {
-            case 'veryverythinmathspace':
+            case "veryverythinmathspace":
               d = 1 / 18;
               break;
-            case 'verythinmathspace':
+            case "verythinmathspace":
               d = 2 / 18;
               break;
-            case 'thinmathspace':
+            case "thinmathspace":
               d = 3 / 18;
               break;
-            case 'mediummathspace':
+            case "mediummathspace":
               d = 4 / 18;
               break;
-            case 'thickmathspace':
+            case "thickmathspace":
               d = 5 / 18;
               break;
-            case 'verythickmathspace':
+            case "verythickmathspace":
               d = 6 / 18;
               break;
-            case 'veryverythickmathspace':
+            case "veryverythickmathspace":
               d = 7 / 18;
               break;
-            case 'negativeveryverythinmathspace':
+            case "negativeveryverythinmathspace":
               d = -1 / 18;
               break;
-            case 'negativeverythinmathspace':
+            case "negativeverythinmathspace":
               d = -2 / 18;
               break;
-            case 'negativethinmathspace':
+            case "negativethinmathspace":
               d = -3 / 18;
               break;
-            case 'negativemediummathspace':
+            case "negativemediummathspace":
               d = -4 / 18;
               break;
-            case 'negativethickmathspace':
+            case "negativethickmathspace":
               d = -5 / 18;
               break;
-            case 'negativeverythickmathspace':
+            case "negativeverythickmathspace":
               d = -6 / 18;
               break;
-            case 'negativeveryverythickmathspace':
+            case "negativeveryverythickmathspace":
               d = -7 / 18;
           }
           return d;
@@ -11021,25 +11022,25 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           .toLowerCase();
       }
       switch (g) {
-        case 'ex':
+        case "ex":
           d = (d * this.getFontUnitEx(b)) / this.getFontUnitEm(b);
           break;
-        case 'in':
+        case "in":
           d = (96 * d) / this.getFontUnitEm(b);
           break;
-        case 'cm':
+        case "cm":
           d = (96 * d) / 2.54 / this.getFontUnitEm(b);
           break;
-        case 'mm':
+        case "mm":
           d = (96 * d) / 25.4 / this.getFontUnitEm(b);
           break;
-        case 'pt':
+        case "pt":
           d = (96 * d) / 72 / this.getFontUnitEm(b);
           break;
-        case 'pc':
+        case "pc":
           d = (96 * d) / 6 / this.getFontUnitEm(b);
           break;
-        case '%':
+        case "%":
           d /= 100;
       }
       return d;
@@ -11057,20 +11058,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         g = org.imatheq.formulaeditor.MathCanvas.symbolPositions[a];
       return null === g ||
         void 0 === g ||
-        ('cmex10' != g.font &&
-          'cmey10' != g.font &&
-          'bnormal10' != g.font &&
-          'msbm10' != g.font &&
-          'imescr10' != g.font &&
-          'eufm10' != g.font)
+        ("cmex10" != g.font &&
+          "cmey10" != g.font &&
+          "bnormal10" != g.font &&
+          "msbm10" != g.font &&
+          "imescr10" != g.font &&
+          "eufm10" != g.font)
         ? 7 <= d
         : !0;
     },
     getContext: function () {
-      return this.canvas.getContext('2d');
+      return this.canvas.getContext("2d");
     },
     getBgContext: function () {
-      return this.bgCanvas.getContext('2d');
+      return this.bgCanvas.getContext("2d");
     },
     setFontSizeIdx: function (a) {
       this.fontSizeIdx = a;
@@ -11094,13 +11095,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var t;
       if (null !== m && void 0 !== m)
         return this.drawSymbol(a, d, g, h, !1, !1, l, k);
-      m = b + 'u';
+      m = b + "u";
       var q = this.getSymbolDataByPosition(m, k);
-      a = b + 'l';
+      a = b + "l";
       var u = this.getSymbolDataByPosition(a, k),
-        r = b + 'c',
+        r = b + "c",
         n = this.getSymbolDataByPosition(r, k);
-      b += 'm';
+      b += "m";
       p = this.getSymbolDataByPosition(b, k);
       null === q &&
         (q = {
@@ -11204,8 +11205,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (void 0 === m || null === m) m = 1;
       k = Math.min(Math.round(f / 4), this.getFontUnitEm(k));
       var r = g + Math.round(f / 2),
-        n = '\u27e8' == b || '\u2329' == b || '<' == b ? d + m : d + k + m;
-      b = '\u27e8' == b || '\u2329' == b || '<' == b ? d + k + m : d + m;
+        n = "\u27e8" == b || "\u2329" == b || "<" == b ? d + m : d + k + m;
+      b = "\u27e8" == b || "\u2329" == b || "<" == b ? d + k + m : d + m;
       h ||
         (a.save(),
         void 0 !== l && (a.strokeStyle = l),
@@ -11228,11 +11229,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (void 0 === m || null === m) m = 1;
       k = Math.round(Math.min(f / 6, this.getFontUnitEm(k) / 2));
       k = 2 > k ? 2 : k;
-      var r = '\u2308' == b || '\u230a' == b ? d + m : d + k + m,
-        n = '\u230a' == b || '\u230b' == b ? g : g + f,
-        p = '\u230a' == b || '\u230b' == b ? g + f : g,
-        t = '\u2309' == b || '\u230b' == b ? d + m : d + k + m;
-      b = '\u2308' == b || '\u2309' == b ? g : g + f;
+      var r = "\u2308" == b || "\u230a" == b ? d + m : d + k + m,
+        n = "\u230a" == b || "\u230b" == b ? g : g + f,
+        p = "\u230a" == b || "\u230b" == b ? g + f : g,
+        t = "\u2309" == b || "\u230b" == b ? d + m : d + k + m;
+      b = "\u2308" == b || "\u2309" == b ? g : g + f;
       h ||
         (a.save(),
         void 0 !== l && (a.strokeStyle = l),
@@ -11265,15 +11266,15 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         }
       }
       g = null;
-      v = m ? '' : 'b';
-      m = a + v + 'm';
+      v = m ? "" : "b";
+      m = a + v + "m";
       g = this.getSymbolDataByPosition(m, l);
       (null !== n && void 0 !== n) ||
         (null !== g && void 0 !== g) ||
         (null !== p && void 0 !== p
           ? ((r = q), (n = p))
           : ((r = a), (n = this.getSymbolDataByPosition(a, l))));
-      -1 !== '\u02d8^\u02c7~'.indexOf(a) &&
+      -1 !== "\u02d8^\u02c7~".indexOf(a) &&
         (null !== t
           ? ((n = t), (r = u))
           : void 0 !==
@@ -11294,11 +11295,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               }
             : { left: b.left, top: b.top, width: b.width, height: b.height }
         );
-      n = a + v + 'l';
+      n = a + v + "l";
       var z = this.getSymbolDataByPosition(n, l);
-      r = a + v + 'r';
+      r = a + v + "r";
       var w = this.getSymbolDataByPosition(r, l),
-        p = a + v + 'c',
+        p = a + v + "c",
         t = this.getSymbolDataByPosition(p, l),
         u = (q = 0);
       null === z &&
@@ -11405,8 +11406,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           e.lineWidth = 1;
           e.beginPath();
           var d = b.caretSize;
-          e.strokeStyle = '#0F8394';
-          e.fillStyle = '#18DAF6';
+          e.strokeStyle = "#0F8394";
+          e.fillStyle = "#18DAF6";
           e.moveTo(a.x, a.bottom + 2);
           e.lineTo(a.x - d, a.bottom + 2 + d);
           e.lineTo(a.x - d, a.bottom + 2 + 3 * d);
@@ -11542,21 +11543,21 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       g.restore();
     },
     drawFBox: function (a, b, d, g, f, h, k, l) {
-      if (null === g || void 0 === g) g = 'f';
+      if (null === g || void 0 === g) g = "f";
       a = this.drawSymbol(g, a, b, !0, f, h, k, l);
       d ||
         ((d = this.getContext()),
         d.save(),
-        (d.fillStyle = 'rgba(167,191,255, 0.5)'),
+        (d.fillStyle = "rgba(167,191,255, 0.5)"),
         d.fillRect(a.left + 1, a.top + 1, a.width - 2, a.height - 2),
-        (d.lineWidth = '1'),
-        (d.strokeStyle = 'black'),
+        (d.lineWidth = "1"),
+        (d.strokeStyle = "black"),
         d.strokeRect(a.left, a.top, a.width, a.height),
         d.restore());
       return a;
     },
     drawcBox: function (a, b, d, g, f, h, k, l) {
-      if (null === g || void 0 === g) g = 'c';
+      if (null === g || void 0 === g) g = "c";
       dim0 = this.getXDimentions(m, a, b);
       baseline = dim0.top + Math.round(0.4 * dim0.height);
       a = this.drawSymbol(g, a, b, !0, f, h, k, l);
@@ -11565,10 +11566,10 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (!d) {
         var m = this.getContext();
         m.save();
-        m.fillStyle = 'rgba(167,191,255, 0.5)';
+        m.fillStyle = "rgba(167,191,255, 0.5)";
         m.fillRect(a.left + 1, a.top + 1, a.width - 2, a.height - 2);
-        m.lineWidth = '1';
-        m.strokeStyle = 'black';
+        m.lineWidth = "1";
+        m.strokeStyle = "black";
         m.strokeRect(a.left, a.top, a.width, a.height);
         m.restore();
       }
@@ -11583,26 +11584,26 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       return [b, currtop];
     },
     getExFontHeights: function (a, b, d, g) {
-      var f = document.createElement('span');
+      var f = document.createElement("span");
       f.style.fontFamily = b;
-      f.style.fontSize = d + 'px';
+      f.style.fontSize = d + "px";
       f.style.fontStyle = g;
       f.innerHTML = a;
-      d = document.createElement('div');
-      d.style.display = 'inline-block';
-      d.style.width = '1px';
-      d.style.height = '0px';
-      a = document.createElement('div');
+      d = document.createElement("div");
+      d.style.display = "inline-block";
+      d.style.width = "1px";
+      d.style.height = "0px";
+      a = document.createElement("div");
       a.appendChild(f);
       a.appendChild(d);
-      a.style.height = '0px';
-      a.style.overflow = 'hidden';
+      a.style.height = "0px";
+      a.style.overflow = "hidden";
       document.body.appendChild(a);
-      d.style.verticalAlign = 'baseline';
+      d.style.verticalAlign = "baseline";
       g = this.getObjectOffset(d);
       var h = this.getObjectOffset(f);
       b = g[1] - h[1];
-      d.style.verticalAlign = 'bottom';
+      d.style.verticalAlign = "bottom";
       g = this.getObjectOffset(d);
       h = this.getObjectOffset(f);
       f = g[1] - h[1];
@@ -11612,12 +11613,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     getCachedExFontHeights: function (a, b) {
       var d = null,
-        g = 'normal';
+        g = "normal";
       b.italic && b.bold
-        ? (g = 'bold_italic')
+        ? (g = "bold_italic")
         : b.bold
-        ? (g = 'bold')
-        : b.italic && (g = 'italic');
+        ? (g = "bold")
+        : b.italic && (g = "italic");
       if (null === this.exFontCache[a] || void 0 === this.exFontCache[a])
         this.exFontCache[a] = [];
       if (
@@ -11632,7 +11633,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         this.exFontCache[a][b.ttfFontFamily][g] = [];
       return null === this.exFontCache[a][b.ttfFontFamily][g][b.pxSize] ||
         void 0 === this.exFontCache[a][b.ttfFontFamily][g][b.pxSize]
-        ? ((typeface = g.replace('_', ' ')),
+        ? ((typeface = g.replace("_", " ")),
           (d = this.getExFontHeights(a, b.ttfFontFamily, b.pxSize, typeface)),
           (this.exFontCache[a][b.ttfFontFamily][g][b.pxSize] = d))
         : this.exFontCache[a][b.ttfFontFamily][g][b.pxSize];
@@ -11640,7 +11641,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     getXDimentions: function (a, b, d) {
       b = 0;
       a && a.fontSizeModifier && (b = a.fontSizeModifier);
-      a = this.getSymbolDataByPosition('x', b, !1, this.editor.isBold());
+      a = this.getSymbolDataByPosition("x", b, !1, this.editor.isBold());
       a.top = d + a.yadjust - a.height;
       return a;
     },
@@ -11666,13 +11667,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         return m;
       }
       p = this.getFontInfo(a, l, f, h);
-      if ('BMP' != p.glyphType) {
+      if ("BMP" != p.glyphType) {
         var q = this.getSymbolDataByPosition(a, l, f, h);
         f = p.onscreen ? p.onscreen : a;
         if (
-          'msbm7' == p.ttfFontFamily ||
-          'imescr7' == p.ttfFontFamily ||
-          'eufm7' == p.ttfFontFamily
+          "msbm7" == p.ttfFontFamily ||
+          "imescr7" == p.ttfFontFamily ||
+          "eufm7" == p.ttfFontFamily
         )
           f = org.imatheq.formulaeditor.parsing.expression.RevList[f].key;
         t = 0;
@@ -11689,7 +11690,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           height: q.height,
         };
         if (!0 !== g) {
-          g = this.getContext('2d');
+          g = this.getContext("2d");
           g.save();
           g.font = p.typeface;
           g.fillStyle = k;
@@ -11726,7 +11727,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var C = this.canvas,
           z = this.imageCache;
         d = function () {
-          C.getContext('2d').drawImage(
+          C.getContext("2d").drawImage(
             z[u.image],
             q.x,
             q.y,
@@ -11766,10 +11767,10 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       return d;
     },
     getFontInfo: function (a, b, d, g) {
-      if (' ' == a) return null;
-      var f = org.imatheq.formulaeditor.MathCanvas.symbolPositions['m' + a];
+      if (" " == a) return null;
+      var f = org.imatheq.formulaeditor.MathCanvas.symbolPositions["m" + a];
       2 == a.length &&
-        'm' == a.charAt(0) &&
+        "m" == a.charAt(0) &&
         (f = org.imatheq.formulaeditor.MathCanvas.symbolPositions[a]);
       var h = 0 == this.fontFamilyNameIdx && d && null !== f && void 0 !== f,
         k = this.getFontSizeIdx(b),
@@ -11782,63 +11783,63 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       l &&
         null !== f &&
         void 0 !== f &&
-        'cmex10' != f.font &&
-        'cmey10' != f.font &&
+        "cmex10" != f.font &&
+        "cmey10" != f.font &&
         (f = org.imatheq.formulaeditor.MathCanvas.symbolPositions[l]);
       var m =
           null !== f &&
           void 0 !== f &&
-          ('cmex10' == f.font ||
-            'cmey10' == f.font ||
+          ("cmex10" == f.font ||
+            "cmey10" == f.font ||
             0 == this.fontFamilyNameIdx),
         r =
           null !== f &&
           void 0 !== f &&
           f.font &&
-          f.font.indexOf('10') == f.font.length - 2,
+          f.font.indexOf("10") == f.font.length - 2,
         n;
       r && (n = f.font.slice(0, f.font.length - 2));
       var p;
-      'cmex' == n || 'cmey' == n
-        ? (p = n + '10')
-        : h || 'msbm' == n || 'imescr' == n || 'eufm' == n || '\u2202' == a
-        ? (p = n + (g ? 'b' : '') + '10')
-        : ((p = n + (d ? 'i' : '') + (g ? 'b' : '') + '10'),
+      "cmex" == n || "cmey" == n
+        ? (p = n + "10")
+        : h || "msbm" == n || "imescr" == n || "eufm" == n || "\u2202" == a
+        ? (p = n + (g ? "b" : "") + "10")
+        : ((p = n + (d ? "i" : "") + (g ? "b" : "") + "10"),
           0 != this.fontFamilyNameIdx &&
             (p =
-              this.fontNames[this.fontFamilyNameIdx].replace(/ /g, '') +
-              '_' +
+              this.fontNames[this.fontFamilyNameIdx].replace(/ /g, "") +
+              "_" +
               p));
-      if (0 == this.fontFamilyNameIdx || 'cmex' == n || 'cmey' == n)
+      if (0 == this.fontFamilyNameIdx || "cmex" == n || "cmey" == n)
         if (m) {
-          if (((m = n + '7'), 'cmsy' == n || 'cmsz' == n || 'bnormal' == n))
-            m = 'cmr7';
+          if (((m = n + "7"), "cmsy" == n || "cmsz" == n || "bnormal" == n))
+            m = "cmr7";
         } else
           m = new org.imatheq.formulaeditor.Options().getOption(
-            'defaultFont4NewSymbol'
+            "defaultFont4NewSymbol"
           );
       else m = this.fontNames[this.fontFamilyNameIdx];
-      var t = 'TTF_WO_DIM';
-      r && (t = 'TTF_W_DIM');
+      var t = "TTF_WO_DIM";
+      r && (t = "TTF_W_DIM");
       var q = !1;
       if (!r) {
-        q = 'normal';
-        if (g && d) q = 'bold_italic';
-        else if (g || d) q = g ? 'bold' : 'italic';
+        q = "normal";
+        if (g && d) q = "bold_italic";
+        else if (g || d) q = g ? "bold" : "italic";
         q =
           this.exFontCache[a] &&
           this.exFontCache[a][m] &&
           this.exFontCache[a][m][q] &&
           this.exFontCache[a][m][q][b];
       }
-      var u = (g ? 'bold ' : '') + '' + b + 'px ' + m;
+      var u = (g ? "bold " : "") + "" + b + "px " + m;
       d &&
         !h &&
-        'msbm' != n &&
-        'imescr' != n &&
-        'eufm' != n &&
-        '\u2202' != a &&
-        (u = 'italic ' + u);
+        "msbm" != n &&
+        "imescr" != n &&
+        "eufm" != n &&
+        "\u2202" != a &&
+        (u = "italic " + u);
       return {
         ttfFontFamily: m,
         pxSize: b,
@@ -11863,20 +11864,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         h = org.imatheq.formulaeditor.MathCanvas.fontsByPosition;
       if (!f) {
         if (1 < a.length) return null;
-        throw Error('getFontInfo() returns null');
+        throw Error("getFontInfo() returns null");
       }
       if (f.hasDimensions)
         a = h[f.fontSizeGroup][f.bmpSize][16 * f.row + f.col];
       else {
-        if ('cmex10' == f.fontSizeGroup || 'cmey10' == f.fontSizeGroup)
+        if ("cmex10" == f.fontSizeGroup || "cmey10" == f.fontSizeGroup)
           return null;
-        var h = this.getContext('2d'),
+        var h = this.getContext("2d"),
           k = this.getCachedExFontHeights(a, f);
         h.font =
-          (d ? 'italic ' : '') +
-          (g ? 'bold ' : '') +
+          (d ? "italic " : "") +
+          (g ? "bold " : "") +
           this.getPXFontSize(b) +
-          'px ' +
+          "px " +
           f.ttfFontFamily;
         a = {
           font: f.ttfFontFamily,
@@ -11925,28 +11926,28 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       return d;
     },
     getFontUnit: function (a, b, d, g, f) {
-      if ('em' == a)
-        return (a = this.getSymbolDataByPosition('M', b, g, f)), a.width;
-      a = this.getSymbolDataByPosition('x', b, g, f);
+      if ("em" == a)
+        return (a = this.getSymbolDataByPosition("M", b, g, f)), a.width;
+      a = this.getSymbolDataByPosition("x", b, g, f);
       return a.height;
     },
     getFontUnitEm: function (a) {
-      return this.getFontUnit('em', a);
+      return this.getFontUnit("em", a);
     },
     getFontUnitEx: function (a) {
-      return this.getFontUnit('ex', a);
+      return this.getFontUnit("ex", a);
     },
     clear: function () {
       var a = this.canvas,
         b = a.width,
         d = a.height;
-      a.getContext('2d').clearRect(0, 0, b, d);
+      a.getContext("2d").clearRect(0, 0, b, d);
     },
     clearBg: function () {
       var a = this.bgCanvas,
         b = a.width,
         d = a.height;
-      a.getContext('2d').clearRect(0, 0, b, d);
+      a.getContext("2d").clearRect(0, 0, b, d);
     },
     decreaseSize: function () {
       0 < this.fontSizeIdx && --this.fontSizeIdx;
@@ -11956,7 +11957,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
   });
   org.imatheq.formulaeditor.MathCanvas.addFont = function (a, b) {
-    var d = '' + a;
+    var d = "" + a;
     org.imatheq.formulaeditor.MathCanvas.fontsByPosition ||
       (org.imatheq.formulaeditor.MathCanvas.fontsByPosition = {});
     var g = org.imatheq.formulaeditor.MathCanvas.fontsByPosition,
@@ -11965,7 +11966,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       g[f] || (g[f] = {});
       var h = g[f],
         k = b[f],
-        l = { image: $buuuuu() + 'com/imatheq/fonts/' + f + '/' + d + '.png' };
+        l = { image: $buuuuu() + "com/imatheq/fonts/" + f + "/" + d + ".png" };
       h[d] || (h[d] = []);
       for (var h = h[d], m = k.length, r = 0; 8 > r; r++)
         for (var n = 0; 16 > n; n++) {
@@ -12005,20 +12006,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
   };
   org.imatheq.formulaeditor.MathCanvas.symbolsInFont = {
     msbm10: [
-      '\ud835\udd38 \ud835\udd39 \u2102 \ud835\udd3b \ud835\udd3c \ud835\udd3d \ud835\udd3e \u210d \ud835\udd40 \ud835\udd41 \ud835\udd42 \ud835\udd43 \ud835\udd44 \u2115 \ud835\udd46 \u2119'.split(
-        ' '
+      "\ud835\udd38 \ud835\udd39 \u2102 \ud835\udd3b \ud835\udd3c \ud835\udd3d \ud835\udd3e \u210d \ud835\udd40 \ud835\udd41 \ud835\udd42 \ud835\udd43 \ud835\udd44 \u2115 \ud835\udd46 \u2119".split(
+        " "
       ),
       [
-        '\u211a',
-        '\u211d',
-        '\ud835\udd4a',
-        '\ud835\udd4b',
-        '\ud835\udd4c',
-        '\ud835\udd4d',
-        '\ud835\udd4e',
-        '\ud835\udd4f',
-        '\ud835\udd50',
-        '\u2124',
+        "\u211a",
+        "\u211d",
+        "\ud835\udd4a",
+        "\ud835\udd4b",
+        "\ud835\udd4c",
+        "\ud835\udd4d",
+        "\ud835\udd4e",
+        "\ud835\udd4f",
+        "\ud835\udd50",
+        "\u2124",
         null,
         null,
         null,
@@ -12028,20 +12029,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       ],
     ],
     imescr10: [
-      '\ud835\udc9c \u212c \ud835\udc9e \ud835\udc9f \u2130 \u2131 \ud835\udca2 \u210b \u2110 \ud835\udca5 \ud835\udca6 \u2112 \u2133 \ud835\udca9 \ud835\udcaa \ud835\udcab'.split(
-        ' '
+      "\ud835\udc9c \u212c \ud835\udc9e \ud835\udc9f \u2130 \u2131 \ud835\udca2 \u210b \u2110 \ud835\udca5 \ud835\udca6 \u2112 \u2133 \ud835\udca9 \ud835\udcaa \ud835\udcab".split(
+        " "
       ),
-      '\ud835\udcac \u211b \ud835\udcae \ud835\udcaf \ud835\udcb0 \ud835\udcb1 \ud835\udcb2 \ud835\udcb3 \ud835\udcb4 \ud835\udcb5 \ud835\udcb6 \ud835\udcb7 \ud835\udcb8 \ud835\udcb9 \u212f \ud835\udcbb'.split(
-        ' '
+      "\ud835\udcac \u211b \ud835\udcae \ud835\udcaf \ud835\udcb0 \ud835\udcb1 \ud835\udcb2 \ud835\udcb3 \ud835\udcb4 \ud835\udcb5 \ud835\udcb6 \ud835\udcb7 \ud835\udcb8 \ud835\udcb9 \u212f \ud835\udcbb".split(
+        " "
       ),
-      '\u210a \ud835\udcbd \ud835\udcbe \ud835\udcbf \ud835\udcc0 \ud835\udcc1 \ud835\udcc2 \ud835\udcc3 \u2134 \ud835\udcc5 \ud835\udcc6 \ud835\udcc7 \ud835\udcc8 \ud835\udcc9 \ud835\udcca \ud835\udccb'.split(
-        ' '
+      "\u210a \ud835\udcbd \ud835\udcbe \ud835\udcbf \ud835\udcc0 \ud835\udcc1 \ud835\udcc2 \ud835\udcc3 \u2134 \ud835\udcc5 \ud835\udcc6 \ud835\udcc7 \ud835\udcc8 \ud835\udcc9 \ud835\udcca \ud835\udccb".split(
+        " "
       ),
       [
-        '\ud835\udccc',
-        '\ud835\udccd',
-        '\ud835\udcce',
-        '\ud835\udccf',
+        "\ud835\udccc",
+        "\ud835\udccd",
+        "\ud835\udcce",
+        "\ud835\udccf",
         null,
         null,
         null,
@@ -12049,20 +12050,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       ],
     ],
     eufm10: [
-      '\ud835\udd04 \ud835\udd05 \u212d \ud835\udd07 \ud835\udd08 \ud835\udd09 \ud835\udd0a \u210c \u2111 \ud835\udd0d \ud835\udd0e \ud835\udd0f \ud835\udd10 \ud835\udd11 \ud835\udd12 \ud835\udd13'.split(
-        ' '
+      "\ud835\udd04 \ud835\udd05 \u212d \ud835\udd07 \ud835\udd08 \ud835\udd09 \ud835\udd0a \u210c \u2111 \ud835\udd0d \ud835\udd0e \ud835\udd0f \ud835\udd10 \ud835\udd11 \ud835\udd12 \ud835\udd13".split(
+        " "
       ),
-      '\ud835\udd14 \u211c \ud835\udd16 \ud835\udd17 \ud835\udd18 \ud835\udd19 \ud835\udd1a \ud835\udd1b \ud835\udd1c \u2128 \ud835\udd1e \ud835\udd1f \ud835\udd20 \ud835\udd21 \ud835\udd22 \ud835\udd23'.split(
-        ' '
+      "\ud835\udd14 \u211c \ud835\udd16 \ud835\udd17 \ud835\udd18 \ud835\udd19 \ud835\udd1a \ud835\udd1b \ud835\udd1c \u2128 \ud835\udd1e \ud835\udd1f \ud835\udd20 \ud835\udd21 \ud835\udd22 \ud835\udd23".split(
+        " "
       ),
-      '\ud835\udd24 \ud835\udd25 \ud835\udd26 \ud835\udd27 \ud835\udd28 \ud835\udd29 \ud835\udd2a \ud835\udd2b \ud835\udd2c \ud835\udd2d \ud835\udd2e \ud835\udd2f \ud835\udd30 \ud835\udd31 \ud835\udd32 \ud835\udd33'.split(
-        ' '
+      "\ud835\udd24 \ud835\udd25 \ud835\udd26 \ud835\udd27 \ud835\udd28 \ud835\udd29 \ud835\udd2a \ud835\udd2b \ud835\udd2c \ud835\udd2d \ud835\udd2e \ud835\udd2f \ud835\udd30 \ud835\udd31 \ud835\udd32 \ud835\udd33".split(
+        " "
       ),
       [
-        '\ud835\udd34',
-        '\ud835\udd35',
-        '\ud835\udd36',
-        '\ud835\udd37',
+        "\ud835\udd34",
+        "\ud835\udd35",
+        "\ud835\udd36",
+        "\ud835\udd37",
         null,
         null,
         null,
@@ -12070,30 +12071,30 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       ],
     ],
     bnormal10: [
-      '\u03b1\u03b2\u03b3\u03b4\u03b5\u03f5\u03b6\u03b7\u03b8\u03d1\u03b9\u03ba\u03bb\u03bc\u03bd\u03be'.split(
-        ''
+      "\u03b1\u03b2\u03b3\u03b4\u03b5\u03f5\u03b6\u03b7\u03b8\u03d1\u03b9\u03ba\u03bb\u03bc\u03bd\u03be".split(
+        ""
       ),
       [
-        '\u03bf',
-        '\u03c0',
-        '\u03d6',
-        '\u03c1',
-        '\u03f1',
-        '\u03c3',
-        '\u03c2',
-        '\u03c4',
-        '\u03c5',
-        '\u03c6',
-        '\u03d5',
-        '\u03c7',
-        '\u03c8',
-        '\u03c9',
+        "\u03bf",
+        "\u03c0",
+        "\u03d6",
+        "\u03c1",
+        "\u03f1",
+        "\u03c3",
+        "\u03c2",
+        "\u03c4",
+        "\u03c5",
+        "\u03c6",
+        "\u03d5",
+        "\u03c7",
+        "\u03c8",
+        "\u03c9",
         null,
-        '\u2145',
+        "\u2145",
       ],
       [
         null,
-        '\u212a',
+        "\u212a",
         null,
         null,
         null,
@@ -12111,107 +12112,107 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       ],
     ],
     cmr10: [
-      '\u0393\u0394\u0398\u039e\u039b\u03a0\u03a3\u03d2\u03a6\u03a8\u03a9\ufb00\ufb01\ufb02\ufb03\ufb04'.split(
-        ''
+      "\u0393\u0394\u0398\u039e\u039b\u03a0\u03a3\u03d2\u03a6\u03a8\u03a9\ufb00\ufb01\ufb02\ufb03\ufb04".split(
+        ""
       ),
       [
-        '\u2030',
-        '\u02d8',
-        '`',
-        '\u00b4',
-        '\u02c7',
-        '\u2026',
+        "\u2030",
+        "\u02d8",
+        "`",
+        "\u00b4",
+        "\u02c7",
+        "\u2026",
         null,
-        '\u00b0',
-        '\u00b8',
-        '\u00df',
-        '\u00e6',
-        '\u0153',
-        '\u00f8',
-        '\u00c6',
-        '\u0152',
-        '\u00d8',
+        "\u00b0",
+        "\u00b8",
+        "\u00df",
+        "\u00e6",
+        "\u0153",
+        "\u00f8",
+        "\u00c6",
+        "\u0152",
+        "\u00d8",
       ],
       [
         null,
-        '!',
+        "!",
         '"',
-        '#',
-        '$',
-        '%',
-        '&',
+        "#",
+        "$",
+        "%",
+        "&",
         "'",
-        '(',
-        ')',
-        '*',
-        '+',
-        ',',
+        "(",
+        ")",
+        "*",
+        "+",
+        ",",
         null,
-        '.',
-        '/',
+        ".",
+        "/",
       ],
-      '0123456789:;<=>?'.split(''),
-      '@ABCDEFGHIJKLMNO'.split(''),
-      'PQRSTUVWXYZ[\\]^\u02d9'.split(''),
+      "0123456789:;<=>?".split(""),
+      "@ABCDEFGHIJKLMNO".split(""),
+      "PQRSTUVWXYZ[\\]^\u02d9".split(""),
       [
         null,
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
       ],
       [
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z',
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
         null,
         null,
         null,
-        '~',
-        '\u00a8',
+        "~",
+        "\u00a8",
       ],
     ],
     cmex10: [
-      '(1 )1 [1 ]1 \u230a1 \u230b1 \u23081 \u23091 {1 }1 <1 >1 |m \u2225m /1 \\1'.split(
-        ' '
+      "(1 )1 [1 ]1 \u230a1 \u230b1 \u23081 \u23091 {1 }1 <1 >1 |m \u2225m /1 \\1".split(
+        " "
       ),
-      '(2 )2 (3 )3 [3 ]3 \u230a3 \u230b3 \u23083 \u23093 {3 }3 <3 >3 /3 \\3'.split(
-        ' '
+      "(2 )2 (3 )3 [3 ]3 \u230a3 \u230b3 \u23083 \u23093 {3 }3 <3 >3 /3 \\3".split(
+        " "
       ),
-      '(4 )4 [4 ]4 \u230a4 \u230b4 \u23084 \u23094 {4 }4 <4 >4 /4 \\4 /2 \\2'.split(
-        ' '
+      "(4 )4 [4 ]4 \u230a4 \u230b4 \u23084 \u23094 {4 }4 <4 >4 /4 \\4 /2 \\2".split(
+        " "
       ),
-      '(u )u [u ]u [l ]l [m ]m {u }u {l }l {m }m {c }c'.split(' '),
+      "(u )u [u ]u [l ]l [m ]m {u }u {l }l {m }m {c }c".split(" "),
       [
-        '(l',
-        ')l',
-        '(m',
-        ')m',
-        '<2',
-        '>2',
+        "(l",
+        ")l",
+        "(m",
+        ")m",
+        "<2",
+        ">2",
         null,
         null,
         null,
-        '\u222e',
+        "\u222e",
         null,
         null,
         null,
@@ -12228,41 +12229,41 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         null,
         null,
         null,
-        '\u2211',
-        '\u220f',
-        '\u222b',
-        '\u22c3',
-        '\u22c2',
+        "\u2211",
+        "\u220f",
+        "\u222b",
+        "\u22c3",
+        "\u22c2",
         null,
-        '\u22c0',
-        '\u22c1',
+        "\u22c0",
+        "\u22c1",
       ],
       [
         null,
-        '\u2210',
-        '\u222c',
-        '\u222d',
-        '\u222f',
-        '\u2230',
+        "\u2210",
+        "\u222c",
+        "\u222d",
+        "\u222f",
+        "\u2230",
         null,
         null,
-        '[2',
-        ']2',
-        '\u230a2',
-        '\u230b2',
-        '\u23082',
-        '\u23092',
-        '{2',
-        '}2',
+        "[2",
+        "]2",
+        "\u230a2",
+        "\u230b2",
+        "\u23082",
+        "\u23092",
+        "{2",
+        "}2",
       ],
       [
-        'v1',
-        'v2',
-        'v3',
-        'v4',
-        'vl',
-        'vm',
-        'vu',
+        "v1",
+        "v2",
+        "v3",
+        "v4",
+        "vl",
+        "vm",
+        "vu",
         null,
         null,
         null,
@@ -12276,93 +12277,75 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     ],
     cmey10: [
       [
-        '\u23221',
-        '\u23222',
-        '\u23224',
-        '\u2322l',
-        '\u2322r',
-        '~1',
-        '\u2194bl',
-        '\u2194l',
-        '\u23de1',
+        "\u23221",
+        "\u23222",
+        "\u23224",
+        "\u2322l",
+        "\u2322r",
+        "~1",
+        "\u2194bl",
+        "\u2194l",
+        "\u23de1",
         null,
-        '\u23de4',
-        '\u23del',
-        '\u21bcm',
-        '\u21bcl',
-        '\u2190m',
-        '\u2190l',
+        "\u23de4",
+        "\u23del",
+        "\u21bcm",
+        "\u21bcl",
+        "\u2190m",
+        "\u2190l",
       ],
       [
-        '\u23231',
-        '\u23232',
-        '\u23234',
-        '\u2323l',
-        '\u2323r',
-        '~2',
-        '\u2194br',
-        '\u2194r',
-        '\u23df1',
+        "\u23231",
+        "\u23232",
+        "\u23234",
+        "\u2323l",
+        "\u2323r",
+        "~2",
+        "\u2194br",
+        "\u2194r",
+        "\u23df1",
         null,
-        '\u23df4',
-        '\u23dfl',
-        '\u21c0m',
-        '\u21c0r',
-        '\u2192m',
-        '\u2192r',
-      ],
-      [
-        null,
-        '\u23223',
-        null,
-        null,
-        '\u2322m',
-        '~3',
-        '\u2194bm',
-        '\u2194m',
-        '^1',
-        '\u23de3',
-        null,
-        '\u23der',
-        '\u2212m',
-        '\u00afm',
-        '\u02d81',
-        null,
+        "\u23df4",
+        "\u23dfl",
+        "\u21c0m",
+        "\u21c0r",
+        "\u2192m",
+        "\u2192r",
       ],
       [
         null,
-        '\u23233',
+        "\u23223",
         null,
         null,
-        '\u2323m',
+        "\u2322m",
+        "~3",
+        "\u2194bm",
+        "\u2194m",
+        "^1",
+        "\u23de3",
         null,
-        '\u21d0bl',
-        null,
-        '\u02c71',
-        '\u23df3',
-        null,
-        '\u23dfr',
-        '\u033fm',
-        '_m',
-        '\u02d82',
+        "\u23der",
+        "\u2212m",
+        "\u00afm",
+        "\u02d81",
         null,
       ],
       [
         null,
+        "\u23233",
         null,
         null,
+        "\u2323m",
         null,
-        '^2',
-        '\u2192br',
-        '\u21d0bm',
+        "\u21d0bl",
         null,
+        "\u02c71",
+        "\u23df3",
         null,
-        '^3',
-        null,
-        '\u23dem',
-        null,
-        null,
-        '\u02d83',
+        "\u23dfr",
+        "\u033fm",
+        "_m",
+        "\u02d82",
         null,
       ],
       [
@@ -12370,17 +12353,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         null,
         null,
         null,
-        '\u02c72',
-        '\u2192bm',
-        '\u21d2br',
+        "^2",
+        "\u2192br",
+        "\u21d0bm",
         null,
         null,
-        '\u02c73',
+        "^3",
         null,
-        '\u23dfm',
-        '\u21d4br',
+        "\u23dem",
         null,
         null,
+        "\u02d83",
         null,
       ],
       [
@@ -12388,17 +12371,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         null,
         null,
         null,
-        null,
-        '\u2190bl',
-        '\u21d2bm',
-        null,
-        null,
+        "\u02c72",
+        "\u2192bm",
+        "\u21d2br",
         null,
         null,
-        '\u23dec',
-        '\u21d4bl',
+        "\u02c73",
         null,
-        '\u23de2',
+        "\u23dfm",
+        "\u21d4br",
+        null,
+        null,
         null,
       ],
       [
@@ -12407,35 +12390,53 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         null,
         null,
         null,
-        '\u2190bm',
+        "\u2190bl",
+        "\u21d2bm",
+        null,
+        null,
+        null,
+        null,
+        "\u23dec",
+        "\u21d4bl",
+        null,
+        "\u23de2",
+        null,
+      ],
+      [
         null,
         null,
         null,
         null,
         null,
-        '\u23dfc',
-        '\u21d4bm',
+        "\u2190bm",
         null,
-        '\u23df2',
+        null,
+        null,
+        null,
+        null,
+        "\u23dfc",
+        "\u21d4bm",
+        null,
+        "\u23df2",
         null,
       ],
     ],
     cmmi10: [
-      'm\u0393 m\u0394 m\u0398 m\u039b m\u039e m\u03a0 m\u03a3 m\u03d2 m\u03a6 m\u03a8 m\u03a9 m\u03b1 m\u03b2 m\u03b3 m\u03b4 m\u03f5'.split(
-        ' '
+      "m\u0393 m\u0394 m\u0398 m\u039b m\u039e m\u03a0 m\u03a3 m\u03d2 m\u03a6 m\u03a8 m\u03a9 m\u03b1 m\u03b2 m\u03b3 m\u03b4 m\u03f5".split(
+        " "
       ),
-      'm\u03b6 m\u03b7 m\u03b8 m\u03b9 m\u03ba m\u03bb m\u03bc m\u03bd m\u03be m\u03c0 m\u03c1 m\u03c3 m\u03c4 m\u03c5 m\u03d5 m\u03c7'.split(
-        ' '
+      "m\u03b6 m\u03b7 m\u03b8 m\u03b9 m\u03ba m\u03bb m\u03bc m\u03bd m\u03be m\u03c0 m\u03c1 m\u03c3 m\u03c4 m\u03c5 m\u03d5 m\u03c7".split(
+        " "
       ),
       [
-        'm\u03c8',
-        'm\u03c9',
-        'm\u03b5',
-        'm\u03d1',
-        'm\u03d6',
-        'm\u03f1',
-        'm\u03c2',
-        'm\u03c6',
+        "m\u03c8",
+        "m\u03c9",
+        "m\u03b5",
+        "m\u03d1",
+        "m\u03d6",
+        "m\u03f1",
+        "m\u03c2",
+        "m\u03c6",
         null,
         null,
         null,
@@ -12463,19 +12464,19 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         null,
         null,
       ],
-      '\u2202 mA mB mC mD mE mF mG mH mI mJ mK mL mM mN mO'.split(' '),
+      "\u2202 mA mB mC mD mE mF mG mH mI mJ mK mL mM mN mO".split(" "),
       [
-        'mP',
-        'mQ',
-        'mR',
-        'mS',
-        'mT',
-        'mU',
-        'mV',
-        'mW',
-        'mX',
-        'mY',
-        'mZ',
+        "mP",
+        "mQ",
+        "mR",
+        "mS",
+        "mT",
+        "mU",
+        "mV",
+        "mW",
+        "mX",
+        "mY",
+        "mZ",
         null,
         null,
         null,
@@ -12484,34 +12485,34 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       ],
       [
         null,
-        'ma',
-        'mb',
-        'mc',
-        'md',
-        'me',
-        'mf',
-        'mg',
-        'mh',
-        'mi',
-        'mj',
-        'mk',
-        'ml',
-        'mm',
-        'mn',
-        'mo',
+        "ma",
+        "mb",
+        "mc",
+        "md",
+        "me",
+        "mf",
+        "mg",
+        "mh",
+        "mi",
+        "mj",
+        "mk",
+        "ml",
+        "mm",
+        "mn",
+        "mo",
       ],
       [
-        'mp',
-        'mq',
-        'mr',
-        'ms',
-        'mt',
-        'mu',
-        'mv',
-        'mw',
-        'mx',
-        'my',
-        'mz',
+        "mp",
+        "mq",
+        "mr",
+        "ms",
+        "mt",
+        "mu",
+        "mv",
+        "mw",
+        "mx",
+        "my",
+        "mz",
         null,
         null,
         null,
@@ -12520,35 +12521,35 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       ],
     ],
     cmsy10: [
-      '\u2212\u00b7\u00d7\u204e\u00f7\u22c4\u00b1\u2213\u2295\u2296\u2297\u2298\u2299\u25cb\u2218\u2022'.split(
-        ''
+      "\u2212\u00b7\u00d7\u204e\u00f7\u22c4\u00b1\u2213\u2295\u2296\u2297\u2298\u2299\u25cb\u2218\u2022".split(
+        ""
       ),
-      '\u224d\u2261\u2286\u2287\u2264\u2265\u227c\u227d\u223c\u2248\u2282\u2283\u226a\u226b\u227a\u227b'.split(
-        ''
+      "\u224d\u2261\u2286\u2287\u2264\u2265\u227c\u227d\u223c\u2248\u2282\u2283\u226a\u226b\u227a\u227b".split(
+        ""
       ),
-      '\u2190\u2192\u2191\u2193\u2194\u2197\u2198\u2243\u21d0\u21d2\u21d1\u21d3\u21d4\u2196\u2199\u221d'.split(
-        ''
+      "\u2190\u2192\u2191\u2193\u2194\u2197\u2198\u2243\u21d0\u21d2\u21d1\u21d3\u21d4\u2196\u2199\u221d".split(
+        ""
       ),
       [
-        '\u2032',
-        '\u221e',
-        '\u2208',
-        '\u220b',
-        '\u25b3',
-        '\u25bd',
-        '\u2215',
+        "\u2032",
+        "\u221e",
+        "\u2208",
+        "\u220b",
+        "\u25b3",
+        "\u25bd",
+        "\u2215",
         null,
-        '\u2200',
-        '\u2203',
-        '\u00ac',
-        '\u2205',
+        "\u2200",
+        "\u2203",
+        "\u00ac",
+        "\u2205",
         null,
         null,
-        '\u22a4',
-        '\u22a5',
+        "\u22a4",
+        "\u22a5",
       ],
       [
-        '\u2135',
+        "\u2135",
         null,
         null,
         null,
@@ -12577,103 +12578,103 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         null,
         null,
         null,
-        '\u222a',
-        '\u2229',
-        '\u228e',
-        '\u2227',
-        '\u2228',
+        "\u222a",
+        "\u2229",
+        "\u228e",
+        "\u2227",
+        "\u2228",
       ],
       [
-        '\u22a2',
-        '\u22a3',
-        '\u230a',
-        '\u230b',
-        '\u2308',
-        '\u2309',
-        '{',
-        '}',
-        '\u27e8',
-        '\u27e9',
-        '|',
-        '\u2225',
-        '\u2195',
-        '\u21d5',
+        "\u22a2",
+        "\u22a3",
+        "\u230a",
+        "\u230b",
+        "\u2308",
+        "\u2309",
+        "{",
+        "}",
+        "\u27e8",
+        "\u27e9",
+        "|",
+        "\u2225",
+        "\u2195",
+        "\u21d5",
         null,
-        '\u2240',
+        "\u2240",
       ],
-      '\u221a\u2a3f\u2207\u0283\u2294\u2293\u2291\u2292\u00a7\u2020\u2021\u00b6\u2663\u2662\u2661\u2660'.split(
-        ''
+      "\u221a\u2a3f\u2207\u0283\u2294\u2293\u2291\u2292\u00a7\u2020\u2021\u00b6\u2663\u2662\u2661\u2660".split(
+        ""
       ),
     ],
     cmsz10: [
-      '\u2201\u2204\u2220\u2221\u2222\u221f\u2234\u2235\u2260\u2262\u2245\u226e\u226f\u2270\u2271\u2209'.split(
-        ''
+      "\u2201\u2204\u2220\u2221\u2222\u221f\u2234\u2235\u2260\u2262\u2245\u226e\u226f\u2270\u2271\u2209".split(
+        ""
       ),
       [
-        '\u2241',
-        '\u2249',
-        '\u2244',
-        '\u2247',
-        '\u220c',
-        '\u2284',
-        '\u2285',
-        '\u2288',
-        '\u2289',
-        '\u00a1',
-        '\u00bf',
-        '\u22ef',
-        '\u22ee',
-        '\u22f0',
-        '\u22f1',
+        "\u2241",
+        "\u2249",
+        "\u2244",
+        "\u2247",
+        "\u220c",
+        "\u2284",
+        "\u2285",
+        "\u2288",
+        "\u2289",
+        "\u00a1",
+        "\u00bf",
+        "\u22ef",
+        "\u22ee",
+        "\u22f0",
+        "\u22f1",
         null,
       ],
-      '\u22b2\u22b3\u228f\u2290\u2226\u21a9\u21aa\u21ab\u21ac\u21a2\u21a3\u21b0\u21b1\u21b2\u21b3\u21da'.split(
-        ''
+      "\u22b2\u22b3\u228f\u2290\u2226\u21a9\u21aa\u21ab\u21ac\u21a2\u21a3\u21b0\u21b1\u21b2\u21b3\u21da".split(
+        ""
       ),
-      '\u21db\u21b6\u21b7\u21ba\u21bb\u22b8\u21ad\u21dc\u21dd\u219c\u219d\u219e\u21a0\u219a\u219b\u21ae'.split(
-        ''
+      "\u21db\u21b6\u21b7\u21ba\u21bb\u22b8\u21ad\u21dc\u21dd\u219c\u219d\u219e\u21a0\u219a\u219b\u21ae".split(
+        ""
       ),
       [
-        '\u21cd',
-        '\u21cf',
-        '\u21ce',
-        '\u21e0',
-        '\u21e2',
-        '\u21a4',
-        '\u21a6',
-        '\u296a',
-        '\u296c',
-        '\u21cb',
-        '\u21cc',
-        '\u21c6',
-        '\u21c4',
-        '\u21c7',
-        '\u21c9',
-        null,
-      ],
-      [
-        '\u21bf',
-        '\u21be',
-        '\u21c3',
-        '\u21c2',
-        '\u296e',
-        '\u296f',
-        '\u21c8',
-        '\u21ca',
-        '\u21c5',
-        '\u21f5',
-        '\u2921',
-        '\u2922',
-        '\u2206',
-        null,
-        null,
+        "\u21cd",
+        "\u21cf",
+        "\u21ce",
+        "\u21e0",
+        "\u21e2",
+        "\u21a4",
+        "\u21a6",
+        "\u296a",
+        "\u296c",
+        "\u21cb",
+        "\u21cc",
+        "\u21c6",
+        "\u21c4",
+        "\u21c7",
+        "\u21c9",
         null,
       ],
       [
-        '\u21bc',
-        '\u21bd',
-        '\u21c0',
-        '\u21c1',
+        "\u21bf",
+        "\u21be",
+        "\u21c3",
+        "\u21c2",
+        "\u296e",
+        "\u296f",
+        "\u21c8",
+        "\u21ca",
+        "\u21c5",
+        "\u21f5",
+        "\u2921",
+        "\u2922",
+        "\u2206",
+        null,
+        null,
+        null,
+      ],
+      [
+        "\u21bc",
+        "\u21bd",
+        "\u21c0",
+        "\u21c1",
         null,
         null,
         null,
@@ -12707,7 +12708,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       ],
     ],
   };
-  org.imatheq.formulaeditor.MathCanvas.specialSymbols = { '\u2146': ['d'] };
+  org.imatheq.formulaeditor.MathCanvas.specialSymbols = { "\u2146": ["d"] };
   org.imatheq.formulaeditor.MathCanvas.fillSymbolPositions = function () {
     var a, b;
     org.imatheq.formulaeditor.MathCanvas.symbolPositions ||
@@ -12726,17 +12727,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                     k +
                     '"\n' +
                     a[k].font +
-                    ': (' +
+                    ": (" +
                     a[k].row +
-                    ', ' +
+                    ", " +
                     a[k].col +
-                    ')\n' +
+                    ")\n" +
                     d +
-                    ': (' +
+                    ": (" +
                     f +
-                    ', ' +
+                    ", " +
                     h +
-                    ')\n'
+                    ")\n"
                 )
               : (a[k] = { font: d, row: f, col: h }));
         }
@@ -12752,7 +12753,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     e = null,
     d = com.efmase.js.utilities.toolset;
   org.imatheq.formulaeditor.FormulaEditor = $extend(Object, {
-    system: 'java',
+    system: "java",
     container: null,
     textarea: null,
     inMathml: null,
@@ -12769,7 +12770,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     gifunc: {},
     showPalette: !0,
     testplayermode: !1,
-    lst: '0',
+    lst: "0",
     swNenuOn: !1,
     mouseIsDown: !1,
     onCursorBar: !1,
@@ -12789,7 +12790,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     initializing: !0,
     redrawing: !0,
     onComposition: !1,
-    parrayLine: 'PARRAY_LINE_SOLID',
+    parrayLine: "PARRAY_LINE_SOLID",
     keyboardNavi: 0,
     keyboardNaviSW: 0,
     menuItems: null,
@@ -12802,7 +12803,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     smallWinItems: null,
     symbolindex: null,
     altstrs: null,
-    in_attrbs: '',
+    in_attrbs: "",
     kdata: null,
     focused: !1,
     clickState: 0,
@@ -12811,21 +12812,21 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     hasFocus: function () {
       return this.isMobile
         ? this.focused
-        : 'efmase_focus_textarea' === document.activeElement.className;
+        : "efmase_focus_textarea" === document.activeElement.className;
     },
     getAltText: function () {
       var a = this.lang,
-        b = '';
-      if ('zh-cn' == a) return b;
+        b = "";
+      if ("zh-cn" == a) return b;
       try {
         b = this.presentation.getAltText(a).trim();
       } catch (d) {
-        b = 'Error retrieving accessible text';
+        b = "Error retrieving accessible text";
       }
       return b;
     },
     getSymbolAltText: function (a) {
-      var b = '';
+      var b = "";
       null !== this.altstrs[a] && void 0 !== this.altstrs[a]
         ? (b = this.altstrs[a])
         : null !== this.symbolindex[a] && void 0 !== this.symbolindex[a]
@@ -12835,21 +12836,21 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               : this.pData.TITLES[this.symbolindex[a]]),
           null !== b && void 0 != b
             ? ((b = b.toLowerCase()),
-              (b = b.replace('sign', '')),
+              (b = b.replace("sign", "")),
               (b = b
-                .replace('with over script', '')
-                .replace('with under script', '')
-                .replace('with Under and Over Script', '')))
+                .replace("with over script", "")
+                .replace("with under script", "")
+                .replace("with Under and Over Script", "")))
             : (b = a))
         : (b =
             void 0 !== org.imatheq.formulaeditor.parsing.expression.RevList[a]
               ? org.imatheq.formulaeditor.parsing.expression.RevList[a].key
               : a);
-      return ' ' + b.trim();
+      return " " + b.trim();
     },
     isBold: function () {
-      var a = document.getElementById('efmase_menubar_item_bold');
-      return this.checkClass(a.className, 'efmase_palettebutton_down');
+      var a = document.getElementById("efmase_menubar_item_bold");
+      return this.checkClass(a.className, "efmase_palettebutton_down");
     },
     setBold: function () {
       var a = org.imatheq.formulaeditor.presentation;
@@ -12863,8 +12864,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.setButtonStatus(b);
     },
     isForcedItalic: function () {
-      var a = document.getElementById('efmase_menubar_item_italic');
-      return this.checkClass(a.className, 'efmase_palettebutton_down');
+      var a = document.getElementById("efmase_menubar_item_italic");
+      return this.checkClass(a.className, "efmase_palettebutton_down");
     },
     setForcedItalic: function () {
       var a = org.imatheq.formulaeditor.presentation;
@@ -12880,43 +12881,43 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.setButtonStatus(d);
     },
     isAutoItalic: function () {
-      var a = document.getElementById('efmase_menubar_item_autoitalic');
-      return this.checkClass(a.className, 'efmase_palettebutton_down');
+      var a = document.getElementById("efmase_menubar_item_autoitalic");
+      return this.checkClass(a.className, "efmase_palettebutton_down");
     },
     isMtext: function () {
-      var a = document.getElementById('efmase_menubar_item_mtext');
-      return this.checkClass(a.className, 'efmase_palettebutton_down');
+      var a = document.getElementById("efmase_menubar_item_mtext");
+      return this.checkClass(a.className, "efmase_palettebutton_down");
     },
     getMathColor: function () {
       return document
-        .getElementById('efmase_menubar_item_mathcolor')
-        .getAttribute('mathcolor');
+        .getElementById("efmase_menubar_item_mathcolor")
+        .getAttribute("mathcolor");
     },
     getHeadlist: function () {
       ed = this;
-      'ime_js_dat_headlist' in window &&
-      'undefined' !== typeof ime_js_dat_headlist
+      "ime_js_dat_headlist" in window &&
+      "undefined" !== typeof ime_js_dat_headlist
         ? ed.getData()
-        : this.loadjs('en', 'headlist.js', function () {
+        : this.loadjs("en", "headlist.js", function () {
             ed.pdata.tstr2 = new Date().getTime();
             ed.getSymbollist();
           });
     },
     getPArrayLine: function () {
-      var a = document.getElementById('PARRAY_LINE_SOLID');
-      return this.checkClass(a.className, 'efmase_palettebutton_select')
-        ? 'solid'
-        : 'dashed';
+      var a = document.getElementById("PARRAY_LINE_SOLID");
+      return this.checkClass(a.className, "efmase_palettebutton_select")
+        ? "solid"
+        : "dashed";
     },
     setPArrayLine: function (a) {
-      var b = document.getElementById('PARRAY_LINE_SOLID'),
-        d = document.getElementById('PARRAY_LINE_DASHED');
-      'solid' == a
-        ? (b.classList.add('efmase_palettebutton_select'),
-          d.classList.remove('efmase_palettebutton_select'))
-        : (b.classList.remove('efmase_palettebutton_select'),
-          d.classList.add('efmase_palettebutton_select'));
-      this.parrayLine = 'PARRAY_LINE_' + a.toUpperCase();
+      var b = document.getElementById("PARRAY_LINE_SOLID"),
+        d = document.getElementById("PARRAY_LINE_DASHED");
+      "solid" == a
+        ? (b.classList.add("efmase_palettebutton_select"),
+          d.classList.remove("efmase_palettebutton_select"))
+        : (b.classList.remove("efmase_palettebutton_select"),
+          d.classList.add("efmase_palettebutton_select"));
+      this.parrayLine = "PARRAY_LINE_" + a.toUpperCase();
     },
     addPalette: function (b, d) {
       a || (a = []);
@@ -12928,116 +12929,116 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.isMobile &&
         (this.selection.hasSelection
           ? (d.setObjsAttrb(
-              'KEYBOARD_CUT',
-              'class',
-              'efmase_palettebtn_disabled',
-              'remove'
+              "KEYBOARD_CUT",
+              "class",
+              "efmase_palettebtn_disabled",
+              "remove"
             ),
             d.setObjsAttrb(
-              'KEYBOARD_COPY',
-              'class',
-              'efmase_palettebtn_disabled',
-              'remove'
+              "KEYBOARD_COPY",
+              "class",
+              "efmase_palettebtn_disabled",
+              "remove"
             ))
           : (d.setObjsAttrb(
-              'KEYBOARD_CUT',
-              'class',
-              'efmase_palettebtn_disabled'
+              "KEYBOARD_CUT",
+              "class",
+              "efmase_palettebtn_disabled"
             ),
             d.setObjsAttrb(
-              'KEYBOARD_COPY',
-              'class',
-              'efmase_palettebtn_disabled'
+              "KEYBOARD_COPY",
+              "class",
+              "efmase_palettebtn_disabled"
             )));
     },
     setButtonStatus: function (a) {
       if (null !== a && void 0 !== a)
         for (var b in a)
           switch (b) {
-            case 'bold':
+            case "bold":
               a[b]
                 ? d.setObjsAttrb(
-                    'efmase_menubar_item_bold',
-                    'class',
-                    'efmase_palettebutton_down'
+                    "efmase_menubar_item_bold",
+                    "class",
+                    "efmase_palettebutton_down"
                   )
                 : d.setObjsAttrb(
-                    'efmase_menubar_item_bold',
-                    'class',
-                    'efmase_palettebutton_down',
-                    'remove'
+                    "efmase_menubar_item_bold",
+                    "class",
+                    "efmase_palettebutton_down",
+                    "remove"
                   );
               break;
-            case 'forcedItalic':
+            case "forcedItalic":
               a[b]
                 ? d.setObjsAttrb(
-                    'efmase_menubar_item_italic',
-                    'class',
-                    'efmase_palettebutton_down'
+                    "efmase_menubar_item_italic",
+                    "class",
+                    "efmase_palettebutton_down"
                   )
                 : d.setObjsAttrb(
-                    'efmase_menubar_item_italic',
-                    'class',
-                    'efmase_palettebutton_down',
-                    'remove'
+                    "efmase_menubar_item_italic",
+                    "class",
+                    "efmase_palettebutton_down",
+                    "remove"
                   );
               break;
-            case 'autoItalic':
+            case "autoItalic":
               a[b]
                 ? d.setObjsAttrb(
-                    'efmase_menubar_item_autoitalic',
-                    'class',
-                    'efmase_palettebutton_down'
+                    "efmase_menubar_item_autoitalic",
+                    "class",
+                    "efmase_palettebutton_down"
                   )
                 : d.setObjsAttrb(
-                    'efmase_menubar_item_autoitalic',
-                    'class',
-                    'efmase_palettebutton_down',
-                    'remove'
+                    "efmase_menubar_item_autoitalic",
+                    "class",
+                    "efmase_palettebutton_down",
+                    "remove"
                   );
               break;
-            case 'mathcolor':
-              var e = document.getElementById('efmase_menubar_item_mathcolor');
-              e.setAttribute('mathcolor', a[b]);
-              e.firstChild.style.borderBottom = '4px solid ' + a[b];
+            case "mathcolor":
+              var e = document.getElementById("efmase_menubar_item_mathcolor");
+              e.setAttribute("mathcolor", a[b]);
+              e.firstChild.style.borderBottom = "4px solid " + a[b];
               break;
-            case 'mtext':
+            case "mtext":
               a[b]
                 ? d.setObjsAttrb(
-                    'efmase_menubar_item_mtext',
-                    'class',
-                    'efmase_palettebutton_down'
+                    "efmase_menubar_item_mtext",
+                    "class",
+                    "efmase_palettebutton_down"
                   )
                 : d.setObjsAttrb(
-                    'efmase_menubar_item_mtext',
-                    'class',
-                    'efmase_palettebutton_down',
-                    'remove'
+                    "efmase_menubar_item_mtext",
+                    "class",
+                    "efmase_palettebutton_down",
+                    "remove"
                   );
           }
       0 == this.actions.redoIndex
         ? d.setObjsAttrb(
-            'efmase_menubar_item_undo',
-            'class',
-            'efmase_palettebtn_disabled'
+            "efmase_menubar_item_undo",
+            "class",
+            "efmase_palettebtn_disabled"
           )
         : d.setObjsAttrb(
-            'efmase_menubar_item_undo',
-            'class',
-            'efmase_palettebtn_disabled',
-            'remove'
+            "efmase_menubar_item_undo",
+            "class",
+            "efmase_palettebtn_disabled",
+            "remove"
           );
       this.actions.redoIndex == this.actions.actions.length
         ? d.setObjsAttrb(
-            'efmase_menubar_item_redo',
-            'class',
-            'efmase_palettebtn_disabled'
+            "efmase_menubar_item_redo",
+            "class",
+            "efmase_palettebtn_disabled"
           )
         : d.setObjsAttrb(
-            'efmase_menubar_item_redo',
-            'class',
-            'efmase_palettebtn_disabled',
-            'remove'
+            "efmase_menubar_item_redo",
+            "class",
+            "efmase_palettebtn_disabled",
+            "remove"
           );
     },
     getButtonStatus: function () {
@@ -13067,13 +13068,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         )
           e++;
         e == d.length
-          ? console.log('updateBracket: error cannot find Bracketed parent.')
+          ? console.log("updateBracket: error cannot find Bracketed parent.")
           : (b = d[e]);
       }
       return b;
     },
     checkClass: function (a, b) {
-      var d = a.split(' '),
+      var d = a.split(" "),
         e;
       for (e = 0; e < d.length; e++) if (d[e] == b) return !0;
       return !1;
@@ -13124,7 +13125,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               ((f & 15) << 12) | ((g & 63) << 6) | (p & 63)
             ));
       }
-      return b.join('');
+      return b.join("");
     },
     togglePalette: function () {
       this.palette
@@ -13135,30 +13136,30 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var C,
         z = null;
       this.lskey = g;
-      if (null === m || void 0 === m) m = 'en';
+      if (null === m || void 0 === m) m = "en";
       this.lang = m.toLowerCase();
       this.initializing = !0;
       null !== r && void 0 !== r && (this.width = r);
       null !== n && void 0 !== n && (this.height = n);
       null !== u &&
         void 0 !== u &&
-        $setOptions('org.imatheq.formulaeditor.options', { defAutoItalic: u });
+        $setOptions("org.imatheq.formulaeditor.options", { defAutoItalic: u });
       null !== v &&
         void 0 !== v &&
-        $setOptions('org.imatheq.formulaeditor.options', { defSymmetric: v });
+        $setOptions("org.imatheq.formulaeditor.options", { defSymmetric: v });
       null !== y &&
         void 0 !== y &&
-        $setOptions('org.imatheq.formulaeditor.options', {
+        $setOptions("org.imatheq.formulaeditor.options", {
           stretchMOBrackets: y,
         });
       null !== A &&
         void 0 !== A &&
-        $setOptions('org.imatheq.formulaeditor.options', { hideFontTools: A });
+        $setOptions("org.imatheq.formulaeditor.options", { hideFontTools: A });
       if (e) {
         var w = this;
         this.container = e;
-        this.inMathml = 'div' == e.localName ? e.innerHTML : e.value;
-        e.innerHTML = '';
+        this.inMathml = "div" == e.localName ? e.innerHTML : e.value;
+        e.innerHTML = "";
         g = org.imatheq.formulaeditor.Cursor;
         r = org.imatheq.formulaeditor.Selection;
         n = org.imatheq.formulaeditor.Actions;
@@ -13173,18 +13174,18 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           this.isMobile
             ? ((f = this.createHiDPICanvas(10, 10)),
               (z = this.createHiDPICanvas(10, 10)))
-            : ((f = document.createElement('canvas')),
-              (z = document.createElement('canvas')));
+            : ((f = document.createElement("canvas")),
+              (z = document.createElement("canvas")));
           this.isMobile ||
-            ((this.textbox = document.createElement('textarea')),
-            (this.textbox.btnGrp = 'textarea'),
-            (this.textbox.autocapitalize = 'off'),
-            (this.textbox.autocomplete = 'off'),
-            (this.textbox.autocorrect = 'off'),
+            ((this.textbox = document.createElement("textarea")),
+            (this.textbox.btnGrp = "textarea"),
+            (this.textbox.autocapitalize = "off"),
+            (this.textbox.autocomplete = "off"),
+            (this.textbox.autocorrect = "off"),
             (this.textbox.spellcheck = !1),
-            (this.textbox.className = 'efmase_focus_textarea'),
-            (this.textbox.innerHTML = '$'),
-            (this.textbox.value = '$'));
+            (this.textbox.className = "efmase_focus_textarea"),
+            (this.textbox.innerHTML = "$"),
+            (this.textbox.value = "$"));
           this.container = e;
           this.canvas = new u(this, f);
           this.canvas.bgCanvas = z;
@@ -13197,22 +13198,22 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           z.msImageSmoothingEnabled = !1;
           z.imageSmoothingEnabled = !1;
           u = new org.imatheq.formulaeditor.Options();
-          v = u.getOption('defaultFontNameIdx');
+          v = u.getOption("defaultFontNameIdx");
           v =
             null === p || void 0 === p || -1 == this.canvas.fontNames.indexOf(p)
               ? v
               : this.canvas.fontNames.indexOf(p);
           this.canvas.fontFamilyNameIdx = v;
-          p = u.getOption('defaultFontSizeIdx');
+          p = u.getOption("defaultFontSizeIdx");
           d.isMobile()
             ? (null === q ||
                 void 0 === q ||
                 isNaN(q) ||
                 -1 != this.canvas.getFontSizeFromPX(q) ||
                 alert(
-                  'Mobile Fontsize (' +
+                  "Mobile Fontsize (" +
                     q +
-                    ') must be a value in [8, 9, 10, 11, 12, 15, 18, 24, 30, 36, 48, 60, 72, 96].'
+                    ") must be a value in [8, 9, 10, 11, 12, 15, 18, 24, 30, 36, 48, 60, 72, 96]."
                 ),
               (p =
                 null === q ||
@@ -13226,9 +13227,9 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 isNaN(t) ||
                 -1 != this.canvas.getFontSizeFromPX(t) ||
                 alert(
-                  'Fontsize (' +
+                  "Fontsize (" +
                     t +
-                    ') must be a value in [8, 9, 10, 11, 12, 15, 18, 24, 30, 36, 48, 60, 72, 96].'
+                    ") must be a value in [8, 9, 10, 11, 12, 15, 18, 24, 30, 36, 48, 60, 72, 96]."
                 ),
               (p =
                 null === t ||
@@ -13243,22 +13244,22 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               try {
                 f.style[C] = e.style[C];
               } catch (D) {}
-          f.className = 'imatheqformula';
-          null !== e.getAttribute('style') &&
-          void 0 !== e.getAttribute('style') &&
-          void 0 !== e.getAttribute('style').value
-            ? f.setAttribute('style', e.getAttribute('style'))
+          f.className = "imatheqformula";
+          null !== e.getAttribute("style") &&
+          void 0 !== e.getAttribute("style") &&
+          void 0 !== e.getAttribute("style").value
+            ? f.setAttribute("style", e.getAttribute("style"))
             : org.imatheq.formulaeditor.options.inputStyle
             ? f.setAttribute(
-                'style',
+                "style",
                 org.imatheq.formulaeditor.options.inputStyle
               )
-            : ((f.className = 'fore_canvas'), (z.className = 'bg_canvas'));
-          'div' == e.localName &&
-          this.checkClass(e.className, 'imatheqvisibletextarea')
+            : ((f.className = "fore_canvas"), (z.className = "bg_canvas"));
+          "div" == e.localName &&
+          this.checkClass(e.className, "imatheqvisibletextarea")
             ? (e.parentNode.insertBefore(f, e.nextSibling),
-              (t = document.createElement('div')),
-              (t.className = 'EFMASE_Container'),
+              (t = document.createElement("div")),
+              (t.className = "EFMASE_Container"),
               e.parentNode.replaceChild(t, f),
               t.appendChild(f),
               f.parentNode.insertBefore(z, f),
@@ -13268,21 +13269,21 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'input',
+                  "input",
                   (function () {
                     return function (a) {
                       if (!w.isMobile && w.onComposition) return !0;
-                      if ('' == this.value || '$' == this.value) return !1;
+                      if ("" == this.value || "$" == this.value) return !1;
                       a = this.value;
-                      this.value = '';
-                      this.innerHTML = this.value = '$';
-                      1 < a.length && '$' == a[0] && (a = a.slice(1));
+                      this.value = "";
+                      this.innerHTML = this.value = "$";
+                      1 < a.length && "$" == a[0] && (a = a.slice(1));
                       if (w.hasFocus())
                         for (var b = 0; b < a.length; b++)
                           w.isMobile ||
-                            ('a' <= this.value && 'z' >= this.value) ||
-                            ('0' <= this.value && '9' >= this.value) ||
-                            ((this.value = ''),
+                            ("a" <= this.value && "z" >= this.value) ||
+                            ("0" <= this.value && "9" >= this.value) ||
+                            ((this.value = ""),
                             (result = w.cursor.position.row.charInput(
                               a[b],
                               w
@@ -13299,7 +13300,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'focus',
+                  "focus",
                   (function () {
                     return function (a) {
                       w.keyboardNavi = 4;
@@ -13311,17 +13312,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'copy',
+                  "copy",
                   (function () {
                     return function (a) {
-                      w.onCutCopy(a, 'copy');
+                      w.onCutCopy(a, "copy");
                     };
                   })()
                 ),
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'compositionstart',
+                  "compositionstart",
                   (function () {
                     return function (a) {
                       w.onComposition = !0;
@@ -13331,23 +13332,23 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'compositionend',
+                  "compositionend",
                   (function () {
                     return function (a) {
-                      if ('' == this.value || '$' == this.value) return !1;
+                      if ("" == this.value || "$" == this.value) return !1;
                       a = this.value;
-                      this.value = '';
-                      1 < a.length && '$' == a[0]
+                      this.value = "";
+                      1 < a.length && "$" == a[0]
                         ? (a = a.slice(1))
                         : 1 < a.length &&
-                          '$' == a[a.length - 1] &&
+                          "$" == a[a.length - 1] &&
                           (a = a.slice(0, a.length - 1));
                       if (w.hasFocus())
                         for (var b = 0; b < a.length; b++)
                           w.isMobile ||
-                            ('a' <= this.value && 'z' >= this.value) ||
-                            ('0' <= this.value && '9' >= this.value) ||
-                            ((this.value = ''),
+                            ("a" <= this.value && "z" >= this.value) ||
+                            ("0" <= this.value && "9" >= this.value) ||
+                            ((this.value = ""),
                             (result = w.cursor.position.row.charInput(
                               a[b],
                               w
@@ -13364,7 +13365,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'compositionupdate',
+                  "compositionupdate",
                   (function () {
                     return function (a) {};
                   })()
@@ -13372,17 +13373,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'cut',
+                  "cut",
                   (function () {
                     return function (a) {
-                      w.onCutCopy(a, 'cut');
+                      w.onCutCopy(a, "cut");
                     };
                   })()
                 ),
               w.isMobile ||
                 d.addEventListener(
                   this.textbox,
-                  'paste',
+                  "paste",
                   (function () {
                     return function (a) {
                       w.onpaste(a);
@@ -13394,7 +13395,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 d.isFirefox() &&
                 d.addEventListener(
                   this.textbox,
-                  'select',
+                  "select",
                   (function () {
                     return function (a) {
                       w.onselectstart(a);
@@ -13406,7 +13407,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               this.resizeCanvas(this.getPresentationContext()),
               d.addEventListener(
                 t,
-                'scroll',
+                "scroll",
                 (function () {
                   return function (a) {
                     a =
@@ -13418,58 +13419,58 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               ))
             : e.parentNode.insertBefore(f, e);
         }
-        pasteCache = document.createElement('div');
-        pasteCache.setAttribute('id', 'efmase_paste_cache');
-        pasteCache.setAttribute('contenteditable', '');
+        pasteCache = document.createElement("div");
+        pasteCache.setAttribute("id", "efmase_paste_cache");
+        pasteCache.setAttribute("contenteditable", "");
         pasteCache.style.cssText =
-          'opacity:0;position:fixed;top:0px;left:0px;width:10px;margin-left:-20px;';
+          "opacity:0;position:fixed;top:0px;left:0px;width:10px;margin-left:-20px;";
         document.body.appendChild(pasteCache);
         this.pasteCache = pasteCache;
         f = new MutationObserver(function (a) {
-          var b = '';
+          var b = "";
           a.forEach(function (a) {
             if (
               !0 === w.pasteEvtSupport ||
               0 == w.ctrlPressed ||
-              'childList' != a.type
+              "childList" != a.type
             )
               return !0;
             1 == a.addedNodes.length && (b += a.addedNodes[0].textContent);
           });
-          '' != b &&
+          "" != b &&
             ((b = w.pasteCache.innerText),
             w.focus(),
             w.doonpaste(b, !1),
             setTimeout(function () {
-              w.pasteCache.innerHTML = '';
+              w.pasteCache.innerHTML = "";
             }, 20));
         });
-        z = document.getElementById('efmase_paste_cache');
+        z = document.getElementById("efmase_paste_cache");
         f.observe(z, { attributes: !0, childList: !0, characterData: !0 });
         this.gifunc.gi0 = function () {
           return w.gi0();
         };
-        f = document.createElement('div');
-        f.setAttribute('id', 'com_imatheq_loading_msg');
-        f.innerHTML = 'Loading, please wait...';
+        f = document.createElement("div");
+        f.setAttribute("id", "com_imatheq_loading_msg");
+        f.innerHTML = "Loading, please wait...";
         document.body.appendChild(f);
-        this.checkClass(e.className, 'imatheqpalette')
+        this.checkClass(e.className, "imatheqpalette")
           ? (this.showPalette = this.showPalette && !0)
-          : this.checkClass(e.className, 'imatheqnopalette')
+          : this.checkClass(e.className, "imatheqnopalette")
           ? (this.showPalette = this.showPalette && !1)
           : (this.showPalette =
-              'all' == org.imatheq.formulaeditor.options.paletteShow
+              "all" == org.imatheq.formulaeditor.options.paletteShow
                 ? this.showPalette && !0
-                : 'none' == org.imatheq.formulaeditor.options.paletteShow
+                : "none" == org.imatheq.formulaeditor.options.paletteShow
                 ? this.showPalette && !1
                 : this.showPalette && !a);
         this.showPalette =
           this.showPalette &&
-          (this.checkClass(e.className, 'imatheqpalette') ||
-            (!this.checkClass(e.className, 'imatheqnopalette') && !a));
-        this.checkClass(e.className, 'imatheqvisibletextarea') ||
-          (e.style.display = 'none');
-        this.checkClass(e.className, 'testplayermode') &&
+          (this.checkClass(e.className, "imatheqpalette") ||
+            (!this.checkClass(e.className, "imatheqnopalette") && !a));
+        this.checkClass(e.className, "imatheqvisibletextarea") ||
+          (e.style.display = "none");
+        this.checkClass(e.className, "testplayermode") &&
           (this.testplayermode = !0);
         this.load();
         this.selection = new r(this);
@@ -13495,7 +13496,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.redraw(!1);
     },
     PIXEL_RATIO: (function () {
-      var a = document.createElement('canvas').getContext('2d');
+      var a = document.createElement("canvas").getContext("2d");
       return (
         (window.devicePixelRatio || 1) /
         (a.webkitBackingStorePixelRatio ||
@@ -13508,25 +13509,25 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     })(),
     createHiDPICanvas: function (a, b, d) {
       d || (d = this.PIXEL_RATIO);
-      var e = document.createElement('canvas');
+      var e = document.createElement("canvas");
       e.width = a * d;
       e.height = b * d;
-      e.style.width = a + 'px';
-      e.style.height = b + 'px';
-      e.getContext('2d').setTransform(d, 0, 0, d, 0, 0);
+      e.style.width = a + "px";
+      e.style.height = b + "px";
+      e.getContext("2d").setTransform(d, 0, 0, d, 0, 0);
       return e;
     },
     setHiDPICanvasDims: function (a, b, d, e) {
       e || (e = this.PIXEL_RATIO);
       a.width = b * e;
       a.height = d * e;
-      a.style.width = b + 'px';
-      a.style.height = d + 'px';
-      a.getContext('2d').setTransform(e, 0, 0, e, 0, 0);
+      a.style.width = b + "px";
+      a.style.height = d + "px";
+      a.getContext("2d").setTransform(e, 0, 0, e, 0, 0);
     },
     getSymbollist: function () {
       ed = this;
-      this.loadjs('en', 'symbollist.js', function () {
+      this.loadjs("en", "symbollist.js", function () {
         ed.pdata.tstr3 = new Date().getTime();
         ed.getMenusymbol();
       });
@@ -13563,13 +13564,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       }
     },
     loadMathML: function (a) {
-      org.imatheq.formulaeditor.FormulaEditor.addDebug('loading MathML');
+      org.imatheq.formulaeditor.FormulaEditor.addDebug("loading MathML");
       var b = org.imatheq.formulaeditor.presentation.Row;
       a = new org.imatheq.formulaeditor.parsing.mathml.MathMLParser().parse(
         a,
         this.getPresentationContext()
       );
-      org.imatheq.formulaeditor.FormulaEditor.addDebug('parsed: ' + a);
+      org.imatheq.formulaeditor.FormulaEditor.addDebug("parsed: " + a);
       this.presentation = new b(a);
       this.presentation.flatten();
     },
@@ -13579,7 +13580,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       return d;
     },
     save: function () {
-      return { success: ''.success, errorString: ''.errorString };
+      return { success: "".success, errorString: "".errorString };
     },
     redraw: function (a) {
       editor = this;
@@ -13589,45 +13590,45 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       a = [];
       this.presentation.getFontSizeData(this, {}, b);
       for (var d in b)
-        if (b.hasOwnProperty(d)) for (var e in b[d]) a.push(d + '_' + e);
+        if (b.hasOwnProperty(d)) for (var e in b[d]) a.push(d + "_" + e);
       0 !== Object.keys(b).length && JSON.stringify(b) !== JSON.stringify({})
-        ? ((d = window.location.href.split('/')),
+        ? ((d = window.location.href.split("/")),
           (e = $buuuuu()),
           (b =
-            e.substring(0, e.indexOf('/')) +
-            '//www.imatheq.com/imatheq?token=12346'),
-          'java' == this.system && (b = e + 'imatheq?token=12346'),
-          'net' == this.system &&
-            (b = e + 'com/imatheq/default.aspx?token=12346'),
+            e.substring(0, e.indexOf("/")) +
+            "//www.imatheq.com/imatheq?token=12346"),
+          "java" == this.system && (b = e + "imatheq?token=12346"),
+          "net" == this.system &&
+            (b = e + "com/imatheq/default.aspx?token=12346"),
           com.efmase.js.utilities.XMLHttp.call({
             url: b,
-            type: 'post',
-            dataType: 'json',
+            type: "post",
+            dataType: "json",
             data: {
-              action: 'fondataj',
+              action: "fondataj",
               lang: this.lang,
-              dm: d[2].replace(':', '_'),
+              dm: d[2].replace(":", "_"),
               lsk: this.lskey,
               fsgroups: a.toString(),
             },
-            mimeType: 'application/json',
+            mimeType: "application/json",
             success: function (a) {
               a = JSON.parse(editor.fetchData(a.d));
               for (var b in a)
                 if (a.hasOwnProperty(b)) {
-                  if ('error' == b) {
+                  if ("error" == b) {
                     alert(a[b]);
                     return;
                   }
-                  var d = b.substring(b.lastIndexOf('_') + 1);
+                  var d = b.substring(b.lastIndexOf("_") + 1);
                   org.imatheq.formulaeditor.MathCanvas.addFont(d, a[b]);
                 }
               editor.redraw_func();
             },
             error: function (a, b, d) {
-              '' == a.responseText
-                ? alert('error in server call, status: ' + b + ', error: ' + d)
-                : alert('error: status: ' + b + ', error: ' + d);
+              "" == a.responseText
+                ? alert("error in server call, status: " + b + ", error: " + d)
+                : alert("error: status: " + b + ", error: " + d);
             },
           }))
         : this.redraw_func();
@@ -13635,7 +13636,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     redraw_func: function () {
       bb = function () {
         for (
-          var a = document.getElementsByTagName('script'),
+          var a = document.getElementsByTagName("script"),
             b = /(.*)com\/imatheq\/scripts\/imatheqfunctions.js/,
             d = 0;
           d < a.length;
@@ -13702,7 +13703,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     getMenusymbol: function () {
       ed = this;
-      this.loadjs(this.lang.toLowerCase(), 'menusymbol.js', function () {
+      this.loadjs(this.lang.toLowerCase(), "menusymbol.js", function () {
         ed.pdata.tstr4 = new Date().getTime();
         ed.getAltstrs();
       });
@@ -13711,18 +13712,18 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var a;
       try {
         var b = this.canvas.canvas;
-        b.toDataURL('image/png');
-        var d = document.getElementById('com_imatheq_loading_msg');
-        d.innerHTML = 'Generating image, please wait...';
-        d.style.display = '';
+        b.toDataURL("image/png");
+        var d = document.getElementById("com_imatheq_loading_msg");
+        d.innerHTML = "Generating image, please wait...";
+        d.style.display = "";
         this.canvas.readonly = !0;
         this.redraw();
-        var e = document.createElement('canvas'),
+        var e = document.createElement("canvas"),
           f = 2 * this.presentation.dimensions.width,
           g = 2 * this.presentation.dimensions.height;
-        e.setAttribute('width', f / 2 + 20);
-        e.setAttribute('height', g / 2 + 8);
-        e.getContext('2d').drawImage(
+        e.setAttribute("width", f / 2 + 20);
+        e.setAttribute("height", g / 2 + 8);
+        e.getContext("2d").drawImage(
           b,
           40,
           16,
@@ -13733,11 +13734,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           (f + 4) / 2,
           (g + 4) / 2
         );
-        a = e.toDataURL('image/png');
+        a = e.toDataURL("image/png");
         this.canvas.readonly = !1;
         this.redraw();
-        d.innerHTML = 'Loading, please wait...';
-        d.style.display = 'none';
+        d.innerHTML = "Loading, please wait...";
+        d.style.display = "none";
       } catch (p) {}
       return a;
     },
@@ -13770,29 +13771,29 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         return this.palette.activePanel.onkeydown(a);
       if (9 == a.keyCode || (37 <= a.keyCode && 40 >= a.keyCode)) {
         var b = document.activeElement,
-          d = b ? b.className : '';
+          d = b ? b.className : "";
         if (
-          !this.checkClass(d, 'efmase_palettebutton') &&
-          !this.checkClass(d, 'efmase_focus_textarea')
+          !this.checkClass(d, "efmase_palettebutton") &&
+          !this.checkClass(d, "efmase_focus_textarea")
         ) {
           this.keyboardNavi = -1;
           return;
         }
         switch (b.btnGrp) {
-          case 'menu':
+          case "menu":
             this.keyboardNavi = 1;
             break;
-          case 'palette_tab':
+          case "palette_tab":
             this.keyboardNavi = 2;
             break;
-          case 'palette':
+          case "palette":
             this.keyboardNavi = 3;
             break;
-          case 'textarea':
+          case "textarea":
             this.keyboardNavi = 4;
             break;
           default:
-            alert('Error in editor.onkeydown: Wrong button group.');
+            alert("Error in editor.onkeydown: Wrong button group.");
         }
       }
       if (9 == a.keyCode && 1 <= this.keyboardNavi && 4 >= this.keyboardNavi) {
@@ -13828,7 +13829,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             case 86:
               if (
                 void 0 != document.activeElement &&
-                'text' == document.activeElement.type
+                "text" == document.activeElement.type
               )
                 return !1;
               1 == this.ctrlPressed &&
@@ -13862,7 +13863,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   this.focus(),
                   this.redraw())
                 : alert(
-                    'The formula could not be interpreted correctly. The error message was:\n' +
+                    "The formula could not be interpreted correctly. The error message was:\n" +
                       b.errorString
                   ),
               !1
@@ -13904,13 +13905,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       )
         switch (a.keyCode) {
           case 37:
-            return this.kbNaviMove('left'), !1;
+            return this.kbNaviMove("left"), !1;
           case 38:
-            return this.kbNaviMove('up'), !1;
+            return this.kbNaviMove("up"), !1;
           case 39:
-            return this.kbNaviMove('right'), !1;
+            return this.kbNaviMove("right"), !1;
           case 40:
-            return this.kbNaviMove('down'), !1;
+            return this.kbNaviMove("down"), !1;
         }
       if (
         (13 == a.charCode || 13 == a.keyCode) &&
@@ -13924,30 +13925,30 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         case 1:
           var b = this.curMenuItem,
             e = this.menuItems[b],
-            f = document.getElementById('efmase_menubar_item_' + e);
+            f = document.getElementById("efmase_menubar_item_" + e);
           do
-            'left' == a ? b-- : 'right' == a && b++,
+            "left" == a ? b-- : "right" == a && b++,
               (e = this.menuItems[b]),
-              (e = document.getElementById('efmase_menubar_item_' + e));
+              (e = document.getElementById("efmase_menubar_item_" + e));
           while (
             0 <= b &&
             b <= this.menuItems.length &&
             null !== e &&
-            this.checkClass(e.className, 'efmase_palettebtn_disabled')
+            this.checkClass(e.className, "efmase_palettebtn_disabled")
           );
           0 <= b &&
             b < this.menuItems.length &&
             null !== e &&
-            !this.checkClass(e.className, 'efmase_palettebtn_disabled') &&
+            !this.checkClass(e.className, "efmase_palettebtn_disabled") &&
             ((this.curMenuItem = b),
-            f.style.removeProperty('border'),
-            (e.style.border = '2px solid #000000'));
+            f.style.removeProperty("border"),
+            (e.style.border = "2px solid #000000"));
           break;
         case 2:
           f = b = this.paletteTabs.indexOf(this.palette.curtab);
-          'left' == a && 0 < f
+          "left" == a && 0 < f
             ? f--
-            : 'right' == a && f < this.paletteTabs.length - 1 && f++;
+            : "right" == a && f < this.paletteTabs.length - 1 && f++;
           if (f == b) break;
           this.palette.handleTabBtnOverClick(this.paletteTabs[f]);
           break;
@@ -13961,9 +13962,9 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               f = this.curPaletteBtn.group,
               e = this.curPaletteBtn.row,
               t = this.curPaletteBtn.col;
-            if ('left' == a || 'right' == a) {
-              if (((t += 'left' == a ? -1 : 1), 0 > t || t >= p.length)) {
-                f += 'left' == a ? -1 : 1;
+            if ("left" == a || "right" == a) {
+              if (((t += "left" == a ? -1 : 1), 0 > t || t >= p.length)) {
+                f += "left" == a ? -1 : 1;
                 if (0 > f && 0 == e) break;
                 f >= g.length
                   ? ((f = 0), e++)
@@ -13973,40 +13974,40 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   t = document.getElementById(g[f].id);
                   0 <= f &&
                   f < g.length &&
-                  (e >= n.length || 'none' == t.style.display);
+                  (e >= n.length || "none" == t.style.display);
 
                 ) {
-                  f += 'left' == a ? -1 : 1;
-                  if (('left' == a && 0 > f) || ('right' == a && f >= g.length))
+                  f += "left" == a ? -1 : 1;
+                  if (("left" == a && 0 > f) || ("right" == a && f >= g.length))
                     return;
                   n = g[f].ROWS;
                   t = document.getElementById(g[f].id);
                 }
                 if (0 > f || f >= g.length) break;
                 p = n[e].ITEMS;
-                t = 'left' == a ? p.length - 1 : 0;
+                t = "left" == a ? p.length - 1 : 0;
               }
             } else {
-              e += 'up' == a ? -1 : 1;
+              e += "up" == a ? -1 : 1;
               if (0 > e || e >= n.length) break;
               p = n[e].ITEMS;
               if (t >= p.length) break;
             }
             a = p[t];
             g = a.id;
-            'PALETTE_TAB_EDIT_BUTTONS' == this.palette.curtab &&
+            "PALETTE_TAB_EDIT_BUTTONS" == this.palette.curtab &&
               (g = this.palette.symbols[a.id].name);
             this.clearKBNavi();
-            d.setObjsAttrb(g, 'border', '2px solid #000000');
+            d.setObjsAttrb(g, "border", "2px solid #000000");
             this.curPaletteBtn = { tab: b, group: f, row: e, col: t };
           }
           break;
         case 5:
-          if ('left' != a && 'right' != a) break;
-          b = document.getElementsByClassName('imatheq_save_buttons');
-          0 == b.length && (b = document.getElementsByTagName('input'));
+          if ("left" != a && "right" != a) break;
+          b = document.getElementsByClassName("imatheq_save_buttons");
+          0 == b.length && (b = document.getElementsByTagName("input"));
           curBtn = this.curBtnBarBtn;
-          curBtn += 'left' == a ? -1 : 1;
+          curBtn += "left" == a ? -1 : 1;
           0 <= curBtn &&
             curBtn < b.length &&
             (b[this.curBtnBarBtn].blur(),
@@ -14018,12 +14019,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       switch (this.keyboardNavi) {
         case 1:
           var b = this.palette.isSmallWin()
-              ? 'Menu'
+              ? "Menu"
               : this.menuItems[this.curMenuItem],
-            d = document.getElementById('efmase_menubar_item_' + b);
+            d = document.getElementById("efmase_menubar_item_" + b);
           this.palette.isSmallWin()
-            ? (d.style.background = '#E8EAEB')
-            : d.style.removeProperty('border');
+            ? (d.style.background = "#E8EAEB")
+            : d.style.removeProperty("border");
           this.clearKBNavi();
           this.keyboardNavi = 4;
           this.curMenuItem = 0;
@@ -14052,20 +14053,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       switch (this.keyboardNavi) {
         case 1:
           if (this.palette.isSmallWin()) {
-            var b = document.getElementById('efmase_menubar_item_Menu');
-            b.style.border = '2px solid #000000';
+            var b = document.getElementById("efmase_menubar_item_Menu");
+            b.style.border = "2px solid #000000";
           } else
             for (a = 0; a < this.menuItems.length; a++) {
               var e = document.getElementById(
-                'efmase_menubar_item_' + this.menuItems[a]
+                "efmase_menubar_item_" + this.menuItems[a]
               );
-              if (!this.checkClass(e.className, 'efmase_palettebtn_disabled')) {
-                e.style.border = '2px solid #000000';
+              if (!this.checkClass(e.className, "efmase_palettebtn_disabled")) {
+                e.style.border = "2px solid #000000";
                 this.curMenuItem = a;
                 break;
               }
             }
-          document.getElementsByName('efmase_menubar_item_logo')[0].focus();
+          document.getElementsByName("efmase_menubar_item_logo")[0].focus();
           break;
         case 2:
           document.getElementsByName(this.palette.curtab)[0].focus();
@@ -14077,7 +14078,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           if (-1 != e) {
             b = f[e].ROWS[0].ITEMS[0];
             f = b.id;
-            'PALETTE_TAB_EDIT_BUTTONS' == this.palette.curtab &&
+            "PALETTE_TAB_EDIT_BUTTONS" == this.palette.curtab &&
               (f = this.palette.symbols[b.id].name);
             for (
               var b = document.getElementsByName(f), g = 0;
@@ -14087,7 +14088,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               g++;
             b = b[g];
             b.focus();
-            d.setObjsAttrb(f, 'border', '2px solid #000000');
+            d.setObjsAttrb(f, "border", "2px solid #000000");
             this.curPaletteBtn = { tab: a, group: e, row: 0, col: 0 };
           }
           break;
@@ -14096,8 +14097,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           this.selection.hasSelection || this.cursor.showCursor();
           break;
         case 5:
-          (e = document.getElementsByClassName('imatheq_save_buttons')),
-            0 == e.length && (e = document.getElementsByTagName('input')),
+          (e = document.getElementsByClassName("imatheq_save_buttons")),
+            0 == e.length && (e = document.getElementsByTagName("input")),
             0 < e.length && e[0].focus(),
             (this.curBtnBarBtn = 0),
             org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(a),
@@ -14110,13 +14111,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         case 1:
           this.palette.isSmallWin()
             ? document
-                .getElementById('efmase_menubar_item_Menu')
-                .style.removeProperty('border')
+                .getElementById("efmase_menubar_item_Menu")
+                .style.removeProperty("border")
             : document
                 .getElementById(
-                  'efmase_menubar_item_' + this.menuItems[this.curMenuItem]
+                  "efmase_menubar_item_" + this.menuItems[this.curMenuItem]
                 )
-                .style.removeProperty('border');
+                .style.removeProperty("border");
           this.curMenuItem = 0;
           break;
         case 3:
@@ -14126,14 +14127,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 this.curPaletteBtn.group
               ].ROWS[this.curPaletteBtn.row].ITEMS[this.curPaletteBtn.col],
             b = a.id;
-          'PALETTE_TAB_EDIT_BUTTONS' == this.palette.curtab &&
+          "PALETTE_TAB_EDIT_BUTTONS" == this.palette.curtab &&
             (b = this.palette.symbols[a.id].name);
-          d.setObjsAttrb(b, 'border', null, 'remove');
+          d.setObjsAttrb(b, "border", null, "remove");
           this.curPaletteBtn = null;
           break;
         case 5:
-          (a = document.getElementsByClassName('imatheq_save_buttons')),
-            0 == a.length && (a = document.getElementsByTagName('input')),
+          (a = document.getElementsByClassName("imatheq_save_buttons")),
+            0 == a.length && (a = document.getElementsByTagName("input")),
             0 < a.length && a[0].focus(),
             null !== a[this.curBtnBarBtn] &&
               void 0 != a[this.curBtnBarBtn] &&
@@ -14145,11 +14146,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var a = this.paletteTabs.indexOf(this.palette.curtab),
         a = this.pData.PALETTE[a].GROUPS,
         b = 0;
-      if ('PALETTE_TAB_EDIT_BUTTONS' == this.palette.curtab) {
+      if ("PALETTE_TAB_EDIT_BUTTONS" == this.palette.curtab) {
         for (var d = 0; d < a.length; d++)
           if (
             ((gDiv = document.getElementById(a[d].id)),
-            'none' != gDiv.style.display)
+            "none" != gDiv.style.display)
           ) {
             b = d;
             break;
@@ -14160,8 +14161,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     isSmallWinMenu: function () {
       return (
-        document.getElementById('efmase_menubar_item_Close') &&
-        '' == document.getElementById('efmase_menubar_item_Close').style.display
+        document.getElementById("efmase_menubar_item_Close") &&
+        "" == document.getElementById("efmase_menubar_item_Close").style.display
       );
     },
     onkeyup: function (a) {
@@ -14171,8 +14172,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       else if (
         editor.isMobile &&
         229 == a.keyCode &&
-        'efmase_focus_textarea' === a.target.className &&
-        '' == a.target.value
+        "efmase_focus_textarea" === a.target.className &&
+        "" == a.target.value
       ) {
         if (this.selection.hasSelection) this.selection.remove();
         else {
@@ -14191,8 +14192,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 b.row.index - 1
               );
         }
-        a.target.value = '$';
-        a.target.innerHTML = '$';
+        a.target.value = "$";
+        a.target.innerHTML = "$";
         return !1;
       }
     },
@@ -14221,7 +14222,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     changeFontsize: function (b) {
       b = this.canvas.getFontSizeIdx(b);
       for (i = 0; i < a.length; i++)
-        a[i].execPalCmd(a[i].symbols['109'], '', b), a[i].editor.redraw();
+        a[i].execPalCmd(a[i].symbols["109"], "", b), a[i].editor.redraw();
       return !1;
     },
     setFontSizeIdx: function (a) {
@@ -14257,28 +14258,28 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var b = this;
       if (!a || window.navigator.onLine) {
         var b = this,
-          d = window.location.href.split('/')[2].replace(':', '_'),
+          d = window.location.href.split("/")[2].replace(":", "_"),
           e = $buuuuu(),
           f =
-            e.substring(0, e.indexOf('/')) +
-            '//www.imatheq.com/imatheq?token=12346';
-        if ('java' == this.system || 'ijava' == this.system)
-          f = e + 'imatheq?token=12346';
-        if ('net' == this.system || 'inet' == this.system)
-          f = e + 'com/imatheq/default.aspx?token=12346';
+            e.substring(0, e.indexOf("/")) +
+            "//www.imatheq.com/imatheq?token=12346";
+        if ("java" == this.system || "ijava" == this.system)
+          f = e + "imatheq?token=12346";
+        if ("net" == this.system || "inet" == this.system)
+          f = e + "com/imatheq/default.aspx?token=12346";
         com.efmase.js.utilities.XMLHttp.call({
           url: f,
-          type: 'post',
-          dataType: 'json',
+          type: "post",
+          dataType: "json",
           data: {
-            action: 'pdata',
+            action: "pdata",
             lang: this.lang,
             dm: d,
             lsk: this.lskey,
             tstr: this.pdata.tstr0.toString(),
-            rp: null === a || void 0 === a ? 'false' : 'true',
+            rp: null === a || void 0 === a ? "false" : "true",
           },
-          mimeType: 'application/json',
+          mimeType: "application/json",
           success: function (d) {
             void 0 !== d.error
               ? alert(d.error)
@@ -14289,9 +14290,9 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           },
           error: function (b, d, e) {
             a ||
-              ('' == b.responseText
-                ? alert('error in server call, status: ' + d + ', error: ' + e)
-                : alert('error: status: ' + d + ', error: ' + e));
+              ("" == b.responseText
+                ? alert("error in server call, status: " + d + ", error: " + e)
+                : alert("error: status: " + d + ", error: " + e));
           },
         });
       }
@@ -14329,22 +14330,22 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       }
     },
     loadjs: function (a, b, d) {
-      a = $buuuuu() + 'com/imatheq/scripts/langs/' + a + '/' + b;
-      b = document.createElement('script');
-      b.setAttribute('type', 'text/javascript');
+      a = $buuuuu() + "com/imatheq/scripts/langs/" + a + "/" + b;
+      b = document.createElement("script");
+      b.setAttribute("type", "text/javascript");
       b.async = !0;
       b.onload = function () {
         return d();
       };
-      b.setAttribute('src', a);
-      document.getElementsByTagName('head')[0].appendChild(b);
+      b.setAttribute("src", a);
+      document.getElementsByTagName("head")[0].appendChild(b);
     },
     mouseeventinfo: function (a) {
       var b = document.body.scrollTop + a.clientY,
         d = a.target || a.srcElement || a.relatedTarget;
       if (
-        'efmase_focus_textarea' == d.className ||
-        'fore_canvas' == d.className
+        "efmase_focus_textarea" == d.className ||
+        "fore_canvas" == d.className
       ) {
         var b = a.clientX,
           d = a.clientY,
@@ -14361,8 +14362,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           p = f.offsetWidth,
           t = f.offsetHeight;
         parent = f.parentNode;
-        if ('EFMASE_Container' == parent.className) {
-          var q = getComputedStyle(parent, '');
+        if ("EFMASE_Container" == parent.className) {
+          var q = getComputedStyle(parent, "");
           parseInt(q.paddingLeft);
           parseInt(q.paddingTop);
           parseInt(q.paddingRight);
@@ -14395,32 +14396,32 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           (e += f.offsetLeft), (g += f.offsetTop), (f = f.offsetParent);
         for (f = this.canvas.canvas; f; )
           f.scrollLeft &&
-            'div' == f.localName.toLowerCase() &&
+            "div" == f.localName.toLowerCase() &&
             (e -= f.scrollLeft),
             f.scrollTop &&
-              'div' == f.localName.toLowerCase() &&
+              "div" == f.localName.toLowerCase() &&
               (g -= f.scrollTop),
             (f = f.parentNode);
         return !this.isMobile &&
           ((f = this.canvas.canvas.parentNode),
           a.offsetX >= f.clientWidth || a.offsetY >= f.clientHeight)
-          ? { pos: 'out', x: 0, y: 0 }
+          ? { pos: "out", x: 0, y: 0 }
           : e <= b && b <= e + p && g <= d && d <= g + t
-          ? { pos: 'canvas', x: b - e, y: d - g }
-          : { pos: 'canvas', x: b < e ? 0 : p, y: d < g ? 0 : t };
+          ? { pos: "canvas", x: b - e, y: d - g }
+          : { pos: "canvas", x: b < e ? 0 : p, y: d < g ? 0 : t };
       }
-      if ('EFMASE_Container' == d.className)
-        return { pos: 'scroll', x: 0, y: 0 };
+      if ("EFMASE_Container" == d.className)
+        return { pos: "scroll", x: 0, y: 0 };
       a = 0;
       for (d = this.canvas.canvas.parentNode; d; )
         (a += d.offsetTop - d.scrollTop + d.clientTop), (d = d.offsetParent);
       return b <= a
-        ? { pos: 'palette', x: 0, y: 0 }
-        : { pos: 'out', x: 0, y: 0 };
+        ? { pos: "palette", x: 0, y: 0 }
+        : { pos: "out", x: 0, y: 0 };
     },
     onpress: function (a) {
       a = this.mouseeventinfo(a);
-      if ('canvas' == a.pos)
+      if ("canvas" == a.pos)
         this.selection.hasSelection && this.selection.clear(),
           (a = this.cursor.position),
           (a = this.selection.getSelection(
@@ -14428,18 +14429,18 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             { row: a.row, index: a.row.children.length }
           )),
           null != a && this.selection.setSelection(a);
-      else return 'out' == a.pos && this.blur(), !0;
+      else return "out" == a.pos && this.blur(), !0;
     },
     isPanelEvent: function (a) {
       for (
         a = a.target || a.srcElement || a.relatedTarget;
         a &&
-        'efmase_panel_pad' != a.className &&
-        'body' !== a.localName.toLowerCase();
+        "efmase_panel_pad" != a.className &&
+        "body" !== a.localName.toLowerCase();
 
       )
         a = a.parentNode;
-      return null !== a && 'efmase_panel_pad' == a.className;
+      return null !== a && "efmase_panel_pad" == a.className;
     },
     onmousedown: function (a) {
       var b = !0;
@@ -14447,7 +14448,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.palette.clearPanels();
       if (this.isMobile && !a.imatheqadjust) return !0;
       var e = this.mouseeventinfo(a);
-      if ('canvas' == e.pos) {
+      if ("canvas" == e.pos) {
         this.clearKBNavi();
         this.keyboardNavi = 4;
         if (0 == a.button) {
@@ -14461,11 +14462,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 !1;
             this.selection.hasSelection
               ? ((this.onStartBar = this.selection.isOnCaret(
-                  'start',
+                  "start",
                   e.x,
                   e.y
                 )),
-                (this.onEndBar = this.selection.isOnCaret('end', e.x, e.y)))
+                (this.onEndBar = this.selection.isOnCaret("end", e.x, e.y)))
               : this.hasFocus() &&
                 (this.onCursorBar = this.cursor.isOnCaret(e.x, e.y));
             if (this.onStartBar || this.onEndBar || this.onCursorBar)
@@ -14486,7 +14487,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           !this.isMobile && d.isIE() && a.preventDefault(),
           (b = this.cursor.onmousedown(a, e.x, e.y)));
       } else
-        'out' == e.pos &&
+        "out" == e.pos &&
           (this.clearKBNavi(), (this.keyboardNavi = 0), this.blur());
       return b;
     },
@@ -14498,7 +14499,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       )
         return !0;
       var b = this.mouseeventinfo(a);
-      if ('canvas' == b.pos) {
+      if ("canvas" == b.pos) {
         !this.isDragging &&
           this.mouseMoved(a.clientX, a.clientY) &&
           ((this.isDragging = !0),
@@ -14584,29 +14585,29 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     oncopy: function (a) {
       if (!this.selection.hasSelection) return !0;
       window.clipboardData
-        ? window.clipboardData.setData('text/plain', this.selection.getMathML())
+        ? window.clipboardData.setData("text/plain", this.selection.getMathML())
         : a.clipboardData
-        ? a.clipboardData.setData('text/plain', this.selection.getMathML())
-        : alert('Clipboard Data are not supported in this browser. Sorry.');
+        ? a.clipboardData.setData("text/plain", this.selection.getMathML())
+        : alert("Clipboard Data are not supported in this browser. Sorry.");
       a.preventDefault();
     },
     onCutCopy: function (a, b) {
       if (!this.selection.hasSelection) return !0;
       this.hasFocus() || this.focus();
       var d = this.selection.getMathML();
-      'cut' == b && this.selection.remove();
+      "cut" == b && this.selection.remove();
       if (this.isMobile)
         try {
-          'https:' != location.protocol
+          "https:" != location.protocol
             ? alert(
-                'In order to use this function, you need to access iMathEQ Math Equation Editor with HTTPS.'
+                "In order to use this function, you need to access iMathEQ Math Equation Editor with HTTPS."
               )
             : null === navigator ||
               void 0 === navigator ||
               null === navigator.clipboard ||
               void 0 === navigator.clipboard
             ? alert(
-                'Your browser/device currently does not support this function.'
+                "Your browser/device currently does not support this function."
               )
             : navigator.clipboard.writeText(d);
         } catch (e) {
@@ -14614,45 +14615,45 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         }
       else {
         if (document.body.createTextRange) {
-          var f = document.createElement('div');
+          var f = document.createElement("div");
           f.style.opacity = 0;
-          f.style.position = 'absolute';
-          f.style.pointerEvents = 'none';
+          f.style.position = "absolute";
+          f.style.pointerEvents = "none";
           f.style.zIndex = -1;
           document.body.appendChild(f);
           f.innerHTML = d
-            .replace(/&/g, '&amp;')
-            .replace(/>/g, '&gt;')
-            .replace(/</g, '&lt;')
-            .replace(/"/g, '&quot;');
+            .replace(/&/g, "&amp;")
+            .replace(/>/g, "&gt;")
+            .replace(/</g, "&lt;")
+            .replace(/"/g, "&quot;");
           d = document.createRange();
           d.setStartBefore(f.firstChild);
           d.setEndAfter(f.lastChild);
           window.getSelection().addRange(d);
           try {
-            document.execCommand('copy') ||
-              console.log('execCommand returned false !');
+            document.execCommand("copy") ||
+              console.log("execCommand returned false !");
           } catch (g) {
-            console.log('execCommand failed ! exception ' + g);
+            console.log("execCommand failed ! exception " + g);
           }
           document.body.removeChild(f);
         } else if (window.clipboardData)
-          window.clipboardData.setData('text/plain', d);
-        else if (a.clipboardData) a.clipboardData.setData('text/plain', d);
+          window.clipboardData.setData("text/plain", d);
+        else if (a.clipboardData) a.clipboardData.setData("text/plain", d);
         else {
-          f = document.createElement('textarea');
+          f = document.createElement("textarea");
           f.style.opacity = 0;
-          f.style.position = 'absolute';
-          f.style.pointerEvents = 'none';
+          f.style.position = "absolute";
+          f.style.pointerEvents = "none";
           f.style.zIndex = -1;
           document.body.appendChild(f);
           f.value = d;
           f.select();
           try {
-            document.execCommand('copy') ||
-              console.log('execCommand returned false !');
+            document.execCommand("copy") ||
+              console.log("execCommand returned false !");
           } catch (p) {
-            console.log('execCommand failed ! exception ' + p);
+            console.log("execCommand failed ! exception " + p);
           }
         }
         a.preventDefault();
@@ -14668,22 +14669,22 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         p = 0,
         t = [];
       if (!a) return a;
-      a += '';
+      a += "";
       do
         (b =
-          'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.indexOf(
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(
             a.charAt(p++)
           )),
           (d =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.indexOf(
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(
               a.charAt(p++)
             )),
           (f =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.indexOf(
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(
               a.charAt(p++)
             )),
           (g =
-            'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='.indexOf(
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=".indexOf(
               a.charAt(p++)
             )),
           (e = (b << 18) | (d << 12) | (f << 6) | g),
@@ -14707,7 +14708,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             this.selection.remove(),
             this.actions.clear();
         } catch (b) {
-          throw Error('Error in clearMathML()');
+          throw Error("Error in clearMathML()");
         }
     },
     getpc: function () {
@@ -14737,21 +14738,21 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 !(e.parent.parent instanceof d.Lines)))) ||
           (!e.hasSelection &&
             !(this.cursor.position.row.parent instanceof d.Lines));
-      a = a.replace(RegExp('<mi>\u21b5</mi>', 'g'), '');
-      a = a.replace(RegExp('opens*=s*[\'|"]<[\'|"]', 'g'), "open='&lt;'");
-      a = a.replace(RegExp('closes*=s*[\'|"]>[\'|"]', 'g'), "close='&gt;'");
-      a = a.replace(RegExp('mathcolor="null"', 'g'), '');
+      a = a.replace(RegExp("<mi>\u21b5</mi>", "g"), "");
+      a = a.replace(RegExp("opens*=s*['|\"]<['|\"]", "g"), "open='&lt;'");
+      a = a.replace(RegExp("closes*=s*['|\"]>['|\"]", "g"), "close='&gt;'");
+      a = a.replace(RegExp('mathcolor="null"', "g"), "");
       var v = this.getPresentationFromMathML(p, a, u, b);
       if (null === v && ((v = new d.Row(a)), null === v)) return !1;
       if (e.hasSelection && e.parent instanceof d.PArray) {
         f = e.copy();
         p = this.cursor.position.row.getIndexChain(this.cursor.position.index);
-        u = 'update';
+        u = "update";
         g = e.parent;
         q.row = g;
         if (e.endIndex < e.startIndex)
           throw new error(
-            'onpaste: PArray selection.endIndex<selection.startIndex'
+            "onpaste: PArray selection.endIndex<selection.startIndex"
           );
         var y = g.deleteValues(e.startIndex, e.endIndex - 1);
         q.index = e.startIndex;
@@ -14767,14 +14768,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var p = this.cursor.position.row.getIndexChain(
             this.cursor.position.index
           ),
-          u = 'insert',
+          u = "insert",
           y = null,
           C = this.cursor.position.row,
           A =
             this.cursor.position.row.children.length -
             this.cursor.position.index;
         e.hasSelection &&
-          ((u = 'update'),
+          ((u = "update"),
           (q.row = e.parent),
           e.removeEndNewline(),
           e.parent instanceof d.Row
@@ -14789,7 +14790,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         v instanceof d.PArray && (v = new d.Row(v));
         1 == C.children.length &&
           C.children[0] instanceof d.BlockSymbol &&
-          ((u = 'update'),
+          ((u = "update"),
           (y = C.remove(0, 1)),
           (A = 0),
           1 == t.index && (t.index = 0));
@@ -14819,14 +14820,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       return !1;
     },
     onpaste: function (a) {
-      var b = '';
+      var b = "";
       if (!this.hasFocus()) return !0;
       this.pasteEvtSupport = !1;
-      null !== this.pasteCache && (this.pasteCache.innerHTML = '');
+      null !== this.pasteCache && (this.pasteCache.innerHTML = "");
       window.clipboardData
-        ? (b = window.clipboardData.getData('Text'))
-        : a.clipboardData && (b = a.clipboardData.getData('Text'));
-      '' != b && (this.doonpaste(b, !1), a.preventDefault());
+        ? (b = window.clipboardData.getData("Text"))
+        : a.clipboardData && (b = a.clipboardData.getData("Text"));
+      "" != b && (this.doonpaste(b, !1), a.preventDefault());
     },
     fetchData: function (a) {
       var b = this.getpc();
@@ -14848,25 +14849,25 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 b.redraw();
               }, 250));
           } catch (d) {
-            throw Error('Error in onresize()');
+            throw Error("Error in onresize()");
           }
     },
     getScrollBarWidth: function () {
-      var a = document.createElement('p');
-      a.style.width = '100%';
-      a.style.height = '200px';
-      var b = document.createElement('div');
-      b.style.position = 'absolute';
-      b.style.top = '0px';
-      b.style.left = '0px';
-      b.style.visibility = 'hidden';
-      b.style.width = '200px';
-      b.style.height = '150px';
-      b.style.overflow = 'hidden';
+      var a = document.createElement("p");
+      a.style.width = "100%";
+      a.style.height = "200px";
+      var b = document.createElement("div");
+      b.style.position = "absolute";
+      b.style.top = "0px";
+      b.style.left = "0px";
+      b.style.visibility = "hidden";
+      b.style.width = "200px";
+      b.style.height = "150px";
+      b.style.overflow = "hidden";
       b.appendChild(a);
       document.body.appendChild(b);
       var d = a.offsetWidth;
-      b.style.overflow = 'scroll';
+      b.style.overflow = "scroll";
       a = a.offsetWidth;
       d == a && (a = b.clientWidth);
       document.body.removeChild(b);
@@ -14877,24 +14878,24 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.isMobile || null === this.width || (a = this.width);
       var b = window.innerHeight;
       this.isMobile || null === this.height || (b = this.height + 21);
-      var d = document.getElementsByClassName('efmase_tab_bar');
-      0 < d.length && (d[0].style.width = parseInt(a) - 18 + 'px');
+      var d = document.getElementsByClassName("efmase_tab_bar");
+      0 < d.length && (d[0].style.width = parseInt(a) - 18 + "px");
       for (
-        var d = document.querySelectorAll('.efmase_palette'), e = 0;
+        var d = document.querySelectorAll(".efmase_palette"), e = 0;
         e < d.length;
         e++
       )
-        d[e].style.width = parseInt(a) - 18 + 'px';
+        d[e].style.width = parseInt(a) - 18 + "px";
       a = parseInt(a) - 28;
       b = parseInt(b) - 290;
       d = this.canvas.canvas.parentNode;
-      d.style.width = a + 22 + 'px';
-      d.style.height = b + 22 + 'px';
+      d.style.width = a + 22 + "px";
+      d.style.height = b + 22 + "px";
       this.isMobile ||
-        ((this.textbox.style.width = a + 'px'),
-        (this.textbox.style.height = b + 'px'),
-        this.isMobile && (this.textbox.style.height = b + 22 + 'px'),
-        (this.textbox.style.marginTop = -b - 28 + 'px'));
+        ((this.textbox.style.width = a + "px"),
+        (this.textbox.style.height = b + "px"),
+        this.isMobile && (this.textbox.style.height = b + 22 + "px"),
+        (this.textbox.style.marginTop = -b - 28 + "px"));
       null === this.palette || this.isMobile || this.palette.redrawMenuBar();
     },
     resizeCanvas: function (a, b) {
@@ -14925,34 +14926,34 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       null === b ||
         void 0 === b ||
         (g == parseInt(e.style.width) && n == parseInt(e.style.height)) ||
-        (e.setAttribute('width', 2 * g),
-        e.setAttribute('height', 2 * n),
-        f.setAttribute('width', 2 * g),
-        f.setAttribute('height', 2 * n),
-        (e.style.width = g + 'px'),
-        (e.style.height = n + 'px'),
-        (e.style.marginTop = -n - 4 + 'px'),
-        (f.style.width = g + 'px'),
-        (f.style.height = n + 'px'),
-        e.getContext('2d').scale(2, 2),
-        f.getContext('2d').scale(2, 2));
+        (e.setAttribute("width", 2 * g),
+        e.setAttribute("height", 2 * n),
+        f.setAttribute("width", 2 * g),
+        f.setAttribute("height", 2 * n),
+        (e.style.width = g + "px"),
+        (e.style.height = n + "px"),
+        (e.style.marginTop = -n - 4 + "px"),
+        (f.style.width = g + "px"),
+        (f.style.height = n + "px"),
+        e.getContext("2d").scale(2, 2),
+        f.getContext("2d").scale(2, 2));
       var u = this;
       u.isMobile ||
         (this.resizeTimer = setTimeout(function () {
-          u.textbox.style.width = p + 2 + 'px';
-          u.textbox.style.height = t + 22 + 'px';
-          u.isMobile && (u.textbox.style.height = t + 'px');
+          u.textbox.style.width = p + 2 + "px";
+          u.textbox.style.height = t + 22 + "px";
+          u.isMobile && (u.textbox.style.height = t + "px");
         }, 250));
     },
     getAltstrs: function () {
       ed = this;
-      this.loadjs('en', 'alttext.js', function () {
+      this.loadjs("en", "alttext.js", function () {
         ed.pdata.tstr5 = new Date().getTime();
         ed.getData();
       });
     },
     getPresentationFromMathML: function (a, b, d, e) {
-      if ('' == b) return null;
+      if ("" == b) return null;
       var f = org.imatheq.formulaeditor.presentation,
         g = org.imatheq.formulaeditor.parsing.mathml.MathMLParser,
         p = {},
@@ -14970,13 +14971,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         try {
           return (
             (newmathml =
-              '<math><mi>' +
+              "<math><mi>" +
               b
-                .replace(/&/g, '&amp;')
-                .replace(/>/g, '&gt;')
-                .replace(/</g, '&lt;')
-                .replace(/"/g, '&quot;') +
-              '</mi></math>'),
+                .replace(/&/g, "&amp;")
+                .replace(/>/g, "&gt;")
+                .replace(/</g, "&lt;")
+                .replace(/"/g, "&quot;") +
+              "</mi></math>"),
             (q = new g().parseString(newmathml, p, d)),
             1 == q.children.length &&
             1 == q.children[0].children.length &&
@@ -15013,20 +15014,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       try {
         a =
           '<math xmlns="http://www.w3.org/1998/Math/MathML"' +
-          (this.in_attrbs ? this.in_attrbs : '') +
-          '>' +
+          (this.in_attrbs ? this.in_attrbs : "") +
+          ">" +
           this.presentation.getMathML() +
-          '</math>';
+          "</math>";
       } catch (b) {
         a =
           '<math xmlns="http://www.w3.org/1998/Math/MathML"><mtext>' +
           b.toString() +
-          '</mtext></math>';
+          "</mtext></math>";
       }
       return a;
     },
     setMathML: function (a) {
-      if (null !== a && void 0 !== a && '' != a)
+      if (null !== a && void 0 !== a && "" != a)
         if (this.redrawing || this.initializing) {
           var b = this;
           setTimeout(function () {
@@ -15039,11 +15040,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               this.doonpaste(a, !1),
               this.actions.clear();
           } catch (d) {
-            throw Error('Error in setMathML()');
+            throw Error("Error in setMathML()");
           }
     },
     getImage: function () {
-      return this.gifunc['gi' + this.lst]();
+      return this.gifunc["gi" + this.lst]();
     },
     indentXML: function (a) {
       var b = [],
@@ -15053,82 +15054,82 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         g,
         p = function () {
           var a;
-          0 < b.length && b.push('\n');
-          for (a = f; 0 < a; a--) b.push('  ');
+          0 < b.length && b.push("\n");
+          for (a = f; 0 < a; a--) b.push("  ");
         };
-      for (d = 0; 0 <= (e = a.indexOf('<', d)); ) {
+      for (d = 0; 0 <= (e = a.indexOf("<", d)); ) {
         e > d && (!0 === g && p(), b.push(a.substr(d, e - d)), (d = e));
         e++;
         c = a.charAt(e);
         switch (c) {
-          case '/':
+          case "/":
             --f;
             0 > f && (f = 0);
             !0 === g && p();
-            e = a.indexOf('>', e);
-            if (0 > e) return b.join('') + a.substr(d);
+            e = a.indexOf(">", e);
+            if (0 > e) return b.join("") + a.substr(d);
             e += 1;
             g = !0;
             break;
-          case '!':
+          case "!":
             e++;
             c = a.charAt(e);
             switch (c) {
-              case '[':
+              case "[":
                 g = !0;
-                e = a.indexOf(']]\x3e', e);
-                if (0 > e) return b.join('') + a.substr(d);
+                e = a.indexOf("]]\x3e", e);
+                if (0 > e) return b.join("") + a.substr(d);
                 e += 3;
                 p();
                 break;
-              case '-':
+              case "-":
                 g = !0;
-                e = a.indexOf('--\x3e', e);
-                if (0 > e) return b.join('') + a.substr(d);
+                e = a.indexOf("--\x3e", e);
+                if (0 > e) return b.join("") + a.substr(d);
                 e += 3;
                 p();
                 break;
               default:
-                return b.join('') + a.substr(d);
+                return b.join("") + a.substr(d);
             }
             break;
           default:
-            e = a.indexOf('>', e);
-            if (0 > e) return b.join('') + a.substr(d);
+            e = a.indexOf(">", e);
+            if (0 > e) return b.join("") + a.substr(d);
             p();
-            '/' != a.charAt(e - 1) ? ((g = !1), (f += 1)) : (g = !0);
+            "/" != a.charAt(e - 1) ? ((g = !1), (f += 1)) : (g = !0);
             e += 1;
         }
         b.push(a.substr(d, e - d));
         d = e;
       }
       d < a.length && b.push(a.substr(d));
-      return b.join('');
+      return b.join("");
     },
     getData: function () {
       var a = this.fetchData(ime_js_dat_symbollist);
       try {
         this.palette.symbols = JSON.parse(a);
       } catch (b) {
-        throw Error('Fail to parse: ime_js_dat_symbollist, ' + b);
+        throw Error("Fail to parse: ime_js_dat_symbollist, " + b);
       }
       this.symbolindex = {};
       this.encloses = {};
       for (var d in this.palette.symbols)
         if (
           ((a = this.palette.symbols[d]),
-          'ch' == a.tp &&
+          "ch" == a.tp &&
             (null === a.font ||
-              ('imescr7' != a.font &&
-                'eufm7' != a.font &&
-                'msbm7' != a.font)) &&
-            'd' != a.ch)
+              ("imescr7" != a.font &&
+                "eufm7" != a.font &&
+                "msbm7" != a.font)) &&
+            "d" != a.ch)
         )
           this.symbolindex[a.ch] = d;
-        else if ('enclose' == a.sub_tp) this.symbolindex[a.name] = d;
+        else if ("enclose" == a.sub_tp) this.symbolindex[a.name] = d;
         else if (null !== a.middle_bracket && void 0 !== a.middle_bracket)
           this.symbolindex[a.middle_bracket] = d;
-        else if ('vertical_bracket' == a.sub_tp || 'bracket' == a.sub_tp)
+        else if ("vertical_bracket" == a.sub_tp || "bracket" == a.sub_tp)
           this.symbolindex[a.bracket] = d;
       this.drawEditor(this.lang);
     },
@@ -15136,18 +15137,18 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       var a;
       try {
         var b = this.canvas.canvas;
-        b.toDataURL('image/png');
-        var d = document.getElementById('com_imatheq_loading_msg');
-        d.innerHTML = 'Generating image, please wait...';
-        d.style.display = '';
+        b.toDataURL("image/png");
+        var d = document.getElementById("com_imatheq_loading_msg");
+        d.innerHTML = "Generating image, please wait...";
+        d.style.display = "";
         this.canvas.readonly = !0;
         this.redraw();
-        var e = document.createElement('canvas'),
+        var e = document.createElement("canvas"),
           f = 2 * this.presentation.dimensions.width,
           g = 2 * this.presentation.dimensions.height;
-        e.setAttribute('width', f / 2 + 20);
-        e.setAttribute('height', g / 2 + 8);
-        e.getContext('2d').drawImage(
+        e.setAttribute("width", f / 2 + 20);
+        e.setAttribute("height", g / 2 + 8);
+        e.getContext("2d").drawImage(
           b,
           40,
           16,
@@ -15158,32 +15159,32 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           (f + 4) / 2,
           (g + 4) / 2
         );
-        e.toDataURL('image/png');
-        e.toDataURL('image/png');
+        e.toDataURL("image/png");
+        e.toDataURL("image/png");
         this.canvas.readonly = !1;
         this.redraw();
-        var p = document.createElement('canvas'),
-          t = p.getContext('2d'),
+        var p = document.createElement("canvas"),
+          t = p.getContext("2d"),
           q,
           u;
         q = p.width = e.width;
         u = p.height = e.height;
         t.drawImage(e, 0, 0);
-        p.toDataURL('image/png');
+        p.toDataURL("image/png");
         lineW = 40 < q ? 20 : q / 2;
         b = lineW / 2;
         t.beginPath();
         t.globalAlpha = 0.5;
         t.lineWidth = lineW;
-        for (t.strokeStyle = '#97F1EC'; b < q + u - lineW / 2; )
+        for (t.strokeStyle = "#97F1EC"; b < q + u - lineW / 2; )
           b < u
             ? (t.moveTo(b, 0), t.lineTo(0, b))
             : (b < q ? t.moveTo(b, 0) : t.moveTo(q, b - q), t.lineTo(b - u, u)),
             (b += 2 * lineW);
         t.stroke();
-        a = p.toDataURL('image/png');
-        d.innerHTML = 'Loading, please wait...';
-        d.style.display = 'none';
+        a = p.toDataURL("image/png");
+        d.innerHTML = "Loading, please wait...";
+        d.style.display = "none";
       } catch (v) {}
       return a;
     },
@@ -15206,11 +15207,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     this.cleanupGroup();
   };
   org.imatheq.formulaeditor.FormulaEditor.cleanupCanvases = function () {
-    var a = document.getElementsByTagName('canvas');
+    var a = document.getElementsByTagName("canvas");
     for (i = 0; i < a.length; i++) {
       var b = a[i];
-      (classattribute = b.getAttribute('class')) ||
-        (classattribute = b.getAttribute('className'));
+      (classattribute = b.getAttribute("class")) ||
+        (classattribute = b.getAttribute("className"));
       classattribute &&
         classattribute.match(/(^| )imatheqformula($| )/) &&
         (this.getEditorByCanvas(b) || b.parentNode.removeChild(b));
@@ -15246,11 +15247,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     return d;
   };
   org.imatheq.formulaeditor.FormulaEditor.cleanupTextareas = function () {
-    var a = document.getElementsByTagName('textarea');
+    var a = document.getElementsByTagName("textarea");
     for (i = 0; i < a.length; i++) {
       var b = a[i];
-      (classattribute = b.getAttribute('class')) ||
-        (classattribute = b.getAttribute('className'));
+      (classattribute = b.getAttribute("class")) ||
+        (classattribute = b.getAttribute("className"));
       if (classattribute && classattribute.match(/(^| )imatheqformula($| )/)) {
         var d = this.getEditorByTextArea(b);
         d ? (b.innerHTML = d.textarea.value) : b.parentNode.removeChild(b);
@@ -15259,7 +15260,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
   };
   org.imatheq.formulaeditor.FormulaEditor.deleteEditor = function (a) {
     var d;
-    if ('number' == typeof a) {
+    if ("number" == typeof a) {
       if (((d = a), 0 > d || d >= b.length)) return !1;
     } else if (a instanceof org.imatheq.formuleditor.FormulaEditor) {
       for (d = 0; d < b.length && b[d] != a; ) d++;
@@ -15276,7 +15277,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
   org.imatheq.formulaeditor.FormulaEditor.getEditorByCanvas = function (a) {
     var d;
     if (void 0 === a || null === a) return null;
-    if ('string' == typeof a)
+    if ("string" == typeof a)
       for (d = 0; d < b.length; d++) {
         if (a == b[d].canvas.id) return b[d];
       }
@@ -15287,7 +15288,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
   org.imatheq.formulaeditor.FormulaEditor.getEditorByTextArea = function (a) {
     var d;
     if (void 0 === a || null === a) return null;
-    if ('string' == typeof a)
+    if ("string" == typeof a)
       for (d = 0; d < b.length; d++) {
         if (a == b[d].textarea.id) return b[d];
       }
@@ -15314,7 +15315,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     return a;
   };
   org.imatheq.formulaeditor.FormulaEditor.updateByTextAreas = function (a) {
-    var d = document.getElementsByTagName('div'),
+    var d = document.getElementsByTagName("div"),
       e;
     if (a) {
       for (a = 0; a < b.length; ) {
@@ -15325,7 +15326,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     }
     for (a = 0; a < d.length; a++) {
       var f = d[a];
-      (e = f.getAttribute('class')) || (e = f.getAttribute('className'));
+      (e = f.getAttribute("class")) || (e = f.getAttribute("className"));
       e &&
         e.match(/(^| )imatheqformula($| )/) &&
         new org.imatheq.formulaeditor.FormulaEditor(f);
@@ -15336,7 +15337,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     b,
     d
   ) {
-    a.attachEvent ? a.attachEvent('on' + b, d) : a.addEventListener(b, d, !1);
+    a.attachEvent ? a.attachEvent("on" + b, d) : a.addEventListener(b, d, !1);
   };
   org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation = function (a) {
     a.stopPropagation ? a.stopPropagation() : (a.cancelBubble = !0);
@@ -15351,7 +15352,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       menubar: null,
       palette: null,
       editor: null,
-      curtab: 'PALETTE_TAB_BASIC',
+      curtab: "PALETTE_TAB_BASIC",
       symbols: null,
       smallwindow: null,
       matrixPanel: null,
@@ -15372,11 +15373,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         this.container = b;
         this.editor = d;
         this.symbols = null;
-        d.isMobile && (this.curtab = 'PALETTE_TAB_KEYBOARD');
+        d.isMobile && (this.curtab = "PALETTE_TAB_KEYBOARD");
         org.imatheq.formulaeditor.options.paletteURL
           ? ((b = org.imatheq.formulaeditor.options.paletteURL),
             org.imatheq.formulaeditor.Palette.description ||
-              ((org.imatheq.formulaeditor.Palette.description = 'loading'),
+              ((org.imatheq.formulaeditor.Palette.description = "loading"),
               com.efmase.js.utilities.XMLHttp.getText(b, function (b) {
                 org.imatheq.formulaeditor.Palette.description = b;
                 for (b = 0; b < a.length; b++)
@@ -15396,8 +15397,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           new org.imatheq.formulaeditor.presentation.BracketPanel(this);
         this.sizePanel = new org.imatheq.formulaeditor.presentation.SizePanel(
           this,
-          '0px 1px 2px 3px 4px 5px 6px 7px 8px 9px 10px 12px 15px 20px 25px 30px 35px 40px'.split(
-            ' '
+          "0px 1px 2px 3px 4px 5px 6px 7px 8px 9px 10px 12px 15px 20px 25px 30px 35px 40px".split(
+            " "
           )
         );
         this.fontsizePanel =
@@ -15406,7 +15407,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             [8, 9, 10, 11, 12, 15, 18, 24, 30, 36, 48, 60, 72, 96]
           );
         for (
-          var a = this.editor.palette.symbols['108'].ITEMS, b = [], d = 0;
+          var a = this.editor.palette.symbols["108"].ITEMS, b = [], d = 0;
           d < a.length;
           d++
         )
@@ -15439,28 +15440,28 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         this.clearPanels();
         this.efmase_menugrp_cancelclosetime();
         this.efmase_menugrp_ddmenugrp &&
-          (this.efmase_menugrp_ddmenugrp.style.visibility = 'hidden');
-        var e = document.getElementById('efmase_menubar_item_' + a);
+          (this.efmase_menugrp_ddmenugrp.style.visibility = "hidden");
+        var e = document.getElementById("efmase_menubar_item_" + a);
         if (null !== e && void 0 !== e) {
           var f = this.editor,
-            g = e.getAttribute('name');
+            g = e.getAttribute("name");
           switch (g) {
-            case 'efmase_menubar_item_logo':
-              window.open('http://www.imatheq.com', '_blank').focus();
+            case "efmase_menubar_item_logo":
+              window.open("http://www.imatheq.com", "_blank").focus();
               break;
-            case 'efmase_menubar_item_undo':
+            case "efmase_menubar_item_undo":
               f.actions.undo();
               break;
-            case 'efmase_menubar_item_redo':
+            case "efmase_menubar_item_redo":
               f.actions.redo();
               break;
-            case 'efmase_menubar_item_bold':
+            case "efmase_menubar_item_bold":
               f.setBold();
               break;
-            case 'efmase_menubar_item_italic':
+            case "efmase_menubar_item_italic":
               f.setForcedItalic();
               break;
-            case 'efmase_menubar_item_autoitalic':
+            case "efmase_menubar_item_autoitalic":
               f.hasFocus() || f.focus();
               e = !f.isAutoItalic();
               g = { autoItalic: e };
@@ -15472,11 +15473,11 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   e instanceof d.BlockSymbol && e.setSymbFontAttrbs(g));
               f.setButtonStatus(g);
               break;
-            case 'efmase_menubar_item_mathcolor':
+            case "efmase_menubar_item_mathcolor":
               f.hasFocus() || f.focus();
               this.colorPanel.show(b.pageX, b.pageY);
               break;
-            case 'efmase_menubar_item_mtext':
+            case "efmase_menubar_item_mtext":
               f.hasFocus() || f.focus();
               g = { mtext: !f.isMtext() };
               f.selection.hasSelection
@@ -15486,12 +15487,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   e instanceof d.BlockSymbol && e.setSymbFontAttrbs(g));
               f.setButtonStatus(g);
               break;
-            case 'fontname':
-            case 'efmase_menubar_item_mobile_fontname':
-            case 'efmase_menubar_item_mobile_fontsize':
-            case 'fontsize':
-              (d = e.getAttribute('btn_id')),
-                'fontname' == g || 'efmase_menubar_item_mobile_fontname' == g
+            case "fontname":
+            case "efmase_menubar_item_mobile_fontname":
+            case "efmase_menubar_item_mobile_fontsize":
+            case "fontsize":
+              (d = e.getAttribute("btn_id")),
+                "fontname" == g || "efmase_menubar_item_mobile_fontname" == g
                   ? ((f = this.editor.getFontFamilyNameIdx()),
                     this.fontnamePanel.show(d, b.pageX, b.pageY, f))
                   : ((f = this.editor.canvas.getFontSizeIdx()),
@@ -15501,7 +15502,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       },
       efmase_menugrp_close: function () {
         this.efmase_menugrp_ddmenugrp &&
-          (this.efmase_menugrp_ddmenugrp.style.visibility = 'hidden');
+          (this.efmase_menugrp_ddmenugrp.style.visibility = "hidden");
       },
       efmase_menugrp_closetime: function () {
         var a = this;
@@ -15512,50 +15513,50 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       efmase_submenuitem_select: function (a, b) {
         var d = document.getElementById(b),
           e = document.getElementById(a),
-          f = d.getAttribute('cld_id'),
+          f = d.getAttribute("cld_id"),
           f = document.getElementById(f);
-        null != f && void 0 != f && (f.className = '');
-        f = d.getAttribute('name');
-        d.setAttribute('cld_id', a);
+        null != f && void 0 != f && (f.className = "");
+        f = d.getAttribute("name");
+        d.setAttribute("cld_id", a);
         if (this.isSmallWin())
-          e.className = 'efmase_mobile_font_n_size_focused';
+          e.className = "efmase_mobile_font_n_size_focused";
         else {
-          if ('fontsize' == f || 'fontname' == f)
+          if ("fontsize" == f || "fontname" == f)
             d.innerHTML = e.innerHTML.slice(0, 11);
           this.efmase_menugrp_close();
         }
         d = org.imatheq.formulaeditor.FormulaEditor.getEditor();
-        if ('Edit' == f)
+        if ("Edit" == f)
           switch (document.getElementById(a).innerHTML) {
-            case 'Undo':
+            case "Undo":
               d.actions.undo();
               break;
-            case 'Redo':
+            case "Redo":
               d.actions.redo();
               break;
-            case 'Cut':
+            case "Cut":
               d.selection.hasSelection && d.selection.remove();
               break;
-            case 'Copy':
+            case "Copy":
               d.selection.hasSelection && d.selection.copy();
               break;
-            case 'Test':
+            case "Test":
               d.onTest();
           }
         else
-          'fontsize' == f
-            ? ((e = parseInt(a.substring(a.lastIndexOf('_') + 1, a.length))),
+          "fontsize" == f
+            ? ((e = parseInt(a.substring(a.lastIndexOf("_") + 1, a.length))),
               d.setFontSizeIdx(e))
-            : 'fontname' == f &&
+            : "fontname" == f &&
               ((fontnameIdx = parseInt(
-                a.substring(a.lastIndexOf('_') + 1, a.length)
+                a.substring(a.lastIndexOf("_") + 1, a.length)
               )),
               d.setFontFamilyNameIdx(fontnameIdx));
       },
       clearMenuTabBar: function () {
-        var a = document.getElementById('efmase_menubar');
+        var a = document.getElementById("efmase_menubar");
         null !== a && ((a = a.parentNode), a.parentNode.removeChild(a));
-        oSWMenuTabBar = document.getElementById('efmase_sw_menutab_div');
+        oSWMenuTabBar = document.getElementById("efmase_sw_menutab_div");
         null !== oSWMenuTabBar &&
           oSWMenuTabBar.parentNode.removeChild(oSWMenuTabBar);
         this.smallwindow = null;
@@ -15564,47 +15565,47 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var b = a;
         if (null === a || void 0 === a) b = d.isSmallWin();
         this.smallwindow = b;
-        var e = document.createElement('div');
+        var e = document.createElement("div");
         this.container.insertBefore(e, this.container.firstChild);
-        a = document.createElement('ul');
-        a.setAttribute('id', 'efmase_menubar');
+        a = document.createElement("ul");
+        a.setAttribute("id", "efmase_menubar");
         a.className = b
-          ? 'efmase_menubar efmase_menubar_mobile'
-          : 'efmase_menubar';
+          ? "efmase_menubar efmase_menubar_mobile"
+          : "efmase_menubar";
         e.appendChild(a);
         var e = this.editor.pData.MENUBAR,
           f = this.editor.pData.TITLES,
           g = new org.imatheq.formulaeditor.Options(),
-          n = g.getOption('hideFontTools');
+          n = g.getOption("hideFontTools");
         this.editor.menuItems = [];
         for (var p = 0; p < e.length; p++) {
           var t = e[p].id,
             q = this.symbols[t];
           0 < p && this.editor.menuItems.push(q.name);
-          if (b || ('mobile_fontname' != q.name && 'mobile_fontsize' != q.name))
-            if (!b || 'efmase_menugrp_drop' != q['class']) {
-              var u = document.createElement('li');
-              u.className = q['class'];
-              u.style['float'] = 'left';
+          if (b || ("mobile_fontname" != q.name && "mobile_fontsize" != q.name))
+            if (!b || "efmase_menugrp_drop" != q["class"]) {
+              var u = document.createElement("li");
+              u.className = q["class"];
+              u.style["float"] = "left";
               n &&
-                'logo' != q.name &&
-                'undo' != q.name &&
-                'redo' != q.name &&
-                (u.style.display = 'none');
+                "logo" != q.name &&
+                "undo" != q.name &&
+                "redo" != q.name &&
+                (u.style.display = "none");
               a.appendChild(u);
               var v;
-              if ('efmase_menugrp_drop' != q['class']) {
-                v = document.createElement('button');
-                v.btnGrp = 'menu';
+              if ("efmase_menugrp_drop" != q["class"]) {
+                v = document.createElement("button");
+                v.btnGrp = "menu";
                 v.title = f[t];
-                v.name = 'efmase_menubar_item_' + q.name;
-                v.setAttribute('btn_id', t);
-                v.style.width = q.w + 'px';
-                if ('logo' == q.name) {
+                v.name = "efmase_menubar_item_" + q.name;
+                v.setAttribute("btn_id", t);
+                v.style.width = q.w + "px";
+                if ("logo" == q.name) {
                   var y = this.editor;
                   d.addEventListener(
                     v,
-                    'focus',
+                    "focus",
                     (function () {
                       return function (a) {
                         y.clearKBNavi();
@@ -15614,66 +15615,66 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                     })()
                   );
                 }
-                'undo' == q.name || 'redo' == q.name
+                "undo" == q.name || "redo" == q.name
                   ? (v.className =
-                      'efmase_palettebutton efmase_palettebtn_disabled')
-                  : 'autoitalic' == q.name
-                  ? g.getOption('defAutoItalic')
+                      "efmase_palettebutton efmase_palettebtn_disabled")
+                  : "autoitalic" == q.name
+                  ? g.getOption("defAutoItalic")
                     ? (v.className =
-                        'efmase_palettebutton efmase_palettebutton_down')
-                    : (v.className = 'efmase_palettebutton')
-                  : ('mathcolor' == q.name &&
-                      v.setAttribute('mathcolor', '#000000'),
-                    (v.className = 'efmase_palettebutton'));
-                if (void 0 !== q.itp && 'svg' == q.itp)
-                  (v.innerHTML = q.svg), (v.style.width = 'auto');
-                else if (void 0 !== q.itp && 'ft' == q.itp) {
-                  t = document.createElement('span');
+                        "efmase_palettebutton efmase_palettebutton_down")
+                    : (v.className = "efmase_palettebutton")
+                  : ("mathcolor" == q.name &&
+                      v.setAttribute("mathcolor", "#000000"),
+                    (v.className = "efmase_palettebutton"));
+                if (void 0 !== q.itp && "svg" == q.itp)
+                  (v.innerHTML = q.svg), (v.style.width = "auto");
+                else if (void 0 !== q.itp && "ft" == q.itp) {
+                  t = document.createElement("span");
                   t.style.fontFamily = q.font;
                   t.innerHTML = q.ich;
-                  if (b && 'mobile_fontsize' == q.name) {
+                  if (b && "mobile_fontsize" == q.name) {
                     var A = this.symbols[q.related],
                       C = this.editor.canvas.getFontSizeIdx(),
                       A = A.ITEMS[C];
                     t.innerHTML = f[A];
                   }
-                  if ('autoitalic' == q.name || 'italic' == q.name)
+                  if ("autoitalic" == q.name || "italic" == q.name)
                     (t.style.letterSpacing =
-                      'italic' == q.name ? '-1px' : '-2px'),
-                      (t.style.width = '22px');
+                      "italic" == q.name ? "-1px" : "-2px"),
+                      (t.style.width = "22px");
                   v.appendChild(t);
                   v.style.fontFamily = q.font;
-                  v.style.width = 'auto';
-                  v.marginTop = '-1px';
+                  v.style.width = "auto";
+                  v.marginTop = "-1px";
                 }
-                v.setAttribute('id', 'efmase_menubar_item_' + q.name);
-                v.setAttribute('name', 'efmase_menubar_item_' + q.name);
+                v.setAttribute("id", "efmase_menubar_item_" + q.name);
+                v.setAttribute("name", "efmase_menubar_item_" + q.name);
                 u.appendChild(v);
               } else if (!b) {
                 var z = q.name,
                   C =
-                    'fontname' == z
+                    "fontname" == z
                       ? this.editor.getFontFamilyNameIdx()
                       : this.editor.canvas.getFontSizeIdx(),
                   A = q.ITEMS[C];
-                v = document.createElement('a');
-                v.btnGrp = 'menu';
+                v = document.createElement("a");
+                v.btnGrp = "menu";
                 v.title = f[t];
                 v.innerHTML = f[A];
-                v.setAttribute('name', z);
-                v.setAttribute('btn_id', t);
+                v.setAttribute("name", z);
+                v.setAttribute("btn_id", t);
                 t = this.symbols[A];
-                v.setAttribute('style', 'width:auto');
-                v.setAttribute('id', 'efmase_menubar_item_' + q.name);
+                v.setAttribute("style", "width:auto");
+                v.setAttribute("id", "efmase_menubar_item_" + q.name);
                 t = this.symbols[A];
-                void 0 !== t && v.setAttribute('cld_name', t.name);
-                v.setAttribute('cld_id', C);
+                void 0 !== t && v.setAttribute("cld_name", t.name);
+                v.setAttribute("cld_id", C);
                 u.appendChild(v);
               }
               var w = this;
               d.addEventListener(
                 v,
-                'mousedown',
+                "mousedown",
                 (function (a) {
                   return function (b) {
                     w.efmase_menugrp_click(a[0], b);
@@ -15685,17 +15686,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   };
                 })([q.name])
               );
-              d.addEventListener(v, 'mouseout', function (a) {
+              d.addEventListener(v, "mouseout", function (a) {
                 w.efmase_menugrp_closetime();
                 return !1;
               });
             }
         }
-        u = document.createElement('li');
+        u = document.createElement("li");
         a.appendChild(u);
-        t = document.createElement('span');
+        t = document.createElement("span");
         u.appendChild(t);
-        t.innerHTML = '&nbsp;';
+        t.innerHTML = "&nbsp;";
       },
       redrawMenuBar: function () {
         var a = d.isSmallWin() || this.editor.isMobile;
@@ -15710,7 +15711,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       },
       draw: function () {
         var a = this.editor.fetchData(ime_js_dat_headlist);
-        this.editor.pData = JSON.parse('{' + a + '}');
+        this.editor.pData = JSON.parse("{" + a + "}");
         a = this.editor.fetchData(ime_js_dat_menusymbol);
         this.editor.pData.TITLES = JSON.parse(a);
         a = this.editor.fetchData(ime_js_dat_alttext);
@@ -15719,55 +15720,55 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         this.editor.isMobile || a.shift();
         var b = this.editor.pData.TITLES;
         this.editor.paletteTabs = [];
-        var e = document.createElement('div');
-        e.className = 'efmase_tab_bar';
-        e.style.width = parseInt(window.innerWidth) - 2 + 'px';
+        var e = document.createElement("div");
+        e.className = "efmase_tab_bar";
+        e.style.width = parseInt(window.innerWidth) - 2 + "px";
         this.container.appendChild(e);
-        var f = document.createElement('table');
+        var f = document.createElement("table");
         e.appendChild(f);
-        var g = document.createElement('tr');
+        var g = document.createElement("tr");
         f.appendChild(g);
-        f = document.createElement('td');
+        f = document.createElement("td");
         g.appendChild(f);
-        e = document.createElement('button');
-        e.className = 'efmase_button_head';
+        e = document.createElement("button");
+        e.className = "efmase_button_head";
         f.appendChild(e);
         f = a.length;
         for (e = 0; e < f; e++) {
           var n = a[e].id,
             p = this.symbols[n];
-          if (this.editor.isMobile || 'Keyboard' != p.name) {
-            var t = document.createElement('td');
+          if (this.editor.isMobile || "Keyboard" != p.name) {
+            var t = document.createElement("td");
             g.appendChild(t);
-            var q = document.createElement('a'),
-              q = document.createElement('button');
-            q.btnGrp = 'palette_tab';
+            var q = document.createElement("a"),
+              q = document.createElement("button");
+            q.btnGrp = "palette_tab";
             q.title = b[n];
-            q.name = 'PALETTE_TAB_' + p.name.toUpperCase().replace(/ /, '_');
+            q.name = "PALETTE_TAB_" + p.name.toUpperCase().replace(/ /, "_");
             this.editor.paletteTabs.push(q.name);
-            q.className = 'efmase_palettebutton';
+            q.className = "efmase_palettebutton";
             q.name == this.curtab &&
-              (q.className += ' efmase_palettebutton_focus');
-            q.style.width = p.w + 'px';
-            q.style.height = p.h + 'px';
-            var u = document.createElement('img');
+              (q.className += " efmase_palettebutton_focus");
+            q.style.width = p.w + "px";
+            q.style.height = p.h + "px";
+            var u = document.createElement("img");
             u.alt = b[n];
-            u.style.width = '1500px';
-            u.style.height = '220px';
-            u.src = $buuuuu() + 'com/imatheq/icons/icons_2x.png';
+            u.style.width = "1500px";
+            u.style.height = "220px";
+            u.src = $buuuuu() + "com/imatheq/icons/icons_2x.png";
             u.title = b[n];
-            u.style.marginLeft = p.l + 'px';
-            u.style.marginTop = p.t + 'px';
-            u.style.marginBottom = p.b + 'px';
+            u.style.marginLeft = p.l + "px";
+            u.style.marginTop = p.t + "px";
+            u.style.marginBottom = p.b + "px";
             q.appendChild(u);
             t.appendChild(q);
-            e == this.curtab && (q.className += ' efmase_palettebutton_focus');
+            e == this.curtab && (q.className += " efmase_palettebutton_focus");
             g.appendChild(t);
             var p = [q.name],
               v = this;
             d.addEventListener(
               q,
-              'mouseover',
+              "mouseover",
               (function (a) {
                 return function (b) {
                   v.editor.clearKBNavi();
@@ -15777,7 +15778,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             );
             d.addEventListener(
               q,
-              'mousedown',
+              "mousedown",
               (function (a) {
                 return function (b) {
                   v.editor.clearKBNavi();
@@ -15787,8 +15788,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             );
           }
         }
-        g = document.createElement('div');
-        g.className = 'efmase_palettes';
+        g = document.createElement("div");
+        g.className = "efmase_palettes";
         this.container.appendChild(g);
         a = this.editor.pData.PALETTE;
         f = a.length;
@@ -15797,175 +15798,175 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           if (
             ((n = a[e].id),
             (p = this.symbols[n]),
-            this.editor.isMobile || 'Keyboard' != p.name)
+            this.editor.isMobile || "Keyboard" != p.name)
           )
             for (
               n =
-                'PALETTE_TAB_' +
-                p.name.replace(/ /, '_').toUpperCase() +
-                '_BODY',
-                q = document.createElement('div'),
-                q.className = 'efmase_palette',
-                q.style.width = parseInt(window.innerWidth) - 2 + 'px',
+                "PALETTE_TAB_" +
+                p.name.replace(/ /, "_").toUpperCase() +
+                "_BODY",
+                q = document.createElement("div"),
+                q.className = "efmase_palette",
+                q.style.width = parseInt(window.innerWidth) - 2 + "px",
                 q.id = n,
-                q.style.display = n == this.curtab + '_BODY' ? '' : 'none',
+                q.style.display = n == this.curtab + "_BODY" ? "" : "none",
                 g.appendChild(q),
-                n = document.createElement('table'),
+                n = document.createElement("table"),
                 q.appendChild(n),
-                oTR = document.createElement('tr'),
+                oTR = document.createElement("tr"),
                 n.appendChild(oTR),
                 n = a[e].GROUPS,
                 t = 0;
               t < n.length;
               t++
             ) {
-              gType = n[t].hasOwnProperty('type') ? n[t].type : '';
+              gType = n[t].hasOwnProperty("type") ? n[t].type : "";
               var y = n[t].ROWS,
                 q = n[t].id;
-              oTD = document.createElement('td');
+              oTD = document.createElement("td");
               oTR.appendChild(oTD);
-              u = document.createElement('div');
-              'Edit Buttons' == p.name &&
+              u = document.createElement("div");
+              "Edit Buttons" == p.name &&
                 ((u.id = q),
                 (u.name = q),
-                (u.style.display = 'none'),
-                (oTD.style.borderLeft = '0'));
-              u.className = 'efmase_palette_grp_div';
-              'dummy' == gType && (u.style.display = 'block');
+                (u.style.display = "none"),
+                (oTD.style.borderLeft = "0"));
+              u.className = "efmase_palette_grp_div";
+              "dummy" == gType && (u.style.display = "block");
               oTD.appendChild(u);
-              oTable = document.createElement('table');
+              oTable = document.createElement("table");
               u.appendChild(oTable);
-              oTbody = document.createElement('tbody');
+              oTbody = document.createElement("tbody");
               oTable.appendChild(oTbody);
               for (var A = null, C = 0; C < y.length; C++) {
-                A = document.createElement('tr');
+                A = document.createElement("tr");
                 oTbody.appendChild(A);
                 for (var z = y[C].ITEMS, w = 0; w < z.length; w++) {
                   var D = z[w].id,
                     B = this.symbols[D],
-                    u = document.createElement('td');
+                    u = document.createElement("td");
                   A.appendChild(u);
-                  q = document.createElement('button');
-                  q.btnGrp = 'palette';
-                  q.title = void 0 === b[D] ? '' : b[D];
-                  'Edit Buttons' == p.name ||
-                  (B.name && 'KEYBOARD_' == B.name.substring(0, 9))
+                  q = document.createElement("button");
+                  q.btnGrp = "palette";
+                  q.title = void 0 === b[D] ? "" : b[D];
+                  "Edit Buttons" == p.name ||
+                  (B.name && "KEYBOARD_" == B.name.substring(0, 9))
                     ? ((q.id = B.name), (q.name = B.name))
                     : (q.name = D);
                   q.className =
-                    'KEYBOARD_CUT' == B.name || 'KEYBOARD_COPY' == B.name
-                      ? 'efmase_palettebutton efmase_palettebtn_disabled'
-                      : 'efmase_palettebutton';
-                  'dummy' == gType &&
-                    (q.className = 'efmase_palettebutton_dummy');
+                    "KEYBOARD_CUT" == B.name || "KEYBOARD_COPY" == B.name
+                      ? "efmase_palettebutton efmase_palettebtn_disabled"
+                      : "efmase_palettebutton";
+                  "dummy" == gType &&
+                    (q.className = "efmase_palettebutton_dummy");
                   void 0 !== B.name &&
                     this.editor.parrayLine == B.name &&
-                    (q.className += ' efmase_palettebutton_select');
-                  'menu_b' == B.tp &&
-                    ((q.id = 'efmase_menubar_item_' + B.name),
-                    (q.name = 'efmase_menubar_item_' + B.name),
-                    'undo' == B.name || 'redo' == B.name) &&
-                    (q.className += ' efmase_palettebtn_disabled');
-                  q.style.width = B.w + 'px';
-                  q.style.height = B.h + 'px';
-                  q.style.padding = '1px 6px';
-                  d.isIOS() && (q.style.padding = '1px 6px');
+                    (q.className += " efmase_palettebutton_select");
+                  "menu_b" == B.tp &&
+                    ((q.id = "efmase_menubar_item_" + B.name),
+                    (q.name = "efmase_menubar_item_" + B.name),
+                    "undo" == B.name || "redo" == B.name) &&
+                    (q.className += " efmase_palettebtn_disabled");
+                  q.style.width = B.w + "px";
+                  q.style.height = B.h + "px";
+                  q.style.padding = "1px 6px";
+                  d.isIOS() && (q.style.padding = "1px 6px");
                   u.appendChild(q);
-                  '988' == D && (aaa = 2);
-                  if ('BRACKETS_UPDATE' == B.name)
-                    (u = document.createElement('div')),
-                      (oBracket = document.createElement('a')),
-                      (oBracket.style.fontSize = '22px'),
+                  "988" == D && (aaa = 2);
+                  if ("BRACKETS_UPDATE" == B.name)
+                    (u = document.createElement("div")),
+                      (oBracket = document.createElement("a")),
+                      (oBracket.style.fontSize = "22px"),
                       u.appendChild(oBracket),
                       q.appendChild(u),
-                      (oSpan = document.createElement('span')),
-                      (oSpan.id = 'efmase_bracket_palette_btn'),
+                      (oSpan = document.createElement("span")),
+                      (oSpan.id = "efmase_bracket_palette_btn"),
                       (oSpan.name = B.name),
                       oBracket.appendChild(oSpan),
-                      (oSpan.innerHTML = '(&nbsp;)'),
-                      q.classList.add('efmase_menugrp_drop'),
-                      (q.style.width = 'auto'),
-                      (q.style.height = 'auto'),
-                      (q.style.padding = '1px'),
-                      (u.style.width = 'auto'),
-                      (u.style.height = 'auto'),
-                      (u.style.border = '1px solid #000000'),
-                      (u.style.padding = '2px 4px 3px 4px');
-                  else if (void 0 !== B.itp && 'ft' == B.itp)
+                      (oSpan.innerHTML = "(&nbsp;)"),
+                      q.classList.add("efmase_menugrp_drop"),
+                      (q.style.width = "auto"),
+                      (q.style.height = "auto"),
+                      (q.style.padding = "1px"),
+                      (u.style.width = "auto"),
+                      (u.style.height = "auto"),
+                      (u.style.border = "1px solid #000000"),
+                      (u.style.padding = "2px 4px 3px 4px");
+                  else if (void 0 !== B.itp && "ft" == B.itp)
                     3e3 < D && 3027 > D
-                      ? (q.title = b['3000'].replace(
-                          '$0$',
+                      ? (q.title = b["3000"].replace(
+                          "$0$",
                           B.ich.toLowerCase()
                         ))
                       : 3027 < D && 3054 > D
-                      ? (q.title = b['3027'].replace(
-                          '$0$',
+                      ? (q.title = b["3027"].replace(
+                          "$0$",
                           B.ich.toLowerCase()
                         ))
                       : 3054 < D && 3081 > D
-                      ? (q.title = b['3054'].replace(
-                          '$0$',
+                      ? (q.title = b["3054"].replace(
+                          "$0$",
                           B.ich.toLowerCase()
                         ))
                       : 3081 < D && 3108 > D
-                      ? (q.title = b['3081'].replace(
-                          '$0$',
+                      ? (q.title = b["3081"].replace(
+                          "$0$",
                           B.ich.toLowerCase()
                         ))
                       : 3108 < D &&
                         3135 > D &&
                         (q.title =
-                          '' != q.title
+                          "" != q.title
                             ? q.title +
-                              (' (' +
-                                b['3108'].replace('$0$', B.ich.toLowerCase()) +
-                                ')')
-                            : b['3108'].replace('$0$', B.ich.toLowerCase())),
-                      (oLink = document.createElement('a')),
-                      (oLink.style.fontSize = '22px'),
+                              (" (" +
+                                b["3108"].replace("$0$", B.ich.toLowerCase()) +
+                                ")")
+                            : b["3108"].replace("$0$", B.ich.toLowerCase())),
+                      (oLink = document.createElement("a")),
+                      (oLink.style.fontSize = "22px"),
                       q.appendChild(oLink),
-                      (oSpan = document.createElement('span')),
+                      (oSpan = document.createElement("span")),
                       oLink.appendChild(oSpan),
                       (oSpan.innerHTML = B.ich),
                       (q.style.fontFamily = B.font),
-                      (q.style.width = 'auto'),
-                      (q.marginTop = '-1px');
+                      (q.style.width = "auto"),
+                      (q.marginTop = "-1px");
                   else if (
-                    ((u = document.createElement('img')),
+                    ((u = document.createElement("img")),
                     (u.alt = b[D]),
                     750 > parseInt(D)
-                      ? ((u.style.width = '1500px'),
-                        (u.style.height = '220px'),
-                        (u.src = $buuuuu() + 'com/imatheq/icons/icons_2x.png'))
-                      : ((u.style.width = '2000px'),
-                        (u.style.height = '327px'),
+                      ? ((u.style.width = "1500px"),
+                        (u.style.height = "220px"),
+                        (u.src = $buuuuu() + "com/imatheq/icons/icons_2x.png"))
+                      : ((u.style.width = "2000px"),
+                        (u.style.height = "327px"),
                         (u.src =
-                          $buuuuu() + 'com/imatheq/icons/icons2_2x.png')),
+                          $buuuuu() + "com/imatheq/icons/icons2_2x.png")),
                     (u.title = b[D]),
-                    (u.style.marginLeft = B.l + 'px'),
-                    (u.style.marginTop = B.t + 'px'),
-                    (u.style.marginBottom = B.b + 'px'),
-                    'PARRAY_ROW_SPACING' == B.name ||
-                      'PARRAY_COL_SPACING' == B.name)
+                    (u.style.marginLeft = B.l + "px"),
+                    (u.style.marginTop = B.t + "px"),
+                    (u.style.marginBottom = B.b + "px"),
+                    "PARRAY_ROW_SPACING" == B.name ||
+                      "PARRAY_COL_SPACING" == B.name)
                   ) {
-                    q.style.width = B.w + 8 + 'px';
-                    q.style.height = B.h + 8 + 'px';
-                    q.style.padding = '1px';
-                    var E = document.createElement('div');
-                    E.style.width = B.w + 'px';
-                    E.style.height = B.h + 'px';
-                    E.style.border = '1px solid';
-                    oSpan = document.createElement('div');
+                    q.style.width = B.w + 8 + "px";
+                    q.style.height = B.h + 8 + "px";
+                    q.style.padding = "1px";
+                    var E = document.createElement("div");
+                    E.style.width = B.w + "px";
+                    E.style.height = B.h + "px";
+                    E.style.border = "1px solid";
+                    oSpan = document.createElement("div");
                     oSpan.appendChild(u);
                     E.appendChild(oSpan);
                     q.appendChild(E);
-                    q.classList.add('efmase_menugrp_drop');
+                    q.classList.add("efmase_menugrp_drop");
                   } else q.appendChild(u);
                   u = [D];
                   v = this;
                   d.addEventListener(
                     q,
-                    'mousedown',
+                    "mousedown",
                     (function (a) {
                       return function (b) {
                         v.clearPanels();
@@ -15991,13 +15992,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var d = org.imatheq.formulaeditor.presentation,
           e = null;
         switch (a.tp) {
-          case 'ch':
+          case "ch":
             e = new d.Symbol(a.ch);
             break;
-          case 'sp':
-            e = new d.Space(a.width + 'em', a.height + 'em', a.depth + 'em');
+          case "sp":
+            e = new d.Space(a.width + "em", a.height + "em", a.depth + "em");
             break;
-          case 'xml':
+          case "xml":
             var d = org.imatheq.formulaeditor.parsing.mathml.MathMLParser,
               f = {},
               g;
@@ -16006,7 +16007,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               var p =
                   "<math xmlns='http://www.w3.org/1998/Math/MathML'>" +
                   a.xml +
-                  '</math>',
+                  "</math>",
                 t = new d().parseString(p, f, !0);
               if (null !== a.firstRowPos && void 0 !== a.firstRowPos) {
                 t.firstRow = t.children[a.firstRowPos[0]];
@@ -16025,12 +16026,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               e = t;
             } catch (v) {
               throw Error(
-                'Compound symbol: ' + this.mathml + 'cannot be parsed.'
+                "Compound symbol: " + this.mathml + "cannot be parsed."
               );
             }
             break;
-          case 'mx_d':
-          case 'mx':
+          case "mx_d":
+          case "mx":
             f = {};
             for (g in b) f[g] = b[g];
             f.inMatrix = !0;
@@ -16039,7 +16040,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             if (null === f || void 0 === f) f = a.num_rows;
             g = a.inputNumCols;
             if (null === g || void 0 === g) g = a.num_cols;
-            if ('IdentityWith0' == a.data_type)
+            if ("IdentityWith0" == a.data_type)
               for (p = 0; p < f; p++) {
                 t = [];
                 for (q = 0; q < g; q++)
@@ -16065,14 +16066,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             void 0 != a.col_align && (e.colalign = [a.col_align]);
             e.populateData(pArray.numrows, pArray.numcols);
             pArray.info = e;
-            '' == f.value && '' == g.value
+            "" == f.value && "" == g.value
               ? (e = pArray)
               : ((e = new d.Row(pArray)),
                 (e = new d.Bracketed(f, e, g)),
-                (e.in_attrbs = ''),
-                (e.in_open = ''),
-                (e.in_close = ''),
-                (e.in_separators = ''));
+                (e.in_attrbs = ""),
+                (e.in_open = ""),
+                (e.in_close = ""),
+                (e.in_separators = ""));
             if (null !== a.firstRowPos && void 0 !== a.firstRowPos)
               for (
                 e.firstRow = e.children[a.firstRowPos[0]], q = 1;
@@ -16091,19 +16092,19 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       },
       changeFont: function (a, b) {
         var d =
-          'fontname' == a
+          "fontname" == a
             ? this.editor.getFontFamilyNameIdx()
             : this.editor.canvas.getFontSizeIdx();
         if (b != d) {
-          var e = document.getElementById('efmase_menubar_item_' + a);
-          'fontname' == a
+          var e = document.getElementById("efmase_menubar_item_" + a);
+          "fontname" == a
             ? this.editor.setFontFamilyNameIdx(b)
             : this.editor.canvas.setFontSizeIdx(b);
-          var f = 'fontname' == a ? this.fontnamePanel : this.fontsizePanel;
+          var f = "fontname" == a ? this.fontnamePanel : this.fontsizePanel;
           this.isSmallWin()
-            ? 'fontsize' == a &&
+            ? "fontsize" == a &&
               (document.getElementsByName(
-                'efmase_menubar_item_mobile_' + a
+                "efmase_menubar_item_mobile_" + a
               )[0].firstChild.innerHTML = f.getValue(b))
             : (e.innerHTML = f.getValue(b));
         }
@@ -16111,8 +16112,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       },
       execPalCmd: function (a, b, d) {
         switch (a.cmd) {
-          case 'fontname':
-          case 'fontsize':
+          case "fontname":
+          case "fontsize":
             curIdx = this.changeFont(a.cmd, d);
             if (d != curIdx) {
               var e = {
@@ -16123,30 +16124,30 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               this.editor.actions.addAction(a.cmd, e, d, d, curIdx, null, 0);
             }
             break;
-          case 'addrowline':
-          case 'removerowline':
+          case "addrowline":
+          case "removerowline":
             var e = this.editor.cursor.position,
               f = e.etb.parray;
             if (Math.floor(f.startIndex / f.row.numcols) == f.row.numrows - 1)
               break;
-          case 'addcolline':
-          case 'removecolline':
+          case "addcolline":
+          case "removecolline":
             if (
               ((e = this.editor.cursor.position),
               (f = e.etb.parray),
               f.startIndex % f.row.numcols == f.row.numcols - 1)
             )
               break;
-          case 'rowalign':
-          case 'colalign':
-          case 'addframe':
-          case 'removeframe':
-          case 'setsolidline':
-          case 'setdashedline':
-          case 'toggleequalrows':
-          case 'toggleequalcols':
-          case 'rowspacing':
-          case 'colspacing':
+          case "rowalign":
+          case "colalign":
+          case "addframe":
+          case "removeframe":
+          case "setsolidline":
+          case "setdashedline":
+          case "toggleequalrows":
+          case "toggleequalcols":
+          case "rowspacing":
+          case "colspacing":
             var g = null,
               p = null,
               t = null,
@@ -16170,13 +16171,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               ((p = this.editor.selection.getSelectionCopy()),
               (t = this.editor.selection.getSelectionCopy()));
             v = f.row.info.copy(f.row.numrows, f.row.numcols);
-            b = 'rowspacing' == a.cmd || 'colspacing' == a.cmd ? b : a.dir;
+            b = "rowspacing" == a.cmd || "colspacing" == a.cmd ? b : a.dir;
             f.row.setStylingAttrbs(g, a.cmd, b);
             f.row.info.populateData(f.row.numrows, f.row.numcols);
             f.row.updateEditTabButtons(q);
             b = this.editor.getButtonStatus();
             this.editor.actions.addAction(
-              'setPArrayAttrbs',
+              "setPArrayAttrbs",
               u,
               d,
               e,
@@ -16190,37 +16191,37 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             );
             this.editor.redraw(q.selection.hasSelection);
             break;
-          case 'insertabove':
-          case 'insertbelow':
+          case "insertabove":
+          case "insertbelow":
             e = this.editor.cursor.position;
             f = e.etb.parray;
             f.row.actInsertRows(this.editor, a.cmd);
             break;
-          case 'insertleft':
-          case 'insertright':
+          case "insertleft":
+          case "insertright":
             e = this.editor.cursor.position;
             f = e.etb.parray;
             f.row.actInsertColumns(this.editor, a.cmd);
             break;
-          case 'deleterows':
+          case "deleterows":
             e = this.editor.cursor.position;
             f = e.etb.parray;
             f.row.actDeleteRows(this.editor);
             break;
-          case 'deletecolumns':
+          case "deletecolumns":
             e = this.editor.cursor.position;
             f = e.etb.parray;
             f.row.actDeleteColumns(this.editor);
             break;
-          case 'onsymmetric':
-          case 'offsymmetric':
+          case "onsymmetric":
+          case "offsymmetric":
             t = p = null;
             q = this.editor;
             e = q.cursor.position;
             b = e.etb.bracketed;
             if (
-              (b.getSymmetric() && 'offsymmetric' == a.cmd) ||
-              (!b.getSymmetric() && 'onsymmetric' == a.cmd)
+              (b.getSymmetric() && "offsymmetric" == a.cmd) ||
+              (!b.getSymmetric() && "onsymmetric" == a.cmd)
             )
               (u = { row: b, index: e.index }),
                 (d = e.row.getIndexChain(e.index)),
@@ -16229,7 +16230,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 q.selection.hasSelection &&
                   ((p = this.editor.selection.getSelectionCopy()),
                   (t = this.editor.selection.getSelectionCopy())),
-                b.setSymmetric('offsymmetric' == a.cmd ? !1 : !0),
+                b.setSymmetric("offsymmetric" == a.cmd ? !1 : !0),
                 b.updateEditTabButtons(q),
                 (b = this.editor.getButtonStatus()),
                 this.editor.actions.addAction(
@@ -16248,39 +16249,39 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                 (this.isMO = !1),
                 this.editor.redraw(q.selection.hasSelection);
             break;
-          case 'kb_backspace':
+          case "kb_backspace":
             this.editor.onBackspace();
             break;
-          case 'kb_enter':
+          case "kb_enter":
             return this.editor.presentation.children[0].onNewline(this.editor);
-          case 'kb_space':
+          case "kb_space":
             this.editor.hasFocus() &&
               (this.editor.selection.hasSelection
                 ? this.editor.selection.parent
                 : this.editor.cursor.position.row
-              ).charInput(' ', this.editor);
+              ).charInput(" ", this.editor);
             break;
-          case 'kb_cut':
-          case 'kb_copy':
+          case "kb_cut":
+          case "kb_copy":
             this.editor.onCutCopy(null, a.cmd.substring(3));
             break;
-          case 'kb_paste':
+          case "kb_paste":
             q = this.editor;
             try {
-              'https:' != location.protocol
+              "https:" != location.protocol
                 ? alert(
-                    'In order to use this function, you need to access iMathEQ Math Equation Editor with HTTPS.'
+                    "In order to use this function, you need to access iMathEQ Math Equation Editor with HTTPS."
                   )
                 : null === navigator ||
                   void 0 === navigator ||
                   null === navigator.clipboard ||
                   void 0 === navigator.clipboard
                 ? alert(
-                    'Your browser/device currently does not support this function.'
+                    "Your browser/device currently does not support this function."
                   )
                 : navigator.clipboard.readText().then(
                     function (a) {
-                      '' != a && q.hasFocus && q.doonpaste(a, !1);
+                      "" != a && q.hasFocus && q.doonpaste(a, !1);
                     },
                     function (a) {
                       alert(a);
@@ -16312,17 +16313,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           u.leftBracket.onscreen,
           u.rightBracket.onscreen,
         ];
-        u.leftBracket.value = b.replace('&lt;', '<').replace('&gt;', '>');
-        u.rightBracket.value = d.replace('&lt;', '<').replace('&gt;', '>');
+        u.leftBracket.value = b.replace("&lt;", "<").replace("&gt;", ">");
+        u.rightBracket.value = d.replace("&lt;", "<").replace("&gt;", ">");
         u.leftBracket.onscreen = null;
         u.rightBracket.onscreen = null;
-        document.getElementById('efmase_bracket_palette_btn').innerHTML =
-          b.replace('<', '&lt;').replace('>', '&gt;') +
-          '&nbsp;' +
-          d.replace('<', '&lt;').replace('>', '&gt;');
+        document.getElementById("efmase_bracket_palette_btn").innerHTML =
+          b.replace("<", "&lt;").replace(">", "&gt;") +
+          "&nbsp;" +
+          d.replace("<", "&lt;").replace(">", "&gt;");
         b = this.editor.getButtonStatus();
         this.editor.actions.addAction(
-          'updateBracket',
+          "updateBracket",
           g,
           p,
           t,
@@ -16343,14 +16344,14 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         e.getButtonStatus();
         this.curBtnId = parseInt(a);
         var f = this.symbols[this.curBtnId],
-          g = null !== f.sub_tp && void 0 !== f.sub_tp ? f.sub_tp : '';
-        return 'mx' == f.tp && 'panel' == g
+          g = null !== f.sub_tp && void 0 !== f.sub_tp ? f.sub_tp : "";
+        return "mx" == f.tp && "panel" == g
           ? (this.matrixPanel.show(a, b, d), !1)
-          : 'bkt_panel' == g
+          : "bkt_panel" == g
           ? (this.bracketPanel.show(a, b, d), !1)
-          : 'PARRAY_ROW_SPACING' == f.name || 'PARRAY_COL_SPACING' == f.name
+          : "PARRAY_ROW_SPACING" == f.name || "PARRAY_COL_SPACING" == f.name
           ? (this.sizePanel.show(a, b, d), !1)
-          : 'emx' == f.tp
+          : "emx" == f.tp
           ? ((f = this.symbols[this.curBtnId]), this.execPalCmd(f), !1)
           : this.handlePaletteBtnClick(e, b, d);
       },
@@ -16358,15 +16359,15 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         a != this.curtab &&
           (d.setObjsAttrb(
             this.curtab,
-            'class',
-            'efmase_palettebutton_focus',
-            'remove'
+            "class",
+            "efmase_palettebutton_focus",
+            "remove"
           ),
-          (document.getElementById(a + '_BODY').style.display = ''),
-          (document.getElementById(this.curtab + '_BODY').style.display =
-            'none'),
+          (document.getElementById(a + "_BODY").style.display = ""),
+          (document.getElementById(this.curtab + "_BODY").style.display =
+            "none"),
           (this.curtab = a),
-          d.setObjsAttrb(a, 'class', 'efmase_palettebutton_focus'));
+          d.setObjsAttrb(a, "class", "efmase_palettebutton_focus"));
       },
       handlePaletteBtnClick: function (a, b, d) {
         a = this.editor;
@@ -16382,12 +16383,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           u = { row: a.cursor.position.row, index: a.cursor.position.index },
           v = q.row.getIndexChain(q.index),
           y = this.symbols[this.curBtnId];
-        if ('menu_b' == y.tp) {
+        if ("menu_b" == y.tp) {
           switch (y.name) {
-            case 'undo':
+            case "undo":
               a.actions.undo();
               break;
-            case 'redo':
+            case "redo":
               a.actions.redo();
           }
           return !1;
@@ -16396,24 +16397,24 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           908 > this.curBtnId &&
           ((y.inputNumRows = b),
           (y.inputNumCols = d),
-          '906' == this.curBtnId || '907' == this.curBtnId) &&
+          "906" == this.curBtnId || "907" == this.curBtnId) &&
           ((y.inputNumRows = Math.max(b, d)),
           (y.inputNumCols = y.inputNumRows));
         406 == this.curBtnId &&
           (y.xml =
             "<mfenced open='" +
-            b.replace('<', '&lt;').replace('>', '&gt;') +
+            b.replace("<", "&lt;").replace(">", "&gt;") +
             "' close='" +
-            d.replace('<', '&lt;').replace('>', '&gt;') +
+            d.replace("<", "&lt;").replace(">", "&gt;") +
             "'><mrow/></mfenced>");
-        b = 'insert';
+        b = "insert";
         var A = null,
           C = null,
           z = q.row,
           w = y.basePosition;
         d = q.row.children.length - q.index;
         if (f.hasSelection) {
-          b = 'update';
+          b = "update";
           f.parent instanceof e.PArray &&
             0 == f.startIndex &&
             f.endIndex == f.parent.children.length &&
@@ -16434,15 +16435,15 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                   (A = z.remove(D, B)),
                   a.selection.clear(),
                   (q.index = D))
-                : 'i' == w
+                : "i" == w
                 ? ((d = z.children.length - B),
                   (A = z.remove(D, B)),
                   (C = A.copy()),
                   (q.index = D))
-                : 'r' == w
-                ? ((b = 'insert'), (q.index = D), (d = z.children.length - D))
-                : 'l' == w &&
-                  ((b = 'insert'), (q.index = B), (d = z.children.length - B));
+                : "r" == w
+                ? ((b = "insert"), (q.index = D), (d = z.children.length - D))
+                : "l" == w &&
+                  ((b = "insert"), (q.index = B), (d = z.children.length - B));
           else if (z instanceof e.Lines)
             (w = null),
               (u = z),
@@ -16458,27 +16459,27 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             e.BlockSymbol &&
             (0 <= u.index - 1 &&
             z.children[u.index - 1] instanceof e.BlockSymbol
-              ? (u.index--, (A = z.remove(u.index)), (b = 'update'))
+              ? (u.index--, (A = z.remove(u.index)), (b = "update"))
               : z.children[u.index] instanceof e.BlockSymbol
-              ? ((A = z.remove(u.index)), d--, (b = 'update'))
+              ? ((A = z.remove(u.index)), d--, (b = "update"))
               : (A = null));
         var E = this.getPresentation(y, this.getPresentationContext());
         E.setSymbFontAttrbs(g);
-        'ch' == y.tp &&
+        "ch" == y.tp &&
           E instanceof e.Symbol &&
           ((y = org.imatheq.formulaeditor.parsing.expression.RevList[y.ch]),
           void 0 !== y &&
-            ('script' == y.type
+            ("script" == y.type
               ? (E.script = !0)
-              : 'fraktur' == y.type
+              : "fraktur" == y.type
               ? (E.fraktur = !0)
-              : 'double-struck' == y.type && (E.doubleStruck = !0)));
+              : "double-struck" == y.type && (E.doubleStruck = !0)));
         var y = E.firstRow,
           B = (D = null),
           F = E.defCursorPos;
         a.selection.hasSelection &&
           null !== y &&
-          'i' == w &&
+          "i" == w &&
           (y instanceof e.Row
             ? y.children.splice(0, y.children.length, C)
             : y.parent instanceof e.Row &&
@@ -16493,7 +16494,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         else (E = z.insert(u.index, C, !0)) && u.index++;
         z = null;
         a.selection.hasSelection
-          ? ('i' == w && null !== y
+          ? ("i" == w && null !== y
               ? y instanceof e.Row
                 ? (z = {
                     parent: y,
@@ -16521,7 +16522,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
                     rightMove: !1,
                     dimensions: null,
                   }))
-              : 'r' == w &&
+              : "r" == w &&
                 ((f = u.index + f.endIndex - f.startIndex),
                 (z = {
                   parent: u.row,
@@ -16578,29 +16579,29 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     }
   };
   var g = function () {
-    d.loadFont('cmr7', 'a');
-    d.loadFont('cmmi7', 'a');
-    d.loadFont('cmex7', '\u00b3');
-    d.loadFont('cmey7', '\u00c9');
-    d.loadFont('msbm7', 'A');
-    d.loadFont('imescr7', 'A');
-    d.loadFont('eufm7', 'A');
-    !0 === new org.imatheq.formulaeditor.Options().getOption('debug') &&
+    d.loadFont("cmr7", "a");
+    d.loadFont("cmmi7", "a");
+    d.loadFont("cmex7", "\u00b3");
+    d.loadFont("cmey7", "\u00c9");
+    d.loadFont("msbm7", "A");
+    d.loadFont("imescr7", "A");
+    d.loadFont("eufm7", "A");
+    !0 === new org.imatheq.formulaeditor.Options().getOption("debug") &&
       ((e = new org.imatheq.debug.Debug()), e.createDebug());
     for (
-      var a = document.getElementsByTagName('textarea'), f = 0;
+      var a = document.getElementsByTagName("textarea"), f = 0;
       f < a.length;
       f++
     ) {
       var g = a[f],
-        m = g.getAttribute('class');
-      m || (m = g.getAttribute('className'));
+        m = g.getAttribute("class");
+      m || (m = g.getAttribute("className"));
       m &&
         m.match(/(^| )imatheqformula($| )/) &&
         new org.imatheq.formulaeditor.FormulaEditor(g);
     }
-    a = new org.imatheq.formulaeditor.Options().getOption('onloadFocus');
-    if ('string' == typeof a) {
+    a = new org.imatheq.formulaeditor.Options().getOption("onloadFocus");
+    if ("string" == typeof a) {
       if ((a = document.getElementById(a)))
         if (
           (a = org.imatheq.formulaeditor.FormulaEditor.getEditorByTextArea(a))
@@ -16628,7 +16629,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     A,
     C
   ) {
-    !0 === new org.imatheq.formulaeditor.Options().getOption('debug') &&
+    !0 === new org.imatheq.formulaeditor.Options().getOption("debug") &&
       ((e = new org.imatheq.debug.Debug()), e.createDebug());
     a = new org.imatheq.formulaeditor.FormulaEditor(
       a,
@@ -16756,8 +16757,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         return d;
       },
     }))();
-    f = new org.imatheq.formulaeditor.Options().getOption('onloadFocus');
-    if ('string' == typeof f) {
+    f = new org.imatheq.formulaeditor.Options().getOption("onloadFocus");
+    if ("string" == typeof f) {
       if ((f = document.getElementById(f)))
         if (
           (f = org.imatheq.formulaeditor.FormulaEditor.getEditorByTextArea(f))
@@ -16772,17 +16773,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
   };
   if (window.addEventListener)
     org.imatheq.formulaeditor.hasLoaded ||
-    (document.readyState && 'complete' == document.readyState)
+    (document.readyState && "complete" == document.readyState)
       ? g()
-      : window.addEventListener('load', g, !1);
+      : window.addEventListener("load", g, !1);
   else {
     var f;
     f = function () {
       document.body
         ? document.body.attachEvent &&
-          ('complete' == document.readyState
+          ("complete" == document.readyState
             ? g()
-            : document.body.attachEvent('onload', g))
+            : document.body.attachEvent("onload", g))
         : setTimeout(f, 50);
     };
     f();
@@ -16803,72 +16804,72 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     create: function (b) {
       var a = this,
         e = this.palette.editor,
-        d = document.createElement('div');
-      d.id = 'efmase_matrix_pad';
-      d.className = 'efmase_panel_pad';
-      d.style.display = 'none';
-      var g = document.createElement('div');
+        d = document.createElement("div");
+      d.id = "efmase_matrix_pad";
+      d.className = "efmase_panel_pad";
+      d.style.display = "none";
+      var g = document.createElement("div");
       d.appendChild(g);
-      g.innerHTML = e.pData.TITLES['2203'];
-      oClose = document.createElement('span');
-      oClose.id = 'matrix_panel_0';
-      oClose.className = 'efmase_panel_close';
-      oClose.innerHTML = 'x';
+      g.innerHTML = e.pData.TITLES["2203"];
+      oClose = document.createElement("span");
+      oClose.id = "matrix_panel_0";
+      oClose.className = "efmase_panel_close";
+      oClose.innerHTML = "x";
       g.appendChild(oClose);
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         oClose,
-        'mousedown',
+        "mousedown",
         function (b) {
           a.hide();
           return !1;
         }
       );
-      var f = document.createElement('div');
+      var f = document.createElement("div");
       d.appendChild(f);
-      var h = document.createElement('table');
-      h.id = 'efmase_pad_table';
+      var h = document.createElement("table");
+      h.id = "efmase_pad_table";
       f.appendChild(h);
-      g = document.createElement('table');
+      g = document.createElement("table");
       f.appendChild(g);
-      var k = document.createElement('tbody');
+      var k = document.createElement("tbody");
       g.appendChild(k);
-      var l = document.createElement('tr'),
-        g = document.createElement('td');
-      g.className = 'efmase_pad_label';
-      g.innerHTML = e.pData.TITLES['2204'];
+      var l = document.createElement("tr"),
+        g = document.createElement("td");
+      g.className = "efmase_pad_label";
+      g.innerHTML = e.pData.TITLES["2204"];
       l.appendChild(g);
-      var m = document.createElement('td');
+      var m = document.createElement("td");
       l.appendChild(m);
-      g = document.createElement('input');
-      g.id = 'matrix_panel_2';
-      g.className = 'efmase_pad_input';
-      g.type = 'number';
-      g.title = 'Rows';
+      g = document.createElement("input");
+      g.id = "matrix_panel_2";
+      g.className = "efmase_pad_input";
+      g.type = "number";
+      g.title = "Rows";
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         g,
-        'focus',
+        "focus",
         function (b) {
           a.keyboardNavi = 2;
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(b);
         }
       );
       m.appendChild(g);
-      var r = document.createElement('tr'),
-        m = document.createElement('td');
-      m.className = 'efmase_pad_label';
-      m.innerHTML = e.pData.TITLES['2204'];
+      var r = document.createElement("tr"),
+        m = document.createElement("td");
+      m.className = "efmase_pad_label";
+      m.innerHTML = e.pData.TITLES["2204"];
       r.appendChild(m);
-      var n = document.createElement('td');
-      n.style.verticalAlign = 'right';
+      var n = document.createElement("td");
+      n.style.verticalAlign = "right";
       r.appendChild(n);
-      m = document.createElement('input');
-      m.id = 'matrix_panel_3';
-      m.className = 'efmase_pad_input';
-      m.type = 'number';
-      m.title = 'Rows';
+      m = document.createElement("input");
+      m.id = "matrix_panel_3";
+      m.className = "efmase_pad_input";
+      m.type = "number";
+      m.title = "Rows";
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         m,
-        'focus',
+        "focus",
         function (b) {
           a.keyboardNavi = 3;
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(b);
@@ -16877,37 +16878,37 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       n.appendChild(m);
       k.appendChild(l);
       k.appendChild(r);
-      k = document.createElement('div');
-      k.style.zindex = '500';
+      k = document.createElement("div");
+      k.style.zindex = "500";
       f.appendChild(k);
-      f = document.createElement('input');
-      f.id = 'matrix_panel_4';
-      f.type = 'button';
-      f.value = e.pData.TITLES['2200'];
+      f = document.createElement("input");
+      f.id = "matrix_panel_4";
+      f.type = "button";
+      f.value = e.pData.TITLES["2200"];
       k.appendChild(f);
       f.onclick = function (b) {
         return a.onSubmit(b);
       };
-      f = document.createElement('input');
-      f.id = 'matrix_panel_5';
-      f.type = 'button';
-      f.value = e.pData.TITLES['2201'];
+      f = document.createElement("input");
+      f.id = "matrix_panel_5";
+      f.type = "button";
+      f.value = e.pData.TITLES["2201"];
       k.appendChild(f);
       f.onclick = function (b) {
         a.hide();
         return !1;
       };
-      e = document.createElement('tbody');
+      e = document.createElement("tbody");
       h.appendChild(e);
       for (h = 0; 6 > h; h++) {
-        k = document.createElement('tr');
+        k = document.createElement("tr");
         for (l = 0; 6 > l; l++)
-          (r = document.createElement('td')),
-            (btnDiv = document.createElement('div')),
-            (btnDiv.className = 'efmase_pad_btn'),
+          (r = document.createElement("td")),
+            (btnDiv = document.createElement("div")),
+            (btnDiv.className = "efmase_pad_btn"),
             org.imatheq.formulaeditor.FormulaEditor.addEventListener(
               btnDiv,
-              'mouseover',
+              "mouseover",
               (function (b, d) {
                 return function (e) {
                   return a.onDrag(d[0], b[0]);
@@ -16916,7 +16917,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
             ),
             org.imatheq.formulaeditor.FormulaEditor.addEventListener(
               btnDiv,
-              'mousedown',
+              "mousedown",
               function (b) {
                 return a.onSubmit(b);
               }
@@ -16927,7 +16928,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       }
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         d,
-        'mousedown',
+        "mousedown",
         function (a) {
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(a);
         }
@@ -16941,17 +16942,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     show: function (b, a, e) {
       null === this.padWindow && this.create(this.palette.container, a, e);
-      document.getElementById('efmase_pad_table').style.display = '';
-      document.getElementById('efmase_matrix_pad').style.left = a + 'px';
-      document.getElementById('efmase_matrix_pad').style.top = e + 'px';
+      document.getElementById("efmase_pad_table").style.display = "";
+      document.getElementById("efmase_matrix_pad").style.left = a + "px";
+      document.getElementById("efmase_matrix_pad").style.top = e + "px";
       editor.blur();
       this.padWindow.btnId = b;
-      this.padWindow.style.display = 'block';
-      this.padWindow.style.left = '0px';
+      this.padWindow.style.display = "block";
+      this.padWindow.style.left = "0px";
       a + this.padWindow.offsetWidth > parseInt(window.innerWidth) &&
         (a = parseInt(window.innerWidth) - this.padWindow.offsetWidth);
-      this.padWindow.style.left = a + 'px';
-      this.padWindow.style.top = e + 'px';
+      this.padWindow.style.left = a + "px";
+      this.padWindow.style.top = e + "px";
       editor.isMobile ||
         ((editor.textboxHeight = editor.textbox.style.height),
         (editor.textbox.style.height = 0));
@@ -16962,8 +16963,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     hide: function () {
       this.rowNoInput.blur();
       this.colNoInput.blur();
-      this.padWindow.btnId = '';
-      this.padWindow.style.display = 'none';
+      this.padWindow.btnId = "";
+      this.padWindow.style.display = "none";
       var b = org.imatheq.formulaeditor.FormulaEditor.getFirstEditor();
       b.isMobile || (b.textbox.style.height = b.textboxHeight);
       b.hasFocus() || b.focus();
@@ -16972,7 +16973,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.palette.activePanel === this && (this.palette.activePanel = null);
     },
     onDrag: function (b, a) {
-      if ('906' == this.padWindow.btnId || '907' == this.padWindow.btnId)
+      if ("906" == this.padWindow.btnId || "907" == this.padWindow.btnId)
         a = b = Math.max(b, a);
       for (var e = 0; e < this.matrixBtnTbody.childNodes.length; e++)
         for (
@@ -16983,12 +16984,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           this.matrixBtnTbody.childNodes[e].childNodes[
             d
           ].firstChild.style.backgroundColor =
-            e <= b && d <= a ? '#778E9A' : '#fff';
+            e <= b && d <= a ? "#778E9A" : "#fff";
       this.rowNoInput.value = b + 1;
       this.colNoInput.value = a + 1;
     },
     onSubmit: function (b) {
-      if ('906' == this.padWindow.btnId || '907' == this.padWindow.btnId)
+      if ("906" == this.padWindow.btnId || "907" == this.padWindow.btnId)
         (this.rowNoInput.value =
           Math.max(this.rowNoInput.value, this.colNoInput.value) + 1),
           (this.colNoInput.value = this.rowNoInput.value);
@@ -17004,22 +17005,22 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     onkeydown: function (b) {
       if (9 == b.keyCode)
         return (
-          this.clearKBNavi('matrix_panel_'),
+          this.clearKBNavi("matrix_panel_"),
           b.shiftKey
             ? --this.keyboardNavi
             : (this.keyboardNavi = ++this.keyboardNavi),
           -1 == this.keyboardNavi && (this.keyboardNavi = 5),
           6 == this.keyboardNavi && (this.keyboardNavi = 0),
-          this.setKBNavi('matrix_panel_', b),
+          this.setKBNavi("matrix_panel_", b),
           !1
         );
       if (13 == b.keyCode)
         return (
           (activeElm = document.activeElement),
-          ('input' == activeElm.localName.toLowerCase() &&
-            'cancel' == activeElm.value.toLowerCase()) ||
-          ('span' == activeElm.localName.toLowerCase() &&
-            'x' == activeElm.value.toLowerCase())
+          ("input" == activeElm.localName.toLowerCase() &&
+            "cancel" == activeElm.value.toLowerCase()) ||
+          ("span" == activeElm.localName.toLowerCase() &&
+            "x" == activeElm.value.toLowerCase())
             ? (this.hide(),
               org.imatheq.formulaeditor.FormulaEditor.eventPreventDefault(b),
               b.preventDefault(),
@@ -17028,28 +17029,28 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         );
       if (
         1 == this.keyboardNavi &&
-        'matrix_panel_2' != document.activeElement.id &&
-        'matrix_panel_3' != document.activeElement.id
+        "matrix_panel_2" != document.activeElement.id &&
+        "matrix_panel_3" != document.activeElement.id
       )
         switch (b.keyCode) {
           case 37:
-            return this.kbNaviMove('left'), !1;
+            return this.kbNaviMove("left"), !1;
           case 38:
-            return this.kbNaviMove('up'), !1;
+            return this.kbNaviMove("up"), !1;
           case 39:
-            return this.kbNaviMove('right'), !1;
+            return this.kbNaviMove("right"), !1;
           case 40:
-            return this.kbNaviMove('down'), !1;
+            return this.kbNaviMove("down"), !1;
         }
     },
     kbNaviMove: function (b) {
       if (1 == this.keyboardNavi) {
         var a = this.rowNoInput.value - 1,
           e = this.colNoInput.value - 1;
-        0 < e && 'left' == b && e--;
-        5 > e && 'right' == b && e++;
-        0 < a && 'up' == b && a--;
-        5 > a && 'down' == b && a++;
+        0 < e && "left" == b && e--;
+        5 > e && "right" == b && e++;
+        0 < a && "up" == b && a--;
+        5 > a && "down" == b && a++;
         this.onDrag(a, e);
       }
       return !1;
@@ -17058,7 +17059,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (1 != this.keyboardNavi) {
         var e = document.getElementById(b + this.keyboardNavi);
         e.focus();
-        0 == this.keyboardNavi && e.classList.add('efmase_panel_close_hover');
+        0 == this.keyboardNavi && e.classList.add("efmase_panel_close_hover");
       }
       return !1;
     },
@@ -17067,7 +17068,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         ((b = document.getElementById(b + this.keyboardNavi)),
         b.blur(),
         0 == this.keyboardNavi &&
-          b.classList.remove('efmase_panel_close_hover'));
+          b.classList.remove("efmase_panel_close_hover"));
       return !1;
     },
   });
@@ -17088,23 +17089,23 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     create: function (b) {
       var a = this,
         e = this.palette.editor,
-        d = document.createElement('div');
-      d.id = 'efmase_bracket_pad';
+        d = document.createElement("div");
+      d.id = "efmase_bracket_pad";
       brackets = org.imatheq.formulaeditor.parsing.expression.BracketList;
-      d.className = 'efmase_panel_pad';
-      var g = document.createElement('div');
+      d.className = "efmase_panel_pad";
+      var g = document.createElement("div");
       d.appendChild(g);
-      var f = document.createElement('span');
+      var f = document.createElement("span");
       g.appendChild(f);
       this.titleElm = f;
-      oClose = document.createElement('span');
+      oClose = document.createElement("span");
       g.appendChild(oClose);
-      oClose.id = 'bracket_panel_0';
-      oClose.className = 'efmase_panel_close';
-      oClose.innerHTML = 'x';
+      oClose.id = "bracket_panel_0";
+      oClose.className = "efmase_panel_close";
+      oClose.innerHTML = "x";
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         oClose,
-        'mousedown',
+        "mousedown",
         function (b) {
           a.hide();
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(b);
@@ -17112,26 +17113,26 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           return !1;
         }
       );
-      f = document.createElement('div');
+      f = document.createElement("div");
       d.appendChild(f);
-      g = document.createElement('table');
-      g.id = 'efmase_bracket_pad_table';
+      g = document.createElement("table");
+      g.id = "efmase_bracket_pad_table";
       f.appendChild(g);
-      var h = document.createElement('div');
-      h.style.zindex = '500';
+      var h = document.createElement("div");
+      h.style.zindex = "500";
       f.appendChild(h);
-      f = document.createElement('input');
-      f.type = 'button';
-      f.value = e.pData.TITLES['2200'];
-      f.id = 'bracket_panel_2';
+      f = document.createElement("input");
+      f.type = "button";
+      f.value = e.pData.TITLES["2200"];
+      f.id = "bracket_panel_2";
       h.appendChild(f);
       f.onclick = function (b) {
         return a.onSubmit(b);
       };
-      f = document.createElement('input');
-      f.type = 'button';
-      f.value = e.pData.TITLES['2201'];
-      f.id = 'bracket_panel_3';
+      f = document.createElement("input");
+      f.type = "button";
+      f.value = e.pData.TITLES["2201"];
+      f.id = "bracket_panel_3";
       h.appendChild(f);
       f.onclick = function (b) {
         a.hide();
@@ -17139,20 +17140,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         event.preventDefault();
         return !1;
       };
-      e = document.createElement('tbody');
+      e = document.createElement("tbody");
       g.appendChild(e);
       for (h = 0; h < brackets.length / 2 + 1; h++) {
-        for (var k = document.createElement('tr'), l = 0; 2 > l; l++) {
-          var m = document.createElement('td');
-          btnDiv = document.createElement('div');
-          btnDiv.className = 'efmase_bracket_pad_btn';
+        for (var k = document.createElement("tr"), l = 0; 2 > l; l++) {
+          var m = document.createElement("td");
+          btnDiv = document.createElement("div");
+          btnDiv.className = "efmase_bracket_pad_btn";
           h < brackets.length / 2
             ? ((btnDiv.innerHTML = brackets[2 * h + l]),
-              (btnDiv.id = 'efmase_bracket_' + brackets[2 * h + l]))
-            : ((btnDiv.innerHTML = '&nbsp;'), (btnDiv.id = 'efmase_bracket_'));
+              (btnDiv.id = "efmase_bracket_" + brackets[2 * h + l]))
+            : ((btnDiv.innerHTML = "&nbsp;"), (btnDiv.id = "efmase_bracket_"));
           org.imatheq.formulaeditor.FormulaEditor.addEventListener(
             btnDiv,
-            'mousedown',
+            "mousedown",
             (function (b, d) {
               return function (e) {
                 return a.onSelect(d[0], b[0], e);
@@ -17167,7 +17168,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       g.appendChild(e);
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         d,
-        'mousedown',
+        "mousedown",
         function (a) {
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(a);
         }
@@ -17178,46 +17179,46 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.bracketBtnTbody = e;
     },
     show: function (b, a, e, d) {
-      var g = '406' == b ? 'create' : 'edit';
+      var g = "406" == b ? "create" : "edit";
       (null !== this.padWindow && void 0 !== this.padWindow) ||
         this.create(this.palette.container);
-      document.getElementById('efmase_bracket_pad_table').style.display = '';
-      document.getElementById('efmase_bracket_pad').style.left = a + 'px';
-      document.getElementById('efmase_bracket_pad').style.top = e + 'px';
+      document.getElementById("efmase_bracket_pad_table").style.display = "";
+      document.getElementById("efmase_bracket_pad").style.left = a + "px";
+      document.getElementById("efmase_bracket_pad").style.top = e + "px";
       d = this.palette.editor;
       d.blur();
       this.padWindow.btnId = b;
       this.titleElm.innerHTML = d.pData.TITLES[b];
-      b = ['(', ')'];
-      'edit' == g &&
+      b = ["(", ")"];
+      "edit" == g &&
         ((b = d.getBracketedObject()),
         (b = [
-          '' == b.leftBracket.value ? '&nbsp;' : b.leftBracket.value,
-          '' == b.rightBracket.value ? '&nbsp;' : b.rightBracket.value,
+          "" == b.leftBracket.value ? "&nbsp;" : b.leftBracket.value,
+          "" == b.rightBracket.value ? "&nbsp;" : b.rightBracket.value,
         ]));
       for (
-        var g = document.getElementById('efmase_bracket_pad_table').firstChild,
+        var g = document.getElementById("efmase_bracket_pad_table").firstChild,
           f = 0;
         f < g.childNodes.length;
         f++
       ) {
         var h = g.childNodes[f].childNodes[0].firstChild;
         h.innerText != b[0] && h.innerHTML != b[0]
-          ? h.classList.remove('efmase_bracket_panel_sel')
+          ? h.classList.remove("efmase_bracket_panel_sel")
           : ((this.row = f),
             (this.col = 0),
-            h.classList.add('efmase_bracket_panel_sel'));
+            h.classList.add("efmase_bracket_panel_sel"));
         h = g.childNodes[f].childNodes[1].firstChild;
         h.innerText != b[1] && h.innerHTML != b[1]
-          ? h.classList.remove('efmase_bracket_panel_sel')
-          : h.classList.add('efmase_bracket_panel_sel');
+          ? h.classList.remove("efmase_bracket_panel_sel")
+          : h.classList.add("efmase_bracket_panel_sel");
       }
-      this.padWindow.style.display = 'block';
-      this.padWindow.style.left = '0px';
+      this.padWindow.style.display = "block";
+      this.padWindow.style.left = "0px";
       a + this.padWindow.offsetWidth > parseInt(window.innerWidth) &&
         (a = parseInt(window.innerWidth) - this.padWindow.offsetWidth);
-      this.padWindow.style.left = a + 'px';
-      this.padWindow.style.top = e + 'px';
+      this.padWindow.style.left = a + "px";
+      this.padWindow.style.top = e + "px";
       d.isMobile ||
         ((d.textboxHeight = d.textbox.style.height),
         (d.textbox.style.height = 0));
@@ -17225,8 +17226,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.keyboardNavi = 1;
     },
     hide: function () {
-      this.padWindow.btnId = '';
-      this.padWindow.style.display = 'none';
+      this.padWindow.btnId = "";
+      this.padWindow.style.display = "none";
       var b = this.palette.editor;
       b.textbox.style.height = b.textboxHeight;
       b.hasFocus() ||
@@ -17235,20 +17236,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.palette.activePanel === this && (this.palette.activePanel = null);
       this.bracketBtnTbody.childNodes[this.row].childNodes[
         this.col
-      ].firstChild.classList.remove('efmase_common_panel_hover');
+      ].firstChild.classList.remove("efmase_common_panel_hover");
     },
     onSubmit: function (b) {
       var a = this.palette.editor,
-        e = document.getElementsByClassName('efmase_bracket_panel_sel');
-      2 != e.length && alert('Please select left bracket and right bracket');
+        e = document.getElementsByClassName("efmase_bracket_panel_sel");
+      2 != e.length && alert("Please select left bracket and right bracket");
       e =
         null === e[0].parentNode.nextSibling
           ? [e[1].innerHTML, e[0].innerHTML]
           : [e[0].innerHTML, e[1].innerHTML];
-      '&nbsp;' == e[0] && (e[0] = '');
-      '&nbsp;' == e[1] && (e[1] = '');
-      '406' == this.padWindow.btnId
-        ? ('' == e[0] && '' == e[1]) ||
+      "&nbsp;" == e[0] && (e[0] = "");
+      "&nbsp;" == e[1] && (e[1] = "");
+      "406" == this.padWindow.btnId
+        ? ("" == e[0] && "" == e[1]) ||
           this.palette.handlePaletteBtnClick(a, e[0], e[1])
         : this.palette.updateBracket(this.padWindow.btnId, e[0], e[1]);
       this.hide();
@@ -17259,15 +17260,15 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     onSelect: function (b, a, e) {
       for (var d = 0; d < this.bracketBtnTbody.childNodes.length; d++) {
         var g = this.bracketBtnTbody.childNodes[d].childNodes[a].firstChild;
-        d != b && g.classList.contains('efmase_bracket_panel_sel')
-          ? (g.classList.remove('efmase_bracket_panel_sel'),
-            g.classList.contains('efmase_common_panel_hover') &&
-              g.classList.remove('efmase_common_panel_hover'))
+        d != b && g.classList.contains("efmase_bracket_panel_sel")
+          ? (g.classList.remove("efmase_bracket_panel_sel"),
+            g.classList.contains("efmase_common_panel_hover") &&
+              g.classList.remove("efmase_common_panel_hover"))
           : d != b ||
-            g.classList.contains('efmase_bracket_panel_sel') ||
-            (g.classList.add('efmase_bracket_panel_sel'),
-            g.classList.contains('efmase_common_panel_hover') &&
-              g.classList.remove('efmase_common_panel_hover'));
+            g.classList.contains("efmase_bracket_panel_sel") ||
+            (g.classList.add("efmase_bracket_panel_sel"),
+            g.classList.contains("efmase_common_panel_hover") &&
+              g.classList.remove("efmase_common_panel_hover"));
       }
       org.imatheq.formulaeditor.FormulaEditor.eventPreventDefault(e);
       e.preventDefault();
@@ -17276,22 +17277,22 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     onkeydown: function (b) {
       if (9 == b.keyCode)
         return (
-          this.clearKBNavi('bracket_panel_'),
+          this.clearKBNavi("bracket_panel_"),
           b.shiftKey
             ? --this.keyboardNavi
             : (this.keyboardNavi = ++this.keyboardNavi),
           -1 == this.keyboardNavi && (this.keyboardNavi = 3),
           4 == this.keyboardNavi && (this.keyboardNavi = 0),
-          this.setKBNavi('bracket_panel_', b),
+          this.setKBNavi("bracket_panel_", b),
           !1
         );
       if (13 == b.keyCode)
         return (
           (activeElm = document.activeElement),
-          ('input' == activeElm.localName.toLowerCase() &&
-            'cancel' == activeElm.value.toLowerCase()) ||
-          ('span' == activeElm.localName.toLowerCase() &&
-            'x' == activeElm.value.toLowerCase())
+          ("input" == activeElm.localName.toLowerCase() &&
+            "cancel" == activeElm.value.toLowerCase()) ||
+          ("span" == activeElm.localName.toLowerCase() &&
+            "x" == activeElm.value.toLowerCase())
             ? (this.hide(),
               org.imatheq.formulaeditor.FormulaEditor.eventPreventDefault(b),
               b.preventDefault(),
@@ -17301,13 +17302,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (1 == this.keyboardNavi)
         switch (b.keyCode) {
           case 37:
-            return this.kbNaviMove('left'), !1;
+            return this.kbNaviMove("left"), !1;
           case 38:
-            return this.kbNaviMove('up'), !1;
+            return this.kbNaviMove("up"), !1;
           case 39:
-            return this.kbNaviMove('right'), !1;
+            return this.kbNaviMove("right"), !1;
           case 40:
-            return this.kbNaviMove('down'), !1;
+            return this.kbNaviMove("down"), !1;
         }
     },
     onkeypress: function (b) {
@@ -17319,19 +17320,19 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var a =
           this.bracketBtnTbody.childNodes[this.row].childNodes[this.col]
             .firstChild;
-        a.classList.contains('efmase_bracket_panel_sel') ||
-          a.classList.remove('efmase_common_panel_hover');
-        0 < this.col && 'left' == b && this.col--;
-        0 == this.col && 'right' == b && this.col++;
-        0 < this.row && 'up' == b && this.row--;
+        a.classList.contains("efmase_bracket_panel_sel") ||
+          a.classList.remove("efmase_common_panel_hover");
+        0 < this.col && "left" == b && this.col--;
+        0 == this.col && "right" == b && this.col++;
+        0 < this.row && "up" == b && this.row--;
         this.row < this.bracketBtnTbody.childNodes.length - 1 &&
-          'down' == b &&
+          "down" == b &&
           this.row++;
         a =
           this.bracketBtnTbody.childNodes[this.row].childNodes[this.col]
             .firstChild;
-        a.classList.contains('efmase_bracket_panel_sel') ||
-          a.classList.add('efmase_common_panel_hover');
+        a.classList.contains("efmase_bracket_panel_sel") ||
+          a.classList.add("efmase_common_panel_hover");
       }
       return !1;
     },
@@ -17339,7 +17340,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (1 != this.keyboardNavi) {
         var e = document.getElementById(b + this.keyboardNavi);
         e.focus();
-        0 == this.keyboardNavi && e.classList.add('efmase_panel_close_hover');
+        0 == this.keyboardNavi && e.classList.add("efmase_panel_close_hover");
       }
       return !1;
     },
@@ -17348,7 +17349,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         ((b = document.getElementById(b + this.keyboardNavi)),
         b.blur(),
         0 == this.keyboardNavi &&
-          b.classList.remove('efmase_panel_close_hover'));
+          b.classList.remove("efmase_panel_close_hover"));
       return !1;
     },
   });
@@ -17375,33 +17376,33 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     create: function (b) {
       var a = this,
-        e = document.createElement('div');
-      e.id = 'efmase_size_pad';
-      e.className = 'efmase_panel_pad';
-      var d = document.createElement('div');
+        e = document.createElement("div");
+      e.id = "efmase_size_pad";
+      e.className = "efmase_panel_pad";
+      var d = document.createElement("div");
       e.appendChild(d);
       this.titleElm = d;
-      var g = document.createElement('div');
+      var g = document.createElement("div");
       e.appendChild(g);
-      d = document.createElement('table');
-      d.id = 'efmase_size_pad_table';
+      d = document.createElement("table");
+      d.id = "efmase_size_pad_table";
       g.appendChild(d);
-      g = document.createElement('tbody');
+      g = document.createElement("tbody");
       d.appendChild(g);
       for (var f = 0; f < this.numRows; f++) {
         for (
-          var h = document.createElement('tr'), k = 0;
+          var h = document.createElement("tr"), k = 0;
           k < this.numCols;
           k++
         ) {
           var l = this.sizes[f * this.numCols + k],
-            m = document.createElement('td');
-          btnDiv = document.createElement('div');
-          btnDiv.className = 'efmase_bracket_pad_btn';
+            m = document.createElement("td");
+          btnDiv = document.createElement("div");
+          btnDiv.className = "efmase_bracket_pad_btn";
           btnDiv.innerHTML = l;
           org.imatheq.formulaeditor.FormulaEditor.addEventListener(
             btnDiv,
-            'mousedown',
+            "mousedown",
             (function (b, d) {
               return function (e) {
                 return a.onSubmit(b[0], d[0], e);
@@ -17416,7 +17417,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       d.appendChild(g);
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         e,
-        'mousedown',
+        "mousedown",
         function (a) {
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(a);
         }
@@ -17429,37 +17430,37 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       this.col = this.row = -1;
       (null !== this.padWindow && void 0 !== this.padWindow) ||
         this.create(this.palette.container);
-      this.padWindow.style.display = 'block';
+      this.padWindow.style.display = "block";
       null !== d &&
         void 0 !== d &&
         ((this.row = Math.floor(d / this.numCols)),
         (this.col = 1 == this.numCols ? 0 : d % this.numCols));
-      document.getElementById('efmase_size_pad_table').style.display = '';
-      document.getElementById('efmase_size_pad').style.left = a + 'px';
-      document.getElementById('efmase_size_pad').style.top = e + 'px';
+      document.getElementById("efmase_size_pad_table").style.display = "";
+      document.getElementById("efmase_size_pad").style.left = a + "px";
+      document.getElementById("efmase_size_pad").style.top = e + "px";
       d = this.palette.editor;
       d.blur();
       this.padWindow.btnId = b;
       this.titleElm.innerHTML =
-        '&nbsp;&nbsp;' + d.pData.TITLES[b] + '&nbsp;&nbsp;';
+        "&nbsp;&nbsp;" + d.pData.TITLES[b] + "&nbsp;&nbsp;";
       -1 !== this.row &&
         ((cell =
           this.sizeBtnTbody.childNodes[this.row].childNodes[this.col]
             .firstChild),
-        cell.classList.add('efmase_common_panel_hover'));
-      this.padWindow.style.left = '0px';
+        cell.classList.add("efmase_common_panel_hover"));
+      this.padWindow.style.left = "0px";
       a + this.padWindow.offsetWidth > parseInt(window.innerWidth) &&
         (a = parseInt(window.innerWidth) - this.padWindow.offsetWidth);
-      this.padWindow.style.left = a + 'px';
-      this.padWindow.style.top = e + 'px';
+      this.padWindow.style.left = a + "px";
+      this.padWindow.style.top = e + "px";
       d.isMobile ||
         ((d.textboxHeight = d.textbox.style.height),
         (d.textbox.style.height = 0));
       this.palette.activePanel = this;
     },
     hide: function () {
-      this.padWindow.btnId = '';
-      this.padWindow.style.display = 'none';
+      this.padWindow.btnId = "";
+      this.padWindow.style.display = "none";
       var b = this.palette.editor;
       b.isMobile || (b.textbox.style.height = b.textboxHeight);
       b.hasFocus() ||
@@ -17471,12 +17472,12 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         ((cell =
           this.sizeBtnTbody.childNodes[this.row].childNodes[this.col]
             .firstChild),
-        cell.classList.remove('efmase_common_panel_hover'));
+        cell.classList.remove("efmase_common_panel_hover"));
     },
     onSubmit: function (b, a, e) {
       if (0 <= b && 0 <= a) {
         var d = this.sizeBtnTbody.childNodes[b].childNodes[a].firstChild;
-        d.classList.remove('efmase_common_panel_hover');
+        d.classList.remove("efmase_common_panel_hover");
         this.palette.execPalCmd(
           this.palette.symbols[this.padWindow.btnId],
           d.innerHTML,
@@ -17492,13 +17493,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (13 == b.keyCode) return this.onSubmit(this.row, this.col, b);
       switch (b.keyCode) {
         case 37:
-          return this.kbNaviMove('left'), !1;
+          return this.kbNaviMove("left"), !1;
         case 38:
-          return this.kbNaviMove('up'), !1;
+          return this.kbNaviMove("up"), !1;
         case 39:
-          return this.kbNaviMove('right'), !1;
+          return this.kbNaviMove("right"), !1;
         case 40:
-          return this.kbNaviMove('down'), !1;
+          return this.kbNaviMove("down"), !1;
       }
     },
     onkeypress: function (b) {
@@ -17510,18 +17511,18 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         var a =
           this.sizeBtnTbody.childNodes[this.row].childNodes[this.col]
             .firstChild;
-        a.classList.contains('efmase_common_panel_hover') &&
-          a.classList.remove('efmase_common_panel_hover');
-        0 < this.col && 'left' == b && this.col--;
-        this.col < this.numCols - 1 && 'right' == b && this.col++;
-        0 < this.row && 'up' == b && this.row--;
+        a.classList.contains("efmase_common_panel_hover") &&
+          a.classList.remove("efmase_common_panel_hover");
+        0 < this.col && "left" == b && this.col--;
+        this.col < this.numCols - 1 && "right" == b && this.col++;
+        0 < this.row && "up" == b && this.row--;
         this.row < this.sizeBtnTbody.childNodes.length - 1 &&
-          'down' == b &&
+          "down" == b &&
           this.row++;
       }
       a =
         this.sizeBtnTbody.childNodes[this.row].childNodes[this.col].firstChild;
-      a.classList.add('efmase_common_panel_hover');
+      a.classList.add("efmase_common_panel_hover");
       return !1;
     },
   });
@@ -17529,100 +17530,100 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
 (function () {
   color_palette = [
     [
-      { t: 'black', rgb: [0, 0, 0] },
-      { t: 'dark gray 4', rgb: [67, 67, 67] },
-      { t: 'dark gray 3', rgb: [102, 102, 102] },
-      { t: 'dark gray 2', rgb: [153, 153, 153] },
-      { t: 'dark gray 1', rgb: [183, 183, 183] },
-      { t: 'gray', rgb: [204, 204, 204] },
-      { t: 'light gray 1', rgb: [217, 217, 217] },
-      { t: 'light gray 2', rgb: [239, 239, 239] },
-      { t: 'light gray 3', rgb: [243, 243, 243] },
-      { t: 'white', rgb: [255, 255, 255] },
+      { t: "black", rgb: [0, 0, 0] },
+      { t: "dark gray 4", rgb: [67, 67, 67] },
+      { t: "dark gray 3", rgb: [102, 102, 102] },
+      { t: "dark gray 2", rgb: [153, 153, 153] },
+      { t: "dark gray 1", rgb: [183, 183, 183] },
+      { t: "gray", rgb: [204, 204, 204] },
+      { t: "light gray 1", rgb: [217, 217, 217] },
+      { t: "light gray 2", rgb: [239, 239, 239] },
+      { t: "light gray 3", rgb: [243, 243, 243] },
+      { t: "white", rgb: [255, 255, 255] },
     ],
     [
-      { t: 'red berry', rgb: [152, 0, 0] },
-      { t: 'red', rgb: [255, 0, 0] },
-      { t: 'orange', rgb: [255, 153, 0] },
-      { t: 'yellow', rgb: [255, 255, 0] },
-      { t: 'green', rgb: [0, 255, 0] },
-      { t: 'cyan', rgb: [0, 255, 255] },
-      { t: 'cornflower blue', rgb: [74, 134, 232] },
-      { t: 'blue', rgb: [0, 0, 255] },
-      { t: 'purple', rgb: [153, 0, 255] },
-      { t: 'magenta', rgb: [255, 0, 255] },
+      { t: "red berry", rgb: [152, 0, 0] },
+      { t: "red", rgb: [255, 0, 0] },
+      { t: "orange", rgb: [255, 153, 0] },
+      { t: "yellow", rgb: [255, 255, 0] },
+      { t: "green", rgb: [0, 255, 0] },
+      { t: "cyan", rgb: [0, 255, 255] },
+      { t: "cornflower blue", rgb: [74, 134, 232] },
+      { t: "blue", rgb: [0, 0, 255] },
+      { t: "purple", rgb: [153, 0, 255] },
+      { t: "magenta", rgb: [255, 0, 255] },
     ],
     [
-      { t: 'light red berry 3', rgb: [230, 184, 175] },
-      { t: 'light red 3', rgb: [244, 204, 204] },
-      { t: 'light orange 3', rgb: [252, 229, 205] },
-      { t: 'light yellow 3', rgb: [255, 242, 204] },
-      { t: 'light green 3', rgb: [217, 234, 211] },
-      { t: 'light cyan 3', rgb: [208, 224, 227] },
-      { t: 'light cornflower blue 3', rgb: [201, 218, 248] },
-      { t: 'light blue 3', rgb: [207, 226, 243] },
-      { t: 'light purple 3', rgb: [217, 210, 233] },
-      { t: 'light magenta 3', rgb: [234, 209, 220] },
+      { t: "light red berry 3", rgb: [230, 184, 175] },
+      { t: "light red 3", rgb: [244, 204, 204] },
+      { t: "light orange 3", rgb: [252, 229, 205] },
+      { t: "light yellow 3", rgb: [255, 242, 204] },
+      { t: "light green 3", rgb: [217, 234, 211] },
+      { t: "light cyan 3", rgb: [208, 224, 227] },
+      { t: "light cornflower blue 3", rgb: [201, 218, 248] },
+      { t: "light blue 3", rgb: [207, 226, 243] },
+      { t: "light purple 3", rgb: [217, 210, 233] },
+      { t: "light magenta 3", rgb: [234, 209, 220] },
     ],
     [
-      { t: 'light red berry 2', rgb: [221, 126, 107] },
-      { t: 'light red 2', rgb: [234, 153, 153] },
-      { t: 'light orange 2', rgb: [249, 203, 156] },
-      { t: 'light yellow 2', rgb: [255, 229, 153] },
-      { t: 'light green 2', rgb: [182, 215, 168] },
-      { t: 'light cyan 2', rgb: [162, 196, 201] },
-      { t: 'light cornflower blue 2', rgb: [164, 194, 244] },
-      { t: 'light blue 2', rgb: [159, 197, 232] },
-      { t: 'light purple 2', rgb: [180, 167, 214] },
-      { t: 'light magenta 2', rgb: [213, 166, 189] },
+      { t: "light red berry 2", rgb: [221, 126, 107] },
+      { t: "light red 2", rgb: [234, 153, 153] },
+      { t: "light orange 2", rgb: [249, 203, 156] },
+      { t: "light yellow 2", rgb: [255, 229, 153] },
+      { t: "light green 2", rgb: [182, 215, 168] },
+      { t: "light cyan 2", rgb: [162, 196, 201] },
+      { t: "light cornflower blue 2", rgb: [164, 194, 244] },
+      { t: "light blue 2", rgb: [159, 197, 232] },
+      { t: "light purple 2", rgb: [180, 167, 214] },
+      { t: "light magenta 2", rgb: [213, 166, 189] },
     ],
     [
-      { t: 'light red berry 1', rgb: [204, 65, 37] },
-      { t: 'light red 1', rgb: [224, 102, 102] },
-      { t: 'light orange 1', rgb: [246, 178, 107] },
-      { t: 'light yellow 1', rgb: [255, 217, 102] },
-      { t: 'light green 1', rgb: [147, 196, 125] },
-      { t: 'light cyan 1', rgb: [118, 165, 175] },
-      { t: 'light cornflower blue 1', rgb: [109, 158, 235] },
-      { t: 'light blue 1', rgb: [111, 168, 220] },
-      { t: 'light purple 1', rgb: [142, 124, 195] },
-      { t: 'light magenta 1', rgb: [194, 123, 160] },
+      { t: "light red berry 1", rgb: [204, 65, 37] },
+      { t: "light red 1", rgb: [224, 102, 102] },
+      { t: "light orange 1", rgb: [246, 178, 107] },
+      { t: "light yellow 1", rgb: [255, 217, 102] },
+      { t: "light green 1", rgb: [147, 196, 125] },
+      { t: "light cyan 1", rgb: [118, 165, 175] },
+      { t: "light cornflower blue 1", rgb: [109, 158, 235] },
+      { t: "light blue 1", rgb: [111, 168, 220] },
+      { t: "light purple 1", rgb: [142, 124, 195] },
+      { t: "light magenta 1", rgb: [194, 123, 160] },
     ],
     [
-      { t: 'dark red berry 1', rgb: [166, 28, 0] },
-      { t: 'dark red 1', rgb: [204, 0, 0] },
-      { t: 'dark orange 1', rgb: [230, 145, 56] },
-      { t: 'dark yellow 1', rgb: [241, 194, 50] },
-      { t: 'dark green 1', rgb: [106, 168, 79] },
-      { t: 'dark cyan 1', rgb: [69, 129, 142] },
-      { t: 'dark cornflower blue 1', rgb: [60, 120, 216] },
-      { t: 'dark blue 1', rgb: [61, 133, 198] },
-      { t: 'dark purple 1', rgb: [103, 78, 167] },
-      { t: 'dark magenta 1', rgb: [166, 77, 121] },
+      { t: "dark red berry 1", rgb: [166, 28, 0] },
+      { t: "dark red 1", rgb: [204, 0, 0] },
+      { t: "dark orange 1", rgb: [230, 145, 56] },
+      { t: "dark yellow 1", rgb: [241, 194, 50] },
+      { t: "dark green 1", rgb: [106, 168, 79] },
+      { t: "dark cyan 1", rgb: [69, 129, 142] },
+      { t: "dark cornflower blue 1", rgb: [60, 120, 216] },
+      { t: "dark blue 1", rgb: [61, 133, 198] },
+      { t: "dark purple 1", rgb: [103, 78, 167] },
+      { t: "dark magenta 1", rgb: [166, 77, 121] },
     ],
     [
-      { t: 'dark red berry 2', rgb: [133, 32, 12] },
-      { t: 'dark red 2', rgb: [153, 0, 0] },
-      { t: 'dark orange 2', rgb: [180, 95, 6] },
-      { t: 'dark yellow 2', rgb: [191, 144, 0] },
-      { t: 'dark green 2', rgb: [56, 118, 29] },
-      { t: 'dark cyan 2', rgb: [19, 79, 92] },
-      { t: 'dark cornflower blue 2', rgb: [17, 85, 204] },
-      { t: 'dark blue 2', rgb: [11, 83, 148] },
-      { t: 'dark purple 2', rgb: [53, 28, 117] },
-      { t: 'dark magenta 2', rgb: [116, 27, 71] },
+      { t: "dark red berry 2", rgb: [133, 32, 12] },
+      { t: "dark red 2", rgb: [153, 0, 0] },
+      { t: "dark orange 2", rgb: [180, 95, 6] },
+      { t: "dark yellow 2", rgb: [191, 144, 0] },
+      { t: "dark green 2", rgb: [56, 118, 29] },
+      { t: "dark cyan 2", rgb: [19, 79, 92] },
+      { t: "dark cornflower blue 2", rgb: [17, 85, 204] },
+      { t: "dark blue 2", rgb: [11, 83, 148] },
+      { t: "dark purple 2", rgb: [53, 28, 117] },
+      { t: "dark magenta 2", rgb: [116, 27, 71] },
     ],
     [
-      { t: 'dark red berry 3', rgb: [91, 15, 0] },
-      { t: 'dark red 3', rgb: [102, 0, 0] },
-      { t: 'dark orange 3', rgb: [120, 63, 4] },
-      { t: 'dark yellow 3', rgb: [127, 96, 0] },
-      { t: 'dark green 3', rgb: [39, 78, 19] },
-      { t: 'dark cyan 3', rgb: [12, 52, 61] },
-      { t: 'dark cornflower blue 3', rgb: [28, 69, 135] },
-      { t: 'dark blue 3', rgb: [7, 55, 99] },
-      { t: 'dark purple 3', rgb: [32, 18, 77] },
-      { t: 'dark magenta 3', rgb: [76, 17, 48] },
+      { t: "dark red berry 3", rgb: [91, 15, 0] },
+      { t: "dark red 3", rgb: [102, 0, 0] },
+      { t: "dark orange 3", rgb: [120, 63, 4] },
+      { t: "dark yellow 3", rgb: [127, 96, 0] },
+      { t: "dark green 3", rgb: [39, 78, 19] },
+      { t: "dark cyan 3", rgb: [12, 52, 61] },
+      { t: "dark cornflower blue 3", rgb: [28, 69, 135] },
+      { t: "dark blue 3", rgb: [7, 55, 99] },
+      { t: "dark purple 3", rgb: [32, 18, 77] },
+      { t: "dark magenta 3", rgb: [76, 17, 48] },
     ],
   ];
   org.imatheq.formulaeditor.presentation.ColorPanel = $extend(Object, {
@@ -17643,23 +17644,23 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     create: function (b) {
       var a = this,
         e = this.palette.editor,
-        d = document.createElement('div');
-      d.id = 'efmase_color_pad';
-      d.className = 'efmase_panel_pad';
-      d.style.display = 'none';
-      var g = document.createElement('div');
+        d = document.createElement("div");
+      d.id = "efmase_color_pad";
+      d.className = "efmase_panel_pad";
+      d.style.display = "none";
+      var g = document.createElement("div");
       d.appendChild(g);
-      var f = document.createElement('span');
+      var f = document.createElement("span");
       g.appendChild(f);
       this.titleElm = f;
-      oClose = document.createElement('span');
+      oClose = document.createElement("span");
       g.appendChild(oClose);
-      oClose.id = 'color_panel_0';
-      oClose.className = 'efmase_panel_close';
-      oClose.innerHTML = 'x';
+      oClose.id = "color_panel_0";
+      oClose.className = "efmase_panel_close";
+      oClose.innerHTML = "x";
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         oClose,
-        'mousedown',
+        "mousedown",
         function (b) {
           a.hide();
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(b);
@@ -17667,34 +17668,34 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           return !1;
         }
       );
-      var h = document.createElement('div');
+      var h = document.createElement("div");
       d.appendChild(h);
-      g = document.createElement('table');
-      g.id = 'efmase_color_pad_table';
+      g = document.createElement("table");
+      g.id = "efmase_color_pad_table";
       h.appendChild(g);
-      f = document.createElement('table');
+      f = document.createElement("table");
       h.appendChild(f);
-      var k = document.createElement('tbody');
+      var k = document.createElement("tbody");
       f.appendChild(k);
-      var l = document.createElement('tr'),
-        f = document.createElement('td');
-      f.className = 'efmase_pad_label';
-      f.innerHTML = e.pData.TITLES['2202'];
+      var l = document.createElement("tr"),
+        f = document.createElement("td");
+      f.className = "efmase_pad_label";
+      f.innerHTML = e.pData.TITLES["2202"];
       l.appendChild(f);
-      var m = document.createElement('td');
+      var m = document.createElement("td");
       l.appendChild(m);
-      f = document.createElement('input');
-      f.className = 'efmase_pad_input';
-      f.id = 'color_panel_2';
-      f.value = '#000000';
+      f = document.createElement("input");
+      f.className = "efmase_pad_input";
+      f.id = "color_panel_2";
+      f.value = "#000000";
       f.row = 0;
       f.col = 0;
-      f.style.width = '80px';
-      f.type = 'text';
-      f.title = 'Input color code, like #00000';
+      f.style.width = "80px";
+      f.type = "text";
+      f.title = "Input color code, like #00000";
       org.imatheq.formulaeditor.FormulaEditor.addEventListener(
         f,
-        'focus',
+        "focus",
         function (b) {
           a.keyboardNavi = 2;
           org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(b);
@@ -17702,13 +17703,13 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       );
       m.appendChild(f);
       k.appendChild(l);
-      k = document.createElement('div');
-      k.style.zindex = '500';
+      k = document.createElement("div");
+      k.style.zindex = "500";
       h.appendChild(k);
-      h = document.createElement('input');
-      h.type = 'button';
-      h.value = e.pData.TITLES['2200'];
-      h.id = 'color_panel_3';
+      h = document.createElement("input");
+      h.type = "button";
+      h.value = e.pData.TITLES["2200"];
+      h.id = "color_panel_3";
       k.appendChild(h);
       h.onclick = function (b) {
         a.onSubmit(b);
@@ -17717,10 +17718,10 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         b.preventDefault();
         return !1;
       };
-      h = document.createElement('input');
-      h.type = 'button';
-      h.value = e.pData.TITLES['2201'];
-      h.id = 'color_panel_4';
+      h = document.createElement("input");
+      h.type = "button";
+      h.value = e.pData.TITLES["2201"];
+      h.id = "color_panel_4";
       k.appendChild(h);
       h.onclick = function (b) {
         a.hide();
@@ -17728,40 +17729,40 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         b.preventDefault();
         return !1;
       };
-      e = document.createElement('tbody');
+      e = document.createElement("tbody");
       g.appendChild(e);
       for (k = 0; 8 > k; k++) {
         3 > k &&
-          ((l = document.createElement('tr')),
+          ((l = document.createElement("tr")),
           e.appendChild(l),
-          (m = document.createElement('td')),
-          (m.height = '5px'),
+          (m = document.createElement("td")),
+          (m.height = "5px"),
           l.appendChild(m));
-        for (var l = document.createElement('tr'), r = 0; 10 > r; r++) {
-          m = document.createElement('td');
-          btnDiv = document.createElement('div');
-          btnDiv.className = 'efmase_pad_btn';
-          btnDiv.id = 'efmase_color_' + k + '_' + r;
+        for (var l = document.createElement("tr"), r = 0; 10 > r; r++) {
+          m = document.createElement("td");
+          btnDiv = document.createElement("div");
+          btnDiv.className = "efmase_pad_btn";
+          btnDiv.id = "efmase_color_" + k + "_" + r;
           var n = color_palette[k][r].rgb;
           btnDiv.style.backgroundColor =
-            'rgb(' +
+            "rgb(" +
             n[0].toString() +
-            ',' +
+            "," +
             n[1].toString() +
-            ',' +
+            "," +
             n[2].toString() +
-            ')';
+            ")";
           org.imatheq.formulaeditor.FormulaEditor.addEventListener(
             btnDiv,
-            'mousedown',
+            "mousedown",
             (function (b, d) {
               return function (e) {
                 var f = color_palette[d[0]][b[0]].rgb;
                 a.colorCodeInput.value =
-                  '#' +
-                  ('0' + f[0].toString(16)).slice(-2) +
-                  ('0' + f[1].toString(16)).slice(-2) +
-                  ('0' + f[2].toString(16)).slice(-2);
+                  "#" +
+                  ("0" + f[0].toString(16)).slice(-2) +
+                  ("0" + f[1].toString(16)).slice(-2) +
+                  ("0" + f[2].toString(16)).slice(-2);
                 a.onSubmit(e);
                 a.hide();
                 org.imatheq.formulaeditor.FormulaEditor.stopEventPropagation(e);
@@ -17785,20 +17786,20 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     show: function (b, a, e) {
       (null !== this.padWindow && void 0 !== this.padWindow) ||
         this.create(this.palette.container);
-      this.padWindow.style.display = 'block';
-      document.getElementById('efmase_color_pad_table').style.display = '';
-      document.getElementById('efmase_color_pad').style.left = b + 'px';
-      document.getElementById('efmase_color_pad').style.top = a + 'px';
+      this.padWindow.style.display = "block";
+      document.getElementById("efmase_color_pad_table").style.display = "";
+      document.getElementById("efmase_color_pad").style.left = b + "px";
+      document.getElementById("efmase_color_pad").style.top = a + "px";
       e = this.palette.editor;
       this.titleElm.innerHTML =
-        '&nbsp;&nbsp;' + e.pData.TITLES['106'] + '&nbsp;&nbsp;';
+        "&nbsp;&nbsp;" + e.pData.TITLES["106"] + "&nbsp;&nbsp;";
       this.colorCodeInput.value = e.getMathColor();
       this.hlightColorBtn();
-      this.padWindow.style.left = '0px';
+      this.padWindow.style.left = "0px";
       b + this.padWindow.offsetWidth > parseInt(window.innerWidth) &&
         (b = parseInt(window.innerWidth) - this.padWindow.offsetWidth);
-      this.padWindow.style.left = b + 'px';
-      this.padWindow.style.top = a + 'px';
+      this.padWindow.style.left = b + "px";
+      this.padWindow.style.top = a + "px";
       e.blur();
       e.isMobile ||
         ((e.textboxHeight = e.textbox.style.height),
@@ -17808,7 +17809,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     hide: function () {
       this.colorCodeInput.blur();
-      this.padWindow.style.display = 'none';
+      this.padWindow.style.display = "none";
       var b = this.palette.editor;
       b.isMobile || (b.textbox.style.height = b.textboxHeight);
       b.hasFocus() || b.focus();
@@ -17839,19 +17840,19 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         e = (b >> 8) & 255,
         b = b & 255,
         d = document.getElementById(
-          'efmase_color_' + this.row + '_' + this.col
+          "efmase_color_" + this.row + "_" + this.col
         );
       null !== d &&
         void 0 !== d &&
-        (d.parentNode.classList.remove('efmase_color_pad_table_sel'),
+        (d.parentNode.classList.remove("efmase_color_pad_table_sel"),
         (this.col = this.row = 255));
       for (d = 0; 8 > d; d++)
         for (var g = 0; 10 > g; g++) {
           var f = color_palette[d][g].rgb;
           if (f[0] == a && f[1] == e && f[2] == b) {
             document
-              .getElementById('efmase_color_' + d + '_' + g)
-              .parentNode.classList.add('efmase_color_pad_table_sel');
+              .getElementById("efmase_color_" + d + "_" + g)
+              .parentNode.classList.add("efmase_color_pad_table_sel");
             this.row = d;
             this.col = g;
             this.curRow = d;
@@ -17868,28 +17869,28 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
     },
     getMathcolor: function () {
       return null === this.padWindow || void 0 === this.padWindow
-        ? '#000000'
+        ? "#000000"
         : this.colorCodeInput.value;
     },
     onkeydown: function (b) {
       if (9 == b.keyCode)
         return (
-          this.clearKBNavi('color_panel_'),
+          this.clearKBNavi("color_panel_"),
           b.shiftKey
             ? --this.keyboardNavi
             : (this.keyboardNavi = ++this.keyboardNavi),
           -1 == this.keyboardNavi && (this.keyboardNavi = 4),
           5 == this.keyboardNavi && (this.keyboardNavi = 0),
-          this.setKBNavi('color_panel_', b),
+          this.setKBNavi("color_panel_", b),
           !1
         );
       if (13 == b.keyCode)
         return (
           (activeElm = document.activeElement),
-          ('input' == activeElm.localName.toLowerCase() &&
-            'cancel' == activeElm.value.toLowerCase()) ||
-          ('span' == activeElm.localName.toLowerCase() &&
-            'x' == activeElm.value.toLowerCase())
+          ("input" == activeElm.localName.toLowerCase() &&
+            "cancel" == activeElm.value.toLowerCase()) ||
+          ("span" == activeElm.localName.toLowerCase() &&
+            "x" == activeElm.value.toLowerCase())
             ? (this.hide(),
               org.imatheq.formulaeditor.FormulaEditor.eventPreventDefault(b),
               b.preventDefault(),
@@ -17898,17 +17899,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         );
       if (
         1 == this.keyboardNavi &&
-        'color_panel_2' != document.activeElement.id
+        "color_panel_2" != document.activeElement.id
       )
         switch (b.keyCode) {
           case 37:
-            return this.kbNaviMove('left'), !1;
+            return this.kbNaviMove("left"), !1;
           case 38:
-            return this.kbNaviMove('up'), !1;
+            return this.kbNaviMove("up"), !1;
           case 39:
-            return this.kbNaviMove('right'), !1;
+            return this.kbNaviMove("right"), !1;
           case 40:
-            return this.kbNaviMove('down'), !1;
+            return this.kbNaviMove("down"), !1;
         }
     },
     onkeypress: function (b) {},
@@ -17918,21 +17919,21 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           e = color_palette[0].length,
           d = 3 > this.row ? 2 * this.row + 1 : this.row + 3,
           d = this.colorBtnTbody.childNodes[d].childNodes[this.col];
-        d.classList.remove('efmase_color_pad_table_sel');
-        0 < this.col && 'left' == b && this.col--;
-        this.col < e - 1 && 'right' == b && this.col++;
-        0 < this.row && 'up' == b && this.row--;
-        this.row < a - 1 && 'down' == b && this.row++;
+        d.classList.remove("efmase_color_pad_table_sel");
+        0 < this.col && "left" == b && this.col--;
+        this.col < e - 1 && "right" == b && this.col++;
+        0 < this.row && "up" == b && this.row--;
+        this.row < a - 1 && "down" == b && this.row++;
         d = 3 > this.row ? 2 * this.row + 1 : this.row + 3;
         d = this.colorBtnTbody.childNodes[d].childNodes[this.col];
-        d.classList.contains('efmase_color_pad_table_sel') ||
-          d.classList.add('efmase_color_pad_table_sel');
+        d.classList.contains("efmase_color_pad_table_sel") ||
+          d.classList.add("efmase_color_pad_table_sel");
         b = color_palette[this.row][this.col].rgb;
         this.colorCodeInput.value =
-          '#' +
-          ('0' + b[0].toString(16)).slice(-2) +
-          ('0' + b[1].toString(16)).slice(-2) +
-          ('0' + b[2].toString(16)).slice(-2);
+          "#" +
+          ("0" + b[0].toString(16)).slice(-2) +
+          ("0" + b[1].toString(16)).slice(-2) +
+          ("0" + b[2].toString(16)).slice(-2);
       }
       return !1;
     },
@@ -17940,7 +17941,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       if (1 != this.keyboardNavi) {
         var e = document.getElementById(b + this.keyboardNavi);
         e.focus();
-        0 == this.keyboardNavi && e.classList.add('efmase_panel_close_hover');
+        0 == this.keyboardNavi && e.classList.add("efmase_panel_close_hover");
       }
       return !1;
     },
@@ -17949,7 +17950,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         ((b = document.getElementById(b + this.keyboardNavi)),
         b.blur(),
         0 == this.keyboardNavi &&
-          b.classList.remove('efmase_panel_close_hover'));
+          b.classList.remove("efmase_panel_close_hover"));
       return !1;
     },
   });
@@ -18050,7 +18051,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
           b.restore());
         return this.dimensions;
       },
-      functionsFromRow: ['getFirstCursorPosition', 'getLastCursorPosition'],
+      functionsFromRow: ["getFirstCursorPosition", "getLastCursorPosition"],
       getCursorPosition: function (b, a, e) {
         return a > this.dimensions.left &&
           a < this.dimensions.left + this.dimensions.width - 1
@@ -18140,17 +18141,17 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
       getMathML: function () {
         return (
           '<mfrac bevelled="true"' +
-          (this.in_attrbs ? this.in_attrbs : '') +
+          (this.in_attrbs ? this.in_attrbs : "") +
           (null === this.mathcolor ||
-          '' == this.mathcolor ||
-          'null' == this.mathcolor ||
-          '#000000' == this.mathcolor
-            ? ''
+          "" == this.mathcolor ||
+          "null" == this.mathcolor ||
+          "#000000" == this.mathcolor
+            ? ""
             : ' mathcolor="' + this.mathcolor + '"') +
-          '>' +
+          ">" +
           this.children[0].getMathML(!0) +
           this.children[1].getMathML(!0) +
-          '</mfrac>'
+          "</mfrac>"
         );
       },
       getAltText: function () {
@@ -18162,8 +18163,8 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
               ? 1
               : 0
           ]
-            .replace('$0$', this.children[0].getAltText().trim())
-            .replace('$1$', this.children[1].getAltText().trim()),
+            .replace("$0$", this.children[0].getAltText().trim())
+            .replace("$1$", this.children[1].getAltText().trim()),
           e = a.trim();
         null !== b.altstrs[e] && void 0 !== b.altstrs[e] && (a = b.altstrs[e]);
         return a;
@@ -18174,11911 +18175,11911 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
 (function () {})();
 (function () {
   org.imatheq.formulaeditor.parsing.expression.KeywordList = {
-    arccos: { type: 'f', fix: 'i' },
-    arccosh: { type: 'f', fix: 'i' },
-    arccot: { type: 'f', fix: 'i' },
-    arccoth: { type: 'f', fix: 'i' },
-    arccsc: { type: 'f', fix: 'i' },
-    arccsch: { type: 'f', fix: 'i' },
-    arcsec: { type: 'f', fix: 'i' },
-    arcsech: { type: 'f', fix: 'i' },
-    arcsin: { type: 'f', fix: 'i' },
-    arcsinh: { type: 'f', fix: 'i' },
-    arctan: { type: 'f', fix: 'i' },
-    arctanh: { type: 'f', fix: 'i' },
-    cos: { type: 'f', fix: 'i' },
-    cosh: { type: 'f', fix: 'i' },
-    cot: { type: 'f', fix: 'i' },
-    coth: { type: 'f', fix: 'i' },
-    csc: { type: 'f', fix: 'i' },
-    csch: { type: 'f', fix: 'i' },
-    exp: { type: 'f', fix: 'i' },
-    ln: { type: 'f', fix: 'i' },
-    log: { type: 'f', fix: 'i' },
-    sec: { type: 'f', fix: 'i' },
-    sech: { type: 'f', fix: 'i' },
-    sin: { type: 'f', fix: 'i' },
-    sinh: { type: 'f', fix: 'i' },
-    tan: { type: 'f', fix: 'i' },
-    tanh: { type: 'f', fix: 'i' },
+    arccos: { type: "f", fix: "i" },
+    arccosh: { type: "f", fix: "i" },
+    arccot: { type: "f", fix: "i" },
+    arccoth: { type: "f", fix: "i" },
+    arccsc: { type: "f", fix: "i" },
+    arccsch: { type: "f", fix: "i" },
+    arcsec: { type: "f", fix: "i" },
+    arcsech: { type: "f", fix: "i" },
+    arcsin: { type: "f", fix: "i" },
+    arcsinh: { type: "f", fix: "i" },
+    arctan: { type: "f", fix: "i" },
+    arctanh: { type: "f", fix: "i" },
+    cos: { type: "f", fix: "i" },
+    cosh: { type: "f", fix: "i" },
+    cot: { type: "f", fix: "i" },
+    coth: { type: "f", fix: "i" },
+    csc: { type: "f", fix: "i" },
+    csch: { type: "f", fix: "i" },
+    exp: { type: "f", fix: "i" },
+    ln: { type: "f", fix: "i" },
+    log: { type: "f", fix: "i" },
+    sec: { type: "f", fix: "i" },
+    sech: { type: "f", fix: "i" },
+    sin: { type: "f", fix: "i" },
+    sinh: { type: "f", fix: "i" },
+    tan: { type: "f", fix: "i" },
+    tanh: { type: "f", fix: "i" },
   };
 })();
 (function () {
   org.imatheq.formulaeditor.parsing.expression.MOList = {
-    ' ': {
+    " ": {
       0: null,
-      1: { gl: ' ', nm: 'space', pr: 880, ls: 0, rs: 0, pp: '' },
+      1: { gl: " ", nm: "space", pr: 880, ls: 0, rs: 0, pp: "" },
       2: null,
     },
-    '\u00a0': {
-      0: { gl: ' ', nm: 'space', pr: 880, ls: 0, rs: 0, pp: '' },
-      1: { gl: ' ', nm: 'space', pr: 880, ls: 0, rs: 0, pp: '' },
-      2: { gl: ' ', nm: 'space', pr: 880, ls: 0, rs: 0, pp: '' },
+    "\u00a0": {
+      0: { gl: " ", nm: "space", pr: 880, ls: 0, rs: 0, pp: "" },
+      1: { gl: " ", nm: "space", pr: 880, ls: 0, rs: 0, pp: "" },
+      2: { gl: " ", nm: "space", pr: 880, ls: 0, rs: 0, pp: "" },
     },
     "'": {
       0: null,
       1: null,
-      2: { gl: "'", nm: 'apostrophe', pr: 880, ls: 0, rs: 0, pp: 'accent' },
+      2: { gl: "'", nm: "apostrophe", pr: 880, ls: 0, rs: 0, pp: "accent" },
     },
-    '-': {
-      0: { gl: '-', nm: 'hyphen-minus', pr: 275, ls: 0, rs: 1, pp: '' },
-      1: { gl: '-', nm: 'hyphen-minus', pr: 275, ls: 4, rs: 4, pp: '' },
+    "-": {
+      0: { gl: "-", nm: "hyphen-minus", pr: 275, ls: 0, rs: 1, pp: "" },
+      1: { gl: "-", nm: "hyphen-minus", pr: 275, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '--': {
+    "--": {
       0: null,
       1: null,
       2: {
-        gl: '--',
-        nm: 'multiple character operator: --',
+        gl: "--",
+        nm: "multiple character operator: --",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
     },
-    '!': {
+    "!": {
       0: null,
       1: null,
-      2: { gl: '!', nm: 'exclamation mark', pr: 810, ls: 1, rs: 0, pp: '' },
+      2: { gl: "!", nm: "exclamation mark", pr: 810, ls: 1, rs: 0, pp: "" },
     },
-    '!!': {
+    "!!": {
       0: null,
       1: null,
       2: {
-        gl: '!!',
-        nm: 'multiple character operator: !!',
+        gl: "!!",
+        nm: "multiple character operator: !!",
         pr: 810,
         ls: 1,
         rs: 0,
-        pp: '',
+        pp: "",
       },
     },
-    '!=': {
+    "!=": {
       0: null,
       1: {
-        gl: '!=',
-        nm: 'multiple character operator: !=',
+        gl: "!=",
+        nm: "multiple character operator: !=",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '%': {
+    "%": {
       0: null,
-      1: { gl: '%', nm: 'percent sign', pr: 640, ls: 3, rs: 3, pp: '' },
+      1: { gl: "%", nm: "percent sign", pr: 640, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u2030': {
+    "\u2030": {
       0: null,
-      1: { gl: '\u2030', nm: 'permille sign', pr: 640, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u2030", nm: "permille sign", pr: 640, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u2016': {
+    "\u2016": {
       0: {
-        gl: '\u2016',
-        nm: 'double vertical line',
+        gl: "\u2016",
+        nm: "double vertical line",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy',
+        pp: "fence, stretchy",
       },
       1: null,
       2: {
-        gl: '\u2016',
-        nm: 'double vertical line',
+        gl: "\u2016",
+        nm: "double vertical line",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy',
+        pp: "fence, stretchy",
       },
     },
-    '\u2018': {
+    "\u2018": {
       0: {
-        gl: '\u2018',
-        nm: 'left single quotation mark',
+        gl: "\u2018",
+        nm: "left single quotation mark",
         pr: 10,
         ls: 0,
         rs: 0,
-        pp: 'fence',
+        pp: "fence",
       },
       1: null,
       2: null,
     },
-    '\u2019': {
+    "\u2019": {
       0: null,
       1: null,
       2: {
-        gl: '\u2019',
-        nm: 'right single quotation mark',
+        gl: "\u2019",
+        nm: "right single quotation mark",
         pr: 10,
         ls: 0,
         rs: 0,
-        pp: 'fence',
+        pp: "fence",
       },
     },
-    '\u201a': {
+    "\u201a": {
       0: null,
       1: null,
       2: {
-        gl: '\u201a',
-        nm: 'single low-9 quotation mark',
+        gl: "\u201a",
+        nm: "single low-9 quotation mark",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u201b': {
+    "\u201b": {
       0: null,
       1: null,
       2: {
-        gl: '\u201b',
-        nm: 'single high-reversed-9 quotation mark',
+        gl: "\u201b",
+        nm: "single high-reversed-9 quotation mark",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u201c': {
+    "\u201c": {
       0: {
-        gl: '\u201c',
-        nm: 'left double quotation mark',
+        gl: "\u201c",
+        nm: "left double quotation mark",
         pr: 10,
         ls: 0,
         rs: 0,
-        pp: 'fence',
+        pp: "fence",
       },
       1: null,
       2: null,
     },
-    '\u201d': {
+    "\u201d": {
       0: null,
       1: null,
       2: {
-        gl: '\u201d',
-        nm: 'right double quotation mark',
+        gl: "\u201d",
+        nm: "right double quotation mark",
         pr: 10,
         ls: 0,
         rs: 0,
-        pp: 'fence',
+        pp: "fence",
       },
     },
-    '\u201e': {
+    "\u201e": {
       0: null,
       1: null,
       2: {
-        gl: '\u201e',
-        nm: 'double low-9 quotation mark',
+        gl: "\u201e",
+        nm: "double low-9 quotation mark",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u201f': {
+    "\u201f": {
       0: null,
       1: null,
       2: {
-        gl: '\u201f',
-        nm: 'double high-reversed-9 quotation mark',
+        gl: "\u201f",
+        nm: "double high-reversed-9 quotation mark",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u2022': {
+    "\u2022": {
       0: null,
-      1: { gl: '\u2022', nm: 'bullet', pr: 390, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2022", nm: "bullet", pr: 390, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2026': {
+    "\u2026": {
       0: null,
       1: {
-        gl: '\u2026',
-        nm: 'horizontal ellipsis',
+        gl: "\u2026",
+        nm: "horizontal ellipsis",
         pr: 150,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2032': {
+    "\u2032": {
       0: null,
       1: null,
-      2: { gl: '\u2032', nm: 'prime', pr: 800, ls: 0, rs: 0, pp: '' },
+      2: { gl: "\u2032", nm: "prime", pr: 800, ls: 0, rs: 0, pp: "" },
     },
-    '\u2033': {
-      0: null,
-      1: null,
-      2: {
-        gl: '\u2033',
-        nm: 'double prime',
-        pr: 880,
-        ls: 0,
-        rs: 0,
-        pp: 'accent',
-      },
-    },
-    '\u2034': {
+    "\u2033": {
       0: null,
       1: null,
       2: {
-        gl: '\u2034',
-        nm: 'triple prime',
+        gl: "\u2033",
+        nm: "double prime",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u2035': {
+    "\u2034": {
       0: null,
       1: null,
       2: {
-        gl: '\u2035',
-        nm: 'reversed prime',
+        gl: "\u2034",
+        nm: "triple prime",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u2036': {
+    "\u2035": {
       0: null,
       1: null,
       2: {
-        gl: '\u2036',
-        nm: 'reversed double prime',
+        gl: "\u2035",
+        nm: "reversed prime",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u2037': {
+    "\u2036": {
       0: null,
       1: null,
       2: {
-        gl: '\u2037',
-        nm: 'reversed triple prime',
+        gl: "\u2036",
+        nm: "reversed double prime",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u203e': {
+    "\u2037": {
       0: null,
       1: null,
       2: {
-        gl: '\u203e',
-        nm: 'overline',
+        gl: "\u2037",
+        nm: "reversed triple prime",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "accent",
       },
     },
-    '\u2043': {
+    "\u203e": {
       0: null,
-      1: { gl: '\u2043', nm: 'hyphen bullet', pr: 390, ls: 4, rs: 4, pp: '' },
+      1: null,
+      2: {
+        gl: "\u203e",
+        nm: "overline",
+        pr: 880,
+        ls: 0,
+        rs: 0,
+        pp: "stretchy, accent",
+      },
+    },
+    "\u2043": {
+      0: null,
+      1: { gl: "\u2043", nm: "hyphen bullet", pr: 390, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2044': {
+    "\u2044": {
       0: null,
       1: {
-        gl: '\u2044',
-        nm: 'fraction slash',
+        gl: "\u2044",
+        nm: "fraction slash",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2057': {
+    "\u2057": {
       0: null,
       1: null,
       2: {
-        gl: '\u2057',
-        nm: 'quadruple prime',
+        gl: "\u2057",
+        nm: "quadruple prime",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u2061': {
+    "\u2061": {
       0: null,
       1: {
-        gl: '&#x2061;',
-        nm: '\u2061function application',
+        gl: "&#x2061;",
+        nm: "\u2061function application",
         pr: 850,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2062': {
+    "\u2062": {
       0: null,
       1: {
-        gl: '&#x2062;',
-        nm: '\u2062invisible times',
+        gl: "&#x2062;",
+        nm: "\u2062invisible times",
         pr: 390,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2063': {
+    "\u2063": {
       0: null,
       1: {
-        gl: '&#x2063;',
-        nm: '\u2063invisible separator',
+        gl: "&#x2063;",
+        nm: "\u2063invisible separator",
         pr: 40,
         ls: 0,
         rs: 0,
-        pp: 'separator, linebreakstyle=after',
+        pp: "separator, linebreakstyle=after",
       },
       2: null,
     },
-    '\u2064': {
+    "\u2064": {
       0: null,
       1: {
-        gl: '&#x2064;',
-        nm: '\u2064invisible plus',
+        gl: "&#x2064;",
+        nm: "\u2064invisible plus",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u20db': {
+    "\u20db": {
       0: null,
       1: null,
       2: {
-        gl: '\u20db',
-        nm: 'combining three dots above',
+        gl: "\u20db",
+        nm: "combining three dots above",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u20dc': {
+    "\u20dc": {
       0: null,
       1: null,
       2: {
-        gl: '\u20dc',
-        nm: 'combining four dots above',
+        gl: "\u20dc",
+        nm: "combining four dots above",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u2145': {
+    "\u2145": {
       0: {
-        gl: '\u2145',
-        nm: 'double-struck italic capital d',
+        gl: "\u2145",
+        nm: "double-struck italic capital d",
         pr: 845,
         ls: 2,
         rs: 1,
-        pp: '',
+        pp: "",
       },
       1: null,
       2: null,
     },
-    '\u2146': {
+    "\u2146": {
       0: {
-        gl: '\u2146',
-        nm: 'double-struck italic small d',
+        gl: "\u2146",
+        nm: "double-struck italic small d",
         pr: 845,
         ls: 2,
         rs: 0,
-        pp: '',
+        pp: "",
       },
       1: null,
       2: null,
     },
-    '\u2190': {
+    "\u2190": {
       0: null,
       1: {
-        gl: '\u2190',
-        nm: 'leftwards arrow',
+        gl: "\u2190",
+        nm: "leftwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2191': {
+    "\u2191": {
       0: null,
       1: {
-        gl: '\u2191',
-        nm: 'upwards arrow',
+        gl: "\u2191",
+        nm: "upwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2192': {
+    "\u2192": {
       0: null,
       1: {
-        gl: '\u2192',
-        nm: 'rightwards arrow',
+        gl: "\u2192",
+        nm: "rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2193': {
+    "\u2193": {
       0: null,
       1: {
-        gl: '\u2193',
-        nm: 'downwards arrow',
+        gl: "\u2193",
+        nm: "downwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2194': {
+    "\u2194": {
       0: null,
       1: {
-        gl: '\u2194',
-        nm: 'left right arrow',
+        gl: "\u2194",
+        nm: "left right arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2195': {
+    "\u2195": {
       0: null,
       1: {
-        gl: '\u2195',
-        nm: 'up down arrow',
+        gl: "\u2195",
+        nm: "up down arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2196': {
+    "\u2196": {
       0: null,
       1: {
-        gl: '\u2196',
-        nm: 'north west arrow',
+        gl: "\u2196",
+        nm: "north west arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2197': {
+    "\u2197": {
       0: null,
       1: {
-        gl: '\u2197',
-        nm: 'north east arrow',
+        gl: "\u2197",
+        nm: "north east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2198': {
+    "\u2198": {
       0: null,
       1: {
-        gl: '\u2198',
-        nm: 'south east arrow',
+        gl: "\u2198",
+        nm: "south east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2199': {
+    "\u2199": {
       0: null,
       1: {
-        gl: '\u2199',
-        nm: 'south west arrow',
+        gl: "\u2199",
+        nm: "south west arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u219a': {
+    "\u219a": {
       0: null,
       1: {
-        gl: '\u219a',
-        nm: 'leftwards arrow with stroke',
+        gl: "\u219a",
+        nm: "leftwards arrow with stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u219b': {
+    "\u219b": {
       0: null,
       1: {
-        gl: '\u219b',
-        nm: 'rightwards arrow with stroke',
+        gl: "\u219b",
+        nm: "rightwards arrow with stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u219c': {
+    "\u219c": {
       0: null,
       1: {
-        gl: '\u219c',
-        nm: 'leftwards wave arrow',
+        gl: "\u219c",
+        nm: "leftwards wave arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u219d': {
+    "\u219d": {
       0: null,
       1: {
-        gl: '\u219d',
-        nm: 'rightwards wave arrow',
+        gl: "\u219d",
+        nm: "rightwards wave arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u219e': {
+    "\u219e": {
       0: null,
       1: {
-        gl: '\u219e',
-        nm: 'leftwards two headed arrow',
+        gl: "\u219e",
+        nm: "leftwards two headed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u219f': {
+    "\u219f": {
       0: null,
       1: {
-        gl: '\u219f',
-        nm: 'upwards two headed arrow',
+        gl: "\u219f",
+        nm: "upwards two headed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21a0': {
+    "\u21a0": {
       0: null,
       1: {
-        gl: '\u21a0',
-        nm: 'rightwards two headed arrow',
+        gl: "\u21a0",
+        nm: "rightwards two headed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21a1': {
+    "\u21a1": {
       0: null,
       1: {
-        gl: '\u21a1',
-        nm: 'downwards two headed arrow',
+        gl: "\u21a1",
+        nm: "downwards two headed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21a2': {
+    "\u21a2": {
       0: null,
       1: {
-        gl: '\u21a2',
-        nm: 'leftwards arrow with tail',
+        gl: "\u21a2",
+        nm: "leftwards arrow with tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21a3': {
+    "\u21a3": {
       0: null,
       1: {
-        gl: '\u21a3',
-        nm: 'rightwards arrow with tail',
+        gl: "\u21a3",
+        nm: "rightwards arrow with tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21a4': {
+    "\u21a4": {
       0: null,
       1: {
-        gl: '\u21a4',
-        nm: 'leftwards arrow from bar',
+        gl: "\u21a4",
+        nm: "leftwards arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21a5': {
+    "\u21a5": {
       0: null,
       1: {
-        gl: '\u21a5',
-        nm: 'upwards arrow from bar',
+        gl: "\u21a5",
+        nm: "upwards arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21a6': {
+    "\u21a6": {
       0: null,
       1: {
-        gl: '\u21a6',
-        nm: 'rightwards arrow from bar',
+        gl: "\u21a6",
+        nm: "rightwards arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21a7': {
+    "\u21a7": {
       0: null,
       1: {
-        gl: '\u21a7',
-        nm: 'downwards arrow from bar',
+        gl: "\u21a7",
+        nm: "downwards arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21a8': {
+    "\u21a8": {
       0: null,
       1: {
-        gl: '\u21a8',
-        nm: 'up down arrow with base',
+        gl: "\u21a8",
+        nm: "up down arrow with base",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21a9': {
+    "\u21a9": {
       0: null,
       1: {
-        gl: '\u21a9',
-        nm: 'leftwards arrow with hook',
+        gl: "\u21a9",
+        nm: "leftwards arrow with hook",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21aa': {
+    "\u21aa": {
       0: null,
       1: {
-        gl: '\u21aa',
-        nm: 'rightwards arrow with hook',
+        gl: "\u21aa",
+        nm: "rightwards arrow with hook",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21ab': {
+    "\u21ab": {
       0: null,
       1: {
-        gl: '\u21ab',
-        nm: 'leftwards arrow with loop',
+        gl: "\u21ab",
+        nm: "leftwards arrow with loop",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21ac': {
+    "\u21ac": {
       0: null,
       1: {
-        gl: '\u21ac',
-        nm: 'rightwards arrow with loop',
+        gl: "\u21ac",
+        nm: "rightwards arrow with loop",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21ad': {
+    "\u21ad": {
       0: null,
       1: {
-        gl: '\u21ad',
-        nm: 'left right wave arrow',
+        gl: "\u21ad",
+        nm: "left right wave arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21ae': {
+    "\u21ae": {
       0: null,
       1: {
-        gl: '\u21ae',
-        nm: 'left right arrow with stroke',
+        gl: "\u21ae",
+        nm: "left right arrow with stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21af': {
+    "\u21af": {
       0: null,
       1: {
-        gl: '\u21af',
-        nm: 'downwards zigzag arrow',
+        gl: "\u21af",
+        nm: "downwards zigzag arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21b0': {
+    "\u21b0": {
       0: null,
       1: {
-        gl: '\u21b0',
-        nm: 'upwards arrow with tip leftwards',
+        gl: "\u21b0",
+        nm: "upwards arrow with tip leftwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21b1': {
+    "\u21b1": {
       0: null,
       1: {
-        gl: '\u21b1',
-        nm: 'upwards arrow with tip rightwards',
+        gl: "\u21b1",
+        nm: "upwards arrow with tip rightwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21b2': {
+    "\u21b2": {
       0: null,
       1: {
-        gl: '\u21b2',
-        nm: 'downwards arrow with tip leftwards',
+        gl: "\u21b2",
+        nm: "downwards arrow with tip leftwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21b3': {
+    "\u21b3": {
       0: null,
       1: {
-        gl: '\u21b3',
-        nm: 'downwards arrow with tip rightwards',
+        gl: "\u21b3",
+        nm: "downwards arrow with tip rightwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21b4': {
+    "\u21b4": {
       0: null,
       1: {
-        gl: '\u21b4',
-        nm: 'rightwards arrow with corner downwards',
+        gl: "\u21b4",
+        nm: "rightwards arrow with corner downwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21b5': {
+    "\u21b5": {
       0: null,
       1: {
-        gl: '\u21b5',
-        nm: 'downwards arrow with corner leftwards',
+        gl: "\u21b5",
+        nm: "downwards arrow with corner leftwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21b6': {
+    "\u21b6": {
       0: null,
       1: {
-        gl: '\u21b6',
-        nm: 'anticlockwise top semicircle arrow',
+        gl: "\u21b6",
+        nm: "anticlockwise top semicircle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21b7': {
+    "\u21b7": {
       0: null,
       1: {
-        gl: '\u21b7',
-        nm: 'clockwise top semicircle arrow',
+        gl: "\u21b7",
+        nm: "clockwise top semicircle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21b8': {
+    "\u21b8": {
       0: null,
       1: {
-        gl: '\u21b8',
-        nm: 'north west arrow to long bar',
+        gl: "\u21b8",
+        nm: "north west arrow to long bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u21b9': {
+    "\u21b9": {
       0: null,
       1: {
-        gl: '\u21b9',
-        nm: 'leftwards arrow to bar over rightwards arrow to bar',
+        gl: "\u21b9",
+        nm: "leftwards arrow to bar over rightwards arrow to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21ba': {
+    "\u21ba": {
       0: null,
       1: {
-        gl: '\u21ba',
-        nm: 'anticlockwise open circle arrow',
+        gl: "\u21ba",
+        nm: "anticlockwise open circle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u21bb': {
+    "\u21bb": {
       0: null,
       1: {
-        gl: '\u21bb',
-        nm: 'clockwise open circle arrow',
+        gl: "\u21bb",
+        nm: "clockwise open circle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u21bc': {
+    "\u21bc": {
       0: null,
       1: {
-        gl: '\u21bc',
-        nm: 'leftwards harpoon with barb upwards',
+        gl: "\u21bc",
+        nm: "leftwards harpoon with barb upwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21bd': {
+    "\u21bd": {
       0: null,
       1: {
-        gl: '\u21bd',
-        nm: 'leftwards harpoon with barb downwards',
+        gl: "\u21bd",
+        nm: "leftwards harpoon with barb downwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21be': {
+    "\u21be": {
       0: null,
       1: {
-        gl: '\u21be',
-        nm: 'upwards harpoon with barb rightwards',
+        gl: "\u21be",
+        nm: "upwards harpoon with barb rightwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21bf': {
+    "\u21bf": {
       0: null,
       1: {
-        gl: '\u21bf',
-        nm: 'upwards harpoon with barb leftwards',
+        gl: "\u21bf",
+        nm: "upwards harpoon with barb leftwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21c0': {
+    "\u21c0": {
       0: null,
       1: {
-        gl: '\u21c0',
-        nm: 'rightwards harpoon with barb upwards',
+        gl: "\u21c0",
+        nm: "rightwards harpoon with barb upwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21c1': {
+    "\u21c1": {
       0: null,
       1: {
-        gl: '\u21c1',
-        nm: 'rightwards harpoon with barb downwards',
+        gl: "\u21c1",
+        nm: "rightwards harpoon with barb downwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21c2': {
+    "\u21c2": {
       0: null,
       1: {
-        gl: '\u21c2',
-        nm: 'downwards harpoon with barb rightwards',
+        gl: "\u21c2",
+        nm: "downwards harpoon with barb rightwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21c3': {
+    "\u21c3": {
       0: null,
       1: {
-        gl: '\u21c3',
-        nm: 'downwards harpoon with barb leftwards',
+        gl: "\u21c3",
+        nm: "downwards harpoon with barb leftwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21c4': {
+    "\u21c4": {
       0: null,
       1: {
-        gl: '\u21c4',
-        nm: 'rightwards arrow over leftwards arrow',
+        gl: "\u21c4",
+        nm: "rightwards arrow over leftwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21c5': {
+    "\u21c5": {
       0: null,
       1: {
-        gl: '\u21c5',
-        nm: 'upwards arrow leftwards of downwards arrow',
+        gl: "\u21c5",
+        nm: "upwards arrow leftwards of downwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21c6': {
+    "\u21c6": {
       0: null,
       1: {
-        gl: '\u21c6',
-        nm: 'leftwards arrow over rightwards arrow',
+        gl: "\u21c6",
+        nm: "leftwards arrow over rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21c7': {
+    "\u21c7": {
       0: null,
       1: {
-        gl: '\u21c7',
-        nm: 'leftwards paired arrows',
+        gl: "\u21c7",
+        nm: "leftwards paired arrows",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21c8': {
+    "\u21c8": {
       0: null,
       1: {
-        gl: '\u21c8',
-        nm: 'upwards paired arrows',
+        gl: "\u21c8",
+        nm: "upwards paired arrows",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21c9': {
+    "\u21c9": {
       0: null,
       1: {
-        gl: '\u21c9',
-        nm: 'rightwards paired arrows',
+        gl: "\u21c9",
+        nm: "rightwards paired arrows",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21ca': {
+    "\u21ca": {
       0: null,
       1: {
-        gl: '\u21ca',
-        nm: 'downwards paired arrows',
+        gl: "\u21ca",
+        nm: "downwards paired arrows",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21cb': {
+    "\u21cb": {
       0: null,
       1: {
-        gl: '\u21cb',
-        nm: 'leftwards harpoon over rightwards harpoon',
+        gl: "\u21cb",
+        nm: "leftwards harpoon over rightwards harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21cc': {
+    "\u21cc": {
       0: null,
       1: {
-        gl: '\u21cc',
-        nm: 'rightwards harpoon over leftwards harpoon',
+        gl: "\u21cc",
+        nm: "rightwards harpoon over leftwards harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21cd': {
+    "\u21cd": {
       0: null,
       1: {
-        gl: '\u21cd',
-        nm: 'leftwards double arrow with stroke',
+        gl: "\u21cd",
+        nm: "leftwards double arrow with stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21ce': {
+    "\u21ce": {
       0: null,
       1: {
-        gl: '\u21ce',
-        nm: 'left right double arrow with stroke',
+        gl: "\u21ce",
+        nm: "left right double arrow with stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21cf': {
+    "\u21cf": {
       0: null,
       1: {
-        gl: '\u21cf',
-        nm: 'rightwards double arrow with stroke',
+        gl: "\u21cf",
+        nm: "rightwards double arrow with stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21d0': {
+    "\u21d0": {
       0: null,
       1: {
-        gl: '\u21d0',
-        nm: 'leftwards double arrow',
+        gl: "\u21d0",
+        nm: "leftwards double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21d1': {
+    "\u21d1": {
       0: null,
       1: {
-        gl: '\u21d1',
-        nm: 'upwards double arrow',
+        gl: "\u21d1",
+        nm: "upwards double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21d2': {
+    "\u21d2": {
       0: null,
       1: {
-        gl: '\u21d2',
-        nm: 'rightwards double arrow',
+        gl: "\u21d2",
+        nm: "rightwards double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21d3': {
+    "\u21d3": {
       0: null,
       1: {
-        gl: '\u21d3',
-        nm: 'downwards double arrow',
+        gl: "\u21d3",
+        nm: "downwards double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21d4': {
+    "\u21d4": {
       0: null,
       1: {
-        gl: '\u21d4',
-        nm: 'left right double arrow',
+        gl: "\u21d4",
+        nm: "left right double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21d5': {
+    "\u21d5": {
       0: null,
       1: {
-        gl: '\u21d5',
-        nm: 'up down double arrow',
+        gl: "\u21d5",
+        nm: "up down double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21d6': {
+    "\u21d6": {
       0: null,
       1: {
-        gl: '\u21d6',
-        nm: 'north west double arrow',
+        gl: "\u21d6",
+        nm: "north west double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21d7': {
+    "\u21d7": {
       0: null,
       1: {
-        gl: '\u21d7',
-        nm: 'north east double arrow',
+        gl: "\u21d7",
+        nm: "north east double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21d8': {
+    "\u21d8": {
       0: null,
       1: {
-        gl: '\u21d8',
-        nm: 'south east double arrow',
+        gl: "\u21d8",
+        nm: "south east double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21d9': {
+    "\u21d9": {
       0: null,
       1: {
-        gl: '\u21d9',
-        nm: 'south west double arrow',
+        gl: "\u21d9",
+        nm: "south west double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21da': {
+    "\u21da": {
       0: null,
       1: {
-        gl: '\u21da',
-        nm: 'leftwards triple arrow',
+        gl: "\u21da",
+        nm: "leftwards triple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21db': {
+    "\u21db": {
       0: null,
       1: {
-        gl: '\u21db',
-        nm: 'rightwards triple arrow',
+        gl: "\u21db",
+        nm: "rightwards triple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21dc': {
+    "\u21dc": {
       0: null,
       1: {
-        gl: '\u21dc',
-        nm: 'leftwards squiggle arrow',
+        gl: "\u21dc",
+        nm: "leftwards squiggle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21dd': {
+    "\u21dd": {
       0: null,
       1: {
-        gl: '\u21dd',
-        nm: 'rightwards squiggle arrow',
+        gl: "\u21dd",
+        nm: "rightwards squiggle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21de': {
+    "\u21de": {
       0: null,
       1: {
-        gl: '\u21de',
-        nm: 'upwards arrow with double stroke',
+        gl: "\u21de",
+        nm: "upwards arrow with double stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u21df': {
+    "\u21df": {
       0: null,
       1: {
-        gl: '\u21df',
-        nm: 'downwards arrow with double stroke',
+        gl: "\u21df",
+        nm: "downwards arrow with double stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u21e0': {
+    "\u21e0": {
       0: null,
       1: {
-        gl: '\u21e0',
-        nm: 'leftwards dashed arrow',
+        gl: "\u21e0",
+        nm: "leftwards dashed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21e1': {
+    "\u21e1": {
       0: null,
       1: {
-        gl: '\u21e1',
-        nm: 'upwards dashed arrow',
+        gl: "\u21e1",
+        nm: "upwards dashed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21e2': {
+    "\u21e2": {
       0: null,
       1: {
-        gl: '\u21e2',
-        nm: 'rightwards dashed arrow',
+        gl: "\u21e2",
+        nm: "rightwards dashed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21e3': {
+    "\u21e3": {
       0: null,
       1: {
-        gl: '\u21e3',
-        nm: 'downwards dashed arrow',
+        gl: "\u21e3",
+        nm: "downwards dashed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21e4': {
+    "\u21e4": {
       0: null,
       1: {
-        gl: '\u21e4',
-        nm: 'leftwards arrow to bar',
+        gl: "\u21e4",
+        nm: "leftwards arrow to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21e5': {
+    "\u21e5": {
       0: null,
       1: {
-        gl: '\u21e5',
-        nm: 'rightwards arrow to bar',
+        gl: "\u21e5",
+        nm: "rightwards arrow to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21e6': {
+    "\u21e6": {
       0: null,
       1: {
-        gl: '\u21e6',
-        nm: 'leftwards white arrow',
+        gl: "\u21e6",
+        nm: "leftwards white arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21e7': {
+    "\u21e7": {
       0: null,
       1: {
-        gl: '\u21e7',
-        nm: 'upwards white arrow',
+        gl: "\u21e7",
+        nm: "upwards white arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21e8': {
+    "\u21e8": {
       0: null,
       1: {
-        gl: '\u21e8',
-        nm: 'rightwards white arrow',
+        gl: "\u21e8",
+        nm: "rightwards white arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21e9': {
+    "\u21e9": {
       0: null,
       1: {
-        gl: '\u21e9',
-        nm: 'downwards white arrow',
+        gl: "\u21e9",
+        nm: "downwards white arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21ea': {
+    "\u21ea": {
       0: null,
       1: {
-        gl: '\u21ea',
-        nm: 'upwards white arrow from bar',
+        gl: "\u21ea",
+        nm: "upwards white arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21eb': {
+    "\u21eb": {
       0: null,
       1: {
-        gl: '\u21eb',
-        nm: 'upwards white arrow on pedestal',
+        gl: "\u21eb",
+        nm: "upwards white arrow on pedestal",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21ec': {
+    "\u21ec": {
       0: null,
       1: {
-        gl: '\u21ec',
-        nm: 'upwards white arrow on pedestal with horizontal bar',
+        gl: "\u21ec",
+        nm: "upwards white arrow on pedestal with horizontal bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21ed': {
+    "\u21ed": {
       0: null,
       1: {
-        gl: '\u21ed',
-        nm: 'upwards white arrow on pedestal with vertical bar',
+        gl: "\u21ed",
+        nm: "upwards white arrow on pedestal with vertical bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21ee': {
+    "\u21ee": {
       0: null,
       1: {
-        gl: '\u21ee',
-        nm: 'upwards white double arrow',
+        gl: "\u21ee",
+        nm: "upwards white double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21ef': {
+    "\u21ef": {
       0: null,
       1: {
-        gl: '\u21ef',
-        nm: 'upwards white double arrow on pedestal',
+        gl: "\u21ef",
+        nm: "upwards white double arrow on pedestal",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21f0': {
+    "\u21f0": {
       0: null,
       1: {
-        gl: '\u21f0',
-        nm: 'rightwards white arrow from wall',
+        gl: "\u21f0",
+        nm: "rightwards white arrow from wall",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21f1': {
+    "\u21f1": {
       0: null,
       1: {
-        gl: '\u21f1',
-        nm: 'north west arrow to corner',
+        gl: "\u21f1",
+        nm: "north west arrow to corner",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u21f2': {
+    "\u21f2": {
       0: null,
       1: {
-        gl: '\u21f2',
-        nm: 'south east arrow to corner',
+        gl: "\u21f2",
+        nm: "south east arrow to corner",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u21f3': {
+    "\u21f3": {
       0: null,
       1: {
-        gl: '\u21f3',
-        nm: 'up down white arrow',
+        gl: "\u21f3",
+        nm: "up down white arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21f4': {
+    "\u21f4": {
       0: null,
       1: {
-        gl: '\u21f4',
-        nm: 'right arrow with small circle',
+        gl: "\u21f4",
+        nm: "right arrow with small circle",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21f5': {
+    "\u21f5": {
       0: null,
       1: {
-        gl: '\u21f5',
-        nm: 'downwards arrow leftwards of upwards arrow',
+        gl: "\u21f5",
+        nm: "downwards arrow leftwards of upwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u21f6': {
+    "\u21f6": {
       0: null,
       1: {
-        gl: '\u21f6',
-        nm: 'three rightwards arrows',
+        gl: "\u21f6",
+        nm: "three rightwards arrows",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21f7': {
+    "\u21f7": {
       0: null,
       1: {
-        gl: '\u21f7',
-        nm: 'leftwards arrow with vertical stroke',
+        gl: "\u21f7",
+        nm: "leftwards arrow with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21f8': {
+    "\u21f8": {
       0: null,
       1: {
-        gl: '\u21f8',
-        nm: 'rightwards arrow with vertical stroke',
+        gl: "\u21f8",
+        nm: "rightwards arrow with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21f9': {
+    "\u21f9": {
       0: null,
       1: {
-        gl: '\u21f9',
-        nm: 'left right arrow with vertical stroke',
+        gl: "\u21f9",
+        nm: "left right arrow with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21fa': {
+    "\u21fa": {
       0: null,
       1: {
-        gl: '\u21fa',
-        nm: 'leftwards arrow with double vertical stroke',
+        gl: "\u21fa",
+        nm: "leftwards arrow with double vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21fb': {
+    "\u21fb": {
       0: null,
       1: {
-        gl: '\u21fb',
-        nm: 'rightwards arrow with double vertical stroke',
+        gl: "\u21fb",
+        nm: "rightwards arrow with double vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21fc': {
+    "\u21fc": {
       0: null,
       1: {
-        gl: '\u21fc',
-        nm: 'left right arrow with double vertical stroke',
+        gl: "\u21fc",
+        nm: "left right arrow with double vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u21fd': {
+    "\u21fd": {
       0: null,
       1: {
-        gl: '\u21fd',
-        nm: 'leftwards open-headed arrow',
+        gl: "\u21fd",
+        nm: "leftwards open-headed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21fe': {
+    "\u21fe": {
       0: null,
       1: {
-        gl: '\u21fe',
-        nm: 'rightwards open-headed arrow',
+        gl: "\u21fe",
+        nm: "rightwards open-headed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u21ff': {
+    "\u21ff": {
       0: null,
       1: {
-        gl: '\u21ff',
-        nm: 'left right open-headed arrow',
+        gl: "\u21ff",
+        nm: "left right open-headed arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2200': {
-      0: { gl: '\u2200', nm: 'for all', pr: 230, ls: 2, rs: 1, pp: '' },
+    "\u2200": {
+      0: { gl: "\u2200", nm: "for all", pr: 230, ls: 2, rs: 1, pp: "" },
       1: null,
       2: null,
     },
-    '\u2201': {
+    "\u2201": {
       0: null,
-      1: { gl: '\u2201', nm: 'complement', pr: 240, ls: 1, rs: 2, pp: '' },
+      1: { gl: "\u2201", nm: "complement", pr: 240, ls: 1, rs: 2, pp: "" },
       2: null,
     },
-    '\u2202': {
+    "\u2202": {
       0: {
-        gl: '\u2202',
-        nm: 'partial differential',
+        gl: "\u2202",
+        nm: "partial differential",
         pr: 740,
         ls: 2,
         rs: 1,
-        pp: '',
+        pp: "",
       },
       1: null,
       2: null,
     },
-    '\u2203': {
-      0: { gl: '\u2203', nm: 'there exists', pr: 230, ls: 2, rs: 1, pp: '' },
+    "\u2203": {
+      0: { gl: "\u2203", nm: "there exists", pr: 230, ls: 2, rs: 1, pp: "" },
       1: null,
       2: null,
     },
-    '\u2204': {
+    "\u2204": {
       0: {
-        gl: '\u2204',
-        nm: 'there does not exist',
+        gl: "\u2204",
+        nm: "there does not exist",
         pr: 230,
         ls: 2,
         rs: 1,
-        pp: '',
+        pp: "",
       },
       1: null,
       2: null,
     },
-    '\u2206': {
+    "\u2206": {
       0: null,
-      1: { gl: '\u2206', nm: 'increment', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u2206", nm: "increment", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u2207': {
-      0: { gl: '\u2207', nm: 'nabla', pr: 740, ls: 2, rs: 1, pp: '' },
+    "\u2207": {
+      0: { gl: "\u2207", nm: "nabla", pr: 740, ls: 2, rs: 1, pp: "" },
       1: null,
       2: null,
     },
-    '\u2208': {
+    "\u2208": {
       0: null,
-      1: { gl: '\u2208', nm: 'element of', pr: 240, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2208", nm: "element of", pr: 240, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2209': {
+    "\u2209": {
       0: null,
       1: {
-        gl: '\u2209',
-        nm: 'not an element of',
+        gl: "\u2209",
+        nm: "not an element of",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u220a': {
+    "\u220a": {
       0: null,
       1: {
-        gl: '\u220a',
-        nm: 'small element of',
+        gl: "\u220a",
+        nm: "small element of",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u220b': {
+    "\u220b": {
       0: null,
       1: {
-        gl: '\u220b',
-        nm: 'contains as member',
+        gl: "\u220b",
+        nm: "contains as member",
         pr: 160,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u220c': {
+    "\u220c": {
       0: null,
       1: {
-        gl: '\u220c',
-        nm: 'does not contain as member',
+        gl: "\u220c",
+        nm: "does not contain as member",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u220d': {
+    "\u220d": {
       0: null,
       1: {
-        gl: '\u220d',
-        nm: 'small contains as member',
+        gl: "\u220d",
+        nm: "small contains as member",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u220e': {
+    "\u220e": {
       0: null,
-      1: { gl: '\u220e', nm: 'end of proof', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u220e", nm: "end of proof", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u220f': {
+    "\u220f": {
       0: {
-        gl: '\u220f',
-        nm: 'n-ary product',
+        gl: "\u220f",
+        nm: "n-ary product",
         pr: 350,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2210': {
+    "\u2210": {
       0: {
-        gl: '\u2210',
-        nm: 'n-ary coproduct',
+        gl: "\u2210",
+        nm: "n-ary coproduct",
         pr: 350,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2211': {
+    "\u2211": {
       0: {
-        gl: '\u2211',
-        nm: 'n-ary summation',
+        gl: "\u2211",
+        nm: "n-ary summation",
         pr: 290,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2212': {
-      0: { gl: '\u2212', nm: 'minus sign', pr: 275, ls: 0, rs: 1, pp: '' },
-      1: { gl: '\u2212', nm: 'minus sign', pr: 275, ls: 4, rs: 4, pp: '' },
+    "\u2212": {
+      0: { gl: "\u2212", nm: "minus sign", pr: 275, ls: 0, rs: 1, pp: "" },
+      1: { gl: "\u2212", nm: "minus sign", pr: 275, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2213': {
+    "\u2213": {
       0: {
-        gl: '\u2213',
-        nm: 'minus-or-plus sign',
+        gl: "\u2213",
+        nm: "minus-or-plus sign",
         pr: 275,
         ls: 0,
         rs: 1,
-        pp: '',
+        pp: "",
       },
       1: {
-        gl: '\u2213',
-        nm: 'minus-or-plus sign',
+        gl: "\u2213",
+        nm: "minus-or-plus sign",
         pr: 275,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2214': {
+    "\u2214": {
       0: null,
-      1: { gl: '\u2214', nm: 'dot plus', pr: 275, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2214", nm: "dot plus", pr: 275, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2215': {
+    "\u2215": {
       0: null,
       1: {
-        gl: '\u2215',
-        nm: 'division slash',
+        gl: "\u2215",
+        nm: "division slash",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2216': {
+    "\u2216": {
       0: null,
-      1: { gl: '\u2216', nm: 'set minus', pr: 650, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2216", nm: "set minus", pr: 650, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2217': {
+    "\u2217": {
       0: null,
       1: {
-        gl: '\u2217',
-        nm: 'asterisk operator',
+        gl: "\u2217",
+        nm: "asterisk operator",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2218': {
+    "\u2218": {
       0: null,
-      1: { gl: '\u2218', nm: 'ring operator', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2218", nm: "ring operator", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2219': {
+    "\u2219": {
       0: null,
-      1: { gl: '\u2219', nm: 'bullet operator', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2219", nm: "bullet operator", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u221a': {
+    "\u221a": {
       0: {
-        gl: '\u221a',
-        nm: 'square root',
+        gl: "\u221a",
+        nm: "square root",
         pr: 845,
         ls: 1,
         rs: 1,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       1: null,
       2: null,
     },
-    '\u221b': {
-      0: { gl: '\u221b', nm: 'cube root', pr: 845, ls: 1, rs: 1, pp: '' },
+    "\u221b": {
+      0: { gl: "\u221b", nm: "cube root", pr: 845, ls: 1, rs: 1, pp: "" },
       1: null,
       2: null,
     },
-    '\u221c': {
-      0: { gl: '\u221c', nm: 'fourth root', pr: 845, ls: 1, rs: 1, pp: '' },
+    "\u221c": {
+      0: { gl: "\u221c", nm: "fourth root", pr: 845, ls: 1, rs: 1, pp: "" },
       1: null,
       2: null,
     },
-    '\u221d': {
+    "\u221d": {
       0: null,
-      1: { gl: '\u221d', nm: 'proportional to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u221d", nm: "proportional to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u221f': {
+    "\u221f": {
       0: null,
-      1: { gl: '\u221f', nm: 'right angle', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u221f", nm: "right angle", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2220': {
-      0: { gl: '\u2220', nm: 'angle', pr: 670, ls: 0, rs: 0, pp: '' },
+    "\u2220": {
+      0: { gl: "\u2220", nm: "angle", pr: 670, ls: 0, rs: 0, pp: "" },
       1: null,
       2: null,
     },
-    '\u2221': {
-      0: { gl: '\u2221', nm: 'measured angle', pr: 670, ls: 0, rs: 0, pp: '' },
+    "\u2221": {
+      0: { gl: "\u2221", nm: "measured angle", pr: 670, ls: 0, rs: 0, pp: "" },
       1: null,
       2: null,
     },
-    '\u2222': {
-      0: { gl: '\u2222', nm: 'spherical angle', pr: 670, ls: 0, rs: 0, pp: '' },
+    "\u2222": {
+      0: { gl: "\u2222", nm: "spherical angle", pr: 670, ls: 0, rs: 0, pp: "" },
       1: null,
       2: null,
     },
-    '\u2223': {
+    "\u2223": {
       0: null,
-      1: { gl: '\u2223', nm: 'divides', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2223", nm: "divides", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2224': {
+    "\u2224": {
       0: null,
-      1: { gl: '\u2224', nm: 'does not divide', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2224", nm: "does not divide", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2225': {
+    "\u2225": {
       0: null,
-      1: { gl: '\u2225', nm: 'parallel to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2225", nm: "parallel to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2226': {
+    "\u2226": {
       0: null,
-      1: { gl: '\u2226', nm: 'not parallel to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2226", nm: "not parallel to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2227': {
+    "\u2227": {
       0: null,
-      1: { gl: '\u2227', nm: 'logical and', pr: 200, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2227", nm: "logical and", pr: 200, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2228': {
+    "\u2228": {
       0: null,
-      1: { gl: '\u2228', nm: 'logical or', pr: 190, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2228", nm: "logical or", pr: 190, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2229': {
+    "\u2229": {
       0: null,
-      1: { gl: '\u2229', nm: 'intersection', pr: 350, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2229", nm: "intersection", pr: 350, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u222a': {
+    "\u222a": {
       0: null,
-      1: { gl: '\u222a', nm: 'union', pr: 350, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u222a", nm: "union", pr: 350, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u222b': {
+    "\u222b": {
       0: {
-        gl: '\u222b',
-        nm: 'integral',
+        gl: "\u222b",
+        nm: "integral",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u222c': {
+    "\u222c": {
       0: {
-        gl: '\u222c',
-        nm: 'double integral',
+        gl: "\u222c",
+        nm: "double integral",
         pr: 300,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u222d': {
+    "\u222d": {
       0: {
-        gl: '\u222d',
-        nm: 'triple integral',
+        gl: "\u222d",
+        nm: "triple integral",
         pr: 300,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u222e': {
+    "\u222e": {
       0: {
-        gl: '\u222e',
-        nm: 'contour integral',
+        gl: "\u222e",
+        nm: "contour integral",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u222f': {
+    "\u222f": {
       0: {
-        gl: '\u222f',
-        nm: 'surface integral',
+        gl: "\u222f",
+        nm: "surface integral",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2230': {
+    "\u2230": {
       0: {
-        gl: '\u2230',
-        nm: 'volume integral',
+        gl: "\u2230",
+        nm: "volume integral",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2231': {
+    "\u2231": {
       0: {
-        gl: '\u2231',
-        nm: 'clockwise integral',
+        gl: "\u2231",
+        nm: "clockwise integral",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2232': {
+    "\u2232": {
       0: {
-        gl: '\u2232',
-        nm: 'clockwise contour integral',
+        gl: "\u2232",
+        nm: "clockwise contour integral",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2233': {
+    "\u2233": {
       0: {
-        gl: '\u2233',
-        nm: 'anticlockwise contour integral',
+        gl: "\u2233",
+        nm: "anticlockwise contour integral",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2234': {
+    "\u2234": {
       0: null,
-      1: { gl: '\u2234', nm: 'therefore', pr: 70, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2234", nm: "therefore", pr: 70, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2235': {
+    "\u2235": {
       0: null,
-      1: { gl: '\u2235', nm: 'because', pr: 70, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2235", nm: "because", pr: 70, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2236': {
+    "\u2236": {
       0: null,
-      1: { gl: '\u2236', nm: 'ratio', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2236", nm: "ratio", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2237': {
+    "\u2237": {
       0: null,
-      1: { gl: '\u2237', nm: 'proportion', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2237", nm: "proportion", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2238': {
+    "\u2238": {
       0: null,
-      1: { gl: '\u2238', nm: 'dot minus', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2238", nm: "dot minus", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2239': {
+    "\u2239": {
       0: null,
-      1: { gl: '\u2239', nm: 'excess', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2239", nm: "excess", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u223a': {
+    "\u223a": {
       0: null,
       1: {
-        gl: '\u223a',
-        nm: 'geometric proportion',
+        gl: "\u223a",
+        nm: "geometric proportion",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u223b': {
+    "\u223b": {
       0: null,
-      1: { gl: '\u223b', nm: 'homothetic', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u223b", nm: "homothetic", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u223c': {
+    "\u223c": {
       0: null,
-      1: { gl: '\u223c', nm: 'tilde operator', pr: 250, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u223c", nm: "tilde operator", pr: 250, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u223d': {
+    "\u223d": {
       0: null,
-      1: { gl: '\u223d', nm: 'reversed tilde', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u223d", nm: "reversed tilde", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u223d\u0331': {
+    "\u223d\u0331": {
       0: null,
       1: {
-        gl: '\u223d\u0331',
-        nm: 'reversed tilde with underline',
+        gl: "\u223d\u0331",
+        nm: "reversed tilde with underline",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u223e': {
+    "\u223e": {
       0: null,
-      1: { gl: '\u223e', nm: 'inverted lazy s', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u223e", nm: "inverted lazy s", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u223f': {
+    "\u223f": {
       0: null,
-      1: { gl: '\u223f', nm: 'sine wave', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u223f", nm: "sine wave", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u2240': {
+    "\u2240": {
       0: null,
-      1: { gl: '\u2240', nm: 'wreath product', pr: 340, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2240", nm: "wreath product", pr: 340, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2241': {
+    "\u2241": {
       0: null,
-      1: { gl: '\u2241', nm: 'not tilde', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2241", nm: "not tilde", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2242': {
+    "\u2242": {
       0: null,
-      1: { gl: '\u2242', nm: 'minus tilde', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2242", nm: "minus tilde", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2242\u0338': {
+    "\u2242\u0338": {
       0: null,
       1: {
-        gl: '\u2242\u0338',
-        nm: 'minus tilde with slash',
+        gl: "\u2242\u0338",
+        nm: "minus tilde with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2243': {
+    "\u2243": {
       0: null,
       1: {
-        gl: '\u2243',
-        nm: 'asymptotically equal to',
+        gl: "\u2243",
+        nm: "asymptotically equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2244': {
+    "\u2244": {
       0: null,
       1: {
-        gl: '\u2244',
-        nm: 'not asymptotically equal to',
+        gl: "\u2244",
+        nm: "not asymptotically equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2245': {
+    "\u2245": {
       0: null,
       1: {
-        gl: '\u2245',
-        nm: 'approximately equal to',
+        gl: "\u2245",
+        nm: "approximately equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2246': {
+    "\u2246": {
       0: null,
       1: {
-        gl: '\u2246',
-        nm: 'approximately but not actually equal to',
+        gl: "\u2246",
+        nm: "approximately but not actually equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2247': {
+    "\u2247": {
       0: null,
       1: {
-        gl: '\u2247',
-        nm: 'neither approximately nor actually equal to',
+        gl: "\u2247",
+        nm: "neither approximately nor actually equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2248': {
+    "\u2248": {
       0: null,
-      1: { gl: '\u2248', nm: 'almost equal to', pr: 247, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2248", nm: "almost equal to", pr: 247, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2249': {
+    "\u2249": {
       0: null,
       1: {
-        gl: '\u2249',
-        nm: 'not almost equal to',
+        gl: "\u2249",
+        nm: "not almost equal to",
         pr: 250,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u224a': {
+    "\u224a": {
       0: null,
       1: {
-        gl: '\u224a',
-        nm: 'almost equal or equal to',
+        gl: "\u224a",
+        nm: "almost equal or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u224b': {
+    "\u224b": {
       0: null,
-      1: { gl: '\u224b', nm: 'triple tilde', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u224b", nm: "triple tilde", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u224c': {
+    "\u224c": {
       0: null,
-      1: { gl: '\u224c', nm: 'all equal to', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u224c", nm: "all equal to", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u224d': {
+    "\u224d": {
       0: null,
-      1: { gl: '\u224d', nm: 'equivalent to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u224d", nm: "equivalent to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u224e': {
+    "\u224e": {
       0: null,
       1: {
-        gl: '\u224e',
-        nm: 'geometrically equivalent to',
+        gl: "\u224e",
+        nm: "geometrically equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u224e\u0338': {
+    "\u224e\u0338": {
       0: null,
       1: {
-        gl: '\u224e\u0338',
-        nm: 'geometrically equivalent to with slash',
+        gl: "\u224e\u0338",
+        nm: "geometrically equivalent to with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u224f': {
+    "\u224f": {
       0: null,
       1: {
-        gl: '\u224f',
-        nm: 'difference between',
+        gl: "\u224f",
+        nm: "difference between",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u224f\u0338': {
+    "\u224f\u0338": {
       0: null,
       1: {
-        gl: '\u224f\u0338',
-        nm: 'difference between with slash',
+        gl: "\u224f\u0338",
+        nm: "difference between with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2250': {
+    "\u2250": {
       0: null,
       1: {
-        gl: '\u2250',
-        nm: 'approaches the limit',
+        gl: "\u2250",
+        nm: "approaches the limit",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2251': {
+    "\u2251": {
       0: null,
       1: {
-        gl: '\u2251',
-        nm: 'geometrically equal to',
+        gl: "\u2251",
+        nm: "geometrically equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2252': {
+    "\u2252": {
       0: null,
       1: {
-        gl: '\u2252',
-        nm: 'approximately equal to or the image of',
+        gl: "\u2252",
+        nm: "approximately equal to or the image of",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2253': {
+    "\u2253": {
       0: null,
       1: {
-        gl: '\u2253',
-        nm: 'image of or approximately equal to',
+        gl: "\u2253",
+        nm: "image of or approximately equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2254': {
+    "\u2254": {
       0: null,
-      1: { gl: '\u2254', nm: 'colon equals', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2254", nm: "colon equals", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2255': {
+    "\u2255": {
       0: null,
-      1: { gl: '\u2255', nm: 'equals colon', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2255", nm: "equals colon", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2256': {
+    "\u2256": {
       0: null,
       1: {
-        gl: '\u2256',
-        nm: 'ring in equal to',
+        gl: "\u2256",
+        nm: "ring in equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2257': {
+    "\u2257": {
       0: null,
-      1: { gl: '\u2257', nm: 'ring equal to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2257", nm: "ring equal to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2258': {
+    "\u2258": {
       0: null,
-      1: { gl: '\u2258', nm: 'corresponds to', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2258", nm: "corresponds to", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2259': {
+    "\u2259": {
       0: null,
-      1: { gl: '\u2259', nm: 'estimates', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2259", nm: "estimates", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u225a': {
+    "\u225a": {
       0: null,
-      1: { gl: '\u225a', nm: 'equiangular to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u225a", nm: "equiangular to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u225b': {
+    "\u225b": {
       0: null,
-      1: { gl: '\u225b', nm: 'star equals', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u225b", nm: "star equals", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u225c': {
+    "\u225c": {
       0: null,
-      1: { gl: '\u225c', nm: 'delta equal to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u225c", nm: "delta equal to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u225d': {
+    "\u225d": {
       0: null,
       1: {
-        gl: '\u225d',
-        nm: 'equal to by definition',
+        gl: "\u225d",
+        nm: "equal to by definition",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u225e': {
+    "\u225e": {
       0: null,
-      1: { gl: '\u225e', nm: 'measured by', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u225e", nm: "measured by", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u225f': {
+    "\u225f": {
       0: null,
       1: {
-        gl: '\u225f',
-        nm: 'questioned equal to',
+        gl: "\u225f",
+        nm: "questioned equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2260': {
+    "\u2260": {
       0: null,
-      1: { gl: '\u2260', nm: 'not equal to', pr: 255, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2260", nm: "not equal to", pr: 255, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2261': {
+    "\u2261": {
       0: null,
-      1: { gl: '\u2261', nm: 'identical to', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2261", nm: "identical to", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2262': {
+    "\u2262": {
       0: null,
       1: {
-        gl: '\u2262',
-        nm: 'not identical to',
+        gl: "\u2262",
+        nm: "not identical to",
         pr: 252,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2263': {
+    "\u2263": {
       0: null,
       1: {
-        gl: '\u2263',
-        nm: 'strictly equivalent to',
+        gl: "\u2263",
+        nm: "strictly equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2264': {
+    "\u2264": {
       0: null,
       1: {
-        gl: '\u2264',
-        nm: 'less-than or equal to',
+        gl: "\u2264",
+        nm: "less-than or equal to",
         pr: 241,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2265': {
+    "\u2265": {
       0: null,
       1: {
-        gl: '\u2265',
-        nm: 'greater-than or equal to',
+        gl: "\u2265",
+        nm: "greater-than or equal to",
         pr: 242,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2266': {
+    "\u2266": {
       0: null,
       1: {
-        gl: '\u2266',
-        nm: 'less-than over equal to',
+        gl: "\u2266",
+        nm: "less-than over equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2266\u0338': {
+    "\u2266\u0338": {
       0: null,
       1: {
-        gl: '\u2266\u0338',
-        nm: 'less-than over equal to with slash',
+        gl: "\u2266\u0338",
+        nm: "less-than over equal to with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2267': {
+    "\u2267": {
       0: null,
       1: {
-        gl: '\u2267',
-        nm: 'greater-than over equal to',
+        gl: "\u2267",
+        nm: "greater-than over equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2268': {
+    "\u2268": {
       0: null,
       1: {
-        gl: '\u2268',
-        nm: 'less-than but not equal to',
+        gl: "\u2268",
+        nm: "less-than but not equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2269': {
+    "\u2269": {
       0: null,
       1: {
-        gl: '\u2269',
-        nm: 'greater-than but not equal to',
+        gl: "\u2269",
+        nm: "greater-than but not equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u226a': {
+    "\u226a": {
       0: null,
-      1: { gl: '\u226a', nm: 'much less-than', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u226a", nm: "much less-than", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u226a\u0338': {
+    "\u226a\u0338": {
       0: null,
       1: {
-        gl: '\u226a\u0338',
-        nm: 'much less than with slash',
+        gl: "\u226a\u0338",
+        nm: "much less than with slash",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u226b': {
+    "\u226b": {
       0: null,
       1: {
-        gl: '\u226b',
-        nm: 'much greater-than',
+        gl: "\u226b",
+        nm: "much greater-than",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u226b\u0338': {
+    "\u226b\u0338": {
       0: null,
       1: {
-        gl: '\u226b\u0338',
-        nm: 'much greater than with slash',
+        gl: "\u226b\u0338",
+        nm: "much greater than with slash",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u226c': {
+    "\u226c": {
       0: null,
-      1: { gl: '\u226c', nm: 'between', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u226c", nm: "between", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u226d': {
+    "\u226d": {
       0: null,
       1: {
-        gl: '\u226d',
-        nm: 'not equivalent to',
+        gl: "\u226d",
+        nm: "not equivalent to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u226e': {
+    "\u226e": {
       0: null,
-      1: { gl: '\u226e', nm: 'not less-than', pr: 246, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u226e", nm: "not less-than", pr: 246, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u226f': {
+    "\u226f": {
       0: null,
       1: {
-        gl: '\u226f',
-        nm: 'not greater-than',
+        gl: "\u226f",
+        nm: "not greater-than",
         pr: 244,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2270': {
+    "\u2270": {
       0: null,
       1: {
-        gl: '\u2270',
-        nm: 'neither less-than nor equal to',
+        gl: "\u2270",
+        nm: "neither less-than nor equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2271': {
+    "\u2271": {
       0: null,
       1: {
-        gl: '\u2271',
-        nm: 'neither greater-than nor equal to',
+        gl: "\u2271",
+        nm: "neither greater-than nor equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2272': {
+    "\u2272": {
       0: null,
       1: {
-        gl: '\u2272',
-        nm: 'less-than or equivalent to',
+        gl: "\u2272",
+        nm: "less-than or equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2273': {
+    "\u2273": {
       0: null,
       1: {
-        gl: '\u2273',
-        nm: 'greater-than or equivalent to',
+        gl: "\u2273",
+        nm: "greater-than or equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2274': {
+    "\u2274": {
       0: null,
       1: {
-        gl: '\u2274',
-        nm: 'neither less-than nor equivalent to',
+        gl: "\u2274",
+        nm: "neither less-than nor equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2275': {
+    "\u2275": {
       0: null,
       1: {
-        gl: '\u2275',
-        nm: 'neither greater-than nor equivalent to',
+        gl: "\u2275",
+        nm: "neither greater-than nor equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2276': {
+    "\u2276": {
       0: null,
       1: {
-        gl: '\u2276',
-        nm: 'less-than or greater-than',
+        gl: "\u2276",
+        nm: "less-than or greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2277': {
+    "\u2277": {
       0: null,
       1: {
-        gl: '\u2277',
-        nm: 'greater-than or less-than',
+        gl: "\u2277",
+        nm: "greater-than or less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2278': {
+    "\u2278": {
       0: null,
       1: {
-        gl: '\u2278',
-        nm: 'neither less-than nor greater-than',
+        gl: "\u2278",
+        nm: "neither less-than nor greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2279': {
+    "\u2279": {
       0: null,
       1: {
-        gl: '\u2279',
-        nm: 'neither greater-than nor less-than',
+        gl: "\u2279",
+        nm: "neither greater-than nor less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u227a': {
+    "\u227a": {
       0: null,
-      1: { gl: '\u227a', nm: 'precedes', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u227a", nm: "precedes", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u227b': {
+    "\u227b": {
       0: null,
-      1: { gl: '\u227b', nm: 'succeeds', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u227b", nm: "succeeds", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u227c': {
+    "\u227c": {
       0: null,
       1: {
-        gl: '\u227c',
-        nm: 'precedes or equal to',
+        gl: "\u227c",
+        nm: "precedes or equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u227d': {
+    "\u227d": {
       0: null,
       1: {
-        gl: '\u227d',
-        nm: 'succeeds or equal to',
+        gl: "\u227d",
+        nm: "succeeds or equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u227e': {
+    "\u227e": {
       0: null,
       1: {
-        gl: '\u227e',
-        nm: 'precedes or equivalent to',
+        gl: "\u227e",
+        nm: "precedes or equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u227f': {
+    "\u227f": {
       0: null,
       1: {
-        gl: '\u227f',
-        nm: 'succeeds or equivalent to',
+        gl: "\u227f",
+        nm: "succeeds or equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u227f\u0338': {
+    "\u227f\u0338": {
       0: null,
       1: {
-        gl: '\u227f\u0338',
-        nm: 'succeeds or equivalent to with slash',
+        gl: "\u227f\u0338",
+        nm: "succeeds or equivalent to with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2280': {
+    "\u2280": {
       0: null,
       1: {
-        gl: '\u2280',
-        nm: 'does not precede',
+        gl: "\u2280",
+        nm: "does not precede",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2281': {
+    "\u2281": {
       0: null,
       1: {
-        gl: '\u2281',
-        nm: 'does not succeed',
+        gl: "\u2281",
+        nm: "does not succeed",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2282': {
+    "\u2282": {
       0: null,
-      1: { gl: '\u2282', nm: 'subset of', pr: 240, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2282", nm: "subset of", pr: 240, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2282\u20d2': {
+    "\u2282\u20d2": {
       0: null,
       1: {
-        gl: '\u2282\u20d2',
-        nm: 'subset of with vertical line',
+        gl: "\u2282\u20d2",
+        nm: "subset of with vertical line",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2283': {
+    "\u2283": {
       0: null,
-      1: { gl: '\u2283', nm: 'superset of', pr: 240, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2283", nm: "superset of", pr: 240, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2283\u20d2': {
+    "\u2283\u20d2": {
       0: null,
       1: {
-        gl: '\u2283\u20d2',
-        nm: 'superset of with vertical line',
+        gl: "\u2283\u20d2",
+        nm: "superset of with vertical line",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2284': {
+    "\u2284": {
       0: null,
-      1: { gl: '\u2284', nm: 'not a subset of', pr: 240, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2284", nm: "not a subset of", pr: 240, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2285': {
+    "\u2285": {
       0: null,
       1: {
-        gl: '\u2285',
-        nm: 'not a superset of',
+        gl: "\u2285",
+        nm: "not a superset of",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2286': {
+    "\u2286": {
       0: null,
       1: {
-        gl: '\u2286',
-        nm: 'subset of or equal to',
+        gl: "\u2286",
+        nm: "subset of or equal to",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2287': {
+    "\u2287": {
       0: null,
       1: {
-        gl: '\u2287',
-        nm: 'superset of or equal to',
+        gl: "\u2287",
+        nm: "superset of or equal to",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2288': {
+    "\u2288": {
       0: null,
       1: {
-        gl: '\u2288',
-        nm: 'neither a subset of nor equal to',
+        gl: "\u2288",
+        nm: "neither a subset of nor equal to",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2289': {
+    "\u2289": {
       0: null,
       1: {
-        gl: '\u2289',
-        nm: 'neither a superset of nor equal to',
+        gl: "\u2289",
+        nm: "neither a superset of nor equal to",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u228a': {
+    "\u228a": {
       0: null,
       1: {
-        gl: '\u228a',
-        nm: 'subset of with not equal to',
+        gl: "\u228a",
+        nm: "subset of with not equal to",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u228b': {
+    "\u228b": {
       0: null,
       1: {
-        gl: '\u228b',
-        nm: 'superset of with not equal to',
+        gl: "\u228b",
+        nm: "superset of with not equal to",
         pr: 240,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u228c': {
+    "\u228c": {
       0: null,
-      1: { gl: '\u228c', nm: 'multiset', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u228c", nm: "multiset", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u228d': {
+    "\u228d": {
       0: null,
       1: {
-        gl: '\u228d',
-        nm: 'multiset multiplication',
+        gl: "\u228d",
+        nm: "multiset multiplication",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u228e': {
+    "\u228e": {
       0: null,
-      1: { gl: '\u228e', nm: 'multiset union', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u228e", nm: "multiset union", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u228f': {
+    "\u228f": {
       0: null,
-      1: { gl: '\u228f', nm: 'square image of', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u228f", nm: "square image of", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u228f\u0338': {
+    "\u228f\u0338": {
       0: null,
       1: {
-        gl: '\u228f\u0338',
-        nm: 'square image of with slash',
+        gl: "\u228f\u0338",
+        nm: "square image of with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2290': {
+    "\u2290": {
       0: null,
       1: {
-        gl: '\u2290',
-        nm: 'square original of',
+        gl: "\u2290",
+        nm: "square original of",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2290\u0338': {
+    "\u2290\u0338": {
       0: null,
       1: {
-        gl: '\u2290\u0338',
-        nm: 'square original of with slash',
+        gl: "\u2290\u0338",
+        nm: "square original of with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2291': {
+    "\u2291": {
       0: null,
       1: {
-        gl: '\u2291',
-        nm: 'square image of or equal to',
+        gl: "\u2291",
+        nm: "square image of or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2292': {
+    "\u2292": {
       0: null,
       1: {
-        gl: '\u2292',
-        nm: 'square original of or equal to',
+        gl: "\u2292",
+        nm: "square original of or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2293': {
+    "\u2293": {
       0: null,
-      1: { gl: '\u2293', nm: 'square cap', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2293", nm: "square cap", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2294': {
+    "\u2294": {
       0: null,
-      1: { gl: '\u2294', nm: 'square cup', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2294", nm: "square cup", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2295': {
+    "\u2295": {
       0: null,
-      1: { gl: '\u2295', nm: 'circled plus', pr: 300, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2295", nm: "circled plus", pr: 300, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2296': {
+    "\u2296": {
       0: null,
-      1: { gl: '\u2296', nm: 'circled minus', pr: 300, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2296", nm: "circled minus", pr: 300, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2297': {
+    "\u2297": {
       0: null,
-      1: { gl: '\u2297', nm: 'circled times', pr: 410, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2297", nm: "circled times", pr: 410, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2298': {
+    "\u2298": {
       0: null,
       1: {
-        gl: '\u2298',
-        nm: 'circled division slash',
+        gl: "\u2298",
+        nm: "circled division slash",
         pr: 300,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2299': {
+    "\u2299": {
       0: null,
       1: {
-        gl: '\u2299',
-        nm: 'circled dot operator',
+        gl: "\u2299",
+        nm: "circled dot operator",
         pr: 710,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u229a': {
+    "\u229a": {
       0: null,
       1: {
-        gl: '\u229a',
-        nm: 'circled ring operator',
+        gl: "\u229a",
+        nm: "circled ring operator",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u229b': {
+    "\u229b": {
       0: null,
       1: {
-        gl: '\u229b',
-        nm: 'circled asterisk operator',
+        gl: "\u229b",
+        nm: "circled asterisk operator",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u229c': {
+    "\u229c": {
       0: null,
-      1: { gl: '\u229c', nm: 'circled equals', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u229c", nm: "circled equals", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u229d': {
+    "\u229d": {
       0: null,
-      1: { gl: '\u229d', nm: 'circled dash', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u229d", nm: "circled dash", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u229e': {
+    "\u229e": {
       0: null,
-      1: { gl: '\u229e', nm: 'squared plus', pr: 275, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u229e", nm: "squared plus", pr: 275, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u229f': {
+    "\u229f": {
       0: null,
-      1: { gl: '\u229f', nm: 'squared minus', pr: 275, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u229f", nm: "squared minus", pr: 275, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22a0': {
+    "\u22a0": {
       0: null,
-      1: { gl: '\u22a0', nm: 'squared times', pr: 390, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22a0", nm: "squared times", pr: 390, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22a1': {
+    "\u22a1": {
       0: null,
       1: {
-        gl: '\u22a1',
-        nm: 'squared dot operator',
+        gl: "\u22a1",
+        nm: "squared dot operator",
         pr: 390,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22a2': {
+    "\u22a2": {
       0: null,
-      1: { gl: '\u22a2', nm: 'right tack', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a2", nm: "right tack", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22a3': {
+    "\u22a3": {
       0: null,
-      1: { gl: '\u22a3', nm: 'left tack', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a3", nm: "left tack", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22a4': {
+    "\u22a4": {
       0: null,
-      1: { gl: '\u22a4', nm: 'down tack', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a4", nm: "down tack", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22a5': {
+    "\u22a5": {
       0: null,
-      1: { gl: '\u22a5', nm: 'up tack', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a5", nm: "up tack", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22a6': {
+    "\u22a6": {
       0: null,
-      1: { gl: '\u22a6', nm: 'assertion', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a6", nm: "assertion", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22a7': {
+    "\u22a7": {
       0: null,
-      1: { gl: '\u22a7', nm: 'models', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a7", nm: "models", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22a8': {
+    "\u22a8": {
       0: null,
-      1: { gl: '\u22a8', nm: '', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a8", nm: "", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22a9': {
+    "\u22a9": {
       0: null,
-      1: { gl: '\u22a9', nm: 'forces', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22a9", nm: "forces", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22aa': {
+    "\u22aa": {
       0: null,
       1: {
-        gl: '\u22aa',
-        nm: 'triple vertical bar right turnstile',
+        gl: "\u22aa",
+        nm: "triple vertical bar right turnstile",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ab': {
+    "\u22ab": {
       0: null,
       1: {
-        gl: '\u22ab',
-        nm: 'double vertical bar double right turnstile',
+        gl: "\u22ab",
+        nm: "double vertical bar double right turnstile",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ac': {
+    "\u22ac": {
       0: null,
-      1: { gl: '\u22ac', nm: 'does not prove', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22ac", nm: "does not prove", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22ad': {
+    "\u22ad": {
       0: null,
-      1: { gl: '\u22ad', nm: 'not true', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22ad", nm: "not true", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22ae': {
+    "\u22ae": {
       0: null,
-      1: { gl: '\u22ae', nm: 'does not force', pr: 170, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22ae", nm: "does not force", pr: 170, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22af': {
+    "\u22af": {
       0: null,
       1: {
-        gl: '\u22af',
-        nm: 'negated double vertical bar double right turnstile',
+        gl: "\u22af",
+        nm: "negated double vertical bar double right turnstile",
         pr: 170,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22b0': {
+    "\u22b0": {
       0: null,
       1: {
-        gl: '\u22b0',
-        nm: 'precedes under relation',
+        gl: "\u22b0",
+        nm: "precedes under relation",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22b1': {
+    "\u22b1": {
       0: null,
       1: {
-        gl: '\u22b1',
-        nm: 'succeeds under relation',
+        gl: "\u22b1",
+        nm: "succeeds under relation",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22b2': {
+    "\u22b2": {
       0: null,
       1: {
-        gl: '\u22b2',
-        nm: 'normal subgroup of',
+        gl: "\u22b2",
+        nm: "normal subgroup of",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22b3': {
+    "\u22b3": {
       0: null,
       1: {
-        gl: '\u22b3',
-        nm: 'contains as normal subgroup',
+        gl: "\u22b3",
+        nm: "contains as normal subgroup",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22b4': {
+    "\u22b4": {
       0: null,
       1: {
-        gl: '\u22b4',
-        nm: 'normal subgroup of or equal to',
+        gl: "\u22b4",
+        nm: "normal subgroup of or equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22b5': {
+    "\u22b5": {
       0: null,
       1: {
-        gl: '\u22b5',
-        nm: 'contains as normal subgroup or equal to',
+        gl: "\u22b5",
+        nm: "contains as normal subgroup or equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22b6': {
+    "\u22b6": {
       0: null,
-      1: { gl: '\u22b6', nm: 'original of', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22b6", nm: "original of", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22b7': {
+    "\u22b7": {
       0: null,
-      1: { gl: '\u22b7', nm: 'image of', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22b7", nm: "image of", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22b8': {
+    "\u22b8": {
       0: null,
-      1: { gl: '\u22b8', nm: 'multimap', pr: 270, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22b8", nm: "multimap", pr: 270, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22b9': {
+    "\u22b9": {
       0: null,
       1: {
-        gl: '\u22b9',
-        nm: 'hermitian conjugate matrix',
+        gl: "\u22b9",
+        nm: "hermitian conjugate matrix",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ba': {
+    "\u22ba": {
       0: null,
-      1: { gl: '\u22ba', nm: 'intercalate', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22ba", nm: "intercalate", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22bb': {
+    "\u22bb": {
       0: null,
-      1: { gl: '\u22bb', nm: 'xor', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22bb", nm: "xor", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22bc': {
+    "\u22bc": {
       0: null,
-      1: { gl: '\u22bc', nm: 'nand', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22bc", nm: "nand", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22bd': {
+    "\u22bd": {
       0: null,
-      1: { gl: '\u22bd', nm: 'nor', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22bd", nm: "nor", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22be': {
+    "\u22be": {
       0: null,
       1: {
-        gl: '\u22be',
-        nm: 'right angle with arc',
+        gl: "\u22be",
+        nm: "right angle with arc",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22bf': {
+    "\u22bf": {
       0: null,
-      1: { gl: '\u22bf', nm: 'right triangle', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u22bf", nm: "right triangle", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u22c0': {
+    "\u22c0": {
       0: {
-        gl: '\u22c0',
-        nm: 'n-ary logical and',
+        gl: "\u22c0",
+        nm: "n-ary logical and",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u22c1': {
+    "\u22c1": {
       0: {
-        gl: '\u22c1',
-        nm: 'n-ary logical or',
+        gl: "\u22c1",
+        nm: "n-ary logical or",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u22c2': {
+    "\u22c2": {
       0: {
-        gl: '\u22c2',
-        nm: 'n-ary intersection',
+        gl: "\u22c2",
+        nm: "n-ary intersection",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u22c3': {
+    "\u22c3": {
       0: {
-        gl: '\u22c3',
-        nm: 'n-ary union',
+        gl: "\u22c3",
+        nm: "n-ary union",
         pr: 320,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u22c4': {
+    "\u22c4": {
       0: null,
       1: {
-        gl: '\u22c4',
-        nm: 'diamond operator',
+        gl: "\u22c4",
+        nm: "diamond operator",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22c5': {
+    "\u22c5": {
       0: null,
-      1: { gl: '\u22c5', nm: 'dot operator', pr: 390, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22c5", nm: "dot operator", pr: 390, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22c6': {
+    "\u22c6": {
       0: null,
-      1: { gl: '\u22c6', nm: 'star operator', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22c6", nm: "star operator", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22c7': {
+    "\u22c7": {
       0: null,
-      1: { gl: '\u22c7', nm: 'division times', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22c7", nm: "division times", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u22c8': {
+    "\u22c8": {
       0: null,
-      1: { gl: '\u22c8', nm: 'bowtie', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22c8", nm: "bowtie", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22c9': {
+    "\u22c9": {
       0: null,
       1: {
-        gl: '\u22c9',
-        nm: 'left normal factor semidirect product',
+        gl: "\u22c9",
+        nm: "left normal factor semidirect product",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ca': {
+    "\u22ca": {
       0: null,
       1: {
-        gl: '\u22ca',
-        nm: 'right normal factor semidirect product',
+        gl: "\u22ca",
+        nm: "right normal factor semidirect product",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22cb': {
+    "\u22cb": {
       0: null,
       1: {
-        gl: '\u22cb',
-        nm: 'left semidirect product',
+        gl: "\u22cb",
+        nm: "left semidirect product",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22cc': {
+    "\u22cc": {
       0: null,
       1: {
-        gl: '\u22cc',
-        nm: 'right semidirect product',
+        gl: "\u22cc",
+        nm: "right semidirect product",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22cd': {
+    "\u22cd": {
       0: null,
       1: {
-        gl: '\u22cd',
-        nm: 'reversed tilde equals',
+        gl: "\u22cd",
+        nm: "reversed tilde equals",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ce': {
+    "\u22ce": {
       0: null,
       1: {
-        gl: '\u22ce',
-        nm: 'curly logical or',
-        pr: 265,
-        ls: 4,
-        rs: 4,
-        pp: '',
-      },
-      2: null,
-    },
-    '\u22cf': {
-      0: null,
-      1: {
-        gl: '\u22cf',
-        nm: 'curly logical and',
+        gl: "\u22ce",
+        nm: "curly logical or",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22d0': {
-      0: null,
-      1: { gl: '\u22d0', nm: 'double subset', pr: 265, ls: 5, rs: 5, pp: '' },
-      2: null,
-    },
-    '\u22d1': {
-      0: null,
-      1: { gl: '\u22d1', nm: 'double superset', pr: 265, ls: 5, rs: 5, pp: '' },
-      2: null,
-    },
-    '\u22d2': {
+    "\u22cf": {
       0: null,
       1: {
-        gl: '\u22d2',
-        nm: 'double intersection',
+        gl: "\u22cf",
+        nm: "curly logical and",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22d3': {
+    "\u22d0": {
       0: null,
-      1: { gl: '\u22d3', nm: 'double union', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u22d0", nm: "double subset", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22d4': {
+    "\u22d1": {
       0: null,
-      1: { gl: '\u22d4', nm: 'pitchfork', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u22d1", nm: "double superset", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u22d5': {
+    "\u22d2": {
       0: null,
       1: {
-        gl: '\u22d5',
-        nm: 'equal and parallel to',
+        gl: "\u22d2",
+        nm: "double intersection",
+        pr: 265,
+        ls: 4,
+        rs: 4,
+        pp: "",
+      },
+      2: null,
+    },
+    "\u22d3": {
+      0: null,
+      1: { gl: "\u22d3", nm: "double union", pr: 265, ls: 4, rs: 4, pp: "" },
+      2: null,
+    },
+    "\u22d4": {
+      0: null,
+      1: { gl: "\u22d4", nm: "pitchfork", pr: 260, ls: 5, rs: 5, pp: "" },
+      2: null,
+    },
+    "\u22d5": {
+      0: null,
+      1: {
+        gl: "\u22d5",
+        nm: "equal and parallel to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22d6': {
+    "\u22d6": {
       0: null,
       1: {
-        gl: '\u22d6',
-        nm: 'less-than with dot',
+        gl: "\u22d6",
+        nm: "less-than with dot",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22d7': {
+    "\u22d7": {
       0: null,
       1: {
-        gl: '\u22d7',
-        nm: 'greater-than with dot',
+        gl: "\u22d7",
+        nm: "greater-than with dot",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22d8': {
+    "\u22d8": {
       0: null,
       1: {
-        gl: '\u22d8',
-        nm: 'very much less-than',
+        gl: "\u22d8",
+        nm: "very much less-than",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22d9': {
+    "\u22d9": {
       0: null,
       1: {
-        gl: '\u22d9',
-        nm: 'very much greater-than',
+        gl: "\u22d9",
+        nm: "very much greater-than",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22da': {
+    "\u22da": {
       0: null,
       1: {
-        gl: '\u22da',
-        nm: 'less-than equal to or greater-than',
+        gl: "\u22da",
+        nm: "less-than equal to or greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22db': {
+    "\u22db": {
       0: null,
       1: {
-        gl: '\u22db',
-        nm: 'greater-than equal to or less-than',
+        gl: "\u22db",
+        nm: "greater-than equal to or less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22dc': {
+    "\u22dc": {
       0: null,
       1: {
-        gl: '\u22dc',
-        nm: 'equal to or less-than',
+        gl: "\u22dc",
+        nm: "equal to or less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22dd': {
+    "\u22dd": {
       0: null,
       1: {
-        gl: '\u22dd',
-        nm: 'equal to or greater-than',
+        gl: "\u22dd",
+        nm: "equal to or greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22de': {
+    "\u22de": {
       0: null,
       1: {
-        gl: '\u22de',
-        nm: 'equal to or precedes',
+        gl: "\u22de",
+        nm: "equal to or precedes",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22df': {
+    "\u22df": {
       0: null,
       1: {
-        gl: '\u22df',
-        nm: 'equal to or succeeds',
+        gl: "\u22df",
+        nm: "equal to or succeeds",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e0': {
+    "\u22e0": {
       0: null,
       1: {
-        gl: '\u22e0',
-        nm: 'does not precede or equal',
+        gl: "\u22e0",
+        nm: "does not precede or equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e1': {
+    "\u22e1": {
       0: null,
       1: {
-        gl: '\u22e1',
-        nm: 'does not succeed or equal',
+        gl: "\u22e1",
+        nm: "does not succeed or equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e2': {
+    "\u22e2": {
       0: null,
       1: {
-        gl: '\u22e2',
-        nm: 'not square image of or equal to',
+        gl: "\u22e2",
+        nm: "not square image of or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e3': {
+    "\u22e3": {
       0: null,
       1: {
-        gl: '\u22e3',
-        nm: 'not square original of or equal to',
+        gl: "\u22e3",
+        nm: "not square original of or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e4': {
+    "\u22e4": {
       0: null,
       1: {
-        gl: '\u22e4',
-        nm: 'square image of or not equal to',
+        gl: "\u22e4",
+        nm: "square image of or not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e5': {
+    "\u22e5": {
       0: null,
       1: {
-        gl: '\u22e5',
-        nm: 'square original of or not equal to',
+        gl: "\u22e5",
+        nm: "square original of or not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e6': {
+    "\u22e6": {
       0: null,
       1: {
-        gl: '\u22e6',
-        nm: 'less-than but not equivalent to',
+        gl: "\u22e6",
+        nm: "less-than but not equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e7': {
+    "\u22e7": {
       0: null,
       1: {
-        gl: '\u22e7',
-        nm: 'greater-than but not equivalent to',
+        gl: "\u22e7",
+        nm: "greater-than but not equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e8': {
+    "\u22e8": {
       0: null,
       1: {
-        gl: '\u22e8',
-        nm: 'precedes but not equivalent to',
+        gl: "\u22e8",
+        nm: "precedes but not equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22e9': {
+    "\u22e9": {
       0: null,
       1: {
-        gl: '\u22e9',
-        nm: 'succeeds but not equivalent to',
+        gl: "\u22e9",
+        nm: "succeeds but not equivalent to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ea': {
+    "\u22ea": {
       0: null,
       1: {
-        gl: '\u22ea',
-        nm: 'not normal subgroup of',
+        gl: "\u22ea",
+        nm: "not normal subgroup of",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22eb': {
+    "\u22eb": {
       0: null,
       1: {
-        gl: '\u22eb',
-        nm: 'does not contain as normal subgroup',
+        gl: "\u22eb",
+        nm: "does not contain as normal subgroup",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ec': {
+    "\u22ec": {
       0: null,
       1: {
-        gl: '\u22ec',
-        nm: 'not normal subgroup of or equal to',
+        gl: "\u22ec",
+        nm: "not normal subgroup of or equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ed': {
+    "\u22ed": {
       0: null,
       1: {
-        gl: '\u22ed',
-        nm: 'does not contain as normal subgroup or equal',
+        gl: "\u22ed",
+        nm: "does not contain as normal subgroup or equal",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ee': {
+    "\u22ee": {
       0: null,
       1: {
-        gl: '\u22ee',
-        nm: 'vertical ellipsis',
+        gl: "\u22ee",
+        nm: "vertical ellipsis",
         pr: 150,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ef': {
+    "\u22ef": {
       0: null,
       1: {
-        gl: '\u22ef',
-        nm: 'midline horizontal ellipsis',
+        gl: "\u22ef",
+        nm: "midline horizontal ellipsis",
         pr: 150,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f0': {
+    "\u22f0": {
       0: null,
       1: {
-        gl: '\u22f0',
-        nm: 'up right diagonal ellipsis',
+        gl: "\u22f0",
+        nm: "up right diagonal ellipsis",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f1': {
+    "\u22f1": {
       0: null,
       1: {
-        gl: '\u22f1',
-        nm: 'down right diagonal ellipsis',
+        gl: "\u22f1",
+        nm: "down right diagonal ellipsis",
         pr: 150,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f2': {
+    "\u22f2": {
       0: null,
       1: {
-        gl: '\u22f2',
-        nm: 'element of with long horizontal stroke',
+        gl: "\u22f2",
+        nm: "element of with long horizontal stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f3': {
+    "\u22f3": {
       0: null,
       1: {
-        gl: '\u22f3',
-        nm: 'element of with vertical bar at end of horizontal stroke',
+        gl: "\u22f3",
+        nm: "element of with vertical bar at end of horizontal stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f4': {
+    "\u22f4": {
       0: null,
       1: {
-        gl: '\u22f4',
-        nm: 'small element of with vertical bar at end of horizontal stroke',
+        gl: "\u22f4",
+        nm: "small element of with vertical bar at end of horizontal stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f5': {
+    "\u22f5": {
       0: null,
       1: {
-        gl: '\u22f5',
-        nm: 'element of with dot above',
+        gl: "\u22f5",
+        nm: "element of with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f6': {
+    "\u22f6": {
       0: null,
       1: {
-        gl: '\u22f6',
-        nm: 'element of with overbar',
+        gl: "\u22f6",
+        nm: "element of with overbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f7': {
+    "\u22f7": {
       0: null,
       1: {
-        gl: '\u22f7',
-        nm: 'small element of with overbar',
+        gl: "\u22f7",
+        nm: "small element of with overbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f8': {
+    "\u22f8": {
       0: null,
       1: {
-        gl: '\u22f8',
-        nm: 'element of with underbar',
+        gl: "\u22f8",
+        nm: "element of with underbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22f9': {
+    "\u22f9": {
       0: null,
       1: {
-        gl: '\u22f9',
-        nm: 'element of with two horizontal strokes',
+        gl: "\u22f9",
+        nm: "element of with two horizontal strokes",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22fa': {
+    "\u22fa": {
       0: null,
       1: {
-        gl: '\u22fa',
-        nm: 'contains with long horizontal stroke',
+        gl: "\u22fa",
+        nm: "contains with long horizontal stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22fb': {
+    "\u22fb": {
       0: null,
       1: {
-        gl: '\u22fb',
-        nm: 'contains with vertical bar at end of horizontal stroke',
+        gl: "\u22fb",
+        nm: "contains with vertical bar at end of horizontal stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22fc': {
+    "\u22fc": {
       0: null,
       1: {
-        gl: '\u22fc',
-        nm: 'small contains with vertical bar at end of horizontal stroke',
+        gl: "\u22fc",
+        nm: "small contains with vertical bar at end of horizontal stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22fd': {
+    "\u22fd": {
       0: null,
       1: {
-        gl: '\u22fd',
-        nm: 'contains with overbar',
+        gl: "\u22fd",
+        nm: "contains with overbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22fe': {
+    "\u22fe": {
       0: null,
       1: {
-        gl: '\u22fe',
-        nm: 'small contains with overbar',
+        gl: "\u22fe",
+        nm: "small contains with overbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u22ff': {
+    "\u22ff": {
       0: null,
       1: {
-        gl: '\u22ff',
-        nm: 'z notation bag membership',
+        gl: "\u22ff",
+        nm: "z notation bag membership",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2308': {
+    "\u2308": {
       0: {
-        gl: '\u2308',
-        nm: 'left ceiling',
+        gl: "\u2308",
+        nm: "left ceiling",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2309': {
+    "\u2309": {
       0: null,
       1: null,
       2: {
-        gl: '\u2309',
-        nm: 'right ceiling',
+        gl: "\u2309",
+        nm: "right ceiling",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u230a': {
+    "\u230a": {
       0: {
-        gl: '\u230a',
-        nm: 'left floor',
+        gl: "\u230a",
+        nm: "left floor",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u230b': {
+    "\u230b": {
       0: null,
       1: null,
       2: {
-        gl: '\u230b',
-        nm: 'right floor',
+        gl: "\u230b",
+        nm: "right floor",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2329': {
+    "\u2329": {
       0: {
-        gl: '\u2329',
-        nm: 'left-pointing angle bracket',
+        gl: "\u2329",
+        nm: "left-pointing angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u232a': {
+    "\u232a": {
       0: null,
       1: null,
       2: {
-        gl: '\u232a',
-        nm: 'right-pointing angle bracket',
+        gl: "\u232a",
+        nm: "right-pointing angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u23b4': {
+    "\u23b4": {
       0: null,
       1: null,
       2: {
-        gl: '\u23b4',
-        nm: 'top square bracket',
+        gl: "\u23b4",
+        nm: "top square bracket",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u23b5': {
+    "\u23b5": {
       0: null,
       1: null,
       2: {
-        gl: '\u23b5',
-        nm: 'bottom square bracket',
+        gl: "\u23b5",
+        nm: "bottom square bracket",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u23dc': {
+    "\u23dc": {
       0: null,
       1: null,
       2: {
-        gl: '\u23dc',
-        nm: 'top parenthesis',
+        gl: "\u23dc",
+        nm: "top parenthesis",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u23dd': {
+    "\u23dd": {
       0: null,
       1: null,
       2: {
-        gl: '\u23dd',
-        nm: 'bottom parenthesis',
+        gl: "\u23dd",
+        nm: "bottom parenthesis",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u23de': {
+    "\u23de": {
       0: null,
       1: null,
       2: {
-        gl: '\u23de',
-        nm: 'top curly bracket',
+        gl: "\u23de",
+        nm: "top curly bracket",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u23df': {
+    "\u23df": {
       0: null,
       1: null,
       2: {
-        gl: '\u23df',
-        nm: 'bottom curly bracket',
+        gl: "\u23df",
+        nm: "bottom curly bracket",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u23e0': {
+    "\u23e0": {
       0: null,
       1: null,
       2: {
-        gl: '\u23e0',
-        nm: 'top tortoise shell bracket',
+        gl: "\u23e0",
+        nm: "top tortoise shell bracket",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u23e1': {
+    "\u23e1": {
       0: null,
       1: null,
       2: {
-        gl: '\u23e1',
-        nm: 'bottom tortoise shell bracket',
+        gl: "\u23e1",
+        nm: "bottom tortoise shell bracket",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u25a0': {
+    "\u25a0": {
       0: null,
-      1: { gl: '\u25a0', nm: 'black square', pr: 260, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u25a0", nm: "black square", pr: 260, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u25a1': {
+    "\u25a1": {
       0: null,
-      1: { gl: '\u25a1', nm: 'white square', pr: 260, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u25a1", nm: "white square", pr: 260, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u25aa': {
+    "\u25aa": {
       0: null,
       1: {
-        gl: '\u25aa',
-        nm: 'black small square',
+        gl: "\u25aa",
+        nm: "black small square",
         pr: 260,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25ab': {
+    "\u25ab": {
       0: null,
       1: {
-        gl: '\u25ab',
-        nm: 'white small square',
+        gl: "\u25ab",
+        nm: "white small square",
         pr: 260,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25ad': {
+    "\u25ad": {
       0: null,
-      1: { gl: '\u25ad', nm: 'white rectangle', pr: 260, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u25ad", nm: "white rectangle", pr: 260, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u25ae': {
+    "\u25ae": {
       0: null,
       1: {
-        gl: '\u25ae',
-        nm: 'black vertical rectangle',
+        gl: "\u25ae",
+        nm: "black vertical rectangle",
         pr: 260,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25af': {
+    "\u25af": {
       0: null,
       1: {
-        gl: '\u25af',
-        nm: 'white vertical rectangle',
+        gl: "\u25af",
+        nm: "white vertical rectangle",
         pr: 260,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b0': {
+    "\u25b0": {
       0: null,
       1: {
-        gl: '\u25b0',
-        nm: 'black parallelogram',
+        gl: "\u25b0",
+        nm: "black parallelogram",
         pr: 260,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b1': {
+    "\u25b1": {
       0: null,
       1: {
-        gl: '\u25b1',
-        nm: 'white parallelogram',
+        gl: "\u25b1",
+        nm: "white parallelogram",
         pr: 260,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b2': {
+    "\u25b2": {
       0: null,
       1: {
-        gl: '\u25b2',
-        nm: 'black up-pointing triangle',
+        gl: "\u25b2",
+        nm: "black up-pointing triangle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b3': {
+    "\u25b3": {
       0: null,
       1: {
-        gl: '\u25b3',
-        nm: 'white up-pointing triangle',
+        gl: "\u25b3",
+        nm: "white up-pointing triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b4': {
+    "\u25b4": {
       0: null,
       1: {
-        gl: '\u25b4',
-        nm: 'black up-pointing small triangle',
+        gl: "\u25b4",
+        nm: "black up-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b5': {
+    "\u25b5": {
       0: null,
       1: {
-        gl: '\u25b5',
-        nm: 'white up-pointing small triangle',
+        gl: "\u25b5",
+        nm: "white up-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b6': {
+    "\u25b6": {
       0: null,
       1: {
-        gl: '\u25b6',
-        nm: 'black right-pointing triangle',
+        gl: "\u25b6",
+        nm: "black right-pointing triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b7': {
+    "\u25b7": {
       0: null,
       1: {
-        gl: '\u25b7',
-        nm: 'white right-pointing triangle',
+        gl: "\u25b7",
+        nm: "white right-pointing triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b8': {
+    "\u25b8": {
       0: null,
       1: {
-        gl: '\u25b8',
-        nm: 'black right-pointing small triangle',
+        gl: "\u25b8",
+        nm: "black right-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25b9': {
+    "\u25b9": {
       0: null,
       1: {
-        gl: '\u25b9',
-        nm: 'white right-pointing small triangle',
+        gl: "\u25b9",
+        nm: "white right-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25bc': {
+    "\u25bc": {
       0: null,
       1: {
-        gl: '\u25bc',
-        nm: 'black down-pointing triangle',
+        gl: "\u25bc",
+        nm: "black down-pointing triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25bd': {
+    "\u25bd": {
       0: null,
       1: {
-        gl: '\u25bd',
-        nm: 'white down-pointing triangle',
+        gl: "\u25bd",
+        nm: "white down-pointing triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25be': {
+    "\u25be": {
       0: null,
       1: {
-        gl: '\u25be',
-        nm: 'black down-pointing small triangle',
+        gl: "\u25be",
+        nm: "black down-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25bf': {
+    "\u25bf": {
       0: null,
       1: {
-        gl: '\u25bf',
-        nm: 'white down-pointing small triangle',
+        gl: "\u25bf",
+        nm: "white down-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c0': {
+    "\u25c0": {
       0: null,
       1: {
-        gl: '\u25c0',
-        nm: 'black left-pointing triangle',
+        gl: "\u25c0",
+        nm: "black left-pointing triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c1': {
+    "\u25c1": {
       0: null,
       1: {
-        gl: '\u25c1',
-        nm: 'white left-pointing triangle',
+        gl: "\u25c1",
+        nm: "white left-pointing triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c2': {
+    "\u25c2": {
       0: null,
       1: {
-        gl: '\u25c2',
-        nm: 'black left-pointing small triangle',
+        gl: "\u25c2",
+        nm: "black left-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c3': {
+    "\u25c3": {
       0: null,
       1: {
-        gl: '\u25c3',
-        nm: 'white left-pointing small triangle',
+        gl: "\u25c3",
+        nm: "white left-pointing small triangle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c4': {
+    "\u25c4": {
       0: null,
       1: {
-        gl: '\u25c4',
-        nm: 'black left-pointing pointer',
+        gl: "\u25c4",
+        nm: "black left-pointing pointer",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c5': {
+    "\u25c5": {
       0: null,
       1: {
-        gl: '\u25c5',
-        nm: 'white left-pointing pointer',
+        gl: "\u25c5",
+        nm: "white left-pointing pointer",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c6': {
+    "\u25c6": {
       0: null,
-      1: { gl: '\u25c6', nm: 'black diamond', pr: 260, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u25c6", nm: "black diamond", pr: 260, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u25c7': {
+    "\u25c7": {
       0: null,
-      1: { gl: '\u25c7', nm: 'white diamond', pr: 260, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u25c7", nm: "white diamond", pr: 260, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u25c8': {
+    "\u25c8": {
       0: null,
       1: {
-        gl: '\u25c8',
-        nm: 'white diamond containing black small diamond',
+        gl: "\u25c8",
+        nm: "white diamond containing black small diamond",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25c9': {
+    "\u25c9": {
       0: null,
-      1: { gl: '\u25c9', nm: 'fisheye', pr: 260, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u25c9", nm: "fisheye", pr: 260, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u25cc': {
+    "\u25cc": {
       0: null,
-      1: { gl: '\u25cc', nm: 'dotted circle', pr: 260, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u25cc", nm: "dotted circle", pr: 260, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u25cd': {
+    "\u25cd": {
       0: null,
       1: {
-        gl: '\u25cd',
-        nm: 'circle with vertical fill',
+        gl: "\u25cd",
+        nm: "circle with vertical fill",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25ce': {
+    "\u25ce": {
       0: null,
-      1: { gl: '\u25ce', nm: 'bullseye', pr: 260, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u25ce", nm: "bullseye", pr: 260, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u25cf': {
+    "\u25cf": {
       0: null,
-      1: { gl: '\u25cf', nm: 'black circle', pr: 260, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u25cf", nm: "black circle", pr: 260, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u25d6': {
+    "\u25d6": {
       0: null,
       1: {
-        gl: '\u25d6',
-        nm: 'left half black circle',
+        gl: "\u25d6",
+        nm: "left half black circle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25d7': {
+    "\u25d7": {
       0: null,
       1: {
-        gl: '\u25d7',
-        nm: 'right half black circle',
+        gl: "\u25d7",
+        nm: "right half black circle",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u25e6': {
+    "\u25e6": {
       0: null,
-      1: { gl: '\u25e6', nm: 'white bullet', pr: 260, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u25e6", nm: "white bullet", pr: 260, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u266d': {
+    "\u266d": {
       0: null,
       1: null,
-      2: { gl: '\u266d', nm: 'music flat sign', pr: 800, ls: 0, rs: 2, pp: '' },
+      2: { gl: "\u266d", nm: "music flat sign", pr: 800, ls: 0, rs: 2, pp: "" },
     },
-    '\u266e': {
+    "\u266e": {
       0: null,
       1: null,
       2: {
-        gl: '\u266e',
-        nm: 'music natural sign',
+        gl: "\u266e",
+        nm: "music natural sign",
         pr: 800,
         ls: 0,
         rs: 2,
-        pp: '',
+        pp: "",
       },
     },
-    '\u266f': {
+    "\u266f": {
       0: null,
       1: null,
       2: {
-        gl: '\u266f',
-        nm: 'music sharp sign',
+        gl: "\u266f",
+        nm: "music sharp sign",
         pr: 800,
         ls: 0,
         r$s: 2,
-        pp: '',
+        pp: "",
       },
     },
-    '\u2758': {
+    "\u2758": {
       0: null,
       1: {
-        gl: '\u2758',
-        nm: 'light vertical bar',
+        gl: "\u2758",
+        nm: "light vertical bar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2772': {
+    "\u2772": {
       0: {
-        gl: '\u2772',
-        nm: 'light left tortoise shell bracket ornament',
+        gl: "\u2772",
+        nm: "light left tortoise shell bracket ornament",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2773': {
+    "\u2773": {
       0: null,
       1: null,
       2: {
-        gl: '\u2773',
-        nm: 'light right tortoise shell bracket ornament',
+        gl: "\u2773",
+        nm: "light right tortoise shell bracket ornament",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u27c2': {
+    "\u27c2": {
       0: null,
-      1: { gl: '\u27c2', nm: 'perp', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u27c2", nm: "perp", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u27e6': {
+    "\u27e6": {
       0: {
-        gl: '\u27e6',
-        nm: 'mathematical left white square bracket',
+        gl: "\u27e6",
+        nm: "mathematical left white square bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u27e7': {
+    "\u27e7": {
       0: null,
       1: null,
       2: {
-        gl: '\u27e7',
-        nm: 'mathematical right white square bracket',
+        gl: "\u27e7",
+        nm: "mathematical right white square bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u27e8': {
+    "\u27e8": {
       0: {
-        gl: '\u27e8',
-        nm: 'mathematical left angle bracket',
+        gl: "\u27e8",
+        nm: "mathematical left angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u27e9': {
+    "\u27e9": {
       0: null,
       1: null,
       2: {
-        gl: '\u27e9',
-        nm: 'mathematical right angle bracket',
+        gl: "\u27e9",
+        nm: "mathematical right angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u27ea': {
+    "\u27ea": {
       0: {
-        gl: '\u27ea',
-        nm: 'mathematical left double angle bracket',
+        gl: "\u27ea",
+        nm: "mathematical left double angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u27eb': {
+    "\u27eb": {
       0: null,
       1: null,
       2: {
-        gl: '\u27eb',
-        nm: 'mathematical right double angle bracket',
+        gl: "\u27eb",
+        nm: "mathematical right double angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u27ec': {
+    "\u27ec": {
       0: {
-        gl: '\u27ec',
-        nm: 'mathematical left white tortoise shell bracket',
+        gl: "\u27ec",
+        nm: "mathematical left white tortoise shell bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u27ed': {
+    "\u27ed": {
       0: null,
       1: null,
       2: {
-        gl: '\u27ed',
-        nm: 'mathematical right white tortoise shell bracket',
+        gl: "\u27ed",
+        nm: "mathematical right white tortoise shell bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u27ee': {
+    "\u27ee": {
       0: {
-        gl: '\u27ee',
-        nm: 'mathematical left flattened parenthesis',
+        gl: "\u27ee",
+        nm: "mathematical left flattened parenthesis",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u27ef': {
+    "\u27ef": {
       0: null,
       1: null,
       2: {
-        gl: '\u27ef',
-        nm: 'mathematical right flattened parenthesis',
+        gl: "\u27ef",
+        nm: "mathematical right flattened parenthesis",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u27f0': {
+    "\u27f0": {
       0: null,
       1: {
-        gl: '\u27f0',
-        nm: 'upwards quadruple arrow',
+        gl: "\u27f0",
+        nm: "upwards quadruple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u27f1': {
+    "\u27f1": {
       0: null,
       1: {
-        gl: '\u27f1',
-        nm: 'downwards quadruple arrow',
+        gl: "\u27f1",
+        nm: "downwards quadruple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u27f5': {
+    "\u27f5": {
       0: null,
       1: {
-        gl: '\u27f5',
-        nm: 'long leftwards arrow',
+        gl: "\u27f5",
+        nm: "long leftwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27f6': {
+    "\u27f6": {
       0: null,
       1: {
-        gl: '\u27f6',
-        nm: 'long rightwards arrow',
+        gl: "\u27f6",
+        nm: "long rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27f7': {
+    "\u27f7": {
       0: null,
       1: {
-        gl: '\u27f7',
-        nm: 'long left right arrow',
+        gl: "\u27f7",
+        nm: "long left right arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27f8': {
+    "\u27f8": {
       0: null,
       1: {
-        gl: '\u27f8',
-        nm: 'long leftwards double arrow',
+        gl: "\u27f8",
+        nm: "long leftwards double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27f9': {
+    "\u27f9": {
       0: null,
       1: {
-        gl: '\u27f9',
-        nm: 'long rightwards double arrow',
+        gl: "\u27f9",
+        nm: "long rightwards double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27fa': {
+    "\u27fa": {
       0: null,
       1: {
-        gl: '\u27fa',
-        nm: 'long left right double arrow',
+        gl: "\u27fa",
+        nm: "long left right double arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27fb': {
+    "\u27fb": {
       0: null,
       1: {
-        gl: '\u27fb',
-        nm: 'long leftwards arrow from bar',
+        gl: "\u27fb",
+        nm: "long leftwards arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27fc': {
+    "\u27fc": {
       0: null,
       1: {
-        gl: '\u27fc',
-        nm: 'long rightwards arrow from bar',
+        gl: "\u27fc",
+        nm: "long rightwards arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27fd': {
+    "\u27fd": {
       0: null,
       1: {
-        gl: '\u27fd',
-        nm: 'long leftwards double arrow from bar',
+        gl: "\u27fd",
+        nm: "long leftwards double arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27fe': {
+    "\u27fe": {
       0: null,
       1: {
-        gl: '\u27fe',
-        nm: 'long rightwards double arrow from bar',
+        gl: "\u27fe",
+        nm: "long rightwards double arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u27ff': {
+    "\u27ff": {
       0: null,
       1: {
-        gl: '\u27ff',
-        nm: 'long rightwards squiggle arrow',
+        gl: "\u27ff",
+        nm: "long rightwards squiggle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2900': {
+    "\u2900": {
       0: null,
       1: {
-        gl: '\u2900',
-        nm: 'rightwards two-headed arrow with vertical stroke',
+        gl: "\u2900",
+        nm: "rightwards two-headed arrow with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2901': {
+    "\u2901": {
       0: null,
       1: {
-        gl: '\u2901',
-        nm: 'rightwards two-headed arrow with double vertical stroke',
+        gl: "\u2901",
+        nm: "rightwards two-headed arrow with double vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2902': {
+    "\u2902": {
       0: null,
       1: {
-        gl: '\u2902',
-        nm: 'leftwards double arrow with vertical stroke',
+        gl: "\u2902",
+        nm: "leftwards double arrow with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2903': {
+    "\u2903": {
       0: null,
       1: {
-        gl: '\u2903',
-        nm: 'rightwards double arrow with vertical stroke',
+        gl: "\u2903",
+        nm: "rightwards double arrow with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2904': {
+    "\u2904": {
       0: null,
       1: {
-        gl: '\u2904',
-        nm: 'left right double arrow with vertical stroke',
+        gl: "\u2904",
+        nm: "left right double arrow with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2905': {
+    "\u2905": {
       0: null,
       1: {
-        gl: '\u2905',
-        nm: 'rightwards two-headed arrow from bar',
+        gl: "\u2905",
+        nm: "rightwards two-headed arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2906': {
+    "\u2906": {
       0: null,
       1: {
-        gl: '\u2906',
-        nm: 'leftwards double arrow from bar',
+        gl: "\u2906",
+        nm: "leftwards double arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2907': {
+    "\u2907": {
       0: null,
       1: {
-        gl: '\u2907',
-        nm: 'rightwards double arrow from bar',
+        gl: "\u2907",
+        nm: "rightwards double arrow from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2908': {
+    "\u2908": {
       0: null,
       1: {
-        gl: '\u2908',
-        nm: 'downwards arrow with horizontal stroke',
+        gl: "\u2908",
+        nm: "downwards arrow with horizontal stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2909': {
+    "\u2909": {
       0: null,
       1: {
-        gl: '\u2909',
-        nm: 'upwards arrow with horizontal stroke',
+        gl: "\u2909",
+        nm: "upwards arrow with horizontal stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u290a': {
+    "\u290a": {
       0: null,
       1: {
-        gl: '\u290a',
-        nm: 'upwards triple arrow',
+        gl: "\u290a",
+        nm: "upwards triple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u290b': {
+    "\u290b": {
       0: null,
       1: {
-        gl: '\u290b',
-        nm: 'downwards triple arrow',
+        gl: "\u290b",
+        nm: "downwards triple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u290c': {
+    "\u290c": {
       0: null,
       1: {
-        gl: '\u290c',
-        nm: 'leftwards double dash arrow',
+        gl: "\u290c",
+        nm: "leftwards double dash arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u290d': {
+    "\u290d": {
       0: null,
       1: {
-        gl: '\u290d',
-        nm: 'rightwards double dash arrow',
+        gl: "\u290d",
+        nm: "rightwards double dash arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u290e': {
+    "\u290e": {
       0: null,
       1: {
-        gl: '\u290e',
-        nm: 'leftwards triple dash arrow',
+        gl: "\u290e",
+        nm: "leftwards triple dash arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u290f': {
+    "\u290f": {
       0: null,
       1: {
-        gl: '\u290f',
-        nm: 'rightwards triple dash arrow',
+        gl: "\u290f",
+        nm: "rightwards triple dash arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2910': {
+    "\u2910": {
       0: null,
       1: {
-        gl: '\u2910',
-        nm: 'rightwards two-headed triple dash arrow',
+        gl: "\u2910",
+        nm: "rightwards two-headed triple dash arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2911': {
+    "\u2911": {
       0: null,
       1: {
-        gl: '\u2911',
-        nm: 'rightwards arrow with dotted stem',
+        gl: "\u2911",
+        nm: "rightwards arrow with dotted stem",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2912': {
+    "\u2912": {
       0: null,
       1: {
-        gl: '\u2912',
-        nm: 'upwards arrow to bar',
+        gl: "\u2912",
+        nm: "upwards arrow to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2913': {
+    "\u2913": {
       0: null,
       1: {
-        gl: '\u2913',
-        nm: 'downwards arrow to bar',
+        gl: "\u2913",
+        nm: "downwards arrow to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2914': {
+    "\u2914": {
       0: null,
       1: {
-        gl: '\u2914',
-        nm: 'rightwards arrow with tail with vertical stroke',
+        gl: "\u2914",
+        nm: "rightwards arrow with tail with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2915': {
+    "\u2915": {
       0: null,
       1: {
-        gl: '\u2915',
-        nm: 'rightwards arrow with tail with double vertical stroke',
+        gl: "\u2915",
+        nm: "rightwards arrow with tail with double vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2916': {
+    "\u2916": {
       0: null,
       1: {
-        gl: '\u2916',
-        nm: 'rightwards two-headed arrow with tail',
+        gl: "\u2916",
+        nm: "rightwards two-headed arrow with tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2917': {
+    "\u2917": {
       0: null,
       1: {
-        gl: '\u2917',
-        nm: 'rightwards two-headed arrow with tail with vertical stroke',
+        gl: "\u2917",
+        nm: "rightwards two-headed arrow with tail with vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2918': {
+    "\u2918": {
       0: null,
       1: {
-        gl: '\u2918',
-        nm: 'rightwards two-headed arrow with tail with double vertical stroke',
+        gl: "\u2918",
+        nm: "rightwards two-headed arrow with tail with double vertical stroke",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2919': {
+    "\u2919": {
       0: null,
       1: {
-        gl: '\u2919',
-        nm: 'leftwards arrow-tail',
+        gl: "\u2919",
+        nm: "leftwards arrow-tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u291a': {
+    "\u291a": {
       0: null,
       1: {
-        gl: '\u291a',
-        nm: 'rightwards arrow-tail',
+        gl: "\u291a",
+        nm: "rightwards arrow-tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u291b': {
+    "\u291b": {
       0: null,
       1: {
-        gl: '\u291b',
-        nm: 'leftwards double arrow-tail',
+        gl: "\u291b",
+        nm: "leftwards double arrow-tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u291c': {
+    "\u291c": {
       0: null,
       1: {
-        gl: '\u291c',
-        nm: 'rightwards double arrow-tail',
+        gl: "\u291c",
+        nm: "rightwards double arrow-tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u291d': {
+    "\u291d": {
       0: null,
       1: {
-        gl: '\u291d',
-        nm: 'leftwards arrow to black diamond',
+        gl: "\u291d",
+        nm: "leftwards arrow to black diamond",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u291e': {
+    "\u291e": {
       0: null,
       1: {
-        gl: '\u291e',
-        nm: 'rightwards arrow to black diamond',
+        gl: "\u291e",
+        nm: "rightwards arrow to black diamond",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u291f': {
+    "\u291f": {
       0: null,
       1: {
-        gl: '\u291f',
-        nm: 'leftwards arrow from bar to black diamond',
+        gl: "\u291f",
+        nm: "leftwards arrow from bar to black diamond",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2920': {
+    "\u2920": {
       0: null,
       1: {
-        gl: '\u2920',
-        nm: 'rightwards arrow from bar to black diamond',
+        gl: "\u2920",
+        nm: "rightwards arrow from bar to black diamond",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2921': {
+    "\u2921": {
       0: null,
       1: {
-        gl: '\u2921',
-        nm: 'north west and south east arrow',
+        gl: "\u2921",
+        nm: "north west and south east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2922': {
+    "\u2922": {
       0: null,
       1: {
-        gl: '\u2922',
-        nm: 'north east and south west arrow',
+        gl: "\u2922",
+        nm: "north east and south west arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2923': {
+    "\u2923": {
       0: null,
       1: {
-        gl: '\u2923',
-        nm: 'north west arrow with hook',
+        gl: "\u2923",
+        nm: "north west arrow with hook",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2924': {
+    "\u2924": {
       0: null,
       1: {
-        gl: '\u2924',
-        nm: 'north east arrow with hook',
+        gl: "\u2924",
+        nm: "north east arrow with hook",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2925': {
+    "\u2925": {
       0: null,
       1: {
-        gl: '\u2925',
-        nm: 'south east arrow with hook',
+        gl: "\u2925",
+        nm: "south east arrow with hook",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2926': {
+    "\u2926": {
       0: null,
       1: {
-        gl: '\u2926',
-        nm: 'south west arrow with hook',
+        gl: "\u2926",
+        nm: "south west arrow with hook",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2927': {
+    "\u2927": {
       0: null,
       1: {
-        gl: '\u2927',
-        nm: 'north west arrow and north east arrow',
+        gl: "\u2927",
+        nm: "north west arrow and north east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2928': {
+    "\u2928": {
       0: null,
       1: {
-        gl: '\u2928',
-        nm: 'north east arrow and south east arrow',
+        gl: "\u2928",
+        nm: "north east arrow and south east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2929': {
+    "\u2929": {
       0: null,
       1: {
-        gl: '\u2929',
-        nm: 'south east arrow and south west arrow',
+        gl: "\u2929",
+        nm: "south east arrow and south west arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u292a': {
+    "\u292a": {
       0: null,
       1: {
-        gl: '\u292a',
-        nm: 'south west arrow and north west arrow',
+        gl: "\u292a",
+        nm: "south west arrow and north west arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u292b': {
+    "\u292b": {
       0: null,
       1: {
-        gl: '\u292b',
-        nm: 'rising diagonal crossing falling diagonal',
+        gl: "\u292b",
+        nm: "rising diagonal crossing falling diagonal",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u292c': {
+    "\u292c": {
       0: null,
       1: {
-        gl: '\u292c',
-        nm: 'falling diagonal crossing rising diagonal',
+        gl: "\u292c",
+        nm: "falling diagonal crossing rising diagonal",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u292d': {
+    "\u292d": {
       0: null,
       1: {
-        gl: '\u292d',
-        nm: 'south east arrow crossing north east arrow',
+        gl: "\u292d",
+        nm: "south east arrow crossing north east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u292e': {
+    "\u292e": {
       0: null,
       1: {
-        gl: '\u292e',
-        nm: 'north east arrow crossing south east arrow',
+        gl: "\u292e",
+        nm: "north east arrow crossing south east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u292f': {
+    "\u292f": {
       0: null,
       1: {
-        gl: '\u292f',
-        nm: 'falling diagonal crossing north east arrow',
+        gl: "\u292f",
+        nm: "falling diagonal crossing north east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2930': {
+    "\u2930": {
       0: null,
       1: {
-        gl: '\u2930',
-        nm: 'rising diagonal crossing south east arrow',
+        gl: "\u2930",
+        nm: "rising diagonal crossing south east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2931': {
+    "\u2931": {
       0: null,
       1: {
-        gl: '\u2931',
-        nm: 'north east arrow crossing north west arrow',
+        gl: "\u2931",
+        nm: "north east arrow crossing north west arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2932': {
+    "\u2932": {
       0: null,
       1: {
-        gl: '\u2932',
-        nm: 'north west arrow crossing north east arrow',
+        gl: "\u2932",
+        nm: "north west arrow crossing north east arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2933': {
+    "\u2933": {
       0: null,
       1: {
-        gl: '\u2933',
-        nm: 'wave arrow pointing directly right',
+        gl: "\u2933",
+        nm: "wave arrow pointing directly right",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2934': {
+    "\u2934": {
       0: null,
       1: {
-        gl: '\u2934',
-        nm: 'arrow pointing rightwards then curving upwards',
+        gl: "\u2934",
+        nm: "arrow pointing rightwards then curving upwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2935': {
+    "\u2935": {
       0: null,
       1: {
-        gl: '\u2935',
-        nm: 'arrow pointing rightwards then curving downwards',
+        gl: "\u2935",
+        nm: "arrow pointing rightwards then curving downwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2936': {
+    "\u2936": {
       0: null,
       1: {
-        gl: '\u2936',
-        nm: 'arrow pointing downwards then curving leftwards',
+        gl: "\u2936",
+        nm: "arrow pointing downwards then curving leftwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2937': {
+    "\u2937": {
       0: null,
       1: {
-        gl: '\u2937',
-        nm: 'arrow pointing downwards then curving rightwards',
+        gl: "\u2937",
+        nm: "arrow pointing downwards then curving rightwards",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2938': {
+    "\u2938": {
       0: null,
       1: {
-        gl: '\u2938',
-        nm: 'right-side arc clockwise arrow',
+        gl: "\u2938",
+        nm: "right-side arc clockwise arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2939': {
+    "\u2939": {
       0: null,
       1: {
-        gl: '\u2939',
-        nm: 'left-side arc anticlockwise arrow',
+        gl: "\u2939",
+        nm: "left-side arc anticlockwise arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u293a': {
+    "\u293a": {
       0: null,
       1: {
-        gl: '\u293a',
-        nm: 'top arc anticlockwise arrow',
+        gl: "\u293a",
+        nm: "top arc anticlockwise arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u293b': {
+    "\u293b": {
       0: null,
       1: {
-        gl: '\u293b',
-        nm: 'bottom arc anticlockwise arrow',
+        gl: "\u293b",
+        nm: "bottom arc anticlockwise arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u293c': {
+    "\u293c": {
       0: null,
       1: {
-        gl: '\u293c',
-        nm: 'top arc clockwise arrow with minus',
+        gl: "\u293c",
+        nm: "top arc clockwise arrow with minus",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u293d': {
+    "\u293d": {
       0: null,
       1: {
-        gl: '\u293d',
-        nm: 'top arc anticlockwise arrow with plus',
+        gl: "\u293d",
+        nm: "top arc anticlockwise arrow with plus",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u293e': {
+    "\u293e": {
       0: null,
       1: {
-        gl: '\u293e',
-        nm: 'lower right semicircular clockwise arrow',
+        gl: "\u293e",
+        nm: "lower right semicircular clockwise arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u293f': {
+    "\u293f": {
       0: null,
       1: {
-        gl: '\u293f',
-        nm: 'lower left semicircular anticlockwise arrow',
+        gl: "\u293f",
+        nm: "lower left semicircular anticlockwise arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2940': {
+    "\u2940": {
       0: null,
       1: {
-        gl: '\u2940',
-        nm: 'anticlockwise closed circle arrow',
+        gl: "\u2940",
+        nm: "anticlockwise closed circle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2941': {
+    "\u2941": {
       0: null,
       1: {
-        gl: '\u2941',
-        nm: 'clockwise closed circle arrow',
+        gl: "\u2941",
+        nm: "clockwise closed circle arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2942': {
+    "\u2942": {
       0: null,
       1: {
-        gl: '\u2942',
-        nm: 'rightwards arrow above short leftwards arrow',
+        gl: "\u2942",
+        nm: "rightwards arrow above short leftwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2943': {
+    "\u2943": {
       0: null,
       1: {
-        gl: '\u2943',
-        nm: 'leftwards arrow above short rightwards arrow',
+        gl: "\u2943",
+        nm: "leftwards arrow above short rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2944': {
+    "\u2944": {
       0: null,
       1: {
-        gl: '\u2944',
-        nm: 'short rightwards arrow above leftwards arrow',
+        gl: "\u2944",
+        nm: "short rightwards arrow above leftwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2945': {
+    "\u2945": {
       0: null,
       1: {
-        gl: '\u2945',
-        nm: 'rightwards arrow with plus below',
+        gl: "\u2945",
+        nm: "rightwards arrow with plus below",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2946': {
+    "\u2946": {
       0: null,
       1: {
-        gl: '\u2946',
-        nm: 'leftwards arrow with plus below',
+        gl: "\u2946",
+        nm: "leftwards arrow with plus below",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2947': {
+    "\u2947": {
       0: null,
       1: {
-        gl: '\u2947',
-        nm: 'rightwards arrow through x',
+        gl: "\u2947",
+        nm: "rightwards arrow through x",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2948': {
+    "\u2948": {
       0: null,
       1: {
-        gl: '\u2948',
-        nm: 'left right arrow through small circle',
+        gl: "\u2948",
+        nm: "left right arrow through small circle",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2949': {
+    "\u2949": {
       0: null,
       1: {
-        gl: '\u2949',
-        nm: 'upwards two-headed arrow from small circle',
+        gl: "\u2949",
+        nm: "upwards two-headed arrow from small circle",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u294a': {
+    "\u294a": {
       0: null,
       1: {
-        gl: '\u294a',
-        nm: 'left barb up right barb down harpoon',
+        gl: "\u294a",
+        nm: "left barb up right barb down harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u294b': {
+    "\u294b": {
       0: null,
       1: {
-        gl: '\u294b',
-        nm: 'left barb down right barb up harpoon',
+        gl: "\u294b",
+        nm: "left barb down right barb up harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u294c': {
+    "\u294c": {
       0: null,
       1: {
-        gl: '\u294c',
-        nm: 'up barb right down barb left harpoon',
+        gl: "\u294c",
+        nm: "up barb right down barb left harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u294d': {
+    "\u294d": {
       0: null,
       1: {
-        gl: '\u294d',
-        nm: 'up barb left down barb right harpoon',
+        gl: "\u294d",
+        nm: "up barb left down barb right harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u294e': {
+    "\u294e": {
       0: null,
       1: {
-        gl: '\u294e',
-        nm: 'left barb up right barb up harpoon',
+        gl: "\u294e",
+        nm: "left barb up right barb up harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u294f': {
+    "\u294f": {
       0: null,
       1: {
-        gl: '\u294f',
-        nm: 'up barb right down barb right harpoon',
+        gl: "\u294f",
+        nm: "up barb right down barb right harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2950': {
+    "\u2950": {
       0: null,
       1: {
-        gl: '\u2950',
-        nm: 'left barb down right barb down harpoon',
+        gl: "\u2950",
+        nm: "left barb down right barb down harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2951': {
+    "\u2951": {
       0: null,
       1: {
-        gl: '\u2951',
-        nm: 'up barb left down barb left harpoon',
+        gl: "\u2951",
+        nm: "up barb left down barb left harpoon",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2952': {
+    "\u2952": {
       0: null,
       1: {
-        gl: '\u2952',
-        nm: 'leftwards harpoon with barb up to bar',
+        gl: "\u2952",
+        nm: "leftwards harpoon with barb up to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2953': {
+    "\u2953": {
       0: null,
       1: {
-        gl: '\u2953',
-        nm: 'rightwards harpoon with barb up to bar',
+        gl: "\u2953",
+        nm: "rightwards harpoon with barb up to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2954': {
+    "\u2954": {
       0: null,
       1: {
-        gl: '\u2954',
-        nm: 'upwards harpoon with barb right to bar',
+        gl: "\u2954",
+        nm: "upwards harpoon with barb right to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2955': {
+    "\u2955": {
       0: null,
       1: {
-        gl: '\u2955',
-        nm: 'downwards harpoon with barb right to bar',
+        gl: "\u2955",
+        nm: "downwards harpoon with barb right to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2956': {
+    "\u2956": {
       0: null,
       1: {
-        gl: '\u2956',
-        nm: 'leftwards harpoon with barb down to bar',
+        gl: "\u2956",
+        nm: "leftwards harpoon with barb down to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2957': {
+    "\u2957": {
       0: null,
       1: {
-        gl: '\u2957',
-        nm: 'rightwards harpoon with barb down to bar',
+        gl: "\u2957",
+        nm: "rightwards harpoon with barb down to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2958': {
+    "\u2958": {
       0: null,
       1: {
-        gl: '\u2958',
-        nm: 'upwards harpoon with barb left to bar',
+        gl: "\u2958",
+        nm: "upwards harpoon with barb left to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2959': {
+    "\u2959": {
       0: null,
       1: {
-        gl: '\u2959',
-        nm: 'downwards harpoon with barb left to bar',
+        gl: "\u2959",
+        nm: "downwards harpoon with barb left to bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u295a': {
+    "\u295a": {
       0: null,
       1: {
-        gl: '\u295a',
-        nm: 'leftwards harpoon with barb up from bar',
+        gl: "\u295a",
+        nm: "leftwards harpoon with barb up from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u295b': {
+    "\u295b": {
       0: null,
       1: {
-        gl: '\u295b',
-        nm: 'rightwards harpoon with barb up from bar',
+        gl: "\u295b",
+        nm: "rightwards harpoon with barb up from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u295c': {
+    "\u295c": {
       0: null,
       1: {
-        gl: '\u295c',
-        nm: 'upwards harpoon with barb right from bar',
+        gl: "\u295c",
+        nm: "upwards harpoon with barb right from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u295d': {
+    "\u295d": {
       0: null,
       1: {
-        gl: '\u295d',
-        nm: 'downwards harpoon with barb right from bar',
+        gl: "\u295d",
+        nm: "downwards harpoon with barb right from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u295e': {
+    "\u295e": {
       0: null,
       1: {
-        gl: '\u295e',
-        nm: 'leftwards harpoon with barb down from bar',
+        gl: "\u295e",
+        nm: "leftwards harpoon with barb down from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u295f': {
+    "\u295f": {
       0: null,
       1: {
-        gl: '\u295f',
-        nm: 'rightwards harpoon with barb down from bar',
+        gl: "\u295f",
+        nm: "rightwards harpoon with barb down from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
       2: null,
     },
-    '\u2960': {
+    "\u2960": {
       0: null,
       1: {
-        gl: '\u2960',
-        nm: 'upwards harpoon with barb left from bar',
+        gl: "\u2960",
+        nm: "upwards harpoon with barb left from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2961': {
+    "\u2961": {
       0: null,
       1: {
-        gl: '\u2961',
-        nm: 'downwards harpoon with barb left from bar',
+        gl: "\u2961",
+        nm: "downwards harpoon with barb left from bar",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2962': {
+    "\u2962": {
       0: null,
       1: {
-        gl: '\u2962',
-        nm: 'leftwards harpoon with barb up above leftwards harpoon with barb down',
+        gl: "\u2962",
+        nm: "leftwards harpoon with barb up above leftwards harpoon with barb down",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2963': {
+    "\u2963": {
       0: null,
       1: {
-        gl: '\u2963',
-        nm: 'upwards harpoon with barb left beside upwards harpoon with barb right',
+        gl: "\u2963",
+        nm: "upwards harpoon with barb left beside upwards harpoon with barb right",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2964': {
+    "\u2964": {
       0: null,
       1: {
-        gl: '\u2964',
-        nm: 'rightwards harpoon with barb up above rightwards harpoon with barb down',
+        gl: "\u2964",
+        nm: "rightwards harpoon with barb up above rightwards harpoon with barb down",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2965': {
+    "\u2965": {
       0: null,
       1: {
-        gl: '\u2965',
-        nm: 'downwards harpoon with barb left beside downwards harpoon with barb right',
+        gl: "\u2965",
+        nm: "downwards harpoon with barb left beside downwards harpoon with barb right",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2966': {
+    "\u2966": {
       0: null,
       1: {
-        gl: '\u2966',
-        nm: 'leftwards harpoon with barb up above rightwards harpoon with barb up',
+        gl: "\u2966",
+        nm: "leftwards harpoon with barb up above rightwards harpoon with barb up",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2967': {
+    "\u2967": {
       0: null,
       1: {
-        gl: '\u2967',
-        nm: 'leftwards harpoon with barb down above rightwards harpoon with barb down',
+        gl: "\u2967",
+        nm: "leftwards harpoon with barb down above rightwards harpoon with barb down",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2968': {
+    "\u2968": {
       0: null,
       1: {
-        gl: '\u2968',
-        nm: 'rightwards harpoon with barb up above leftwards harpoon with barb up',
+        gl: "\u2968",
+        nm: "rightwards harpoon with barb up above leftwards harpoon with barb up",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2969': {
+    "\u2969": {
       0: null,
       1: {
-        gl: '\u2969',
-        nm: 'rightwards harpoon with barb down above leftwards harpoon with barb down',
+        gl: "\u2969",
+        nm: "rightwards harpoon with barb down above leftwards harpoon with barb down",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u296a': {
+    "\u296a": {
       0: null,
       1: {
-        gl: '\u296a',
-        nm: 'leftwards harpoon with barb up above long dash',
+        gl: "\u296a",
+        nm: "leftwards harpoon with barb up above long dash",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u296b': {
+    "\u296b": {
       0: null,
       1: {
-        gl: '\u296b',
-        nm: 'leftwards harpoon with barb down below long dash',
+        gl: "\u296b",
+        nm: "leftwards harpoon with barb down below long dash",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u296c': {
+    "\u296c": {
       0: null,
       1: {
-        gl: '\u296c',
-        nm: 'rightwards harpoon with barb up above long dash',
+        gl: "\u296c",
+        nm: "rightwards harpoon with barb up above long dash",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u296d': {
+    "\u296d": {
       0: null,
       1: {
-        gl: '\u296d',
-        nm: 'rightwards harpoon with barb down below long dash',
+        gl: "\u296d",
+        nm: "rightwards harpoon with barb down below long dash",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u296e': {
+    "\u296e": {
       0: null,
       1: {
-        gl: '\u296e',
-        nm: 'upwards harpoon with barb left beside downwards harpoon with barb right',
+        gl: "\u296e",
+        nm: "upwards harpoon with barb left beside downwards harpoon with barb right",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u296f': {
+    "\u296f": {
       0: null,
       1: {
-        gl: '\u296f',
-        nm: 'downwards harpoon with barb left beside upwards harpoon with barb right',
+        gl: "\u296f",
+        nm: "downwards harpoon with barb left beside upwards harpoon with barb right",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2970': {
+    "\u2970": {
       0: null,
       1: {
-        gl: '\u2970',
-        nm: 'right double arrow with rounded head',
+        gl: "\u2970",
+        nm: "right double arrow with rounded head",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2971': {
+    "\u2971": {
       0: null,
       1: {
-        gl: '\u2971',
-        nm: 'equals sign above rightwards arrow',
+        gl: "\u2971",
+        nm: "equals sign above rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2972': {
+    "\u2972": {
       0: null,
       1: {
-        gl: '\u2972',
-        nm: 'tilde operator above rightwards arrow',
+        gl: "\u2972",
+        nm: "tilde operator above rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2973': {
+    "\u2973": {
       0: null,
       1: {
-        gl: '\u2973',
-        nm: 'leftwards arrow above tilde operator',
+        gl: "\u2973",
+        nm: "leftwards arrow above tilde operator",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2974': {
+    "\u2974": {
       0: null,
       1: {
-        gl: '\u2974',
-        nm: 'rightwards arrow above tilde operator',
+        gl: "\u2974",
+        nm: "rightwards arrow above tilde operator",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2975': {
+    "\u2975": {
       0: null,
       1: {
-        gl: '\u2975',
-        nm: 'rightwards arrow above almost equal to',
+        gl: "\u2975",
+        nm: "rightwards arrow above almost equal to",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2976': {
+    "\u2976": {
       0: null,
       1: {
-        gl: '\u2976',
-        nm: 'less-than above leftwards arrow',
+        gl: "\u2976",
+        nm: "less-than above leftwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2977': {
+    "\u2977": {
       0: null,
       1: {
-        gl: '\u2977',
-        nm: 'leftwards arrow through less-than',
+        gl: "\u2977",
+        nm: "leftwards arrow through less-than",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2978': {
+    "\u2978": {
       0: null,
       1: {
-        gl: '\u2978',
-        nm: 'greater-than above rightwards arrow',
+        gl: "\u2978",
+        nm: "greater-than above rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u2979': {
+    "\u2979": {
       0: null,
       1: {
-        gl: '\u2979',
-        nm: 'subset above rightwards arrow',
+        gl: "\u2979",
+        nm: "subset above rightwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u297a': {
+    "\u297a": {
       0: null,
       1: {
-        gl: '\u297a',
-        nm: 'leftwards arrow through subset',
+        gl: "\u297a",
+        nm: "leftwards arrow through subset",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u297b': {
+    "\u297b": {
       0: null,
       1: {
-        gl: '\u297b',
-        nm: 'superset above leftwards arrow',
+        gl: "\u297b",
+        nm: "superset above leftwards arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u297c': {
+    "\u297c": {
       0: null,
       1: {
-        gl: '\u297c',
-        nm: 'left fish tail',
+        gl: "\u297c",
+        nm: "left fish tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u297d': {
+    "\u297d": {
       0: null,
       1: {
-        gl: '\u297d',
-        nm: 'right fish tail',
+        gl: "\u297d",
+        nm: "right fish tail",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'accent',
+        pp: "accent",
       },
       2: null,
     },
-    '\u297e': {
+    "\u297e": {
       0: null,
-      1: { gl: '\u297e', nm: 'up fish tail', pr: 270, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u297e", nm: "up fish tail", pr: 270, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u297f': {
+    "\u297f": {
       0: null,
-      1: { gl: '\u297f', nm: 'down fish tail', pr: 270, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u297f", nm: "down fish tail", pr: 270, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2980': {
+    "\u2980": {
       0: {
-        gl: '\u2980',
-        nm: 'triple vertical bar delimiter',
+        gl: "\u2980",
+        nm: "triple vertical bar delimiter",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy',
+        pp: "fence, stretchy",
       },
       1: null,
       2: {
-        gl: '\u2980',
-        nm: 'triple vertical bar delimiter',
+        gl: "\u2980",
+        nm: "triple vertical bar delimiter",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy',
+        pp: "fence, stretchy",
       },
     },
-    '\u2981': {
+    "\u2981": {
       0: null,
-      1: { gl: '\u2981', nm: 'z notation spot', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u2981", nm: "z notation spot", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u2982': {
+    "\u2982": {
       0: null,
       1: {
-        gl: '\u2982',
-        nm: 'z notation type colon',
+        gl: "\u2982",
+        nm: "z notation type colon",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2983': {
+    "\u2983": {
       0: {
-        gl: '\u2983',
-        nm: 'left white curly bracket',
+        gl: "\u2983",
+        nm: "left white curly bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2984': {
+    "\u2984": {
       0: null,
       1: null,
       2: {
-        gl: '\u2984',
-        nm: 'right white curly bracket',
+        gl: "\u2984",
+        nm: "right white curly bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2985': {
+    "\u2985": {
       0: {
-        gl: '\u2985',
-        nm: 'left white parenthesis',
+        gl: "\u2985",
+        nm: "left white parenthesis",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2986': {
+    "\u2986": {
       0: null,
       1: null,
       2: {
-        gl: '\u2986',
-        nm: 'right white parenthesis',
+        gl: "\u2986",
+        nm: "right white parenthesis",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2987': {
+    "\u2987": {
       0: {
-        gl: '\u2987',
-        nm: 'z notation left image bracket',
+        gl: "\u2987",
+        nm: "z notation left image bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2988': {
+    "\u2988": {
       0: null,
       1: null,
       2: {
-        gl: '\u2988',
-        nm: 'z notation right image bracket',
+        gl: "\u2988",
+        nm: "z notation right image bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2989': {
+    "\u2989": {
       0: {
-        gl: '\u2989',
-        nm: 'z notation left binding bracket',
+        gl: "\u2989",
+        nm: "z notation left binding bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u298a': {
+    "\u298a": {
       0: null,
       1: null,
       2: {
-        gl: '\u298a',
-        nm: 'z notation right binding bracket',
+        gl: "\u298a",
+        nm: "z notation right binding bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u298b': {
+    "\u298b": {
       0: {
-        gl: '\u298b',
-        nm: 'left square bracket with underbar',
+        gl: "\u298b",
+        nm: "left square bracket with underbar",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u298c': {
+    "\u298c": {
       0: null,
       1: null,
       2: {
-        gl: '\u298c',
-        nm: 'right square bracket with underbar',
+        gl: "\u298c",
+        nm: "right square bracket with underbar",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u298d': {
+    "\u298d": {
       0: {
-        gl: '\u298d',
-        nm: 'left square bracket with tick in top corner',
+        gl: "\u298d",
+        nm: "left square bracket with tick in top corner",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u298e': {
+    "\u298e": {
       0: null,
       1: null,
       2: {
-        gl: '\u298e',
-        nm: 'right square bracket with tick in bottom corner',
+        gl: "\u298e",
+        nm: "right square bracket with tick in bottom corner",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u298f': {
+    "\u298f": {
       0: {
-        gl: '\u298f',
-        nm: 'left square bracket with tick in bottom corner',
+        gl: "\u298f",
+        nm: "left square bracket with tick in bottom corner",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2990': {
+    "\u2990": {
       0: null,
       1: null,
       2: {
-        gl: '\u2990',
-        nm: 'right square bracket with tick in top corner',
+        gl: "\u2990",
+        nm: "right square bracket with tick in top corner",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2991': {
+    "\u2991": {
       0: {
-        gl: '\u2991',
-        nm: 'left angle bracket with dot',
+        gl: "\u2991",
+        nm: "left angle bracket with dot",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2992': {
+    "\u2992": {
       0: null,
       1: null,
       2: {
-        gl: '\u2992',
-        nm: 'right angle bracket with dot',
+        gl: "\u2992",
+        nm: "right angle bracket with dot",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2993': {
+    "\u2993": {
       0: {
-        gl: '\u2993',
-        nm: 'left arc less-than bracket',
+        gl: "\u2993",
+        nm: "left arc less-than bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2994': {
+    "\u2994": {
       0: null,
       1: null,
       2: {
-        gl: '\u2994',
-        nm: 'right arc greater-than bracket',
+        gl: "\u2994",
+        nm: "right arc greater-than bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2995': {
+    "\u2995": {
       0: {
-        gl: '\u2995',
-        nm: 'double left arc greater-than bracket',
+        gl: "\u2995",
+        nm: "double left arc greater-than bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2996': {
+    "\u2996": {
       0: null,
       1: null,
       2: {
-        gl: '\u2996',
-        nm: 'double right arc less-than bracket',
+        gl: "\u2996",
+        nm: "double right arc less-than bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2997': {
+    "\u2997": {
       0: {
-        gl: '\u2997',
-        nm: 'left black tortoise shell bracket',
+        gl: "\u2997",
+        nm: "left black tortoise shell bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2998': {
+    "\u2998": {
       0: null,
       1: null,
       2: {
-        gl: '\u2998',
-        nm: 'right black tortoise shell bracket',
+        gl: "\u2998",
+        nm: "right black tortoise shell bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u2999': {
+    "\u2999": {
       0: null,
-      1: { gl: '\u2999', nm: 'dotted fence', pr: 270, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u2999", nm: "dotted fence", pr: 270, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u299a': {
+    "\u299a": {
       0: null,
       1: {
-        gl: '\u299a',
-        nm: 'vertical zigzag line',
+        gl: "\u299a",
+        nm: "vertical zigzag line",
         pr: 270,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u299b': {
+    "\u299b": {
       0: null,
       1: {
-        gl: '\u299b',
-        nm: 'measured angle opening left',
+        gl: "\u299b",
+        nm: "measured angle opening left",
         pr: 270,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u299c': {
+    "\u299c": {
       0: null,
       1: {
-        gl: '\u299c',
-        nm: 'right angle variant with square',
+        gl: "\u299c",
+        nm: "right angle variant with square",
         pr: 270,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u299d': {
+    "\u299d": {
       0: null,
       1: {
-        gl: '\u299d',
-        nm: 'measured right angle with dot',
+        gl: "\u299d",
+        nm: "measured right angle with dot",
         pr: 270,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u299e': {
+    "\u299e": {
       0: null,
       1: {
-        gl: '\u299e',
-        nm: 'angle with s inside',
+        gl: "\u299e",
+        nm: "angle with s inside",
         pr: 270,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u299f': {
+    "\u299f": {
       0: null,
-      1: { gl: '\u299f', nm: 'acute angle', pr: 270, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u299f", nm: "acute angle", pr: 270, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29a0': {
+    "\u29a0": {
       0: null,
       1: {
-        gl: '\u29a0',
-        nm: 'spherical angle opening left',
+        gl: "\u29a0",
+        nm: "spherical angle opening left",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29a1': {
+    "\u29a1": {
       0: null,
       1: {
-        gl: '\u29a1',
-        nm: 'spherical angle opening up',
+        gl: "\u29a1",
+        nm: "spherical angle opening up",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29a2': {
+    "\u29a2": {
       0: null,
-      1: { gl: '\u29a2', nm: 'turned angle', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29a2", nm: "turned angle", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29a3': {
+    "\u29a3": {
       0: null,
-      1: { gl: '\u29a3', nm: 'reversed angle', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29a3", nm: "reversed angle", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29a4': {
+    "\u29a4": {
       0: null,
       1: {
-        gl: '\u29a4',
-        nm: 'angle with underbar',
+        gl: "\u29a4",
+        nm: "angle with underbar",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29a5': {
+    "\u29a5": {
       0: null,
       1: {
-        gl: '\u29a5',
-        nm: 'reversed angle with underbar',
+        gl: "\u29a5",
+        nm: "reversed angle with underbar",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29a6': {
+    "\u29a6": {
       0: null,
       1: {
-        gl: '\u29a6',
-        nm: 'oblique angle opening up',
+        gl: "\u29a6",
+        nm: "oblique angle opening up",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29a7': {
+    "\u29a7": {
       0: null,
       1: {
-        gl: '\u29a7',
-        nm: 'oblique angle opening down',
+        gl: "\u29a7",
+        nm: "oblique angle opening down",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29a8': {
+    "\u29a8": {
       0: null,
       1: {
-        gl: '\u29a8',
-        nm: 'measured angle with open arm ending in arrow pointing up and right',
+        gl: "\u29a8",
+        nm: "measured angle with open arm ending in arrow pointing up and right",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29a9': {
+    "\u29a9": {
       0: null,
       1: {
-        gl: '\u29a9',
-        nm: 'measured angle with open arm ending in arrow pointing up and left',
+        gl: "\u29a9",
+        nm: "measured angle with open arm ending in arrow pointing up and left",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29aa': {
+    "\u29aa": {
       0: null,
       1: {
-        gl: '\u29aa',
-        nm: 'measured angle with open arm ending in arrow pointing down and right',
+        gl: "\u29aa",
+        nm: "measured angle with open arm ending in arrow pointing down and right",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ab': {
+    "\u29ab": {
       0: null,
       1: {
-        gl: '\u29ab',
-        nm: 'measured angle with open arm ending in arrow pointing down and left',
+        gl: "\u29ab",
+        nm: "measured angle with open arm ending in arrow pointing down and left",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ac': {
+    "\u29ac": {
       0: null,
       1: {
-        gl: '\u29ac',
-        nm: 'measured angle with open arm ending in arrow pointing right and up',
+        gl: "\u29ac",
+        nm: "measured angle with open arm ending in arrow pointing right and up",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ad': {
+    "\u29ad": {
       0: null,
       1: {
-        gl: '\u29ad',
-        nm: 'measured angle with open arm ending in arrow pointing left and up',
+        gl: "\u29ad",
+        nm: "measured angle with open arm ending in arrow pointing left and up",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ae': {
+    "\u29ae": {
       0: null,
       1: {
-        gl: '\u29ae',
-        nm: 'measured angle with open arm ending in arrow pointing right and down',
+        gl: "\u29ae",
+        nm: "measured angle with open arm ending in arrow pointing right and down",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29af': {
+    "\u29af": {
       0: null,
       1: {
-        gl: '\u29af',
-        nm: 'measured angle with open arm ending in arrow pointing left and down',
+        gl: "\u29af",
+        nm: "measured angle with open arm ending in arrow pointing left and down",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b0': {
+    "\u29b0": {
       0: null,
       1: {
-        gl: '\u29b0',
-        nm: 'reversed empty set',
+        gl: "\u29b0",
+        nm: "reversed empty set",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b1': {
+    "\u29b1": {
       0: null,
       1: {
-        gl: '\u29b1',
-        nm: 'empty set with overbar',
+        gl: "\u29b1",
+        nm: "empty set with overbar",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b2': {
+    "\u29b2": {
       0: null,
       1: {
-        gl: '\u29b2',
-        nm: 'empty set with small circle above',
+        gl: "\u29b2",
+        nm: "empty set with small circle above",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b3': {
+    "\u29b3": {
       0: null,
       1: {
-        gl: '\u29b3',
-        nm: 'empty set with right arrow above',
+        gl: "\u29b3",
+        nm: "empty set with right arrow above",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b4': {
+    "\u29b4": {
       0: null,
       1: {
-        gl: '\u29b4',
-        nm: 'empty set with left arrow above',
+        gl: "\u29b4",
+        nm: "empty set with left arrow above",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b5': {
+    "\u29b5": {
       0: null,
       1: {
-        gl: '\u29b5',
-        nm: 'circle with horizontal bar',
+        gl: "\u29b5",
+        nm: "circle with horizontal bar",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b6': {
+    "\u29b6": {
       0: null,
       1: {
-        gl: '\u29b6',
-        nm: 'circled vertical bar',
+        gl: "\u29b6",
+        nm: "circled vertical bar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b7': {
+    "\u29b7": {
       0: null,
       1: {
-        gl: '\u29b7',
-        nm: 'circled parallel',
+        gl: "\u29b7",
+        nm: "circled parallel",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b8': {
+    "\u29b8": {
       0: null,
       1: {
-        gl: '\u29b8',
-        nm: 'circled reverse solidus',
+        gl: "\u29b8",
+        nm: "circled reverse solidus",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29b9': {
+    "\u29b9": {
       0: null,
       1: {
-        gl: '\u29b9',
-        nm: 'circled perpendicular',
+        gl: "\u29b9",
+        nm: "circled perpendicular",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ba': {
+    "\u29ba": {
       0: null,
       1: {
-        gl: '\u29ba',
-        nm: 'circle divided by horizontal bar and top half divided by vertical bar',
+        gl: "\u29ba",
+        nm: "circle divided by horizontal bar and top half divided by vertical bar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29bb': {
+    "\u29bb": {
       0: null,
       1: {
-        gl: '\u29bb',
-        nm: 'circle with superimposed x',
+        gl: "\u29bb",
+        nm: "circle with superimposed x",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29bc': {
+    "\u29bc": {
       0: null,
       1: {
-        gl: '\u29bc',
-        nm: 'circled anticlockwise-rotated division sign',
+        gl: "\u29bc",
+        nm: "circled anticlockwise-rotated division sign",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29bd': {
+    "\u29bd": {
       0: null,
       1: {
-        gl: '\u29bd',
-        nm: 'up arrow through circle',
+        gl: "\u29bd",
+        nm: "up arrow through circle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29be': {
+    "\u29be": {
       0: null,
       1: {
-        gl: '\u29be',
-        nm: 'circled white bullet',
+        gl: "\u29be",
+        nm: "circled white bullet",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29bf': {
+    "\u29bf": {
       0: null,
-      1: { gl: '\u29bf', nm: 'circled bullet', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u29bf", nm: "circled bullet", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u29c0': {
+    "\u29c0": {
       0: null,
       1: {
-        gl: '\u29c0',
-        nm: 'circled less-than',
+        gl: "\u29c0",
+        nm: "circled less-than",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c1': {
+    "\u29c1": {
       0: null,
       1: {
-        gl: '\u29c1',
-        nm: 'circled greater-than',
+        gl: "\u29c1",
+        nm: "circled greater-than",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c2': {
+    "\u29c2": {
       0: null,
       1: {
-        gl: '\u29c2',
-        nm: 'circle with small circle to the right',
+        gl: "\u29c2",
+        nm: "circle with small circle to the right",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c3': {
+    "\u29c3": {
       0: null,
       1: {
-        gl: '\u29c3',
-        nm: 'circle with two horizontal strokes to the right',
+        gl: "\u29c3",
+        nm: "circle with two horizontal strokes to the right",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c4': {
+    "\u29c4": {
       0: null,
       1: {
-        gl: '\u29c4',
-        nm: 'squared rising diagonal slash',
+        gl: "\u29c4",
+        nm: "squared rising diagonal slash",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c5': {
+    "\u29c5": {
       0: null,
       1: {
-        gl: '\u29c5',
-        nm: 'squared falling diagonal slash',
+        gl: "\u29c5",
+        nm: "squared falling diagonal slash",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c6': {
+    "\u29c6": {
       0: null,
       1: {
-        gl: '\u29c6',
-        nm: 'squared asterisk',
+        gl: "\u29c6",
+        nm: "squared asterisk",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c7': {
+    "\u29c7": {
       0: null,
       1: {
-        gl: '\u29c7',
-        nm: 'squared small circle',
+        gl: "\u29c7",
+        nm: "squared small circle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29c8': {
+    "\u29c8": {
       0: null,
-      1: { gl: '\u29c8', nm: 'squared square', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u29c8", nm: "squared square", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u29c9': {
+    "\u29c9": {
       0: null,
       1: {
-        gl: '\u29c9',
-        nm: 'two joined squares',
+        gl: "\u29c9",
+        nm: "two joined squares",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ca': {
+    "\u29ca": {
       0: null,
       1: {
-        gl: '\u29ca',
-        nm: 'triangle with dot above',
+        gl: "\u29ca",
+        nm: "triangle with dot above",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29cb': {
+    "\u29cb": {
       0: null,
       1: {
-        gl: '\u29cb',
-        nm: 'triangle with underbar',
+        gl: "\u29cb",
+        nm: "triangle with underbar",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29cc': {
+    "\u29cc": {
       0: null,
-      1: { gl: '\u29cc', nm: 's in triangle', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29cc", nm: "s in triangle", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29cd': {
+    "\u29cd": {
       0: null,
       1: {
-        gl: '\u29cd',
-        nm: 'triangle with serifs at bottom',
+        gl: "\u29cd",
+        nm: "triangle with serifs at bottom",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ce': {
+    "\u29ce": {
       0: null,
       1: {
-        gl: '\u29ce',
-        nm: 'right triangle above left triangle',
+        gl: "\u29ce",
+        nm: "right triangle above left triangle",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29cf': {
+    "\u29cf": {
       0: null,
       1: {
-        gl: '\u29cf',
-        nm: 'left triangle beside vertical bar',
+        gl: "\u29cf",
+        nm: "left triangle beside vertical bar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29cf\u0338': {
+    "\u29cf\u0338": {
       0: null,
       1: {
-        gl: '\u29cf\u0338',
-        nm: 'left triangle beside vertical bar with slash',
+        gl: "\u29cf\u0338",
+        nm: "left triangle beside vertical bar with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d0': {
+    "\u29d0": {
       0: null,
       1: {
-        gl: '\u29d0',
-        nm: 'vertical bar beside right triangle',
+        gl: "\u29d0",
+        nm: "vertical bar beside right triangle",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d0\u0338': {
+    "\u29d0\u0338": {
       0: null,
       1: {
-        gl: '\u29d0\u0338',
-        nm: 'vertical bar beside right triangle with slash',
+        gl: "\u29d0\u0338",
+        nm: "vertical bar beside right triangle with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d1': {
+    "\u29d1": {
       0: null,
       1: {
-        gl: '\u29d1',
-        nm: 'bowtie with left half black',
+        gl: "\u29d1",
+        nm: "bowtie with left half black",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d2': {
+    "\u29d2": {
       0: null,
       1: {
-        gl: '\u29d2',
-        nm: 'bowtie with right half black',
+        gl: "\u29d2",
+        nm: "bowtie with right half black",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d3': {
+    "\u29d3": {
       0: null,
-      1: { gl: '\u29d3', nm: 'black bowtie', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u29d3", nm: "black bowtie", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u29d4': {
+    "\u29d4": {
       0: null,
       1: {
-        gl: '\u29d4',
-        nm: 'times with left half black',
+        gl: "\u29d4",
+        nm: "times with left half black",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d5': {
+    "\u29d5": {
       0: null,
       1: {
-        gl: '\u29d5',
-        nm: 'times with right half black',
+        gl: "\u29d5",
+        nm: "times with right half black",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d6': {
+    "\u29d6": {
       0: null,
-      1: { gl: '\u29d6', nm: 'white hourglass', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u29d6", nm: "white hourglass", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u29d7': {
+    "\u29d7": {
       0: null,
-      1: { gl: '\u29d7', nm: 'black hourglass', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u29d7", nm: "black hourglass", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u29d8': {
+    "\u29d8": {
       0: null,
       1: {
-        gl: '\u29d8',
-        nm: 'left wiggly fence',
+        gl: "\u29d8",
+        nm: "left wiggly fence",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29d9': {
+    "\u29d9": {
       0: null,
       1: {
-        gl: '\u29d9',
-        nm: 'right wiggly fence',
+        gl: "\u29d9",
+        nm: "right wiggly fence",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29db': {
+    "\u29db": {
       0: null,
       1: {
-        gl: '\u29db',
-        nm: 'right double wiggly fence',
+        gl: "\u29db",
+        nm: "right double wiggly fence",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29dc': {
+    "\u29dc": {
       0: null,
       1: {
-        gl: '\u29dc',
-        nm: 'incomplete infinity',
+        gl: "\u29dc",
+        nm: "incomplete infinity",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29dd': {
+    "\u29dd": {
       0: null,
       1: {
-        gl: '\u29dd',
-        nm: 'tie over infinity',
+        gl: "\u29dd",
+        nm: "tie over infinity",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29de': {
+    "\u29de": {
       0: null,
       1: {
-        gl: '\u29de',
-        nm: 'infinity negated with vertical bar',
+        gl: "\u29de",
+        nm: "infinity negated with vertical bar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29df': {
+    "\u29df": {
       0: null,
       1: {
-        gl: '\u29df',
-        nm: 'double-ended multimap',
+        gl: "\u29df",
+        nm: "double-ended multimap",
         pr: 270,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29e0': {
+    "\u29e0": {
       0: null,
       1: {
-        gl: '\u29e0',
-        nm: 'square with contoured outline',
+        gl: "\u29e0",
+        nm: "square with contoured outline",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29e1': {
+    "\u29e1": {
       0: null,
-      1: { gl: '\u29e1', nm: 'increases as', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u29e1", nm: "increases as", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u29e2': {
+    "\u29e2": {
       0: null,
-      1: { gl: '\u29e2', nm: 'shuffle product', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u29e2", nm: "shuffle product", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u29e3': {
+    "\u29e3": {
       0: null,
       1: {
-        gl: '\u29e3',
-        nm: 'equals sign and slanted parallel',
+        gl: "\u29e3",
+        nm: "equals sign and slanted parallel",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29e4': {
+    "\u29e4": {
       0: null,
       1: {
-        gl: '\u29e4',
-        nm: 'equals sign and slanted parallel with tilde above',
+        gl: "\u29e4",
+        nm: "equals sign and slanted parallel with tilde above",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29e5': {
+    "\u29e5": {
       0: null,
       1: {
-        gl: '\u29e5',
-        nm: 'identical to and slanted parallel',
+        gl: "\u29e5",
+        nm: "identical to and slanted parallel",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29e6': {
+    "\u29e6": {
       0: null,
-      1: { gl: '\u29e6', nm: 'gleich stark', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u29e6", nm: "gleich stark", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u29e7': {
+    "\u29e7": {
       0: null,
-      1: { gl: '\u29e7', nm: 'thermodynamic', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29e7", nm: "thermodynamic", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29e8': {
+    "\u29e8": {
       0: null,
       1: {
-        gl: '\u29e8',
-        nm: 'down-pointing triangle with left half black',
+        gl: "\u29e8",
+        nm: "down-pointing triangle with left half black",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29e9': {
+    "\u29e9": {
       0: null,
       1: {
-        gl: '\u29e9',
-        nm: 'down-pointing triangle with right half black',
+        gl: "\u29e9",
+        nm: "down-pointing triangle with right half black",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ea': {
+    "\u29ea": {
       0: null,
       1: {
-        gl: '\u29ea',
-        nm: 'black diamond with down arrow',
+        gl: "\u29ea",
+        nm: "black diamond with down arrow",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29eb': {
+    "\u29eb": {
       0: null,
-      1: { gl: '\u29eb', nm: 'black lozenge', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29eb", nm: "black lozenge", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29ec': {
+    "\u29ec": {
       0: null,
       1: {
-        gl: '\u29ec',
-        nm: 'white circle with down arrow',
+        gl: "\u29ec",
+        nm: "white circle with down arrow",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ed': {
+    "\u29ed": {
       0: null,
       1: {
-        gl: '\u29ed',
-        nm: 'black circle with down arrow',
+        gl: "\u29ed",
+        nm: "black circle with down arrow",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ee': {
+    "\u29ee": {
       0: null,
       1: {
-        gl: '\u29ee',
-        nm: 'error-barred white square',
+        gl: "\u29ee",
+        nm: "error-barred white square",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29ef': {
+    "\u29ef": {
       0: null,
       1: {
-        gl: '\u29ef',
-        nm: 'error-barred black square',
+        gl: "\u29ef",
+        nm: "error-barred black square",
         pr: 270,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f0': {
+    "\u29f0": {
       0: null,
       1: {
-        gl: '\u29f0',
-        nm: 'error-barred white diamond',
+        gl: "\u29f0",
+        nm: "error-barred white diamond",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f1': {
+    "\u29f1": {
       0: null,
       1: {
-        gl: '\u29f1',
-        nm: 'error-barred black diamond',
+        gl: "\u29f1",
+        nm: "error-barred black diamond",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f2': {
+    "\u29f2": {
       0: null,
       1: {
-        gl: '\u29f2',
-        nm: 'error-barred white circle',
+        gl: "\u29f2",
+        nm: "error-barred white circle",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f3': {
+    "\u29f3": {
       0: null,
       1: {
-        gl: '\u29f3',
-        nm: 'error-barred black circle',
+        gl: "\u29f3",
+        nm: "error-barred black circle",
         pr: 260,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f4': {
+    "\u29f4": {
       0: null,
-      1: { gl: '\u29f4', nm: 'rule-delayed', pr: 270, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u29f4", nm: "rule-delayed", pr: 270, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u29f5': {
+    "\u29f5": {
       0: null,
       1: {
-        gl: '\u29f5',
-        nm: 'reverse solidus operator',
+        gl: "\u29f5",
+        nm: "reverse solidus operator",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f6': {
+    "\u29f6": {
       0: null,
       1: {
-        gl: '\u29f6',
-        nm: 'solidus with overbar',
+        gl: "\u29f6",
+        nm: "solidus with overbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f7': {
+    "\u29f7": {
       0: null,
       1: {
-        gl: '\u29f7',
-        nm: 'reverse solidus with horizontal stroke',
+        gl: "\u29f7",
+        nm: "reverse solidus with horizontal stroke",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29f8': {
+    "\u29f8": {
       0: null,
-      1: { gl: '\u29f8', nm: 'big solidus', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29f8", nm: "big solidus", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29f9': {
+    "\u29f9": {
       0: null,
       1: {
-        gl: '\u29f9',
-        nm: 'big reverse solidus',
+        gl: "\u29f9",
+        nm: "big reverse solidus",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u29fa': {
+    "\u29fa": {
       0: null,
-      1: { gl: '\u29fa', nm: 'double plus', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29fa", nm: "double plus", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29fb': {
+    "\u29fb": {
       0: null,
-      1: { gl: '\u29fb', nm: 'triple plus', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u29fb", nm: "triple plus", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u29fc': {
+    "\u29fc": {
       0: {
-        gl: '\u29fc',
-        nm: 'left-pointing curved angle bracket',
+        gl: "\u29fc",
+        nm: "left-pointing curved angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u29fd': {
+    "\u29fd": {
       0: null,
       1: null,
       2: {
-        gl: '\u29fd',
-        nm: 'right-pointing curved angle bracket',
+        gl: "\u29fd",
+        nm: "right-pointing curved angle bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '\u29fe': {
+    "\u29fe": {
       0: null,
-      1: { gl: '\u29fe', nm: 'tiny', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u29fe", nm: "tiny", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u29ff': {
+    "\u29ff": {
       0: null,
-      1: { gl: '\u29ff', nm: 'miny', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u29ff", nm: "miny", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2a00': {
+    "\u2a00": {
       0: {
-        gl: '\u2a00',
-        nm: 'n-ary circled dot operator',
+        gl: "\u2a00",
+        nm: "n-ary circled dot operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a01': {
+    "\u2a01": {
       0: {
-        gl: '\u2a01',
-        nm: 'n-ary circled plus operator',
+        gl: "\u2a01",
+        nm: "n-ary circled plus operator",
         pr: 300,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a02': {
+    "\u2a02": {
       0: {
-        gl: '\u2a02',
-        nm: 'n-ary circled times operator',
+        gl: "\u2a02",
+        nm: "n-ary circled times operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a03': {
+    "\u2a03": {
       0: {
-        gl: '\u2a03',
-        nm: 'n-ary union operator with dot',
+        gl: "\u2a03",
+        nm: "n-ary union operator with dot",
         pr: 320,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a04': {
+    "\u2a04": {
       0: {
-        gl: '\u2a04',
-        nm: 'n-ary union operator with plus',
+        gl: "\u2a04",
+        nm: "n-ary union operator with plus",
         pr: 320,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a05': {
+    "\u2a05": {
       0: {
-        gl: '\u2a05',
-        nm: 'n-ary square intersection operator',
+        gl: "\u2a05",
+        nm: "n-ary square intersection operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a06': {
+    "\u2a06": {
       0: {
-        gl: '\u2a06',
-        nm: 'n-ary square union operator',
+        gl: "\u2a06",
+        nm: "n-ary square union operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a07': {
+    "\u2a07": {
       0: {
-        gl: '\u2a07',
-        nm: 'two logical and operator',
+        gl: "\u2a07",
+        nm: "two logical and operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a08': {
+    "\u2a08": {
       0: {
-        gl: '\u2a08',
-        nm: 'two logical or operator',
+        gl: "\u2a08",
+        nm: "two logical or operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a09': {
+    "\u2a09": {
       0: {
-        gl: '\u2a09',
-        nm: 'n-ary times operator',
+        gl: "\u2a09",
+        nm: "n-ary times operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a0a': {
+    "\u2a0a": {
       0: {
-        gl: '\u2a0a',
-        nm: 'modulo two sum',
+        gl: "\u2a0a",
+        nm: "modulo two sum",
         pr: 290,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a0b': {
+    "\u2a0b": {
       0: {
-        gl: '\u2a0b',
-        nm: 'summation with integral',
+        gl: "\u2a0b",
+        nm: "summation with integral",
         pr: 290,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a0c': {
+    "\u2a0c": {
       0: {
-        gl: '\u2a0c',
-        nm: 'quadruple integral operator',
+        gl: "\u2a0c",
+        nm: "quadruple integral operator",
         pr: 310,
         ls: 0,
         rs: 1,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a0d': {
+    "\u2a0d": {
       0: {
-        gl: '\u2a0d',
-        nm: 'finite part integral',
+        gl: "\u2a0d",
+        nm: "finite part integral",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a0e': {
+    "\u2a0e": {
       0: {
-        gl: '\u2a0e',
-        nm: 'integral with double stroke',
+        gl: "\u2a0e",
+        nm: "integral with double stroke",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a0f': {
+    "\u2a0f": {
       0: {
-        gl: '\u2a0f',
-        nm: 'integral average with slash',
+        gl: "\u2a0f",
+        nm: "integral average with slash",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a10': {
+    "\u2a10": {
       0: {
-        gl: '\u2a10',
-        nm: 'circulation function',
+        gl: "\u2a10",
+        nm: "circulation function",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a11': {
+    "\u2a11": {
       0: {
-        gl: '\u2a11',
-        nm: 'anticlockwise integration',
+        gl: "\u2a11",
+        nm: "anticlockwise integration",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a12': {
+    "\u2a12": {
       0: {
-        gl: '\u2a12',
-        nm: 'line integration with rectangular path around pole',
+        gl: "\u2a12",
+        nm: "line integration with rectangular path around pole",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a13': {
+    "\u2a13": {
       0: {
-        gl: '\u2a13',
-        nm: 'line integration with semicircular path around pole',
+        gl: "\u2a13",
+        nm: "line integration with semicircular path around pole",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a14': {
+    "\u2a14": {
       0: {
-        gl: '\u2a14',
-        nm: 'line integration not including the pole',
+        gl: "\u2a14",
+        nm: "line integration not including the pole",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a15': {
+    "\u2a15": {
       0: {
-        gl: '\u2a15',
-        nm: 'integral around a point operator',
+        gl: "\u2a15",
+        nm: "integral around a point operator",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a16': {
+    "\u2a16": {
       0: {
-        gl: '\u2a16',
-        nm: 'quaternion integral operator',
+        gl: "\u2a16",
+        nm: "quaternion integral operator",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a17': {
+    "\u2a17": {
       0: {
-        gl: '\u2a17',
-        nm: 'integral with leftwards arrow with hook',
+        gl: "\u2a17",
+        nm: "integral with leftwards arrow with hook",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a18': {
+    "\u2a18": {
       0: {
-        gl: '\u2a18',
-        nm: 'integral with times sign',
+        gl: "\u2a18",
+        nm: "integral with times sign",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a19': {
+    "\u2a19": {
       0: {
-        gl: '\u2a19',
-        nm: 'integral with intersection',
+        gl: "\u2a19",
+        nm: "integral with intersection",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a1a': {
+    "\u2a1a": {
       0: {
-        gl: '\u2a1a',
-        nm: 'integral with union',
+        gl: "\u2a1a",
+        nm: "integral with union",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a1b': {
+    "\u2a1b": {
       0: {
-        gl: '\u2a1b',
-        nm: 'integral with overbar',
+        gl: "\u2a1b",
+        nm: "integral with overbar",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a1c': {
+    "\u2a1c": {
       0: {
-        gl: '\u2a1c',
-        nm: 'integral with underbar',
+        gl: "\u2a1c",
+        nm: "integral with underbar",
         pr: 310,
         ls: 1,
         rs: 2,
-        pp: 'largeop, symmetric',
+        pp: "largeop, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2a1d': {
+    "\u2a1d": {
       0: null,
-      1: { gl: '\u2a1d', nm: 'join', pr: 265, ls: 3, rs: 3, pp: '' },
+      1: { gl: "\u2a1d", nm: "join", pr: 265, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '\u2a1e': {
+    "\u2a1e": {
       0: null,
       1: {
-        gl: '\u2a1e',
-        nm: 'large left triangle operator',
+        gl: "\u2a1e",
+        nm: "large left triangle operator",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a1f': {
+    "\u2a1f": {
       0: null,
       1: {
-        gl: '\u2a1f',
-        nm: 'z notation schema composition',
+        gl: "\u2a1f",
+        nm: "z notation schema composition",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a20': {
+    "\u2a20": {
       0: null,
       1: {
-        gl: '\u2a20',
-        nm: 'z notation schema piping',
+        gl: "\u2a20",
+        nm: "z notation schema piping",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a21': {
+    "\u2a21": {
       0: null,
       1: {
-        gl: '\u2a21',
-        nm: 'z notation schema projection',
+        gl: "\u2a21",
+        nm: "z notation schema projection",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a22': {
+    "\u2a22": {
       0: null,
       1: {
-        gl: '\u2a22',
-        nm: 'plus sign with small circle above',
+        gl: "\u2a22",
+        nm: "plus sign with small circle above",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a23': {
+    "\u2a23": {
       0: null,
       1: {
-        gl: '\u2a23',
-        nm: 'plus sign with circumflex accent above',
+        gl: "\u2a23",
+        nm: "plus sign with circumflex accent above",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a24': {
+    "\u2a24": {
       0: null,
       1: {
-        gl: '\u2a24',
-        nm: 'plus sign with tilde above',
+        gl: "\u2a24",
+        nm: "plus sign with tilde above",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a25': {
+    "\u2a25": {
       0: null,
       1: {
-        gl: '\u2a25',
-        nm: 'plus sign with dot below',
+        gl: "\u2a25",
+        nm: "plus sign with dot below",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a26': {
+    "\u2a26": {
       0: null,
       1: {
-        gl: '\u2a26',
-        nm: 'plus sign with tilde below',
+        gl: "\u2a26",
+        nm: "plus sign with tilde below",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a27': {
+    "\u2a27": {
       0: null,
       1: {
-        gl: '\u2a27',
-        nm: 'plus sign with subscript two',
+        gl: "\u2a27",
+        nm: "plus sign with subscript two",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a28': {
+    "\u2a28": {
       0: null,
       1: {
-        gl: '\u2a28',
-        nm: 'plus sign with black triangle',
+        gl: "\u2a28",
+        nm: "plus sign with black triangle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a29': {
+    "\u2a29": {
       0: null,
       1: {
-        gl: '\u2a29',
-        nm: 'minus sign with comma above',
+        gl: "\u2a29",
+        nm: "minus sign with comma above",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a2a': {
+    "\u2a2a": {
       0: null,
       1: {
-        gl: '\u2a2a',
-        nm: 'minus sign with dot below',
+        gl: "\u2a2a",
+        nm: "minus sign with dot below",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a2b': {
+    "\u2a2b": {
       0: null,
       1: {
-        gl: '\u2a2b',
-        nm: 'minus sign with falling dots',
+        gl: "\u2a2b",
+        nm: "minus sign with falling dots",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a2c': {
+    "\u2a2c": {
       0: null,
       1: {
-        gl: '\u2a2c',
-        nm: 'minus sign with rising dots',
+        gl: "\u2a2c",
+        nm: "minus sign with rising dots",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a2d': {
+    "\u2a2d": {
       0: null,
       1: {
-        gl: '\u2a2d',
-        nm: 'plus sign in left half circle',
+        gl: "\u2a2d",
+        nm: "plus sign in left half circle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a2e': {
+    "\u2a2e": {
       0: null,
       1: {
-        gl: '\u2a2e',
-        nm: 'plus sign in right half circle',
+        gl: "\u2a2e",
+        nm: "plus sign in right half circle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a2f': {
+    "\u2a2f": {
       0: null,
       1: {
-        gl: '\u2a2f',
-        nm: 'vector or cross product',
+        gl: "\u2a2f",
+        nm: "vector or cross product",
         pr: 390,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a30': {
+    "\u2a30": {
       0: null,
       1: {
-        gl: '\u2a30',
-        nm: 'multiplication sign with dot above',
+        gl: "\u2a30",
+        nm: "multiplication sign with dot above",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a31': {
+    "\u2a31": {
       0: null,
       1: {
-        gl: '\u2a31',
-        nm: 'multiplication sign with underbar',
+        gl: "\u2a31",
+        nm: "multiplication sign with underbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a32': {
+    "\u2a32": {
       0: null,
       1: {
-        gl: '\u2a32',
-        nm: 'semidirect product with bottom closed',
+        gl: "\u2a32",
+        nm: "semidirect product with bottom closed",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a33': {
+    "\u2a33": {
       0: null,
-      1: { gl: '\u2a33', nm: 'smash product', pr: 265, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u2a33", nm: "smash product", pr: 265, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u2a34': {
+    "\u2a34": {
       0: null,
       1: {
-        gl: '\u2a34',
-        nm: 'multiplication sign in left half circle',
+        gl: "\u2a34",
+        nm: "multiplication sign in left half circle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a35': {
+    "\u2a35": {
       0: null,
       1: {
-        gl: '\u2a35',
-        nm: 'multiplication sign in right half circle',
+        gl: "\u2a35",
+        nm: "multiplication sign in right half circle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a36': {
+    "\u2a36": {
       0: null,
       1: {
-        gl: '\u2a36',
-        nm: 'circled multiplication sign with circumflex accent',
+        gl: "\u2a36",
+        nm: "circled multiplication sign with circumflex accent",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a37': {
+    "\u2a37": {
       0: null,
       1: {
-        gl: '\u2a37',
-        nm: 'multiplication sign in double circle',
+        gl: "\u2a37",
+        nm: "multiplication sign in double circle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a38': {
+    "\u2a38": {
       0: null,
       1: {
-        gl: '\u2a38',
-        nm: 'circled division sign',
+        gl: "\u2a38",
+        nm: "circled division sign",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a39': {
+    "\u2a39": {
       0: null,
       1: {
-        gl: '\u2a39',
-        nm: 'plus sign in triangle',
+        gl: "\u2a39",
+        nm: "plus sign in triangle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a3a': {
+    "\u2a3a": {
       0: null,
       1: {
-        gl: '\u2a3a',
-        nm: 'minus sign in triangle',
+        gl: "\u2a3a",
+        nm: "minus sign in triangle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a3b': {
+    "\u2a3b": {
       0: null,
       1: {
-        gl: '\u2a3b',
-        nm: 'multiplication sign in triangle',
+        gl: "\u2a3b",
+        nm: "multiplication sign in triangle",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a3c': {
+    "\u2a3c": {
       0: null,
       1: {
-        gl: '\u2a3c',
-        nm: 'interior product',
+        gl: "\u2a3c",
+        nm: "interior product",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a3d': {
+    "\u2a3d": {
       0: null,
       1: {
-        gl: '\u2a3d',
-        nm: 'righthand interior product',
+        gl: "\u2a3d",
+        nm: "righthand interior product",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a3e': {
+    "\u2a3e": {
       0: null,
       1: {
-        gl: '\u2a3e',
-        nm: 'z notation relational composition',
+        gl: "\u2a3e",
+        nm: "z notation relational composition",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a3f': {
+    "\u2a3f": {
       0: null,
       1: {
-        gl: '\u2a3f',
-        nm: 'amalgamation or coproduct',
+        gl: "\u2a3f",
+        nm: "amalgamation or coproduct",
         pr: 390,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a40': {
+    "\u2a40": {
       0: null,
       1: {
-        gl: '\u2a40',
-        nm: 'intersection with dot',
+        gl: "\u2a40",
+        nm: "intersection with dot",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a41': {
+    "\u2a41": {
       0: null,
       1: {
-        gl: '\u2a41',
-        nm: 'union with minus sign',
+        gl: "\u2a41",
+        nm: "union with minus sign",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a42': {
+    "\u2a42": {
       0: null,
       1: {
-        gl: '\u2a42',
-        nm: 'union with overbar',
+        gl: "\u2a42",
+        nm: "union with overbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a43': {
+    "\u2a43": {
       0: null,
       1: {
-        gl: '\u2a43',
-        nm: 'intersection with overbar',
+        gl: "\u2a43",
+        nm: "intersection with overbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a44': {
+    "\u2a44": {
       0: null,
       1: {
-        gl: '\u2a44',
-        nm: 'intersection with logical and',
+        gl: "\u2a44",
+        nm: "intersection with logical and",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a45': {
+    "\u2a45": {
       0: null,
       1: {
-        gl: '\u2a45',
-        nm: 'union with logical or',
+        gl: "\u2a45",
+        nm: "union with logical or",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a46': {
+    "\u2a46": {
       0: null,
       1: {
-        gl: '\u2a46',
-        nm: 'union above intersection',
+        gl: "\u2a46",
+        nm: "union above intersection",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a47': {
+    "\u2a47": {
       0: null,
       1: {
-        gl: '\u2a47',
-        nm: 'intersection above union',
+        gl: "\u2a47",
+        nm: "intersection above union",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a48': {
+    "\u2a48": {
       0: null,
       1: {
-        gl: '\u2a48',
-        nm: 'union above bar above intersection',
+        gl: "\u2a48",
+        nm: "union above bar above intersection",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a49': {
+    "\u2a49": {
       0: null,
       1: {
-        gl: '\u2a49',
-        nm: 'intersection above bar above union',
+        gl: "\u2a49",
+        nm: "intersection above bar above union",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a4a': {
+    "\u2a4a": {
       0: null,
       1: {
-        gl: '\u2a4a',
-        nm: 'union beside and joined with union',
+        gl: "\u2a4a",
+        nm: "union beside and joined with union",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a4b': {
+    "\u2a4b": {
       0: null,
       1: {
-        gl: '\u2a4b',
-        nm: 'intersection beside and joined with intersection',
+        gl: "\u2a4b",
+        nm: "intersection beside and joined with intersection",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a4c': {
+    "\u2a4c": {
       0: null,
       1: {
-        gl: '\u2a4c',
-        nm: 'closed union with serifs',
+        gl: "\u2a4c",
+        nm: "closed union with serifs",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a4d': {
+    "\u2a4d": {
       0: null,
       1: {
-        gl: '\u2a4d',
-        nm: 'closed intersection with serifs',
+        gl: "\u2a4d",
+        nm: "closed intersection with serifs",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a4e': {
+    "\u2a4e": {
       0: null,
       1: {
-        gl: '\u2a4e',
-        nm: 'double square intersection',
+        gl: "\u2a4e",
+        nm: "double square intersection",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a4f': {
+    "\u2a4f": {
       0: null,
       1: {
-        gl: '\u2a4f',
-        nm: 'double square union',
+        gl: "\u2a4f",
+        nm: "double square union",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a50': {
+    "\u2a50": {
       0: null,
       1: {
-        gl: '\u2a50',
-        nm: 'closed union with serifs and smash product',
+        gl: "\u2a50",
+        nm: "closed union with serifs and smash product",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a51': {
+    "\u2a51": {
       0: null,
       1: {
-        gl: '\u2a51',
-        nm: 'logical and with dot above',
+        gl: "\u2a51",
+        nm: "logical and with dot above",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a52': {
+    "\u2a52": {
       0: null,
       1: {
-        gl: '\u2a52',
-        nm: 'logical or with dot above',
+        gl: "\u2a52",
+        nm: "logical or with dot above",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a53': {
+    "\u2a53": {
       0: null,
       1: {
-        gl: '\u2a53',
-        nm: 'double logical and',
+        gl: "\u2a53",
+        nm: "double logical and",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a54': {
+    "\u2a54": {
       0: null,
       1: {
-        gl: '\u2a54',
-        nm: 'double logical or',
+        gl: "\u2a54",
+        nm: "double logical or",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a55': {
+    "\u2a55": {
       0: null,
       1: {
-        gl: '\u2a55',
-        nm: 'two intersecting logical and',
+        gl: "\u2a55",
+        nm: "two intersecting logical and",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a56': {
+    "\u2a56": {
       0: null,
       1: {
-        gl: '\u2a56',
-        nm: 'two intersecting logical or',
+        gl: "\u2a56",
+        nm: "two intersecting logical or",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a57': {
+    "\u2a57": {
       0: null,
       1: {
-        gl: '\u2a57',
-        nm: 'sloping large or',
+        gl: "\u2a57",
+        nm: "sloping large or",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a58': {
+    "\u2a58": {
       0: null,
       1: {
-        gl: '\u2a58',
-        nm: 'sloping large and',
+        gl: "\u2a58",
+        nm: "sloping large and",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a59': {
+    "\u2a59": {
       0: null,
       1: {
-        gl: '\u2a59',
-        nm: 'logical or overlapping logical and',
+        gl: "\u2a59",
+        nm: "logical or overlapping logical and",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a5a': {
+    "\u2a5a": {
       0: null,
       1: {
-        gl: '\u2a5a',
-        nm: 'logical and with middle stem',
+        gl: "\u2a5a",
+        nm: "logical and with middle stem",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a5b': {
+    "\u2a5b": {
       0: null,
       1: {
-        gl: '\u2a5b',
-        nm: 'logical or with middle stem',
+        gl: "\u2a5b",
+        nm: "logical or with middle stem",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a5c': {
+    "\u2a5c": {
       0: null,
       1: {
-        gl: '\u2a5c',
-        nm: 'logical and with horizontal dash',
+        gl: "\u2a5c",
+        nm: "logical and with horizontal dash",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a5d': {
+    "\u2a5d": {
       0: null,
       1: {
-        gl: '\u2a5d',
-        nm: 'logical or with horizontal dash',
+        gl: "\u2a5d",
+        nm: "logical or with horizontal dash",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a5e': {
+    "\u2a5e": {
       0: null,
       1: {
-        gl: '\u2a5e',
-        nm: 'logical and with double overbar',
+        gl: "\u2a5e",
+        nm: "logical and with double overbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a5f': {
+    "\u2a5f": {
       0: null,
       1: {
-        gl: '\u2a5f',
-        nm: 'logical and with underbar',
+        gl: "\u2a5f",
+        nm: "logical and with underbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a60': {
+    "\u2a60": {
       0: null,
       1: {
-        gl: '\u2a60',
-        nm: 'logical and with double underbar',
+        gl: "\u2a60",
+        nm: "logical and with double underbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a61': {
+    "\u2a61": {
       0: null,
       1: {
-        gl: '\u2a61',
-        nm: 'small vee with underbar',
+        gl: "\u2a61",
+        nm: "small vee with underbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a62': {
+    "\u2a62": {
       0: null,
       1: {
-        gl: '\u2a62',
-        nm: 'logical or with double overbar',
+        gl: "\u2a62",
+        nm: "logical or with double overbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a63': {
+    "\u2a63": {
       0: null,
       1: {
-        gl: '\u2a63',
-        nm: 'logical or with double underbar',
+        gl: "\u2a63",
+        nm: "logical or with double underbar",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a64': {
+    "\u2a64": {
       0: null,
       1: {
-        gl: '\u2a64',
-        nm: 'z notation domain antirestriction',
+        gl: "\u2a64",
+        nm: "z notation domain antirestriction",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a65': {
+    "\u2a65": {
       0: null,
       1: {
-        gl: '\u2a65',
-        nm: 'z notation range antirestriction',
+        gl: "\u2a65",
+        nm: "z notation range antirestriction",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a66': {
+    "\u2a66": {
       0: null,
       1: {
-        gl: '\u2a66',
-        nm: 'equals sign with dot below',
+        gl: "\u2a66",
+        nm: "equals sign with dot below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a67': {
+    "\u2a67": {
       0: null,
       1: {
-        gl: '\u2a67',
-        nm: 'identical with dot above',
+        gl: "\u2a67",
+        nm: "identical with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a68': {
+    "\u2a68": {
       0: null,
       1: {
-        gl: '\u2a68',
-        nm: 'triple horizontal bar with double vertical stroke',
+        gl: "\u2a68",
+        nm: "triple horizontal bar with double vertical stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a69': {
+    "\u2a69": {
       0: null,
       1: {
-        gl: '\u2a69',
-        nm: 'triple horizontal bar with triple vertical stroke',
+        gl: "\u2a69",
+        nm: "triple horizontal bar with triple vertical stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a6a': {
+    "\u2a6a": {
       0: null,
       1: {
-        gl: '\u2a6a',
-        nm: 'tilde operator with dot above',
+        gl: "\u2a6a",
+        nm: "tilde operator with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a6b': {
+    "\u2a6b": {
       0: null,
       1: {
-        gl: '\u2a6b',
-        nm: 'tilde operator with rising dots',
+        gl: "\u2a6b",
+        nm: "tilde operator with rising dots",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a6c': {
+    "\u2a6c": {
       0: null,
       1: {
-        gl: '\u2a6c',
-        nm: 'similar minus similar',
+        gl: "\u2a6c",
+        nm: "similar minus similar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a6d': {
+    "\u2a6d": {
       0: null,
       1: {
-        gl: '\u2a6d',
-        nm: 'congruent with dot above',
+        gl: "\u2a6d",
+        nm: "congruent with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a6e': {
+    "\u2a6e": {
       0: null,
       1: {
-        gl: '\u2a6e',
-        nm: 'equals with asterisk',
+        gl: "\u2a6e",
+        nm: "equals with asterisk",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a6f': {
+    "\u2a6f": {
       0: null,
       1: {
-        gl: '\u2a6f',
-        nm: 'almost equal to with circumflex accent',
+        gl: "\u2a6f",
+        nm: "almost equal to with circumflex accent",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a70': {
+    "\u2a70": {
       0: null,
       1: {
-        gl: '\u2a70',
-        nm: 'approximately equal or equal to',
+        gl: "\u2a70",
+        nm: "approximately equal or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a71': {
+    "\u2a71": {
       0: null,
       1: {
-        gl: '\u2a71',
-        nm: 'equals sign above plus sign',
+        gl: "\u2a71",
+        nm: "equals sign above plus sign",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a72': {
+    "\u2a72": {
       0: null,
       1: {
-        gl: '\u2a72',
-        nm: 'plus sign above equals sign',
+        gl: "\u2a72",
+        nm: "plus sign above equals sign",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a73': {
+    "\u2a73": {
       0: null,
       1: {
-        gl: '\u2a73',
-        nm: 'equals sign above tilde operator',
+        gl: "\u2a73",
+        nm: "equals sign above tilde operator",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a74': {
+    "\u2a74": {
       0: null,
       1: {
-        gl: '\u2a74',
-        nm: 'double colon equal',
+        gl: "\u2a74",
+        nm: "double colon equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a75': {
+    "\u2a75": {
       0: null,
       1: {
-        gl: '\u2a75',
-        nm: 'two consecutive equals signs',
+        gl: "\u2a75",
+        nm: "two consecutive equals signs",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a76': {
+    "\u2a76": {
       0: null,
       1: {
-        gl: '\u2a76',
-        nm: 'three consecutive equals signs',
+        gl: "\u2a76",
+        nm: "three consecutive equals signs",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a77': {
+    "\u2a77": {
       0: null,
       1: {
-        gl: '\u2a77',
-        nm: 'equals sign with two dots above and two dots below',
+        gl: "\u2a77",
+        nm: "equals sign with two dots above and two dots below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a78': {
+    "\u2a78": {
       0: null,
       1: {
-        gl: '\u2a78',
-        nm: 'equivalent with four dots above',
+        gl: "\u2a78",
+        nm: "equivalent with four dots above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a79': {
+    "\u2a79": {
       0: null,
       1: {
-        gl: '\u2a79',
-        nm: 'less-than with circle inside',
+        gl: "\u2a79",
+        nm: "less-than with circle inside",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7a': {
+    "\u2a7a": {
       0: null,
       1: {
-        gl: '\u2a7a',
-        nm: 'greater-than with circle inside',
+        gl: "\u2a7a",
+        nm: "greater-than with circle inside",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7b': {
+    "\u2a7b": {
       0: null,
       1: {
-        gl: '\u2a7b',
-        nm: 'less-than with question mark above',
+        gl: "\u2a7b",
+        nm: "less-than with question mark above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7c': {
+    "\u2a7c": {
       0: null,
       1: {
-        gl: '\u2a7c',
-        nm: 'greater-than with question mark above',
+        gl: "\u2a7c",
+        nm: "greater-than with question mark above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7d': {
+    "\u2a7d": {
       0: null,
       1: {
-        gl: '\u2a7d',
-        nm: 'less-than or slanted equal to',
+        gl: "\u2a7d",
+        nm: "less-than or slanted equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7d\u0338': {
+    "\u2a7d\u0338": {
       0: null,
       1: {
-        gl: '\u2a7d\u0338',
-        nm: 'less-than or slanted equal to with slash',
+        gl: "\u2a7d\u0338",
+        nm: "less-than or slanted equal to with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7e': {
+    "\u2a7e": {
       0: null,
       1: {
-        gl: '\u2a7e',
-        nm: 'greater-than or slanted equal to',
+        gl: "\u2a7e",
+        nm: "greater-than or slanted equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7e\u0338': {
+    "\u2a7e\u0338": {
       0: null,
       1: {
-        gl: '\u2a7e\u0338',
-        nm: 'greater-than or slanted equal to with slash',
+        gl: "\u2a7e\u0338",
+        nm: "greater-than or slanted equal to with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a7f': {
+    "\u2a7f": {
       0: null,
       1: {
-        gl: '\u2a7f',
-        nm: 'less-than or slanted equal to with dot inside',
+        gl: "\u2a7f",
+        nm: "less-than or slanted equal to with dot inside",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a80': {
+    "\u2a80": {
       0: null,
       1: {
-        gl: '\u2a80',
-        nm: 'greater-than or slanted equal to with dot inside',
+        gl: "\u2a80",
+        nm: "greater-than or slanted equal to with dot inside",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a81': {
+    "\u2a81": {
       0: null,
       1: {
-        gl: '\u2a81',
-        nm: 'less-than or slanted equal to with dot above',
+        gl: "\u2a81",
+        nm: "less-than or slanted equal to with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a82': {
+    "\u2a82": {
       0: null,
       1: {
-        gl: '\u2a82',
-        nm: 'greater-than or slanted equal to with dot above',
+        gl: "\u2a82",
+        nm: "greater-than or slanted equal to with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a83': {
+    "\u2a83": {
       0: null,
       1: {
-        gl: '\u2a83',
-        nm: 'less-than or slanted equal to with dot above right',
+        gl: "\u2a83",
+        nm: "less-than or slanted equal to with dot above right",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a84': {
+    "\u2a84": {
       0: null,
       1: {
-        gl: '\u2a84',
-        nm: 'greater-than or slanted equal to with dot above left',
+        gl: "\u2a84",
+        nm: "greater-than or slanted equal to with dot above left",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a85': {
+    "\u2a85": {
       0: null,
       1: {
-        gl: '\u2a85',
-        nm: 'less-than or approximate',
+        gl: "\u2a85",
+        nm: "less-than or approximate",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a86': {
+    "\u2a86": {
       0: null,
       1: {
-        gl: '\u2a86',
-        nm: 'greater-than or approximate',
+        gl: "\u2a86",
+        nm: "greater-than or approximate",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a87': {
+    "\u2a87": {
       0: null,
       1: {
-        gl: '\u2a87',
-        nm: 'less-than and single-line not equal to',
+        gl: "\u2a87",
+        nm: "less-than and single-line not equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a88': {
+    "\u2a88": {
       0: null,
       1: {
-        gl: '\u2a88',
-        nm: 'greater-than and single-line not equal to',
+        gl: "\u2a88",
+        nm: "greater-than and single-line not equal to",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a89': {
+    "\u2a89": {
       0: null,
       1: {
-        gl: '\u2a89',
-        nm: 'less-than and not approximate',
+        gl: "\u2a89",
+        nm: "less-than and not approximate",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a8a': {
+    "\u2a8a": {
       0: null,
       1: {
-        gl: '\u2a8a',
-        nm: 'greater-than and not approximate',
+        gl: "\u2a8a",
+        nm: "greater-than and not approximate",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a8b': {
+    "\u2a8b": {
       0: null,
       1: {
-        gl: '\u2a8b',
-        nm: 'less-than above double-line equal above greater-than',
+        gl: "\u2a8b",
+        nm: "less-than above double-line equal above greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a8c': {
+    "\u2a8c": {
       0: null,
       1: {
-        gl: '\u2a8c',
-        nm: 'greater-than above double-line equal above less-than',
+        gl: "\u2a8c",
+        nm: "greater-than above double-line equal above less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a8d': {
+    "\u2a8d": {
       0: null,
       1: {
-        gl: '\u2a8d',
-        nm: 'less-than above similar or equal',
+        gl: "\u2a8d",
+        nm: "less-than above similar or equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a8e': {
+    "\u2a8e": {
       0: null,
       1: {
-        gl: '\u2a8e',
-        nm: 'greater-than above similar or equal',
+        gl: "\u2a8e",
+        nm: "greater-than above similar or equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a8f': {
+    "\u2a8f": {
       0: null,
       1: {
-        gl: '\u2a8f',
-        nm: 'less-than above similar above greater-than',
+        gl: "\u2a8f",
+        nm: "less-than above similar above greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a90': {
+    "\u2a90": {
       0: null,
       1: {
-        gl: '\u2a90',
-        nm: 'greater-than above similar above less-than',
+        gl: "\u2a90",
+        nm: "greater-than above similar above less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a91': {
+    "\u2a91": {
       0: null,
       1: {
-        gl: '\u2a91',
-        nm: 'less-than above greater-than above double-line equal',
+        gl: "\u2a91",
+        nm: "less-than above greater-than above double-line equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a92': {
+    "\u2a92": {
       0: null,
       1: {
-        gl: '\u2a92',
-        nm: 'greater-than above less-than above double-line equal',
+        gl: "\u2a92",
+        nm: "greater-than above less-than above double-line equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a93': {
+    "\u2a93": {
       0: null,
       1: {
-        gl: '\u2a93',
-        nm: 'less-than above slanted equal above greater-than above slanted equal',
+        gl: "\u2a93",
+        nm: "less-than above slanted equal above greater-than above slanted equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a94': {
+    "\u2a94": {
       0: null,
       1: {
-        gl: '\u2a94',
-        nm: 'greater-than above slanted equal above less-than above slanted equal',
+        gl: "\u2a94",
+        nm: "greater-than above slanted equal above less-than above slanted equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a95': {
+    "\u2a95": {
       0: null,
       1: {
-        gl: '\u2a95',
-        nm: 'slanted equal to or less-than',
+        gl: "\u2a95",
+        nm: "slanted equal to or less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a96': {
+    "\u2a96": {
       0: null,
       1: {
-        gl: '\u2a96',
-        nm: 'slanted equal to or greater-than',
+        gl: "\u2a96",
+        nm: "slanted equal to or greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a97': {
+    "\u2a97": {
       0: null,
       1: {
-        gl: '\u2a97',
-        nm: 'slanted equal to or less-than with dot inside',
+        gl: "\u2a97",
+        nm: "slanted equal to or less-than with dot inside",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a98': {
+    "\u2a98": {
       0: null,
       1: {
-        gl: '\u2a98',
-        nm: 'slanted equal to or greater-than with dot inside',
+        gl: "\u2a98",
+        nm: "slanted equal to or greater-than with dot inside",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a99': {
+    "\u2a99": {
       0: null,
       1: {
-        gl: '\u2a99',
-        nm: 'double-line equal to or less-than',
+        gl: "\u2a99",
+        nm: "double-line equal to or less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a9a': {
+    "\u2a9a": {
       0: null,
       1: {
-        gl: '\u2a9a',
-        nm: 'double-line equal to or greater-than',
+        gl: "\u2a9a",
+        nm: "double-line equal to or greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a9b': {
+    "\u2a9b": {
       0: null,
       1: {
-        gl: '\u2a9b',
-        nm: 'double-line slanted equal to or less-than',
+        gl: "\u2a9b",
+        nm: "double-line slanted equal to or less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a9c': {
+    "\u2a9c": {
       0: null,
       1: {
-        gl: '\u2a9c',
-        nm: 'double-line slanted equal to or greater-than',
+        gl: "\u2a9c",
+        nm: "double-line slanted equal to or greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a9d': {
+    "\u2a9d": {
       0: null,
       1: {
-        gl: '\u2a9d',
-        nm: 'similar or less-than',
+        gl: "\u2a9d",
+        nm: "similar or less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a9e': {
+    "\u2a9e": {
       0: null,
       1: {
-        gl: '\u2a9e',
-        nm: 'similar or greater-than',
+        gl: "\u2a9e",
+        nm: "similar or greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2a9f': {
+    "\u2a9f": {
       0: null,
       1: {
-        gl: '\u2a9f',
-        nm: 'similar above less-than above equals sign',
+        gl: "\u2a9f",
+        nm: "similar above less-than above equals sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa0': {
+    "\u2aa0": {
       0: null,
       1: {
-        gl: '\u2aa0',
-        nm: 'similar above greater-than above equals sign',
+        gl: "\u2aa0",
+        nm: "similar above greater-than above equals sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa1': {
+    "\u2aa1": {
       0: null,
       1: {
-        gl: '\u2aa1',
-        nm: 'double nested less-than',
+        gl: "\u2aa1",
+        nm: "double nested less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa1\u0338': {
+    "\u2aa1\u0338": {
       0: null,
       1: {
-        gl: '\u2aa1\u0338',
-        nm: 'double nested less-than with slash',
+        gl: "\u2aa1\u0338",
+        nm: "double nested less-than with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa2': {
+    "\u2aa2": {
       0: null,
       1: {
-        gl: '\u2aa2',
-        nm: 'double nested greater-than',
+        gl: "\u2aa2",
+        nm: "double nested greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa2\u0338': {
+    "\u2aa2\u0338": {
       0: null,
       1: {
-        gl: '\u2aa2\u0338',
-        nm: 'double nested greater-than with slash',
+        gl: "\u2aa2\u0338",
+        nm: "double nested greater-than with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa3': {
+    "\u2aa3": {
       0: null,
       1: {
-        gl: '\u2aa3',
-        nm: 'double nested less-than with underbar',
+        gl: "\u2aa3",
+        nm: "double nested less-than with underbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa4': {
+    "\u2aa4": {
       0: null,
       1: {
-        gl: '\u2aa4',
-        nm: 'greater-than overlapping less-than',
+        gl: "\u2aa4",
+        nm: "greater-than overlapping less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa5': {
+    "\u2aa5": {
       0: null,
       1: {
-        gl: '\u2aa5',
-        nm: 'greater-than beside less-than',
+        gl: "\u2aa5",
+        nm: "greater-than beside less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa6': {
+    "\u2aa6": {
       0: null,
       1: {
-        gl: '\u2aa6',
-        nm: 'less-than closed by curve',
+        gl: "\u2aa6",
+        nm: "less-than closed by curve",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa7': {
+    "\u2aa7": {
       0: null,
       1: {
-        gl: '\u2aa7',
-        nm: 'greater-than closed by curve',
+        gl: "\u2aa7",
+        nm: "greater-than closed by curve",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa8': {
+    "\u2aa8": {
       0: null,
       1: {
-        gl: '\u2aa8',
-        nm: 'less-than closed by curve above slanted equal',
+        gl: "\u2aa8",
+        nm: "less-than closed by curve above slanted equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aa9': {
+    "\u2aa9": {
       0: null,
       1: {
-        gl: '\u2aa9',
-        nm: 'greater-than closed by curve above slanted equal',
+        gl: "\u2aa9",
+        nm: "greater-than closed by curve above slanted equal",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aaa': {
+    "\u2aaa": {
       0: null,
-      1: { gl: '\u2aaa', nm: 'smaller than', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2aaa", nm: "smaller than", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2aab': {
+    "\u2aab": {
       0: null,
-      1: { gl: '\u2aab', nm: 'larger than', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2aab", nm: "larger than", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2aac': {
+    "\u2aac": {
       0: null,
       1: {
-        gl: '\u2aac',
-        nm: 'smaller than or equal to',
+        gl: "\u2aac",
+        nm: "smaller than or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aad': {
+    "\u2aad": {
       0: null,
       1: {
-        gl: '\u2aad',
-        nm: 'larger than or equal to',
+        gl: "\u2aad",
+        nm: "larger than or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aae': {
+    "\u2aae": {
       0: null,
       1: {
-        gl: '\u2aae',
-        nm: 'equals sign with bumpy above',
+        gl: "\u2aae",
+        nm: "equals sign with bumpy above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aaf': {
+    "\u2aaf": {
       0: null,
       1: {
-        gl: '\u2aaf',
-        nm: 'precedes above single-line equals sign',
+        gl: "\u2aaf",
+        nm: "precedes above single-line equals sign",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aaf\u0338': {
+    "\u2aaf\u0338": {
       0: null,
       1: {
-        gl: '\u2aaf\u0338',
-        nm: 'precedes above single-line equals sign with slash',
+        gl: "\u2aaf\u0338",
+        nm: "precedes above single-line equals sign with slash",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab0': {
+    "\u2ab0": {
       0: null,
       1: {
-        gl: '\u2ab0',
-        nm: 'succeeds above single-line equals sign',
+        gl: "\u2ab0",
+        nm: "succeeds above single-line equals sign",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab0\u0338': {
+    "\u2ab0\u0338": {
       0: null,
       1: {
-        gl: '\u2ab0\u0338',
-        nm: 'succeeds above single-line equals sign with slash',
+        gl: "\u2ab0\u0338",
+        nm: "succeeds above single-line equals sign with slash",
         pr: 260,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab1': {
+    "\u2ab1": {
       0: null,
       1: {
-        gl: '\u2ab1',
-        nm: 'precedes above single-line not equal to',
+        gl: "\u2ab1",
+        nm: "precedes above single-line not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab2': {
+    "\u2ab2": {
       0: null,
       1: {
-        gl: '\u2ab2',
-        nm: 'succeeds above single-line not equal to',
+        gl: "\u2ab2",
+        nm: "succeeds above single-line not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab3': {
+    "\u2ab3": {
       0: null,
       1: {
-        gl: '\u2ab3',
-        nm: 'precedes above equals sign',
+        gl: "\u2ab3",
+        nm: "precedes above equals sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab4': {
+    "\u2ab4": {
       0: null,
       1: {
-        gl: '\u2ab4',
-        nm: 'succeeds above equals sign',
+        gl: "\u2ab4",
+        nm: "succeeds above equals sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab5': {
+    "\u2ab5": {
       0: null,
       1: {
-        gl: '\u2ab5',
-        nm: 'precedes above not equal to',
+        gl: "\u2ab5",
+        nm: "precedes above not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab6': {
+    "\u2ab6": {
       0: null,
       1: {
-        gl: '\u2ab6',
-        nm: 'succeeds above not equal to',
+        gl: "\u2ab6",
+        nm: "succeeds above not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab7': {
+    "\u2ab7": {
       0: null,
       1: {
-        gl: '\u2ab7',
-        nm: 'precedes above almost equal to',
+        gl: "\u2ab7",
+        nm: "precedes above almost equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab8': {
+    "\u2ab8": {
       0: null,
       1: {
-        gl: '\u2ab8',
-        nm: 'succeeds above almost equal to',
+        gl: "\u2ab8",
+        nm: "succeeds above almost equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ab9': {
+    "\u2ab9": {
       0: null,
       1: {
-        gl: '\u2ab9',
-        nm: 'precedes above not almost equal to',
+        gl: "\u2ab9",
+        nm: "precedes above not almost equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aba': {
+    "\u2aba": {
       0: null,
       1: {
-        gl: '\u2aba',
-        nm: 'succeeds above not almost equal to',
+        gl: "\u2aba",
+        nm: "succeeds above not almost equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2abb': {
+    "\u2abb": {
       0: null,
-      1: { gl: '\u2abb', nm: 'double precedes', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2abb", nm: "double precedes", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2abc': {
+    "\u2abc": {
       0: null,
-      1: { gl: '\u2abc', nm: 'double succeeds', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2abc", nm: "double succeeds", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2abd': {
+    "\u2abd": {
       0: null,
-      1: { gl: '\u2abd', nm: 'subset with dot', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2abd", nm: "subset with dot", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2abe': {
+    "\u2abe": {
       0: null,
       1: {
-        gl: '\u2abe',
-        nm: 'superset with dot',
+        gl: "\u2abe",
+        nm: "superset with dot",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2abf': {
+    "\u2abf": {
       0: null,
       1: {
-        gl: '\u2abf',
-        nm: 'subset with plus sign below',
+        gl: "\u2abf",
+        nm: "subset with plus sign below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac0': {
+    "\u2ac0": {
       0: null,
       1: {
-        gl: '\u2ac0',
-        nm: 'superset with plus sign below',
+        gl: "\u2ac0",
+        nm: "superset with plus sign below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac1': {
+    "\u2ac1": {
       0: null,
       1: {
-        gl: '\u2ac1',
-        nm: 'subset with multiplication sign below',
+        gl: "\u2ac1",
+        nm: "subset with multiplication sign below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac2': {
+    "\u2ac2": {
       0: null,
       1: {
-        gl: '\u2ac2',
-        nm: 'superset with multiplication sign below',
+        gl: "\u2ac2",
+        nm: "superset with multiplication sign below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac3': {
+    "\u2ac3": {
       0: null,
       1: {
-        gl: '\u2ac3',
-        nm: 'subset of or equal to with dot above',
+        gl: "\u2ac3",
+        nm: "subset of or equal to with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac4': {
+    "\u2ac4": {
       0: null,
       1: {
-        gl: '\u2ac4',
-        nm: 'superset of or equal to with dot above',
+        gl: "\u2ac4",
+        nm: "superset of or equal to with dot above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac5': {
+    "\u2ac5": {
       0: null,
       1: {
-        gl: '\u2ac5',
-        nm: 'subset of above equals sign',
+        gl: "\u2ac5",
+        nm: "subset of above equals sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac6': {
+    "\u2ac6": {
       0: null,
       1: {
-        gl: '\u2ac6',
-        nm: 'superset of above equals sign',
+        gl: "\u2ac6",
+        nm: "superset of above equals sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac7': {
+    "\u2ac7": {
       0: null,
       1: {
-        gl: '\u2ac7',
-        nm: 'subset of above tilde operator',
+        gl: "\u2ac7",
+        nm: "subset of above tilde operator",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac8': {
+    "\u2ac8": {
       0: null,
       1: {
-        gl: '\u2ac8',
-        nm: 'superset of above tilde operator',
+        gl: "\u2ac8",
+        nm: "superset of above tilde operator",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ac9': {
+    "\u2ac9": {
       0: null,
       1: {
-        gl: '\u2ac9',
-        nm: 'subset of above almost equal to',
+        gl: "\u2ac9",
+        nm: "subset of above almost equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aca': {
+    "\u2aca": {
       0: null,
       1: {
-        gl: '\u2aca',
-        nm: 'superset of above almost equal to',
+        gl: "\u2aca",
+        nm: "superset of above almost equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2acb': {
+    "\u2acb": {
       0: null,
       1: {
-        gl: '\u2acb',
-        nm: 'subset of above not equal to',
+        gl: "\u2acb",
+        nm: "subset of above not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2acc': {
+    "\u2acc": {
       0: null,
       1: {
-        gl: '\u2acc',
-        nm: 'superset of above not equal to',
+        gl: "\u2acc",
+        nm: "superset of above not equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2acd': {
+    "\u2acd": {
       0: null,
       1: {
-        gl: '\u2acd',
-        nm: 'square left open box operator',
+        gl: "\u2acd",
+        nm: "square left open box operator",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ace': {
+    "\u2ace": {
       0: null,
       1: {
-        gl: '\u2ace',
-        nm: 'square right open box operator',
+        gl: "\u2ace",
+        nm: "square right open box operator",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2acf': {
+    "\u2acf": {
       0: null,
-      1: { gl: '\u2acf', nm: 'closed subset', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2acf", nm: "closed subset", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2ad0': {
+    "\u2ad0": {
       0: null,
-      1: { gl: '\u2ad0', nm: 'closed superset', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2ad0", nm: "closed superset", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2ad1': {
+    "\u2ad1": {
       0: null,
       1: {
-        gl: '\u2ad1',
-        nm: 'closed subset or equal to',
+        gl: "\u2ad1",
+        nm: "closed subset or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad2': {
+    "\u2ad2": {
       0: null,
       1: {
-        gl: '\u2ad2',
-        nm: 'closed superset or equal to',
+        gl: "\u2ad2",
+        nm: "closed superset or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad3': {
+    "\u2ad3": {
       0: null,
       1: {
-        gl: '\u2ad3',
-        nm: 'subset above superset',
+        gl: "\u2ad3",
+        nm: "subset above superset",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad4': {
+    "\u2ad4": {
       0: null,
       1: {
-        gl: '\u2ad4',
-        nm: 'superset above subset',
+        gl: "\u2ad4",
+        nm: "superset above subset",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad5': {
+    "\u2ad5": {
       0: null,
       1: {
-        gl: '\u2ad5',
-        nm: 'subset above subset',
+        gl: "\u2ad5",
+        nm: "subset above subset",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad6': {
+    "\u2ad6": {
       0: null,
       1: {
-        gl: '\u2ad6',
-        nm: 'superset above superset',
+        gl: "\u2ad6",
+        nm: "superset above superset",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad7': {
+    "\u2ad7": {
       0: null,
       1: {
-        gl: '\u2ad7',
-        nm: 'superset beside subset',
+        gl: "\u2ad7",
+        nm: "superset beside subset",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad8': {
+    "\u2ad8": {
       0: null,
       1: {
-        gl: '\u2ad8',
-        nm: 'superset beside and joined by dash with subset',
+        gl: "\u2ad8",
+        nm: "superset beside and joined by dash with subset",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ad9': {
+    "\u2ad9": {
       0: null,
       1: {
-        gl: '\u2ad9',
-        nm: 'element of opening downwards',
+        gl: "\u2ad9",
+        nm: "element of opening downwards",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ada': {
+    "\u2ada": {
       0: null,
       1: {
-        gl: '\u2ada',
-        nm: 'pitchfork with tee top',
+        gl: "\u2ada",
+        nm: "pitchfork with tee top",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2adb': {
+    "\u2adb": {
       0: null,
       1: {
-        gl: '\u2adb',
-        nm: 'transversal intersection',
+        gl: "\u2adb",
+        nm: "transversal intersection",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2add': {
+    "\u2add": {
       0: null,
-      1: { gl: '\u2add', nm: 'nonforking', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2add", nm: "nonforking", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2add\u0338': {
+    "\u2add\u0338": {
       0: null,
       1: {
-        gl: '\u2add\u0338',
-        nm: 'nonforking with slash',
+        gl: "\u2add\u0338",
+        nm: "nonforking with slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ade': {
+    "\u2ade": {
       0: null,
-      1: { gl: '\u2ade', nm: 'short left tack', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2ade", nm: "short left tack", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2adf': {
+    "\u2adf": {
       0: null,
-      1: { gl: '\u2adf', nm: 'short down tack', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2adf", nm: "short down tack", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2ae0': {
+    "\u2ae0": {
       0: null,
-      1: { gl: '\u2ae0', nm: 'short up tack', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2ae0", nm: "short up tack", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2ae1': {
+    "\u2ae1": {
       0: null,
       1: {
-        gl: '\u2ae1',
-        nm: 'perpendicular with s',
+        gl: "\u2ae1",
+        nm: "perpendicular with s",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae2': {
+    "\u2ae2": {
       0: null,
       1: {
-        gl: '\u2ae2',
-        nm: 'vertical bar triple right turnstile',
+        gl: "\u2ae2",
+        nm: "vertical bar triple right turnstile",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae3': {
+    "\u2ae3": {
       0: null,
       1: {
-        gl: '\u2ae3',
-        nm: 'double vertical bar left turnstile',
+        gl: "\u2ae3",
+        nm: "double vertical bar left turnstile",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae4': {
+    "\u2ae4": {
       0: null,
       1: {
-        gl: '\u2ae4',
-        nm: 'vertical bar double left turnstile',
+        gl: "\u2ae4",
+        nm: "vertical bar double left turnstile",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae5': {
+    "\u2ae5": {
       0: null,
       1: {
-        gl: '\u2ae5',
-        nm: 'double vertical bar double left turnstile',
+        gl: "\u2ae5",
+        nm: "double vertical bar double left turnstile",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae6': {
+    "\u2ae6": {
       0: null,
       1: {
-        gl: '\u2ae6',
-        nm: 'long dash from left member of double vertical',
+        gl: "\u2ae6",
+        nm: "long dash from left member of double vertical",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae7': {
+    "\u2ae7": {
       0: null,
       1: {
-        gl: '\u2ae7',
-        nm: 'short down tack with overbar',
+        gl: "\u2ae7",
+        nm: "short down tack with overbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae8': {
+    "\u2ae8": {
       0: null,
       1: {
-        gl: '\u2ae8',
-        nm: 'short up tack with underbar',
+        gl: "\u2ae8",
+        nm: "short up tack with underbar",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2ae9': {
+    "\u2ae9": {
       0: null,
       1: {
-        gl: '\u2ae9',
-        nm: 'short up tack above short down tack',
+        gl: "\u2ae9",
+        nm: "short up tack above short down tack",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aea': {
+    "\u2aea": {
       0: null,
       1: {
-        gl: '\u2aea',
-        nm: 'double down tack',
+        gl: "\u2aea",
+        nm: "double down tack",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aeb': {
+    "\u2aeb": {
       0: null,
-      1: { gl: '\u2aeb', nm: 'double up tack', pr: 265, ls: 5, rs: 5, pp: '' },
+      1: { gl: "\u2aeb", nm: "double up tack", pr: 265, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '\u2aec': {
+    "\u2aec": {
       0: null,
       1: {
-        gl: '\u2aec',
-        nm: 'double stroke not sign',
+        gl: "\u2aec",
+        nm: "double stroke not sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aed': {
+    "\u2aed": {
       0: null,
       1: {
-        gl: '\u2aed',
-        nm: 'reversed double stroke not sign',
+        gl: "\u2aed",
+        nm: "reversed double stroke not sign",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aee': {
+    "\u2aee": {
       0: null,
       1: {
-        gl: '\u2aee',
-        nm: 'does not divide with reversed negation slash',
+        gl: "\u2aee",
+        nm: "does not divide with reversed negation slash",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aef': {
+    "\u2aef": {
       0: null,
       1: {
-        gl: '\u2aef',
-        nm: 'vertical line with circle above',
+        gl: "\u2aef",
+        nm: "vertical line with circle above",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af0': {
+    "\u2af0": {
       0: null,
       1: {
-        gl: '\u2af0',
-        nm: 'vertical line with circle below',
+        gl: "\u2af0",
+        nm: "vertical line with circle below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af1': {
+    "\u2af1": {
       0: null,
       1: {
-        gl: '\u2af1',
-        nm: 'down tack with circle below',
+        gl: "\u2af1",
+        nm: "down tack with circle below",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af2': {
+    "\u2af2": {
       0: null,
       1: {
-        gl: '\u2af2',
-        nm: 'parallel with horizontal stroke',
+        gl: "\u2af2",
+        nm: "parallel with horizontal stroke",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af3': {
+    "\u2af3": {
       0: null,
       1: {
-        gl: '\u2af3',
-        nm: 'parallel with tilde operator',
+        gl: "\u2af3",
+        nm: "parallel with tilde operator",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af4': {
+    "\u2af4": {
       0: null,
       1: {
-        gl: '\u2af4',
-        nm: 'triple vertical bar binary relation',
+        gl: "\u2af4",
+        nm: "triple vertical bar binary relation",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af5': {
+    "\u2af5": {
       0: null,
       1: {
-        gl: '\u2af5',
-        nm: 'triple vertical bar with horizontal stroke',
+        gl: "\u2af5",
+        nm: "triple vertical bar with horizontal stroke",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af6': {
+    "\u2af6": {
       0: null,
       1: {
-        gl: '\u2af6',
-        nm: 'triple colon operator',
+        gl: "\u2af6",
+        nm: "triple colon operator",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af7': {
+    "\u2af7": {
       0: null,
       1: {
-        gl: '\u2af7',
-        nm: 'triple nested less-than',
+        gl: "\u2af7",
+        nm: "triple nested less-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af8': {
+    "\u2af8": {
       0: null,
       1: {
-        gl: '\u2af8',
-        nm: 'triple nested greater-than',
+        gl: "\u2af8",
+        nm: "triple nested greater-than",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2af9': {
+    "\u2af9": {
       0: null,
       1: {
-        gl: '\u2af9',
-        nm: 'double-line slanted less-than or equal to',
+        gl: "\u2af9",
+        nm: "double-line slanted less-than or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2afa': {
+    "\u2afa": {
       0: null,
       1: {
-        gl: '\u2afa',
-        nm: 'double-line slanted greater-than or equal to',
+        gl: "\u2afa",
+        nm: "double-line slanted greater-than or equal to",
         pr: 265,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2afb': {
+    "\u2afb": {
       0: null,
       1: {
-        gl: '\u2afb',
-        nm: 'triple solidus binary relation',
+        gl: "\u2afb",
+        nm: "triple solidus binary relation",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2afc': {
+    "\u2afc": {
       0: {
-        gl: '\u2afc',
-        nm: 'large triple vertical bar operator',
+        gl: "\u2afc",
+        nm: "large triple vertical bar operator",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2afd': {
+    "\u2afd": {
       0: null,
       1: {
-        gl: '\u2afd',
-        nm: 'double solidus operator',
+        gl: "\u2afd",
+        nm: "double solidus operator",
         pr: 265,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2afe': {
+    "\u2afe": {
       0: null,
       1: {
-        gl: '\u2afe',
-        nm: 'white vertical bar',
+        gl: "\u2afe",
+        nm: "white vertical bar",
         pr: 265,
         ls: 3,
         rs: 3,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u2aff': {
+    "\u2aff": {
       0: {
-        gl: '\u2aff',
-        nm: 'n-ary white vertical bar',
+        gl: "\u2aff",
+        nm: "n-ary white vertical bar",
         pr: 330,
         ls: 1,
         rs: 2,
-        pp: 'largeop, movablelimits, symmetric',
+        pp: "largeop, movablelimits, symmetric",
       },
       1: null,
       2: null,
     },
-    '\u2b45': {
+    "\u2b45": {
       0: null,
       1: {
-        gl: '\u2b45',
-        nm: 'leftwards quadruple arrow',
+        gl: "\u2b45",
+        nm: "leftwards quadruple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u2b46': {
+    "\u2b46": {
       0: null,
       1: {
-        gl: '\u2b46',
-        nm: 'rightwards quadruple arrow',
+        gl: "\u2b46",
+        nm: "rightwards quadruple arrow",
         pr: 270,
         ls: 5,
         rs: 5,
-        pp: 'stretchy',
+        pp: "stretchy",
       },
       2: null,
     },
-    '\u02c6': {
+    "\u02c6": {
       0: null,
       1: null,
       2: {
-        gl: '\u02c6',
-        nm: 'modifier letter circumflex accent',
+        gl: "\u02c6",
+        nm: "modifier letter circumflex accent",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u02c7': {
+    "\u02c7": {
       0: null,
       1: null,
       2: {
-        gl: '\u02c7',
-        nm: 'caron',
+        gl: "\u02c7",
+        nm: "caron",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u02c9': {
+    "\u02c9": {
       0: null,
       1: null,
       2: {
-        gl: '\u02c9',
-        nm: 'modifier letter macron',
+        gl: "\u02c9",
+        nm: "modifier letter macron",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u02ca': {
+    "\u02ca": {
       0: null,
       1: null,
       2: {
-        gl: '\u02ca',
-        nm: 'modifier letter acute accent',
+        gl: "\u02ca",
+        nm: "modifier letter acute accent",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u02cb': {
+    "\u02cb": {
       0: null,
       1: null,
       2: {
-        gl: '\u02cb',
-        nm: 'modifier letter grave accent',
+        gl: "\u02cb",
+        nm: "modifier letter grave accent",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u02cd': {
+    "\u02cd": {
       0: null,
       1: null,
       2: {
-        gl: '\u02cd',
-        nm: 'modifier letter low macron',
+        gl: "\u02cd",
+        nm: "modifier letter low macron",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u02d8': {
+    "\u02d8": {
       0: null,
       1: null,
-      2: { gl: '\u02d8', nm: 'breve', pr: 880, ls: 0, rs: 0, pp: 'accent' },
+      2: { gl: "\u02d8", nm: "breve", pr: 880, ls: 0, rs: 0, pp: "accent" },
     },
-    '\u02d9': {
+    "\u02d9": {
       0: null,
       1: null,
-      2: { gl: '\u02d9', nm: 'dot above', pr: 880, ls: 0, rs: 0, pp: 'accent' },
+      2: { gl: "\u02d9", nm: "dot above", pr: 880, ls: 0, rs: 0, pp: "accent" },
     },
-    '\u02da': {
+    "\u02da": {
       0: null,
       1: null,
       2: {
-        gl: '\u02da',
-        nm: 'ring above',
+        gl: "\u02da",
+        nm: "ring above",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u02dc': {
+    "\u02dc": {
       0: null,
       1: null,
       2: {
-        gl: '&#x2DC;',
-        nm: '\u02dcsmall tilde',
+        gl: "&#x2DC;",
+        nm: "\u02dcsmall tilde",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u02dd': {
+    "\u02dd": {
       0: null,
       1: null,
       2: {
-        gl: '\u02dd',
-        nm: 'double acute accent',
+        gl: "\u02dd",
+        nm: "double acute accent",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u02f7': {
+    "\u02f7": {
       0: null,
       1: null,
       2: {
-        gl: '\u02f7',
-        nm: 'modifier letter low tilde',
+        gl: "\u02f7",
+        nm: "modifier letter low tilde",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u0302': {
+    "\u0302": {
       0: null,
       1: null,
       2: {
-        gl: '\u0302',
-        nm: 'combining circumflex accent',
+        gl: "\u0302",
+        nm: "combining circumflex accent",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u0311': {
+    "\u0311": {
       0: null,
       1: null,
       2: {
-        gl: '\u0311',
-        nm: 'combining inverted breve',
+        gl: "\u0311",
+        nm: "combining inverted breve",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u03f6': {
+    "\u03f6": {
       0: null,
       1: {
-        gl: '\u03f6',
-        nm: 'greek reversed lunate epsilon symbol',
+        gl: "\u03f6",
+        nm: "greek reversed lunate epsilon symbol",
         pr: 110,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u00a8': {
+    "\u00a8": {
       0: null,
       1: null,
-      2: { gl: '\u00a8', nm: 'diaeresis', pr: 880, ls: 0, rs: 0, pp: 'accent' },
+      2: { gl: "\u00a8", nm: "diaeresis", pr: 880, ls: 0, rs: 0, pp: "accent" },
     },
-    '\u00aa': {
+    "\u00aa": {
       0: null,
       1: null,
       2: {
-        gl: '\u00aa',
-        nm: 'feminine ordinal indicator',
+        gl: "\u00aa",
+        nm: "feminine ordinal indicator",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u00ac': {
-      0: { gl: '\u00ac', nm: 'not sign', pr: 680, ls: 2, rs: 1, pp: '' },
+    "\u00ac": {
+      0: { gl: "\u00ac", nm: "not sign", pr: 680, ls: 2, rs: 1, pp: "" },
       1: null,
       2: null,
     },
-    '\u00af': {
+    "\u00af": {
       0: null,
       1: null,
       2: {
-        gl: '\u00af',
-        nm: 'macron',
+        gl: "\u00af",
+        nm: "macron",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '\u00b0': {
+    "\u00b0": {
       0: null,
       1: null,
-      2: { gl: '\u00b0', nm: 'degree sign', pr: 880, ls: 0, rs: 0, pp: '' },
+      2: { gl: "\u00b0", nm: "degree sign", pr: 880, ls: 0, rs: 0, pp: "" },
     },
-    '\u00b1': {
-      0: { gl: '\u00b1', nm: 'plus-minus sign', pr: 275, ls: 0, rs: 1, pp: '' },
-      1: { gl: '\u00b1', nm: 'plus-minus sign', pr: 275, ls: 4, rs: 4, pp: '' },
+    "\u00b1": {
+      0: { gl: "\u00b1", nm: "plus-minus sign", pr: 275, ls: 0, rs: 1, pp: "" },
+      1: { gl: "\u00b1", nm: "plus-minus sign", pr: 275, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u00b2': {
+    "\u00b2": {
       0: null,
       1: null,
       2: {
-        gl: '\u00b2',
-        nm: 'superscript two',
+        gl: "\u00b2",
+        nm: "superscript two",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u00b3': {
+    "\u00b3": {
       0: null,
       1: null,
       2: {
-        gl: '\u00b3',
-        nm: 'superscript three',
+        gl: "\u00b3",
+        nm: "superscript three",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u00b4': {
+    "\u00b4": {
       0: null,
       1: null,
       2: {
-        gl: '\u00b4',
-        nm: 'acute accent',
+        gl: "\u00b4",
+        nm: "acute accent",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u00b7': {
+    "\u00b7": {
       0: null,
-      1: { gl: '\u00b7', nm: 'middle dot', pr: 400, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u00b7", nm: "middle dot", pr: 400, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '\u00b8': {
+    "\u00b8": {
       0: null,
       1: null,
-      2: { gl: '\u00b8', nm: 'cedilla', pr: 880, ls: 0, rs: 0, pp: 'accent' },
+      2: { gl: "\u00b8", nm: "cedilla", pr: 880, ls: 0, rs: 0, pp: "accent" },
     },
-    '\u00b9': {
-      0: null,
-      1: null,
-      2: {
-        gl: '\u00b9',
-        nm: 'superscript one',
-        pr: 880,
-        ls: 0,
-        rs: 0,
-        pp: 'accent',
-      },
-    },
-    '\u00ba': {
+    "\u00b9": {
       0: null,
       1: null,
       2: {
-        gl: '\u00ba',
-        nm: 'masculine ordinal indicator',
+        gl: "\u00b9",
+        nm: "superscript one",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
-    '\u00d7': {
+    "\u00ba": {
+      0: null,
+      1: null,
+      2: {
+        gl: "\u00ba",
+        nm: "masculine ordinal indicator",
+        pr: 880,
+        ls: 0,
+        rs: 0,
+        pp: "accent",
+      },
+    },
+    "\u00d7": {
       0: null,
       1: {
-        gl: '\u00d7',
-        nm: 'multiplication sign',
+        gl: "\u00d7",
+        nm: "multiplication sign",
         pr: 390,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '\u00f7': {
+    "\u00f7": {
       0: null,
-      1: { gl: '\u00f7', nm: 'division sign', pr: 660, ls: 4, rs: 4, pp: '' },
+      1: { gl: "\u00f7", nm: "division sign", pr: 660, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '&amp': {
+    "&amp": {
       0: null,
       1: null,
-      2: { gl: '&', nm: 'ampersand', pr: 880, ls: 0, rs: 0, pp: '' },
+      2: { gl: "&", nm: "ampersand", pr: 880, ls: 0, rs: 0, pp: "" },
     },
-    '&amp&amp': {
+    "&amp&amp": {
       0: null,
       1: {
-        gl: '&&',
-        nm: 'multiple character operator: &&',
+        gl: "&&",
+        nm: "multiple character operator: &&",
         pr: 200,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '<': {
+    "<": {
       0: null,
-      1: { gl: '<', nm: 'less-than sign', pr: 245, ls: 5, rs: 5, pp: '' },
+      1: { gl: "<", nm: "less-than sign", pr: 245, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '&lt=': {
+    "&lt=": {
       0: null,
       1: {
-        gl: '<=',
-        nm: 'multiple character operator: <=',
+        gl: "<=",
+        nm: "multiple character operator: <=",
         pr: 241,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '&lt>': {
+    "&lt>": {
       0: null,
       1: {
-        gl: '<>',
-        nm: 'multiple character operator: <>',
+        gl: "<>",
+        nm: "multiple character operator: <>",
         pr: 780,
         ls: 1,
         rs: 1,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '(': {
+    "(": {
       0: {
-        gl: '(',
-        nm: 'left parenthesis',
+        gl: "(",
+        nm: "left parenthesis",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    ')': {
+    ")": {
       0: null,
       1: null,
       2: {
-        gl: ')',
-        nm: 'right parenthesis',
+        gl: ")",
+        nm: "right parenthesis",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '*': {
+    "*": {
       0: null,
-      1: { gl: '*', nm: 'asterisk', pr: 390, ls: 3, rs: 3, pp: '' },
+      1: { gl: "*", nm: "asterisk", pr: 390, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '**': {
+    "**": {
       0: null,
       1: {
-        gl: '**',
-        nm: 'multiple character operator: **',
+        gl: "**",
+        nm: "multiple character operator: **",
         pr: 780,
         ls: 1,
         rs: 1,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '*=': {
+    "*=": {
       0: null,
       1: {
-        gl: '*=',
-        nm: 'multiple character operator: *=',
+        gl: "*=",
+        nm: "multiple character operator: *=",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    ',': {
+    ",": {
       0: null,
       1: {
-        gl: ',',
-        nm: 'comma',
+        gl: ",",
+        nm: "comma",
         pr: 40,
         ls: 0,
         rs: 3,
-        pp: 'separator, linebreakstyle=after',
+        pp: "separator, linebreakstyle=after",
       },
       2: null,
     },
-    '.': {
+    ".": {
       0: null,
-      1: { gl: '.', nm: 'full stop', pr: 390, ls: 3, rs: 3, pp: '' },
+      1: { gl: ".", nm: "full stop", pr: 390, ls: 3, rs: 3, pp: "" },
       2: null,
     },
-    '..': {
+    "..": {
       0: null,
       1: null,
       2: {
-        gl: '..',
-        nm: 'multiple character operator: ..',
+        gl: "..",
+        nm: "multiple character operator: ..",
         pr: 100,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
     },
-    '...': {
+    "...": {
       0: null,
       1: null,
       2: {
-        gl: '...',
-        nm: 'multiple character operator: ...',
+        gl: "...",
+        nm: "multiple character operator: ...",
         pr: 100,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
     },
-    '/': {
+    "/": {
       0: null,
-      1: { gl: '/', nm: 'solidus', pr: 660, ls: 1, rs: 1, pp: '' },
+      1: { gl: "/", nm: "solidus", pr: 660, ls: 1, rs: 1, pp: "" },
       2: null,
     },
-    '//': {
+    "//": {
       0: null,
       1: {
-        gl: '//',
-        nm: 'multiple character operator: //',
+        gl: "//",
+        nm: "multiple character operator: //",
         pr: 820,
         ls: 1,
         rs: 1,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '/=': {
+    "/=": {
       0: null,
       1: {
-        gl: '/=',
-        nm: 'multiple character operator: /=',
+        gl: "/=",
+        nm: "multiple character operator: /=",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    ':': {
+    ":": {
       0: null,
-      1: { gl: ':', nm: 'colon', pr: 100, ls: 1, rs: 2, pp: '' },
+      1: { gl: ":", nm: "colon", pr: 100, ls: 1, rs: 2, pp: "" },
       2: null,
     },
-    ':=': {
+    ":=": {
       0: null,
       1: {
-        gl: ':=',
-        nm: 'multiple character operator: :=',
+        gl: ":=",
+        nm: "multiple character operator: :=",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '': {
+    "": {
       0: null,
       1: {
-        gl: ';',
-        nm: 'semicolon',
+        gl: ";",
+        nm: "semicolon",
         pr: 30,
         ls: 0,
         rs: 3,
-        pp: 'separator, linebreakstyle=after',
+        pp: "separator, linebreakstyle=after",
       },
       2: null,
     },
-    '?': {
+    "?": {
       0: null,
-      1: { gl: '?', nm: 'question mark', pr: 835, ls: 1, rs: 1, pp: '' },
+      1: { gl: "?", nm: "question mark", pr: 835, ls: 1, rs: 1, pp: "" },
       2: null,
     },
-    '@': {
+    "@": {
       0: null,
-      1: { gl: '@', nm: 'commercial at', pr: 825, ls: 1, rs: 1, pp: '' },
+      1: { gl: "@", nm: "commercial at", pr: 825, ls: 1, rs: 1, pp: "" },
       2: null,
     },
-    '[': {
+    "[": {
       0: {
-        gl: '[',
-        nm: 'left square bracket',
+        gl: "[",
+        nm: "left square bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '\\': {
+    "\\": {
       0: null,
-      1: { gl: '\\', nm: 'reverse solidus', pr: 650, ls: 0, rs: 0, pp: '' },
+      1: { gl: "\\", nm: "reverse solidus", pr: 650, ls: 0, rs: 0, pp: "" },
       2: null,
     },
-    ']': {
+    "]": {
       0: null,
       1: null,
       2: {
-        gl: ']',
-        nm: 'right square bracket',
+        gl: "]",
+        nm: "right square bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '^': {
+    "^": {
       0: null,
-      1: { gl: '^', nm: 'circumflex accent', pr: 780, ls: 1, rs: 1, pp: '' },
+      1: { gl: "^", nm: "circumflex accent", pr: 780, ls: 1, rs: 1, pp: "" },
       2: {
-        gl: '^',
-        nm: 'circumflex accent',
+        gl: "^",
+        nm: "circumflex accent",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
     _: {
       0: null,
-      1: { gl: '_', nm: 'low line', pr: 900, ls: 1, rs: 1, pp: '' },
+      1: { gl: "_", nm: "low line", pr: 900, ls: 1, rs: 1, pp: "" },
       2: {
-        gl: '_',
-        nm: 'low line',
+        gl: "_",
+        nm: "low line",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '`': {
+    "`": {
       0: null,
       1: null,
-      2: { gl: '`', nm: 'grave accent', pr: 880, ls: 0, rs: 0, pp: 'accent' },
+      2: { gl: "`", nm: "grave accent", pr: 880, ls: 0, rs: 0, pp: "accent" },
     },
-    '{': {
+    "{": {
       0: {
-        gl: '{',
-        nm: 'left curly bracket',
+        gl: "{",
+        nm: "left curly bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: null,
       2: null,
     },
-    '|': {
+    "|": {
       0: {
-        gl: '|',
-        nm: 'vertical line',
+        gl: "|",
+        nm: "vertical line",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: {
-        gl: '|',
-        nm: 'vertical line',
+        gl: "|",
+        nm: "vertical line",
         pr: 270,
         ls: 2,
         rs: 2,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       2: {
-        gl: '|',
-        nm: 'vertical line',
+        gl: "|",
+        nm: "vertical line",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '||': {
+    "||": {
       0: {
-        gl: '||',
-        nm: 'multiple character operator: ||',
+        gl: "||",
+        nm: "multiple character operator: ||",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: {
-        gl: '||',
-        nm: 'multiple character operator: ||',
+        gl: "||",
+        nm: "multiple character operator: ||",
         pr: 270,
         ls: 2,
         rs: 2,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       2: {
-        gl: '||',
-        nm: 'multiple character operator: ||',
+        gl: "||",
+        nm: "multiple character operator: ||",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '|||': {
+    "|||": {
       0: {
-        gl: '|||',
-        nm: 'multiple character operator: |||',
+        gl: "|||",
+        nm: "multiple character operator: |||",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       1: {
-        gl: '|||',
-        nm: 'multiple character operator: |||',
+        gl: "|||",
+        nm: "multiple character operator: |||",
         pr: 270,
         ls: 2,
         rs: 2,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
       2: {
-        gl: '|||',
-        nm: 'multiple character operator: |||',
+        gl: "|||",
+        nm: "multiple character operator: |||",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '}': {
+    "}": {
       0: null,
       1: null,
       2: {
-        gl: '}',
-        nm: 'right curly bracket',
+        gl: "}",
+        nm: "right curly bracket",
         pr: 20,
         ls: 0,
         rs: 0,
-        pp: 'fence, stretchy, symmetric',
+        pp: "fence, stretchy, symmetric",
       },
     },
-    '~': {
+    "~": {
       0: null,
       1: null,
       2: {
-        gl: '~',
-        nm: 'tilde',
+        gl: "~",
+        nm: "tilde",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'stretchy, accent',
+        pp: "stretchy, accent",
       },
     },
-    '+': {
-      0: { gl: '+', nm: 'plus sign', pr: 275, ls: 0, rs: 1, pp: '' },
-      1: { gl: '+', nm: 'plus sign', pr: 275, ls: 4, rs: 4, pp: '' },
+    "+": {
+      0: { gl: "+", nm: "plus sign", pr: 275, ls: 0, rs: 1, pp: "" },
+      1: { gl: "+", nm: "plus sign", pr: 275, ls: 4, rs: 4, pp: "" },
       2: null,
     },
-    '++': {
+    "++": {
       0: null,
       1: null,
       2: {
-        gl: '++',
-        nm: 'multiple character operator: ++',
+        gl: "++",
+        nm: "multiple character operator: ++",
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: '',
+        pp: "",
       },
     },
-    '+=': {
+    "+=": {
       0: null,
       1: {
-        gl: '+=',
-        nm: 'multiple character operator: +=',
+        gl: "+=",
+        nm: "multiple character operator: +=",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '=': {
+    "=": {
       0: null,
-      1: { gl: '=', nm: 'equals sign', pr: 260, ls: 5, rs: 5, pp: '' },
+      1: { gl: "=", nm: "equals sign", pr: 260, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '-=': {
+    "-=": {
       0: null,
       1: {
-        gl: '-=',
-        nm: 'multiple character operator: -=',
+        gl: "-=",
+        nm: "multiple character operator: -=",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '==': {
+    "==": {
       0: null,
       1: {
-        gl: '==',
-        nm: 'multiple character operator: ==',
+        gl: "==",
+        nm: "multiple character operator: ==",
         pr: 260,
         ls: 4,
         rs: 4,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '>': {
+    ">": {
       0: null,
-      1: { gl: '>', nm: 'greater-than sign', pr: 243, ls: 5, rs: 5, pp: '' },
+      1: { gl: ">", nm: "greater-than sign", pr: 243, ls: 5, rs: 5, pp: "" },
       2: null,
     },
-    '->': {
+    "->": {
       0: null,
       1: {
-        gl: '->',
-        nm: 'multiple character operator: ->',
+        gl: "->",
+        nm: "multiple character operator: ->",
         pr: 90,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
-    '>=': {
+    ">=": {
       0: null,
       1: {
-        gl: '>=',
-        nm: 'multiple character operator: >=',
+        gl: ">=",
+        nm: "multiple character operator: >=",
         pr: 243,
         ls: 5,
         rs: 5,
-        pp: '',
+        pp: "",
       },
       2: null,
     },
@@ -30091,7 +30092,7 @@ $package('org.imatheq.formulaeditor.parsing.mathml');
         pr: 880,
         ls: 0,
         rs: 0,
-        pp: 'accent',
+        pp: "accent",
       },
     },
   };
@@ -30101,5 +30102,5 @@ if (window.addEventListener) {
   var setLoaded = function () {
     org.imatheq.formulaeditor.hasLoaded = !0;
   };
-  window.addEventListener('load', setLoaded, !1);
+  window.addEventListener("load", setLoaded, !1);
 }
