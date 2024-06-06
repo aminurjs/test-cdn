@@ -34,23 +34,7 @@ var $package, $extend, $buuuuu, $setOptions;
     return b;
   };
   $buuuuu = function () {
-    for (
-      var a = document.getElementsByTagName("script"),
-        d = /(.*)com\/imatheq\/scripts\/imatheqfunctions.js/,
-        b = 0;
-      b < a.length;
-      b++
-    ) {
-      var f = a[b].src.match(d);
-      if (null !== f)
-        return (
-          (a = /192.168.86.250/),
-          (d = new RegExp(document.location.hostname)),
-          f[1].match(/www.imatheq.com/) || f[1].match(a) || f[1].match(d)
-            ? f[1]
-            : "invalid path"
-        );
-    }
+    return "www.imatheq.com";
   };
   var a = document.createElement("link");
   a.setAttribute("rel", "stylesheet");
